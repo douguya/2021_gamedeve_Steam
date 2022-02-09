@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
-
+using UnityEngine.UI;
+using System.Threading.Tasks;
 public class NetWorkManager : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
 
     public GameObject SceneManagerOj;
+    public Text PlayerName;
     string GameVersion = "Ver1.0";
     void Start()
     {
@@ -31,28 +33,38 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         
     }
 
-    public void OnJoineLoom(int RoomNum)
+    public async void JoineLoom(int RoomNum)
     {
+        Debug.Log("1");
+    
         SceneManagerOj.GetComponent<SceneManagaer>().TransitionToGame();
-
-        Debug.Log("あばばばばばば");
+        await Task.Delay(400);
+        Debug.Log("2");
         var roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = 4;
-        PhotonNetwork.JoinOrCreateRoom("Room" + RoomNum, new RoomOptions(), TypedLobby.Default);
+        Debug.Log("3");
+      
 
+        PhotonNetwork.JoinOrCreateRoom("Room" + RoomNum, new RoomOptions(), TypedLobby.Default);
+        Debug.Log("4");
 
 
     }
-
-
     public override void OnJoinedRoom()
     {
-
-       
-        Debug.Log(PhotonNetwork.CurrentRoom);
+      
+        Debug.Log("5");
+        // ランダムな座標に自身のアバター（ネットワークオブジェクト）を生成する
+        var position = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+        PhotonNetwork.Instantiate("Avatar", position, Quaternion.identity);
     }
 
+   
 
+    public void FinishInputName()
+    {
+        PhotonNetwork.NickName =""+PlayerName;
+    }
 
 
 
