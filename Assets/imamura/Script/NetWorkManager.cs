@@ -10,13 +10,14 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
 
     public GameObject SceneManagerOj;
+    public InputField inputField;
     public Text PlayerName;
     string GameVersion = "Ver1.0";
     void Start()
     {
        
         PhotonNetwork.ConnectUsingSettings();
-
+        inputField = GetComponent<InputField>();
     }
 
     public override void OnConnectedToMaster()
@@ -35,25 +36,24 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
     public async void JoineLoom(int RoomNum)
     {
-        Debug.Log("1");
-    
+
         SceneManagerOj.GetComponent<SceneManagaer>().TransitionToGame();
         await Task.Delay(400);
-        Debug.Log("2");
+       
         var roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = 4;
-        Debug.Log("3");
+       
       
 
         PhotonNetwork.JoinOrCreateRoom("Room" + RoomNum, new RoomOptions(), TypedLobby.Default);
-        Debug.Log("4");
+      
 
 
     }
     public override void OnJoinedRoom()
     {
       
-        Debug.Log("5");
+        
         // ランダムな座標に自身のアバター（ネットワークオブジェクト）を生成する
         var position = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
         PhotonNetwork.Instantiate("Avatar", position, Quaternion.identity);
@@ -63,7 +63,9 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
     public void FinishInputName()
     {
-        PhotonNetwork.NickName =""+PlayerName;
+        PhotonNetwork.NickName= PlayerName.text;
+        Debug.Log("" + PlayerName.text);
+        Debug.Log(PlayerName.text);
     }
 
 
