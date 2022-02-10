@@ -49,7 +49,7 @@ public class SceneManagaer : MonoBehaviour
     public async void Quit()//ÉQÅ[ÉÄèIóπ
     {
         await Task.Delay(400);
-       // Application.Quit();
-         UnityEditor.EditorApplication.isPlaying = false;
+        Application.Quit();
+       //  UnityEditor.EditorApplication.isPlaying = false;
     }
 }
