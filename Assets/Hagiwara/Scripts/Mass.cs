@@ -7,8 +7,12 @@ public class Mass : MonoBehaviour
     public bool Open;//マスが空いてるかどうか
     public bool Goal;//マスがゴールかどうか
     public bool invalid;//そのマスが有効かどうか
+    public bool Loot;//マスが移動マスとして選択されているかどうか
+
     public GameObject GoalFlag;//ゴールの丸表示用
     public GameObject hako;//マスの表示用
+    public GameObject select;//移動できるマスの表示用
+    public GameObject decision;//移動できるマスの表示用
 
     void Start()
     {
@@ -37,5 +41,25 @@ public class Mass : MonoBehaviour
 
     }
 
-    
+    public void Selecton()//移動できるマスの表示用
+    {
+        select.SetActive(true);
+    }
+
+    public void Decisionon()//移動できるマスの決定表示用
+    {
+        decision.SetActive(true);
+    }
+
+    public void Selectoff()//移動できるマスの非表示用
+    {
+        select.SetActive(false);
+    }
+
+    public void Decisionoff()//移動できるマスの決定非表示用
+    {
+        decision.SetActive(false);
+    }
+
+
 }
