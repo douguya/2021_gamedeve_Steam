@@ -91,15 +91,22 @@ public class sugorokuManager : MonoBehaviour
     
     void Update() 
     {
-        /*
-        int Playerturn = 0;
+        
+        int Playerturn = -1;
         int Move = 0;
         do
         {
-            //Move = だいす//
+            Playerturn++;
+            if(3 < Playerturn)
+            {
+                Playerturn = 0;
+            }
+            Move = 5;//ダイスを回す
+            MoveSelect(Playerturn, Move);//ダイスのマス分移動出来るところを設定する
+            //移動する
 
         } while (Player[Playerturn].GetComponent<PlayerStatus>().GetGaol()==4);
-        */
+        
     }
 
     private void GoalDecision()//初めてゴールを出現させる
@@ -178,7 +185,7 @@ public class sugorokuManager : MonoBehaviour
         mass[10, 0].GetComponent<Mass>().invalid = true;//6/29
         mass[11, 0].GetComponent<Mass>().invalid = true;//6/30
 
-        mass[0, 5].GetComponent<Mass>().invalid = true;//7/31koko
+        mass[0, 5].GetComponent<Mass>().invalid = true;//7/31
         mass[4, 9].GetComponent<Mass>().invalid = true;//9/1
         mass[5, 9].GetComponent<Mass>().invalid = true;//9/2
         mass[6, 9].GetComponent<Mass>().invalid = true;//9/3
@@ -197,33 +204,92 @@ public class sugorokuManager : MonoBehaviour
     }
 
 
-    private void MoveSelect(int Pnum, int dice)
+    private void MoveSelect(int Pnum, int dice)//プレイヤーの移動
     {
         int x, y;
-        int up, doun, left, right;
-        x = Player[Pnum].GetComponent<PlayerStatus>().PlayerX();
+        int[] way = new int[4];//0:上 1:下 2:左 3:右
+        bool[] walk = new bool[4];//onClickされたかどうか調べる
+        x = Player[Pnum].GetComponent<PlayerStatus>().PlayerX();//プレイヤーのマス座標を取得
         y = Player[Pnum].GetComponent<PlayerStatus>().PlayerY();
-        up = y - 1; doun = y + 1; left = x - 1; right = x + 1;
-        if(0 <= up && up <= 13)
+        do
         {
-            mass[x, up].GetComponent<Mass>().Selecton();
-        }
-        if (0 <= doun && doun <= 13)
-        {
-            mass[x, doun].GetComponent<Mass>().Selecton();
-        }
-        if (0 <= left && left <= 9)
-        {
-            mass[left, y].GetComponent<Mass>().Selecton();
-        }
-        if (0 <= right && right <= 9)
-        {
-            mass[right, y].GetComponent<Mass>().Selecton();
-        }
-        
+            way[0] = y - 1; way[1] = y + 1; way[2] = x - 1; way[3] = x + 1;//マスの前後左右を確認
+
+            if (0 <= way[0] && way[0] <= 13)
+            {
+                if (mass[x, way[0]].GetComponent<Mass>().Loot == false)//ルート決定済みでないマスを選択できるように
+                {
+                    mass[x, way[0]].GetComponent<Mass>().Selecton();
+                    walk[0] = mass[x, way[0]].GetComponent<Mass>().walk;
+                }
+            }
+            if (0 <= way[1] && way[1] <= 13)
+            {
+                if (mass[x, way[1]].GetComponent<Mass>().Loot == false)
+                {
+                    mass[x, way[1]].GetComponent<Mass>().Selecton();
+                    walk[1] = mass[x, way[0]].GetComponent<Mass>().walk;
+                }
+            }
+            if (0 <= way[2] && way[2] <= 9)
+            {
+                if (mass[way[2], y].GetComponent<Mass>().Loot == false)
+                {
+                    mass[way[2], y].GetComponent<Mass>().Selecton();
+                    walk[2] = mass[x, way[0]].GetComponent<Mass>().walk;
+                }
+            }
+            if (0 <= way[3] && way[3] <= 9)
+            {
+                if (mass[way[3], y].GetComponent<Mass>().Loot == false)
+                {
+                    mass[way[3], y].GetComponent<Mass>().Selecton();
+                    walk[3] = mass[x, way[0]].GetComponent<Mass>().walk;
+                }
+            }
+
+            //onclickされたら選択マス消してダイスを1減らす
+            if(walk[0] == true)
+            {
+                dice--;
+                y = way[0];
+                clearSelect();
+            }
+            if (walk[1] == true)
+            {
+                dice--;
+                y = way[1];
+                clearSelect();
+            }
+            if (walk[2] == true)
+            {
+                dice--;
+                x = way[2];
+                clearSelect();
+            }
+            if (walk[3] == true)
+            {
+                dice--;
+                x = way[3];
+                clearSelect();
+            }
+
+        } while (dice <= 0);
     }
 
-    
+    private void clearSelect()
+    {
+        for (int i = 0; i < 14; i++)
+        {
+            for (int l = 0; l < 10; l++)
+            {
+                mass[i, l].GetComponent<Mass>().Selectoff();
+            }
+        }
+    }
+
+
+
 
 
 }

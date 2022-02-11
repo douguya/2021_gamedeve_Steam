@@ -8,6 +8,7 @@ public class Mass : MonoBehaviour
     public bool Goal;//マスがゴールかどうか
     public bool invalid;//そのマスが有効かどうか
     public bool Loot;//マスが移動マスとして選択されているかどうか
+    public bool walk;//onClickされたかどうか調べる
 
     public GameObject GoalFlag;//ゴールの丸表示用
     public GameObject hako;//マスの表示用
@@ -61,5 +62,15 @@ public class Mass : MonoBehaviour
         decision.SetActive(false);
     }
 
+    public void onClick()
+    {
+        if(select.activeSelf == true)
+        {
+            Selectoff();
+            Decisionon();
+            Loot = true;
+            walk = true;
+        }
+    }
 
 }
