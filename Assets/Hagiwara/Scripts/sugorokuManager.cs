@@ -11,6 +11,7 @@ public class sugorokuManager : MonoBehaviour
     public GameObject July;
     public GameObject August;
     public GameObject September;
+    public GameObject[] Player = new GameObject[4];
 
     void Start()
     {
@@ -73,17 +74,32 @@ public class sugorokuManager : MonoBehaviour
         }
         June.transform.position = new Vector3(-2.9f, 1.6f, 0);//6月の移動
         July.transform.position = new Vector3(2.9f, 1.6f, 0);//7月の移動
-        August.transform.position = new Vector3(-2.9f, -1.6f, 0);//8月の移動
-        September.transform.position = new Vector3(2.9f, -1.6f, 0);//9月の移動
+        August.transform.position = new Vector3(-2.9f, -2.4f, 0);//8月の移動
+        September.transform.position = new Vector3(2.9f, -2.4f, 0);//9月の移動
 
         invalid();//いらないマスの無効化
+
+        Player[0].transform.position = transform.InverseTransformPoint(mass[0, 1].transform.position); PlayerMass(0, 0, 1);//プレイヤーの配置とマス座標の記憶
+        Player[1].transform.position = transform.InverseTransformPoint(mass[13,0].transform.position); PlayerMass(1, 13, 1);
+        Player[2].transform.position = transform.InverseTransformPoint(mass[0, 9].transform.position); PlayerMass(2, 0, 9);
+        Player[3].transform.position = transform.InverseTransformPoint(mass[12,9].transform.position); PlayerMass(3, 12, 9);
+
         GoalDecision();//ゴールの選択
+       
     }
 
     
     void Update() 
     {
-        
+        /*
+        int Playerturn = 0;
+        int Move = 0;
+        do
+        {
+            //Move = だいす//
+
+        } while (Player[Playerturn].GetComponent<PlayerStatus>().GetGaol()==4);
+        */
     }
 
     private void GoalDecision()//初めてゴールを出現させる
@@ -105,7 +121,7 @@ public class sugorokuManager : MonoBehaviour
         {
             vertical = Random.Range(0, 14);
             beside = Random.Range(0, 10);
-        } while (mass[vertical, beside].GetComponent<Mass>().invalid == true || MonthCount(vertical, beside) == true);//選んだマスが無効化＆同じ月じゃないものを探す
+        } while (mass[vertical, beside].GetComponent<Mass>().invalid == true && MonthCount(vertical, beside) == true);//選んだマスが無効化＆同じ月じゃないものを探す
         mass[vertical, beside].GetComponent<Mass>().Goal = true;//ゴールの設置
         XGoal = vertical; YGoal = beside;//ゴール位置の記憶
     }
@@ -144,7 +160,6 @@ public class sugorokuManager : MonoBehaviour
             for (int l = 0; l < 10; l++)
             {
                 mass[i, l].GetComponent<Mass>().Goal = false;
-
             }
         }
     }
@@ -175,5 +190,40 @@ public class sugorokuManager : MonoBehaviour
         mass[13, 9].GetComponent<Mass>().invalid = true;//10/1
         
     }
+
+    private void PlayerMass(int P,int x,int y)//プレイヤーのマス座標を記憶させる
+    {
+        Player[P].GetComponent<PlayerStatus>().SetPlayerMass(x, y);
+    }
+
+
+    private void MoveSelect(int Pnum, int dice)
+    {
+        int x, y;
+        int up, doun, left, right;
+        x = Player[Pnum].GetComponent<PlayerStatus>().PlayerX();
+        y = Player[Pnum].GetComponent<PlayerStatus>().PlayerY();
+        up = y - 1; doun = y + 1; left = x - 1; right = x + 1;
+        if(0 <= up && up <= 13)
+        {
+            mass[x, up].GetComponent<Mass>().Selecton();
+        }
+        if (0 <= doun && doun <= 13)
+        {
+            mass[x, doun].GetComponent<Mass>().Selecton();
+        }
+        if (0 <= left && left <= 9)
+        {
+            mass[left, y].GetComponent<Mass>().Selecton();
+        }
+        if (0 <= right && right <= 9)
+        {
+            mass[right, y].GetComponent<Mass>().Selecton();
+        }
+        
+    }
+
     
+
+
 }
