@@ -73,7 +73,7 @@ public class DRotate : MonoBehaviour
         }
 
         //0‚É‚È‚Á‚½‚ç”š‚ğ”»’è
-        if (xSpeed == 0) {
+        if (xSpeed == 0 && ySpeed == 0 && zSpeed == 0) {
             DiceStop();
             Debug.Log(max);
 
