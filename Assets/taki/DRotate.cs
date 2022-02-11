@@ -11,10 +11,16 @@ public class DRotate : MonoBehaviour
     public GameObject max; //一番上の面の空箱
     public int DiceNum; //出たさいころの目
 
+    private float xKeep, yKeep, zKeep; //回転速度の保存用
+
+    public float xShow, zShow; //さいころの目を見せるときの角度
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        xKeep = xSpeed;
+        yKeep = ySpeed;
+        zKeep = zSpeed;
     }
 
     // Update is called once per frame
@@ -22,6 +28,14 @@ public class DRotate : MonoBehaviour
     {
         transform.Rotate(new Vector3(xSpeed * Time.deltaTime, ySpeed * Time.deltaTime, zSpeed * Time.deltaTime));
         //回転させてる
+
+        //trueの場合常に回転する
+        if (rotate == true)
+        {
+            xSpeed = xKeep;
+            ySpeed = yKeep;
+            zSpeed = zKeep;
+        }
 
         //回転が負の速度なら0にする
         if (xSpeed < 0)
@@ -63,10 +77,32 @@ public class DRotate : MonoBehaviour
             DiceStop();
             Debug.Log(max);
 
-            if (DiceNum == 1)
+            //出た目の数によって向く方向をセット
+            switch (DiceNum)
             {
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(30f, 0, 0), 1.0f * Time.deltaTime);
+                case 1:
+                    xShow = -30; zShow = 0;
+                    break;
+                case 2:
+                    xShow = -30; zShow = 90;
+                    break;
+                case 3:
+                    xShow = 60; zShow = 0;
+                    break;
+                case 4:
+                    xShow = -120; zShow = 0;
+                    break;
+                case 5:
+                    xShow = -30; zShow = -90;
+                    break;
+                case 6:
+                    xShow = 150; zShow = 0;
+                    break;
             }
+
+            //出た目の面がこっちを向く
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(xShow, 0, zShow), 1.0f * Time.deltaTime);
+
         }
 
     }
@@ -84,5 +120,7 @@ public class DRotate : MonoBehaviour
                 DiceNum = i + 1;
             }
         }
+
+
     }
 }
