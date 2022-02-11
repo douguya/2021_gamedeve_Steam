@@ -373,6 +373,8 @@ MonoBehaviour:
   - {fileID: 1924249753}
   - {fileID: 1334547004}
   - {fileID: 1068966510}
+  RoomBotton: []
+  CanJoinRoom: 
 --- !u!4 &401452042
 Transform:
   m_ObjectHideFlags: 0
@@ -920,7 +922,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30EB\u30FC\u30E05"
+  m_Text: "\u30EB\u30FC\u30E05  0/4"
 --- !u!222 &1068966511
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1056,7 +1058,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30EB\u30FC\u30E01"
+  m_Text: "\u30EB\u30FC\u30E01  0/4"
 --- !u!222 &1295697949
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1135,7 +1137,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30EB\u30FC\u30E04"
+  m_Text: "\u30EB\u30FC\u30E04  0/4"
 --- !u!222 &1334547005
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1214,7 +1216,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30EB\u30FC\u30E02"
+  m_Text: "\u30EB\u30FC\u30E02  0/4"
 --- !u!222 &1352096109
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2133,7 +2135,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30EB\u30FC\u30E03"
+  m_Text: "\u30EB\u30FC\u30E03  0/4"
 --- !u!222 &1924249754
 CanvasRenderer:
   m_ObjectHideFlags: 0
