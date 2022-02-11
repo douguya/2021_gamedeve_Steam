@@ -71,6 +71,7 @@ public class Mass : MonoBehaviour
             Loot = true;
             walk = true;
         }
+        
     }
 
 }
