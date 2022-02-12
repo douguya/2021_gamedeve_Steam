@@ -7,14 +7,18 @@ using System.Threading.Tasks;
 public class SceneManagaer : MonoBehaviour
 {
     public string Main;        //
-    public string lobby;       //
-    public string Game;        //
+    public string lobby;
+    public static string Lobysend; //
+    public string Game;
+    public static string Gamesend;  
+   
     public string Result;      //
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Gamesend = Game;
+        Lobysend = lobby;
     }
 
     // Update is called once per frame

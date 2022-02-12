@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/imamura/Scene/L1.unity
     guid: cdabc50bda425224baa9181386cf2bce
+  - enabled: 1
+    path: Assets/imamura/Scene/AAAA.unity
+    guid: 0a7dd8749bc541f429cf35dd4665ee5d
   m_configObjects: {}
