@@ -16,7 +16,7 @@ public class sugorokuManager : MonoBehaviour
     private int Playerturn = 0;//どのプレイヤー番か
     private int step = 0;//プレイヤーのターン手順
     private bool stop; //プレイヤーのターン手順のストッパー
-    private float span = 2f;//プレイヤー移動速度
+    private float span = 0.5f;//プレイヤー移動速度
     private float currentTime = 0f;
 
     private int xplay;//プレイヤーのマス座標を取得
