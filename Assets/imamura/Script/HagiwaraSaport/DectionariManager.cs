@@ -104,7 +104,7 @@ public class DictionaryManager : MonoBehaviour
 
 
 
-    public static Dictionary<string, string[,]> DayEffectictionary = new Dictionary<string, string[,]>
+    public static Dictionary<string, string[,]> DayEffectictDictionary = new Dictionary<string, string[,]>
     {
       /*
        * 
