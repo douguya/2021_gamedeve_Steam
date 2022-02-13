@@ -21,7 +21,6 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     string GameVersion = "Ver1.0";
     void Start()
     {
-
         PhotonNetwork.ConnectUsingSettings();
         inputField = GetComponent<InputField>();
     }
@@ -35,9 +34,6 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         Debug.Log("ロビーへ参加しました");
-       
-
-
     }
     void Update()
     {
@@ -47,7 +43,6 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-
         int forL=0;
         foreach (var info in roomList)
         {
@@ -58,29 +53,19 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     }
     public async void JoineLoom(int RoomNum)
     {
-      
-   
-
             SceneManagerOj.GetComponent<SceneManagaer>().TransitionToGame();
             await Task.Delay(400);
             var roomOptions = new RoomOptions();
             roomOptions.MaxPlayers = 4;
             PhotonNetwork.JoinOrCreateRoom("ルーム" + RoomNum, roomOptions, TypedLobby.Default);
 
-        
-
     }
     public override void OnJoinedRoom()
     {
-
-
         // ランダムな座標に自身のアバター（ネットワークオブジェクト）を生成する
         var position = new Vector3(-7.69f, -3.66f);
         PhotonNetwork.Instantiate("Avatar", position, Quaternion.identity);
 
-
-
-        
     }
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
