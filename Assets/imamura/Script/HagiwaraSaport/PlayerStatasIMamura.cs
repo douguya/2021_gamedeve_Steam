@@ -35,7 +35,7 @@ public class PlayerStatasIMamura : MonoBehaviour
     public void Itemobtain(string Item)
     {
         HabItem.Add(Item);
-        dropdown.options.Add(new Dropdown.OptionData { text = Item + ItemDectionari.ItemDictionary[Item][0] + "P" });
+        dropdown.options.Add(new Dropdown.OptionData { text = Item + DectionariManager.ItemDictionary[Item][0] + "P" });
         dropdown.RefreshShownValue();
     }
 
@@ -47,7 +47,7 @@ public class PlayerStatasIMamura : MonoBehaviour
         //  Debug.Log(Item+ItemDectionari.ItemDictionary[Item]);
 
        // Play.ItemDectionari.DectionariyInfo(Item);
-        Debug.Log(ItemDectionari.ItemDictionary[Item][0]);
+        Debug.Log(DectionariManager.ItemDictionary[Item][0]);
 
 
     }

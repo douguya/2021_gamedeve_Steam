@@ -11,7 +11,6 @@ public class SceneManagaer : MonoBehaviour
     public static string Lobysend; //
     public string Game;
     public static string Gamesend;  
-   
     public string Result;      //
 
     // Start is called before the first frame update
