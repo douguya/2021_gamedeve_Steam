@@ -30,7 +30,7 @@ public class ItemDoropDown : MonoBehaviour
     public void addedItem(string Item)
     {
         
-        dropdown.options.Add(new Dropdown.OptionData { text = Item+ DectionariManager.ItemDictionary[Item][0]+"P" });
+        dropdown.options.Add(new Dropdown.OptionData { text = Item+ DictionaryManager.ItemDictionary[Item][0]+"P" });
         dropdown.RefreshShownValue();
     }
 
