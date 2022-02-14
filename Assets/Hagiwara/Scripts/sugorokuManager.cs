@@ -4,99 +4,34 @@ using UnityEngine;
 
 public class sugorokuManager : MonoBehaviour
 {
-    private GameObject[,] mass = new GameObject[14, 10];//マスの格納
     private int XGoal, YGoal;//ゴールの座標
-    public GameObject obj;//プレハブのMassを取得
-    public GameObject June;
-    public GameObject July;
-    public GameObject August;
-    public GameObject September;
+    
     public GameObject dice;//ダイスを取得
     public GameObject[] Player = new GameObject[4];//プレイヤーオブジェクト取得
+    public days[] week;//Massの縦列のオブジェクトの取得・一番下で二次元配列にしている
     private int Playerturn = 0;//どのプレイヤー番か
     private int step = 0;//プレイヤーのターン手順
     private bool stop; //プレイヤーのターン手順のストッパー
-    private float span = 0.5f;//プレイヤー移動速度
+    public float speed = 0.5f;//プレイヤー移動速度
     private float currentTime = 0f;
 
     private int xplay;//プレイヤーのマス座標を取得
     private int yplay;
-    private int MoveSelectnum = 0;//移動選択の切り替え
-    private int[] way = new int[4];//0:上 1:下 2:左 3:右
-    private bool[] walk = new bool[4];//onClickされたかどうか調べる
+    private int Switchnum = 0;//switch構文の切り替え
+
+    private int[] way = new int[4];//マスの上下左右のマス座標 0:上 1:下 2:左 3:右
+    private int[] XLoot = new int [10];//移動するマスを入れる(とりあえず最大10マス移動可能)
+    private int[] YLoot = new int[10];
+    
     int Move = 0;//ダイスの出目
     private int diceconter;//ダイスの残り数
     
     void Start()
     {
-        float x = -2.25f;
-        float y = 1.2f;
-        int count = 0;
-        for (int i = 0; i < 5; i++)//6月の生成
-        {
-            for (int l = 0; l < 7; l++)
-            {
-                mass[l, i] = Instantiate(obj, new Vector3(x, y, 0.0f), Quaternion.identity);//マスを指定座標への生成and格納
-                mass[l, i].transform.parent = June.transform;//6月の子として生成
-                x = x + 0.75f;
-                count++;
-            }
-            y = y - 0.6f;
-            x = -2.25f;
-        }
-
-        y = 1.2f;
-        for (int i = 0; i < 5; i++)//7月の生成
-        {
-            for (int l = 7; l < 14; l++)
-            {
-                mass[l, i] = Instantiate(obj, new Vector3(x, y, 0.0f), Quaternion.identity);//マスを指定座標への生成and格納
-                mass[l, i].transform.parent = July.transform;//7月の子として生成
-                x = x + 0.75f;
-                count++;
-            }
-            y = y - 0.6f;
-            x = -2.25f;
-        }
-
-        y = 1.2f;
-        for (int i = 5; i < 10; i++)//8月の生成
-        {
-            for (int l = 0; l < 7; l++)
-            {
-                mass[l, i] = Instantiate(obj, new Vector3(x, y, 0.0f), Quaternion.identity);//マスを指定座標への生成and格納
-                mass[l, i].transform.parent = August.transform;//8月の子として生成
-                x = x + 0.75f;
-                count++;
-            }
-            y = y - 0.6f;
-            x = -2.25f;
-        }
-
-        y = 1.2f;
-        for (int i = 5; i < 10; i++)//9月の生成
-        {
-            for (int l = 7; l < 14; l++)
-            {
-                mass[l, i] = Instantiate(obj, new Vector3(x, y, 0.0f), Quaternion.identity);//マスを指定座標への生成and格納
-                mass[l, i].transform.parent = September.transform;//9月の子として生成
-                x = x + 0.75f;
-                count++;
-            }
-            y = y - 0.6f;
-            x = -2.25f;
-        }
-        June.transform.position = new Vector3(-2.9f, 1.6f, 0);//6月の移動
-        July.transform.position = new Vector3(2.9f, 1.6f, 0);//7月の移動
-        August.transform.position = new Vector3(-2.9f, -2.4f, 0);//8月の移動
-        September.transform.position = new Vector3(2.9f, -2.4f, 0);//9月の移動
-
-        invalid();//いらないマスの無効化
-
-        Player[0].transform.position = transform.InverseTransformPoint(mass[0, 1].transform.position); PlayerMass(0, 0, 1);//プレイヤーの配置とマス座標の記憶
-        Player[1].transform.position = transform.InverseTransformPoint(mass[13, 0].transform.position); PlayerMass(1, 13, 1);
-        Player[2].transform.position = transform.InverseTransformPoint(mass[0, 9].transform.position); PlayerMass(2, 0, 9);
-        Player[3].transform.position = transform.InverseTransformPoint(mass[12, 9].transform.position); PlayerMass(3, 12, 9);
+        PlayerMass(0, 0, 1);//プレイヤー0をマス(0,1)に移動させる
+        PlayerMass(1, 13, 0);//プレイヤー1をマス(0,1)に移動させる
+        PlayerMass(2, 0, 9);//プレイヤー2をマス(0,1)に移動させる
+        PlayerMass(3, 12, 9);//プレイヤー3をマス(0,1)に移動させる
 
         GoalDecision();//ゴールの選択
 
@@ -110,15 +45,17 @@ public class sugorokuManager : MonoBehaviour
         
         switch (step) {
             case 0://ダイスを回す
-                //dice.GetComponent<imamuraDice>().OnDiceSpin();
-                if(stop == true)
+                Move = 6;//この二行はテスト用
+                step = 1;
+                if (stop == true)
                 {
+                    /*
                     Move = dice.GetComponent<imamuraDice>().StopDice();
                     Debug.Log(Move);
                     step = 1;
                     stop = false;
+                    */
                 }
-                
                 break;
             case 1://ダイスのマス分移動出来るところを設定する
                 MoveSelect(Playerturn, Move);
@@ -131,10 +68,8 @@ public class sugorokuManager : MonoBehaviour
             case 2://プレイヤーの移動
                 
                 currentTime += Time.deltaTime;
-
-                if (currentTime > span)
+                if (currentTime > speed)
                 {
-                    //Debug.LogFormat("{0}秒経過", span);
                     MovePlayer(Playerturn);
                     currentTime = 0f;
                 }
@@ -166,97 +101,70 @@ public class sugorokuManager : MonoBehaviour
 
     private void GoalDecision()//初めてゴールを出現させる
     {
-        int vertical, beside;
+        int Week, Day;//ランダムなゴールの場所を入れる
         do {
-            vertical = Random.Range(0, 14);
-            beside = Random.Range(0, 10);
-        } while (mass[vertical, beside].GetComponent<Mass>().invalid == true);//ランダムに選んだマスが無効化じゃないものを探す
-        mass[vertical, beside].GetComponent<Mass>().Goal = true;//ゴールの設置
-        XGoal = vertical; YGoal = beside;//ゴール位置の記憶
+            Week = Random.Range(0, week.Length);//week・横の列のランダム
+            Day = Random.Range(0, week[0].day.Length);//day・縦の列のランダム
+        } while (week[Week].day[Day].GetComponent<Mass>().invalid == true);//ランダムに選んだマスが存在しているものを見つけるまで繰り返す
+        week[Week].day[Day].GetComponent<Mass>().GoalOn();//ゴールの設置
+        XGoal = Day; YGoal = Week;//ゴール配列番号を記憶
 
     }
 
-    private void GoalAgain()//ゴールの再設置
+    private void GoalAgain()//ゴールの再設置(同じ月にならないように)
     {
-        int vertical, beside;
-        do
-        {
-            vertical = Random.Range(0, 14);
-            beside = Random.Range(0, 10);
-        } while (mass[vertical, beside].GetComponent<Mass>().invalid == true && MonthCount(vertical, beside) == true);//選んだマスが無効化＆同じ月じゃないものを探す
-        mass[vertical, beside].GetComponent<Mass>().Goal = true;//ゴールの設置
-        XGoal = vertical; YGoal = beside;//ゴール位置の記憶
+        int Week, Day;//ランダムなゴールの場所を入れる
+        do{
+            Week = Random.Range(0, week.Length);//week・横の列のランダム
+            Day = Random.Range(0, week[0].day.Length);//day・縦の列のランダム
+        } while (week[Week].day[Day].GetComponent<Mass>().invalid == true && MonthCount(Day, Week) == true);//選んだマスが存在しているもの＆同じ月じゃないものを見つけるまで繰り返す
+        week[Week].day[Day].GetComponent<Mass>().GoalOn();//ゴールの設置
+        XGoal = Day; YGoal = Week;//ゴール配列番号を記憶
     }
 
     private bool MonthCount(int x, int y)//ゴールと同じ月か判断する
     {
-        bool Jach = false;
-        int BeforeMonth = 0, NextMonth = 0;
-
-        if (XGoal < 7 && YGoal < 5) { BeforeMonth = 1; }
-        if (7 <= XGoal && YGoal < 5) { BeforeMonth = 2; }
-        if (XGoal < 7 && 5 < YGoal) { BeforeMonth = 3; }
-        if (7 <= XGoal && 5 < YGoal) { BeforeMonth = 4; }
-
-        if (x < 7 && y < 5) { NextMonth = 1; }
-        if (7 <= x && y < 5) { NextMonth = 2; }
-        if (x < 7 && 5 < y) { NextMonth = 3; }
-        if (7 <= x && 5 < y) { NextMonth = 4; }
-
-        if (BeforeMonth == NextMonth)
+        if (WhichMonth(XGoal, YGoal) == WhichMonth(x,y))//同じ月ならtrue
         {
-            Jach = true;
+            return true;
         }
-        else
+        else//違う月ならfalse
         {
-            Jach = false;
+            return false;
         }
-        return Jach;
+    }
+    private int WhichMonth(int x,int y)//x,yが何月にいるのか調べる
+    {
+        int Month = 0;
+        if (x < week[0].day.Length/2 && y < week.Length/2) { Month = 1; }//左上の月にいるかどうか
+        if (week[0].day.Length/2 <= x && y < week.Length/2) { Month = 2; }//左上の月にいるかどうか
+        if (x < week[0].day.Length/2 && week.Length/2 < y) { Month = 3; }//左上の月にいるかどうか
+        if (week[0].day.Length/2 <= x && week.Length/2 < y) { Month = 4; }//左上の月にいるかどうか
+        return Month;
+         
     }
 
-    private void GoalClear()//ゴールを消す
-    {
 
-        for (int i = 0; i < 14; i++)
+    private void GoalClear()//全てのマスのゴールを消す
+    {
+        for (int i = 0; i < week.Length; i++)
         {
-            for (int l = 0; l < 10; l++)
+            for (int l = 0; l < week[0].day.Length; l++)
             {
-                mass[i, l].GetComponent<Mass>().Goal = false;
+                week[i].day[l].GetComponent<Mass>().GoalOff();//ゴールを消していく
             }
         }
     }
 
-    private void invalid()//いらないマスの無効化
+    
+
+    private void PlayerMass(int P, int x, int y)//プレイヤーをマス座標移動させる(日付ワープに使える)
     {
-        mass[0, 0].GetComponent<Mass>().invalid = true;//5/29
-        mass[1, 0].GetComponent<Mass>().invalid = true;//5/30
-        mass[2, 0].GetComponent<Mass>().invalid = true;//5/31
-        mass[5, 4].GetComponent<Mass>().invalid = true;//7/1
-        mass[6, 4].GetComponent<Mass>().invalid = true;//7/2
-
-        mass[7, 0].GetComponent<Mass>().invalid = true;//6/26
-        mass[8, 0].GetComponent<Mass>().invalid = true;//6/27
-        mass[9, 0].GetComponent<Mass>().invalid = true;//6/28
-        mass[10, 0].GetComponent<Mass>().invalid = true;//6/29
-        mass[11, 0].GetComponent<Mass>().invalid = true;//6/30
-
-        mass[0, 5].GetComponent<Mass>().invalid = true;//7/31
-        mass[4, 9].GetComponent<Mass>().invalid = true;//9/1
-        mass[5, 9].GetComponent<Mass>().invalid = true;//9/2
-        mass[6, 9].GetComponent<Mass>().invalid = true;//9/3
-
-        mass[7, 5].GetComponent<Mass>().invalid = true;//8/28
-        mass[8, 5].GetComponent<Mass>().invalid = true;//8/29
-        mass[9, 5].GetComponent<Mass>().invalid = true;//8/30
-        mass[10, 5].GetComponent<Mass>().invalid = true;//8/31
-        mass[13, 9].GetComponent<Mass>().invalid = true;//10/1
-
+        Player[P].transform.position = transform.InverseTransformPoint(week[y].day[x].transform.position);  //指定したマスの上にプレイヤーを移動する
+        Player[P].GetComponent<PlayerStatus>().SetPlayerMass(x, y);//プレイヤーがどのマスにいるか記憶する
     }
 
-    private void PlayerMass(int P, int x, int y)//プレイヤーのマス座標を記憶させる
-    {
-        Player[P].GetComponent<PlayerStatus>().SetPlayerMass(x, y);
-    }
+
     public void DiceBotton()//ダイスを止める
     {
         stop = true;
@@ -265,69 +173,80 @@ public class sugorokuManager : MonoBehaviour
     private void MoveSelect(int Pnum, int dice)//プレイヤーの移動の選択
     {
         
-        switch (MoveSelectnum) {
-            case 0:
-                xplay = Player[Pnum].GetComponent<PlayerStatus>().PlayerX();
+        switch (Switchnum) {
+            case 0://移動のための初期設定
+                xplay = Player[Pnum].GetComponent<PlayerStatus>().PlayerX();//選択の中心マスを入れる(最初なのでプレイヤーのいるマスを入れる)
                 yplay = Player[Pnum].GetComponent<PlayerStatus>().PlayerY();
-                diceconter = dice;
-                mass[xplay, yplay].GetComponent<Mass>().Decisionon();
-                mass[xplay, yplay].GetComponent<Mass>().Loot = true; 
-                MoveSelectnum = 1;
+                diceconter = dice;//移動出来るマスの数を入れる
+                XLoot[diceconter] = xplay;//足元のマスを順番に記憶する
+                YLoot[diceconter] = yplay;
+                week[yplay].day[xplay].GetComponent<Mass>().Decisionon();//プレイヤーの足元を決定マスに変える
+                Switchnum = 1;
                 break;
 
-            case 1:
-                way[0] = yplay - 1; way[1] = yplay + 1; way[2] = xplay - 1; way[3] = xplay + 1;
-                if (0 <= way[0] && way[0] <= 10 && mass[xplay, way[0]].GetComponent<Mass>().invalid == false && mass[xplay, way[0]].GetComponent<Mass>().Loot == false)
+            case 1://移動出来るマスを表示する
+                way[0] = yplay - 1; way[1] = yplay + 1; way[2] = xplay - 1; way[3] = xplay + 1;//選択の中心マスの四方の座標を入れる 0:上 1:下 2:左 3:右
+                for (int i = 0;i < 2; i++)
                 {
-                    mass[xplay, way[0]].GetComponent<Mass>().Selecton();
+                    if (0 <= way[i] && way[i] < week.Length && week[way[i]].day[xplay].GetComponent<Mass>().invalid == false && (XLoot[diceconter+1], YLoot[diceconter+1]) != (xplay,way[i]))//選択中心マスの上下にマスは存在して一つ前に選択していないマスか
+                    {
+                        week[way[i]].day[xplay].GetComponent<Mass>().Selecton();//マスを選択出来るというimageを表示させる
+                    }
                 }
-                if (0 <= way[1] && way[1] <= 10 && mass[xplay, way[1]].GetComponent<Mass>().invalid == false && mass[xplay, way[1]].GetComponent<Mass>().Loot == false)
+                for (int i = 2; i < 4; i++)
                 {
-                    mass[xplay, way[1]].GetComponent<Mass>().Selecton();
+                    if (0 <= way[i] && way[i] < week[0].day.Length && week[yplay].day[way[i]].GetComponent<Mass>().invalid == false && (XLoot[diceconter + 1], YLoot[diceconter + 1]) != (way[i],yplay))//選択中心マスの左右にマスは存在して一つ前に選択していないマスか
+                    {
+                        week[yplay].day[way[i]].GetComponent<Mass>().Selecton();//マスを選択出来るというimageを表示させる
+                    }
                 }
-                if (0 <= way[2] && way[2] <= 13 && mass[way[2], yplay].GetComponent<Mass>().invalid == false && mass[way[2], yplay].GetComponent<Mass>().Loot == false)
-                {
-                    mass[way[2], yplay].GetComponent<Mass>().Selecton();
+                if ((xplay,yplay) == (0,1) || (xplay, yplay) == (13, 0) || (xplay, yplay) == (0, 9) || (xplay, yplay) == (12, 9)) {//選択中心マスがワープマスにある時に反応
+                    week[1].day[0].GetComponent<Mass>().Selecton();
+                    week[0].day[13].GetComponent<Mass>().Selecton();
+                    week[9].day[0].GetComponent<Mass>().Selecton();
+                    week[9].day[12].GetComponent<Mass>().Selecton();
                 }
-                if (0 <= way[3] && way[3] <= 13 && mass[way[3], yplay].GetComponent<Mass>().invalid == false && mass[way[3], yplay].GetComponent<Mass>().Loot == false)
-                {
-                    mass[way[3], yplay].GetComponent<Mass>().Selecton();
-                }
-                MoveSelectnum = 2;
+                week[yplay].day[xplay].GetComponent<Mass>().Selectoff();
+                Switchnum = 2;
                 break;
 
-            case 2:
-                if (0 <= way[0] && way[0] <= 10 && mass[xplay, way[0]].GetComponent<Mass>().walk == true)
+            case 2://選択出来るマスがクリックされたその反応
+
+                for (int i = 0; i < 2; i++)
                 {
-                    diceconter--;
-                    yplay = way[0];
-                    clearSelect();
+                    if (0 <= way[i] && way[i] < week.Length && week[way[i]].day[xplay].GetComponent<Mass>().walk == true)//選択中心マスの上下にマスは存在してクリックされたか
+                    {
+                        diceconter--;//移動出来るマス数を一つ減らす
+                        yplay = way[i];//選択中心マスをクリックしたマスに移す
+                        XLoot[diceconter] = xplay;//移動決定したマスを順番に記憶する
+                        YLoot[diceconter] = yplay;
+                        clearSelect();//選択できるマスの全消去
+                    }
                 }
-                if (0 <= way[1] && way[1] <= 10 && mass[xplay, way[1]].GetComponent<Mass>().walk == true)
+                
+                for (int i = 2; i < 4; i++)
                 {
-                    diceconter--;
-                    yplay = way[1];
-                    clearSelect();
+                    if (0 <= way[i] && way[i] < week[0].day.Length && week[yplay].day[way[i]].GetComponent<Mass>().walk == true)//選択中心マスの左右にマスは存在してクリックされたか
+                    {
+                        diceconter--;//移動出来るマス数を一つ減らす
+                        xplay = way[i];//選択中心マスをクリックしたマスに移す
+                        XLoot[diceconter] = xplay;//移動決定したマスを順番に記憶する
+                        YLoot[diceconter] = yplay;
+                        clearSelect();//選択できるマスの全消去
+                    }
                 }
-                if (0 <= way[2] && way[2] <= 13 && mass[way[2], yplay].GetComponent<Mass>().walk == true)
+                Warpdecision(0, 1);//右上ワープが選択された時に反応
+                Warpdecision(13, 0);//左上ワープが選択された時に反応
+                Warpdecision(0, 9);//右下ワープが選択された時に反応
+                Warpdecision(12, 9);//左下ワープが選択された時に反応
+
+                if (diceconter > 0)
                 {
-                    diceconter--;
-                    xplay = way[2];
-                    clearSelect();
-                }
-                if (0 <= way[3] && way[3] <= 13 && mass[way[3], yplay].GetComponent<Mass>().walk == true)
-                {
-                    diceconter--;
-                    xplay = way[3];
-                    clearSelect();
-                }
-                if(diceconter > 0)
-                {
-                    MoveSelectnum = 1;
+                    Switchnum = 1;
                 }
                 else
                 {
-                    MoveSelectnum = 0;
+                    Switchnum = 0;
                     Debug.Log("選択終了");
                     stop = true;
                 }
@@ -336,74 +255,88 @@ public class sugorokuManager : MonoBehaviour
         }
     }
 
+    
+
+    private void Warpdecision(int x,int y)//ワープ先を選択した時
+    {
+        if (week[y].day[x].GetComponent<Mass>().walk == true)
+        {
+            diceconter--;//移動出来るマス数を一つ減らす
+            xplay = x;//選択中心マスをクリックしたマスに移す
+            yplay = y;
+            XLoot[diceconter] = xplay;//移動決定したマスを順番に記憶する
+            YLoot[diceconter] = yplay;
+            clearSelect();//選択できるマスの全消去
+        }
+    }
+
     private void clearSelect()//選択できるマスの全消去
     {
-        for (int i = 0; i < 14; i++)
+        for (int i = 0; i < week.Length; i++)
         {
-            for (int l = 0; l < 10; l++)
+            for (int l = 0; l < week[0].day.Length; l++)
             {
-                mass[i, l].GetComponent<Mass>().Selectoff();
-                mass[i, l].GetComponent<Mass>().walk = false;
+                week[i].day[l].GetComponent<Mass>().Selectoff();//マスを選択出来るというimageを消す
+                week[i].day[l].GetComponent<Mass>().walk = false;//クリックされたという判定を消す
             }
         }
     }
-
-    /*
-    private void MoveSelect(int Pnum)//プレイヤーの移動
-    {
-        
-    }
-    */
-
+    
     private void MovePlayer(int Pnum)//プレイヤーの移動
     {
+        int oneLoot = 0;//そのマスが移動の際一回しか通らないならtrue
+        switch (Switchnum)
+        {
+            case 0:
+                xplay = Player[Pnum].GetComponent<PlayerStatus>().PlayerX();//プレイヤーのマス座標
+                yplay = Player[Pnum].GetComponent<PlayerStatus>().PlayerY();
+                diceconter = Move;
+                Switchnum = 1;
+                break;
+
+            case 1:
+                for(int i=0;i< Move+1; i++)//移動順番のマスがもう一度同じマスを通らないならoneLootがMove-1になる
+                {
+                    if ((xplay,yplay) != (XLoot[i],YLoot[i]))
+                    {
+                        oneLoot++;
+                    }
+                }
+                if(Move == oneLoot)//移動マスが同じマスを通らないなら決定マスが消える
+                {
+                    week[yplay].day[xplay].GetComponent<Mass>().Decisionoff();//足元の決定マス消去
+                }
+                else
+                {
+                    XLoot[diceconter] = -1;//すでに通ったところが反応しないようにする
+                    YLoot[diceconter] = -1;
+                }
+                diceconter--;//移動するマス目数を一つ減らす
+                PlayerMass(Pnum, XLoot[diceconter], YLoot[diceconter]);//プレイヤーをLootに記憶させた順番に移動させる
+                
+                if (xplay == XLoot[diceconter] && yplay > YLoot[diceconter]) { Debug.Log("上"+diceconter); }//上に移動の時に反応(アニメーション用？)
+                if (xplay == XLoot[diceconter] && yplay < YLoot[diceconter]) { Debug.Log("下" + diceconter); }
+                if (xplay > XLoot[diceconter] && yplay == YLoot[diceconter]) { Debug.Log("左" + diceconter); }
+                if (xplay < XLoot[diceconter] && yplay == YLoot[diceconter]) { Debug.Log("右" + diceconter); }
+                
+                xplay = XLoot[diceconter];//プレイヤーのいるマスを記憶
+                yplay = YLoot[diceconter];
+
+                if (diceconter == 0)
+                {
+                    Debug.Log("終わってる");
+                    week[yplay].day[xplay].GetComponent<Mass>().Decisionoff();//足元の決定マス消去
+                    Switchnum = 0;
+                    stop = true;
+                }
+                break;
+        }
         
-        xplay = Player[Pnum].GetComponent<PlayerStatus>().PlayerX();//プレイヤーのマス座標
-        yplay = Player[Pnum].GetComponent<PlayerStatus>().PlayerY();
-        way[0] = yplay - 1; way[1] = yplay + 1; way[2] = xplay - 1; way[3] = xplay + 1;
-        mass[xplay, yplay].GetComponent<Mass>().Loot = false;//足元のLoot消す
-        mass[xplay, yplay].GetComponent<Mass>().Decisionoff();//決定マス消去
-        bool stoper = false;
-        if (0 <= way[0] && way[0] <= 10 && mass[xplay, way[0]].GetComponent<Mass>().Loot == true && stoper == false)//四方にLootがあるか探して移動する
-        {
-            Move--;
-            Player[Pnum].transform.position = transform.InverseTransformPoint(mass[xplay, way[0]].transform.position);
-            PlayerMass(Pnum, xplay, way[0]);
-            yplay = way[0];
-            stoper = true;
-        }
-        if (0 <= way[1] && way[1] <= 10 && mass[xplay, way[1]].GetComponent<Mass>().Loot == true && stoper == false)
-        {
-            Move--;
-            Player[Pnum].transform.position = transform.InverseTransformPoint(mass[xplay, way[1]].transform.position);
-            PlayerMass(Pnum, xplay, way[1]);
-            yplay = way[1];
-            stoper = true;
-        }
-        if (0 <= way[2] && way[2] <= 13 && mass[way[2], yplay].GetComponent<Mass>().Loot == true && stoper == false)
-        {
-            Move--;
-            Player[Pnum].transform.position = transform.InverseTransformPoint(mass[way[2], yplay].transform.position);
-            PlayerMass(Pnum, way[2], yplay);
-            xplay = way[2];
-            stoper = true;
-        }
-        if (0 <= way[3] && way[3] <= 13 && mass[way[3], yplay].GetComponent<Mass>().Loot == true && stoper == false)
-        {
-            Move--;
-            Player[Pnum].transform.position = transform.InverseTransformPoint(mass[way[3], yplay].transform.position);
-            PlayerMass(Pnum, way[3], yplay);
-            xplay = way[3];
-            stoper = true;
-        }
-        //Debug.Log(Move);
-        if (Move == 0)
-        {
-            Debug.Log("終わってる");
-            mass[xplay, yplay].GetComponent<Mass>().Loot = false;//足元のLoot消す
-            mass[xplay, yplay].GetComponent<Mass>().Decisionoff();//決定マス消去
-            stop = true;
-        }
     }
 
+}
+[System.Serializable]
+public class days//weekの子・横列のオブジェクトの取得
+{
+    public GameObject[] day;
 }

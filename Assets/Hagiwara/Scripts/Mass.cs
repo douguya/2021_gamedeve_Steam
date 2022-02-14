@@ -6,8 +6,7 @@ public class Mass : MonoBehaviour
 {
     public bool Open;//マスが空いてるかどうか
     public bool Goal;//マスがゴールかどうか
-    public bool invalid;//そのマスが有効かどうか
-    public bool Loot;//マスが移動マスとして選択されているかどうか
+    public bool invalid;//そのマスが存在するかどうか
     public bool walk;//onClickされたかどうか調べる
 
     public GameObject GoalFlag;//ゴールの丸表示用
@@ -17,29 +16,28 @@ public class Mass : MonoBehaviour
 
     void Start()
     {
-        //Open = false;
-        //Goal = false;
-        //invalid = false;
-        //GoalFlag.SetActive(false);
-
-    }
-
-   
-    void Update()
-    {
-        if(Goal == true)
-        {
-            GoalFlag.SetActive(true);
-        }
         if (invalid == true)
         {
             hako.SetActive(false);
         }
     }
 
-    public void GoalOn()
+   
+    void Update()
     {
+        
+    }
 
+    public void GoalOn()//ゴールを表示させる
+    {
+        GoalFlag.SetActive(true);
+        Goal = true;
+    }
+
+    public void GoalOff()//ゴールを消す
+    {
+        GoalFlag.SetActive(false);
+        Goal = false;
     }
 
     public void Selecton()//移動できるマスの表示用
@@ -68,7 +66,6 @@ public class Mass : MonoBehaviour
         {
             Selectoff();
             Decisionon();
-            Loot = true;
             walk = true;
         }
         
