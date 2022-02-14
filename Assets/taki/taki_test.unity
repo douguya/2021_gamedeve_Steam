@@ -822,7 +822,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xSpeed: 400
   ySpeed: 300
-  zSpeed: 0
+  zSpeed: 100
   rotate: 1
   Dice:
   - {fileID: 1722434356}
@@ -835,6 +835,7 @@ MonoBehaviour:
   DiceNum: 0
   xShow: 0
   zShow: 0
+  ShowNum: 0
 --- !u!65 &1359482216
 BoxCollider:
   m_ObjectHideFlags: 0
