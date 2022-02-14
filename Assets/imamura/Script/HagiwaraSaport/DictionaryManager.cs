@@ -2,14 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class DictionaryManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-
-
-
-
     // Dictionary<string, int[]> dic3 = ,new  Dictionary<string, int[]>();
     public static Dictionary<string, int[]> ItemDictionary = new Dictionary<string, int[]>
     {
@@ -139,38 +133,4 @@ public class DictionaryManager : MonoBehaviour
 
 
 
-    public void DectionariyInfoA(string Item)
-    {
-
-        Debug.Log(ItemDictionary[Item][0]);
-      //  return ItemDictionary["Item"];
-
-    }
-
-
-
-
-    /* 書き方がダメだった奴　正しくは、 {"大トロ",new  int [2]{5,1 } },とする
-        Dictionary<string, int[]> ItemDictionary = new  Dictionary<string, int[]>
-        {
-
-            {"大トロ", int{5,1 } },
-            /*
-
-        };
-    */
-
-
-
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

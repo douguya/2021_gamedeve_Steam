@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Okura/Scenes/TestScene2.unity
     guid: ea71a9cb8061b474899daaf44947a102
+  - enabled: 1
+    path: Assets/imamura/Scene/BBB.unity
+    guid: 50b66fa69d5c9534d89113d43b3a9765
   m_configObjects: {}
