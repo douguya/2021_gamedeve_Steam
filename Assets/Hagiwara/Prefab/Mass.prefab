@@ -52,7 +52,6 @@ MonoBehaviour:
   Open: 0
   Goal: 0
   invalid: 0
-  Loot: 0
   walk: 0
   GoalFlag: {fileID: 6217242707856058306}
   hako: {fileID: 5576450663548873874}
