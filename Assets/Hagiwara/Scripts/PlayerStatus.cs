@@ -12,6 +12,9 @@ public class PlayerStatus : MonoBehaviour
     private List<int> ItemPoint = new List<int>();//持っているアイテムのポイント
     private int Goalcount = 0;//ゴールした数
     private int PX,PY;//プレイヤーのマス座標
+   
+
+
 
     void Start()
     {

@@ -56,12 +56,4 @@ public class imamuraDice : MonoBehaviour
         Debug.Log(StopDice());
 
     }
-
-
-
-
-
-
-
-
 }

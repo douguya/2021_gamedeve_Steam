@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class PlayerStatasIMamura : MonoBehaviour
+
+public class PlayerStatasIMamura : MonoBehaviourPunCallbacks
 {
     private int PlayerNumber;//プレイヤーの番号
     private string Name;//名前
@@ -14,11 +16,16 @@ public class PlayerStatasIMamura : MonoBehaviour
 
     [SerializeField]
     private Dropdown dropdown;
+    public int PlayerIdVew;
+    public string PlayerNameVew;
+
 
 
     void Start()
     {
-
+        PlayerIdVew = photonView.OwnerActorNr;
+        PlayerNameVew = photonView.Owner.NickName;
+     
     }
 
 
