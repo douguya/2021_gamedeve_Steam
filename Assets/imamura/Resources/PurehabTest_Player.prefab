@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4751674736879246524}
   - component: {fileID: 2343988663967878545}
   - component: {fileID: 2585053873381563871}
+  - component: {fileID: -3927685139163680975}
   m_Layer: 0
   m_Name: PurehabTest_Player
   m_TagString: Untagged
@@ -109,11 +110,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df7582f6c2a15014385c76bb1ab8e67e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HabItem: []
+  HabItem:
+  - "\u4FE1\u53F7\u6A5F"
+  - "\u4FE1\u53F7\u6A5F"
+  - "\u4FE1\u53F7\u6A5F"
   Play: {fileID: 8834230973867451993}
   dropdown: {fileID: 5905417551027322077, guid: 65cd91566dade034fb4f735f387d8714, type: 3}
   PlayerIdVew: 0
   PlayerNameVew: 
+  HowPlayer: 0
+  Botton: {fileID: 0}
 --- !u!114 &2585053873381563871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,7 +139,23 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: -3927685139163680975}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-3927685139163680975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8834230973867451993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 0
+  m_SynchronizeRotation: 0
+  m_SynchronizeScale: 0
+  m_UseLocal: 0

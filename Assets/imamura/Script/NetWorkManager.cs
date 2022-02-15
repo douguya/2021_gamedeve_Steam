@@ -17,12 +17,14 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     public Text[] RoomText;
     public GameObject[] RoomBotton;
 
+    public PlayerStatasIMamura playerStatasIMamura;
+
     [SerializeField]
-    public string PlayerIdVew;
+    public int PlayerIdVew;
     public string PlayerNameVew;
 
-
-
+    public GameObject parent;
+   
 
     public bool[] CanJoinRoom = new bool[5] {true,true,true,true,true};
 
@@ -66,17 +68,23 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
             var roomOptions = new RoomOptions();
             roomOptions.MaxPlayers = 4;
             PhotonNetwork.JoinOrCreateRoom("ルーム" + RoomNum, roomOptions, TypedLobby.Default);
-           
-            
-
-
+          
     }
     public override void OnJoinedRoom()
     {
+      
         // ランダムな座標に自身のアバター（ネットワークオブジェクト）を生成する
         var position = new Vector3(-7.69f, -3.66f);
-        PhotonNetwork.Instantiate("PurehabTest_Player", position, Quaternion.identity);
-        
+        PhotonNetwork.Instantiate("PurehabTest_Player", position, Quaternion.identity,0);
+     
+
+
+
+        position = new Vector3(-303.5f, -71f);
+
+       
+
+
     }
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
@@ -91,11 +99,28 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     public void FinishInputName()
     {
         PhotonNetwork.NickName = PlayerName.text;
-       // Debug.Log("" + PlayerName.text);
+        PlayerNameVew = PlayerName.text;
+        // Debug.Log("" + PlayerName.text);
         Debug.Log("AAAAAAAAA"+PlayerName.text);
         Debug.Log("PPOPPPPPP"+PhotonNetwork.LocalPlayer.UserId);
 
-
     }
+
+
+    // 他のプレイヤーが退室した時
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+    //    playerStatasIMamura.SetPlayernumShorten();
+    }
+    // 他のプレイヤーが入室してきた時
    
+
+
+
+
+
+
+
+    
+
 }
