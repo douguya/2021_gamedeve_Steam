@@ -200,9 +200,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2343988663967878545, guid: 305bf3556a4fbde43bebe723206f29cb, type: 3}
-        m_TargetAssemblyTypeName: PlayerStatasIMamura, Assembly-CSharp
-        m_MethodName: Itemobtain
+      - m_Target: {fileID: 11500000, guid: df7582f6c2a15014385c76bb1ab8e67e, type: 3}
+        m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
+        m_MethodName: set_name
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

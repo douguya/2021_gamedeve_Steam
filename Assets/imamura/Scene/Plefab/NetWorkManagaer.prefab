@@ -53,4 +53,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   RoomBotton: []
+  playerStatasIMamura: {fileID: 0}
+  PlayerIdVew: 0
+  PlayerNameVew: 
+  parent: {fileID: 0}
   CanJoinRoom: 

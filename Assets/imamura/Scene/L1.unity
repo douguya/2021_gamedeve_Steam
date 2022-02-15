@@ -2321,6 +2321,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4515419658797578399, guid: 55e18925c8a517d4b9300695a4dfe72f, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5228020121527939328, guid: 55e18925c8a517d4b9300695a4dfe72f, type: 3}
       propertyPath: m_Name
       value: NetWorkManagaer
