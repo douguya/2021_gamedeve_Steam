@@ -33,6 +33,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.ConnectUsingSettings();
         inputField = GetComponent<InputField>();
+      
     }
 
 
@@ -75,7 +76,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
       
         // ランダムな座標に自身のアバター（ネットワークオブジェクト）を生成する
         var position = new Vector3(-7.69f, -3.66f);
-        PhotonNetwork.Instantiate("PurehabTest_Player", position, Quaternion.identity,0);
+        PhotonNetwork.Instantiate("PurehabTest_Player", position, Quaternion.identity);
      
 
 
@@ -91,6 +92,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         if (SceneManager.GetActiveScene().name == SceneManagaer.Gamesend)
         {
             SceneManager.LoadScene(SceneManagaer.Lobysend);
+            PhotonNetwork.JoinLobby();
         }
     }
 
@@ -113,14 +115,14 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     //    playerStatasIMamura.SetPlayernumShorten();
     }
     // 他のプレイヤーが入室してきた時
+
+
+
+
+
+
+
+
    
-
-
-
-
-
-
-
-    
 
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Threading.Tasks;
+
 
 public class PlayerStatasIMamura : MonoBehaviourPunCallbacks
 {
@@ -53,14 +55,16 @@ public class PlayerStatasIMamura : MonoBehaviourPunCallbacks
     }
 
 
-    public void Itemobtain(string Item)
-    {
-        HabItem.Add(Item);
-        dropdown.options.Add(new Dropdown.OptionData { text = Item + DictionaryManager.ItemDictionary[Item][0] + "P" });
-        dropdown.RefreshShownValue();
-    }
 
-    
+
+
+
+
+
+
+
+
+
     public void ItemInfoGet(string Item)
     {
         Debug.Log(HabItem[0]);
@@ -82,28 +86,36 @@ public class PlayerStatasIMamura : MonoBehaviourPunCallbacks
 
 
 
-    public  void SetPlayernumShorten()
+    public async void  SetPlayernumShorten()
     {
+
+        await Task.Delay(50);
+
+
         if (photonView.IsOwnerActive == false)
         {
-            Debug.Log("ASASA");
+          
           //  Destroy(this.gameObject);
         }
+
 
         int loop = 1;
         foreach (var p in PhotonNetwork.PlayerList)
         {
             if (photonView.CreatorActorNr == p.ActorNumber)
             {
+               
                 dropdown.ClearOptions();
                 dropdown =GameObject.Find("Dropdown:Player"+loop).GetComponent<Dropdown>();
                 dropdown.ClearOptions();
-                dropdown.options.Add(new Dropdown.OptionData { text = PlayerNameVew });
+
+                dropdown.options.Add(new Dropdown.OptionData { text = ""+PlayerNameVew });
                 dropdown.RefreshShownValue();
 
 
                 if (photonView.IsMine) {
-                    Botton = GameObject.Find("PurehabTest_Button (2)").GetComponent<Button>();
+                    Debug.Log("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+                    Botton = GameObject.Find("traffic_lights").GetComponent<Button>();
                     Botton.onClick.AddListener(() => Itemobtain("êMçÜã@"));
                 }
             }
@@ -113,12 +125,33 @@ public class PlayerStatasIMamura : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnPlayerLeftRoom(Player otherPlayer)
+    public override  void OnPlayerLeftRoom(Player otherPlayer)
     {
-       SetPlayernumShorten();
+        for (int loop=1;loop<5;loop++) {
+            GameObject.Find("Dropdown:Player" + loop).GetComponent<Dropdown>().ClearOptions();
+            GameObject.Find("Dropdown:Player" + loop).GetComponent<Dropdown>().RefreshShownValue();
+
+        }
+       
+        SetPlayernumShorten();
     }
 
 
+    public void Itemobtain(string Item)
+    {
+        
+        photonView.RPC(nameof(ItemobtainToRPC), RpcTarget.All, Item);
+    }
+
+
+
+    [PunRPC]
+    public void ItemobtainToRPC(string Item)
+    {
+        HabItem.Add(Item);
+        dropdown.options.Add(new Dropdown.OptionData { text = Item + DictionaryManager.ItemDictionary[Item][0] + "P" });
+        dropdown.RefreshShownValue();
+    }
 
 
 
