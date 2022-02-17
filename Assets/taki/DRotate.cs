@@ -60,12 +60,12 @@ public class DRotate : MonoBehaviour
         {
             if (xSpeed > 0)
             {
-                xSpeed -= 30f * Time.deltaTime;
+                xSpeed -= 60f * Time.deltaTime;
             }
 
             if (ySpeed > 0)
             {
-                ySpeed -= 30f * Time.deltaTime;
+                ySpeed -= 45f * Time.deltaTime;
             }
 
             if (zSpeed > 0)
