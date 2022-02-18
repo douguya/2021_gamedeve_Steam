@@ -7,25 +7,21 @@ public class sugorokuManager : MonoBehaviour
     private int XGoal, YGoal;                       //ゴールの座標
     
     public GameObject[] Player = new GameObject[4]; //プレイヤーオブジェクト取得
-    public Width[] height;                             //Massの縦列のオブジェクトの取得・一番下で二次元配列にしている
+    public Width[] height=new Width[10];                             //Massの縦列のオブジェクトの取得・一番下で二次元配列にしている
     private int Playerturn = 0;                     //プレイヤーの手番管理
     
     private int Playcount = 0;                      //プレイヤーの参加人数
     private int play = 0;                           //誰の番か
-    
+
+
+    private bool gamestart = false;
+
     void Start()
     {
-        for(int i= 0;i< 4; i++)
-        {
-            if (Player[i].GetComponent<PlayerStatus>().GetName() == "") {//プレイヤーに名前がなかったら
-                Player[i].SetActive(false);                              //使えなくする
-            }
-            else
-            {
-                Player[i].SetActive(true);                              //使えるようにする
-                Playcount++;
-            }
-        }
+    
+        
+
+
         GoalDecision();//ゴールの選択
 
     }
@@ -33,45 +29,48 @@ public class sugorokuManager : MonoBehaviour
 
     void Update()
     {
-        switch (Playerturn)
+
+        if (gamestart)
         {
-            case 0:
-                Player[play].GetComponent<PlayerStatus>().step = 1;             //プレイヤーをコントロール出来るようにする
-                Playerturn = 1;
-                break;
+            switch (Playerturn)
+            {
+                case 0:
+                    Player[play].GetComponent<PlayerStatus>().step = 1;             //プレイヤーをコントロール出来るようにする
+                    Playerturn = 1;
+                    break;
 
-            case 1:
-                if (Player[play].GetComponent<PlayerStatus>().Goalup == true)   //もしこの手番にゴールしていたら
-                {
-                    Player[play].GetComponent<PlayerStatus>().Goalup = false;   //ゴール宣言取り消し
-                    GoalAgain();                                                //ゴールの再設置
-                }
-                if (Player[play].GetComponent<PlayerStatus>().GetGaol() == 4)   //ゴールした数が４なら
-                {
-                    Playerturn = 3;                                             //ゲーム終了
-                }
-                if (Player[play].GetComponent<PlayerStatus>().nextturn == true) //プレイヤーがターンを終了していたら
-                {
-                    Player[play].GetComponent<PlayerStatus>().nextturn = false;
-                    Playerturn = 2;
-                    play++;                                                    //次のプレイヤーの番にする
-                }
-                break;
+                case 1:
+                    if (Player[play].GetComponent<PlayerStatus>().Goalup == true)   //もしこの手番にゴールしていたら
+                    {
+                        Player[play].GetComponent<PlayerStatus>().Goalup = false;   //ゴール宣言取り消し
+                        GoalAgain();                                                //ゴールの再設置
+                    }
+                    if (Player[play].GetComponent<PlayerStatus>().GetGaol() == 4)   //ゴールした数が４なら
+                    {
+                        Playerturn = 3;                                             //ゲーム終了
+                    }
+                    if (Player[play].GetComponent<PlayerStatus>().nextturn == true) //プレイヤーがターンを終了していたら
+                    {
+                        Player[play].GetComponent<PlayerStatus>().nextturn = false;
+                        Playerturn = 2;
+                        play++;                                                    //次のプレイヤーの番にする
+                    }
+                    break;
 
-            case 2:
-                Playerturn = 0;
-                if (play >= Playcount)//プレイヤー参加人数を超えたら
-                {
-                    play = 0;　　　　　//プレイヤー0の手番になる
-                }
-                break;
+                case 2:
+                    Playerturn = 0;
+                    if (play >= Playcount)//プレイヤー参加人数を超えたら
+                    {
+                        play = 0;     //プレイヤー0の手番になる
+                    }
+                    break;
 
-            case 3:
-                //ゲーム終了
-                Debug.Log("ゲーム終了");
-                break;
+                case 3:
+                    //ゲーム終了
+                    Debug.Log("ゲーム終了");
+                    break;
+            }
         }
-
     }
 
 
@@ -81,6 +80,7 @@ public class sugorokuManager : MonoBehaviour
         {
             for (int l = 0; l < height[0].width.Length; l++)
             {
+               // Debug.Log(height[i].width[l]);
                 height[i].width[l].GetComponent<Mass>().GoalOff();//ゴールを消していく
             }
         }
@@ -133,10 +133,26 @@ public class sugorokuManager : MonoBehaviour
         return Month;
          
     }
-    
+
+
+    public void StartOfimitation()
+    {
+        gamestart = (gamestart == false);//反転
+
+    }
+
+
+
+
+
+
 }
 [System.Serializable]
 public class Width//weekの子・横列のオブジェクトの取得
 {
-    public GameObject[] width;
+    public  GameObject[] width;
+
+
+
+
 }

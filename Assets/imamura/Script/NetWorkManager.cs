@@ -72,7 +72,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
       
         // ランダムな座標に自身のアバター（ネットワークオブジェクト）を生成する
         var position = new Vector3(-7.69f, -3.66f);
-        GameObject blockTile = PhotonNetwork.Instantiate("PurehabTest_Player", position, Quaternion.identity);
+        GameObject blockTile = PhotonNetwork.Instantiate("playerAA", position, Quaternion.identity);
         position = new Vector3(-303.5f, -71f);
         await Task.Delay(400);
         blockTile.name = PhotonNetwork.LocalPlayer.NickName;
