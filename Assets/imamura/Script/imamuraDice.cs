@@ -13,7 +13,7 @@ public class imamuraDice : MonoBehaviour
     public int DiseSpeed;       //サイコロの切り替えスピード
     int loop = 1;
     
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -56,12 +56,4 @@ public class imamuraDice : MonoBehaviour
         Debug.Log(StopDice());
 
     }
-
-
-
-
-
-
-
-
 }

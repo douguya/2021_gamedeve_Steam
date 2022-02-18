@@ -2,116 +2,88 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
+using System.Threading.Tasks;
 
-public class PlayerStatasIMamura : MonoBehaviour
+
+public class PlayerStatasIMamura : MonoBehaviourPunCallbacks
 {
-    private int PlayerNumber;//プレイヤーの番号
-    private string Name;//名前
-    public List<string> HabItem ;//持っているアイテム
-    private int Goalcount = 0; //ゴールした数
-    private int PX, PY;//プレイヤーのマス座標
-    public GameObject Play;
+
+    public List<string> HabItem;//持っているアイテム
+    private int Goalcount = 0;  //ゴールした数
+    private int PX, PY;         //プレイヤーのマス座標
+    public GameObject Play;     //プレイヤーのゲームオブジェクト
+
 
     [SerializeField]
-    private Dropdown dropdown;
-
+    private Dropdown dropdown;　//アイテム一覧へのアクセス用
+    public int PlayerIdVew;　　 //プレイヤーのID
+    public string PlayerNameVew;//プレイヤーの名前
+    public int HowPlayer;       //何人プレイヤーがいるかの閲覧用
+    public Button Botton;　　　 //動作テスト用ボタンへのアクセス用
 
     void Start()
     {
-
+        PlayerIdVew = photonView.OwnerActorNr;　　//プレイヤーのIDの同期
+        PlayerNameVew = photonView.Owner.NickName;//プレイヤーの名前の同期
+        SetPlayernumShorten();                    //アイテムリストUIとプレイヤーの同期
     }
 
-
-    void Update()
+    public async void SetPlayernumShorten()//アイテムリストUIの同期
     {
+        await Task.Delay(50);//一気に複数のプレイヤーとアイテムリストの同期をするための一時停止
 
+        int loop = 1;//アイテムリストの初期値
+        foreach (var PList in PhotonNetwork.PlayerList)//プレイヤーリストの内容を順番に格納
+        {
+            if (photonView.CreatorActorNr == PList.ActorNumber)//自分の作成者のIDがPListのIDとイコールなら
+            {
+                dropdown.ClearOptions();//移行前のリスト消去
+                dropdown = GameObject.Find("Dropdown:Player" + loop).GetComponent<Dropdown>();//プレイヤーの順番に対応したアイテムリストUIとの同期
+                dropdown.ClearOptions();//同期したアイテムリストの初期化
+
+                dropdown.options.Add(new Dropdown.OptionData { text = "" + PlayerNameVew });//アイテムリストのラベル付け
+                dropdown.RefreshShownValue();//アイテムリストUIの更新
+
+                //テスト用ボタンのセッティング
+                if (photonView.IsMine)//PListがプレイヤーのものなら
+                {
+                    Botton = GameObject.Find("traffic_lights").GetComponent<Button>();//テスト用ボタンへのアクセス用
+                    Botton.onClick.AddListener(() => Itemobtain("信号機"));//テスト用ボタンへの関数追加
+                }
+            }
+            loop++;
+        }
     }
 
-
-    public PlayerStatasIMamura(int Pnum, string n, int G)
+    public override void OnPlayerLeftRoom(Player otherPlayer)//他のプレイヤーがいなくなった時のコールバック
     {
-        PlayerNumber = Pnum; Name = n; Goalcount = G;
+        //アイテムリストUIの更新のための全体初期化
+        for (int loop = 1; loop < 5; loop++)
+        {
+            GameObject.Find("Dropdown:Player" + loop).GetComponent<Dropdown>().ClearOptions();//削除
+            GameObject.Find("Dropdown:Player" + loop).GetComponent<Dropdown>().RefreshShownValue();//更新
+
+        }
+
+        SetPlayernumShorten();//改めてのアイテムリストUIの同期
     }
-    public void Itemobtain(string Item)
+
+
+    public void Itemobtain(string Item)//アイテムを手に入れた場合の関数を呼び出す
     {
-        HabItem.Add(Item);
-        dropdown.options.Add(new Dropdown.OptionData { text = Item + DictionaryManager.ItemDictionary[Item][0] + "P" });
-        dropdown.RefreshShownValue();
+        photonView.RPC(nameof(ItemobtainToRPC), RpcTarget.All, Item);
     }
 
-    
-    public void ItemInfoGet(string Item)
+    [PunRPC]
+    public void ItemobtainToRPC(string Item)//アイテムを手に入れた場合の関数
     {
-        Debug.Log(HabItem[0]);
-
-        //  Debug.Log(Item+ItemDectionari.ItemDictionary[Item]);
-
-       // Play.ItemDectionari.DectionariyInfo(Item);
-        Debug.Log(DictionaryManager.ItemDictionary[Item][0]);
-
-
-    }
-    
-
-
-
-
-    public void SetName(string n)//名前の再設定
-    {
-        Name = n;
+        HabItem.Add(Item);//Itemのリストへの追加
+        dropdown.options.Add(new Dropdown.OptionData { text = Item + DictionaryManager.ItemDictionary[Item][0] + "P" });//アイテムとそのポイントをアイテムリストUIに追加
+        dropdown.RefreshShownValue();//アイテムリストUIの更新
     }
 
-    public void Goaladd()//ゴールの数プラス
-    {
-        Goalcount++;
-    }
-
-    public void Itemadd(string IName)//アイテムの取得
-    {
-        HabItem.Add(IName);
-        
-    }
-
-    public void SetPlayerMass(int x, int y)//プレイヤーがどのマスにいるか記憶
-    {
-        PX = x;
-        PY = y;
-    }
-
-    public int GetPlayerNumber()//プレイヤー番号の出力
-    {
-        return PlayerNumber;
-    }
-
-    public string GetName()//名前の出力
-    {
-        return Name;
-    }
-
-    public string GetItemName(int num)//持っているアイテムの名前
-    {
-        return HabItem[num];
-    }
-
-    /*
-    public int GetItemPoint(int num)//持っているアイテムのポイント
-    {
-        return ItemPoint[num];
-    }
-    */
-    public int GetGaol()//ゴールした数の取得
-    {
-        return Goalcount;
-    }
-
-    public int PlayerX()//プレイヤーのマス座標Xを出力
-    {
-        return PX;
-    }
-    public int PlayerY()//プレイヤーのマス座標Yを出力
-    {
-        return PY;
-    }
 }
 
 

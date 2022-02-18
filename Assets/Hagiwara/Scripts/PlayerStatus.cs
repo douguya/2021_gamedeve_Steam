@@ -6,47 +6,47 @@ using UnityEngine.UI;
 
 public class PlayerStatus : MonoBehaviour
 {
-    private int PlayerNumber;//ƒvƒŒƒCƒ„[‚Ì”Ô†
-    public string Name;//–¼‘O
-    public List<string> HabItem;//‚Á‚Ä‚¢‚éƒAƒCƒeƒ€
-    private int Goalcount = 0;//ƒS[ƒ‹‚µ‚½”
-    private int PX,PY;//ƒvƒŒƒCƒ„[‚Ìƒ}ƒXÀ•W
+    private int PlayerNumber;//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç•ªå·
+    public string Name;//åå‰
+    public List<string> HabItem;//æŒã£ã¦ã„ã‚‹ã‚¢ã‚¤ãƒ†ãƒ 
+    private int Goalcount = 0;//ã‚´ãƒ¼ãƒ«ã—ãŸæ•°
+    private int PX,PY;//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒã‚¹åº§æ¨™
     public GameObject Play;
     
     [SerializeField]
     private Dropdown dropdown;
 
-    public GameObject dice;                         //ƒ_ƒCƒX‚ğæ“¾
-    private bool dicestart = true;                  //ƒ_ƒCƒX‚ğ‰ñ‚·
+    public GameObject dice;                         //ãƒ€ã‚¤ã‚¹ã‚’å–å¾—
+    private bool dicestart = true;                  //ãƒ€ã‚¤ã‚¹ã‚’å›ã™
 
     public int initialX, initialY;
-    public days[] week;                             //Mass‚Ìc—ñ‚ÌƒIƒuƒWƒFƒNƒg‚Ìæ“¾Eˆê”Ô‰º‚Å“ñŸŒ³”z—ñ‚É‚µ‚Ä‚¢‚é
-    public int step = 0;                            //ƒvƒŒƒCƒ„[‚Ìƒ^[ƒ“è‡
-    private bool stop;                              //ƒvƒŒƒCƒ„[‚Ìƒ^[ƒ“è‡‚ÌƒXƒgƒbƒp[
-    public float speed = 0.5f;                      //ƒvƒŒƒCƒ„[ˆÚ“®‘¬“x
+    public days[] week;                             //Massã®ç¸¦åˆ—ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—ãƒ»ä¸€ç•ªä¸‹ã§äºŒæ¬¡å…ƒé…åˆ—ã«ã—ã¦ã„ã‚‹
+    public int step = 0;                            //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¿ãƒ¼ãƒ³æ‰‹é †
+    private bool stop;                              //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¿ãƒ¼ãƒ³æ‰‹é †ã®ã‚¹ãƒˆãƒƒãƒ‘ãƒ¼
+    public float speed = 0.5f;                      //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç§»å‹•é€Ÿåº¦
     private float currentTime = 0f;
-    public bool nextturn;                           //Ÿ‚ÌƒvƒŒƒCƒ„[‚Ì”Ô‚É‚·‚é
-    public bool Goalup;                             //©•ª‚Ìƒ^[ƒ“‚ÉƒS[ƒ‹‚µ‚½‚Æ‚¢‚¤éŒ¾
+    public bool nextturn;                           //æ¬¡ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç•ªã«ã™ã‚‹
+    public bool Goalup;                             //è‡ªåˆ†ã®ã‚¿ãƒ¼ãƒ³ã«ã‚´ãƒ¼ãƒ«ã—ãŸã¨ã„ã†å®£è¨€
 
-    private int xplay;                              //‘I‘ğ‚µ‚½ƒ}ƒXÀ•W‚ğæ“¾
+    private int xplay;                              //é¸æŠã—ãŸãƒã‚¹åº§æ¨™ã‚’å–å¾—
     private int yplay;
-    private int Switchnum = 0;                      //switch\•¶‚ÌØ‚è‘Ö‚¦
+    private int Switchnum = 0;                      //switchæ§‹æ–‡ã®åˆ‡ã‚Šæ›¿ãˆ
 
-    private int[] way;                //ƒ}ƒX‚Ìã‰º¶‰E‚Ìƒ}ƒXÀ•W 0:ã 1:‰º 2:¶ 3:‰E
-    private int[] XLoot;              //ˆÚ“®‚·‚éƒ}ƒX‚ğ“ü‚ê‚é(‚Æ‚è‚ ‚¦‚¸Å‘å10ƒ}ƒXˆÚ“®‰Â”\)
+    private int[] way;                //ãƒã‚¹ã®ä¸Šä¸‹å·¦å³ã®ãƒã‚¹åº§æ¨™ 0:ä¸Š 1:ä¸‹ 2:å·¦ 3:å³
+    private int[] XLoot;              //ç§»å‹•ã™ã‚‹ãƒã‚¹ã‚’å…¥ã‚Œã‚‹(ã¨ã‚Šã‚ãˆãšæœ€å¤§10ãƒã‚¹ç§»å‹•å¯èƒ½)
     private int[] YLoot;
 
-    private int Move = 0;                           //ƒ_ƒCƒX‚Ìo–Ú
+    private int Move = 0;                           //ãƒ€ã‚¤ã‚¹ã®å‡ºç›®
     private int diceconter;
 
 
     void Start()
     {
-        dicestart = true;                        //‰Šú‰»
+        dicestart = true;                        //åˆæœŸåŒ–
         way = new int[4];
         XLoot = new int[10];
         YLoot = new int[10];
-        PlayerMass(initialX, initialY);         //ƒvƒŒƒCƒ„[‚ğ‰ŠúˆÊ’u‚É‚É
+        PlayerMass(initialX, initialY);         //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’åˆæœŸä½ç½®ã«ã«
     }
 
     
@@ -55,19 +55,19 @@ public class PlayerStatus : MonoBehaviour
         switch (step)
         {
             case 0:
-                //“®‚©‚È‚¢ó‘Ô
+                //å‹•ã‹ãªã„çŠ¶æ…‹
                 stop = false;
                 break;
 
-            case 1://ƒ_ƒCƒX‚ğ‰ñ‚·
-                if (dicestart) {                                    //ˆê‰ñ‚µ‚©”½‰‚µ‚È‚¢
-                    dice.GetComponent<imamuraDice>().OnDiceSpin();  //ƒ_ƒCƒX‚ğ‰ñ‚·
+            case 1://ãƒ€ã‚¤ã‚¹ã‚’å›ã™
+                if (dicestart) {                                    //ä¸€å›ã—ã‹åå¿œã—ãªã„
+                    dice.GetComponent<imamuraDice>().OnDiceSpin();  //ãƒ€ã‚¤ã‚¹ã‚’å›ã™
                     dicestart = false;
                 }
                 
-                if (stop == true)                                   //ƒXƒgƒbƒv‚ğ‰Ÿ‚³‚ê‚½‚ç
+                if (stop == true)                                   //ã‚¹ãƒˆãƒƒãƒ—ã‚’æŠ¼ã•ã‚ŒãŸã‚‰
                 {
-                    Move = dice.GetComponent<imamuraDice>().StopDice();//ƒ_ƒCƒX‚ğ~‚ß‚é
+                    Move = dice.GetComponent<imamuraDice>().StopDice();//ãƒ€ã‚¤ã‚¹ã‚’æ­¢ã‚ã‚‹
                     Debug.Log(Move);
                     step = 2;
                     stop = false;
@@ -75,54 +75,54 @@ public class PlayerStatus : MonoBehaviour
                 }
                 break;
 
-            case 2://ƒ_ƒCƒX‚Ìƒ}ƒX•ªˆÚ“®o—ˆ‚é‚Æ‚±‚ë‚ğİ’è‚·‚é
-                MoveSelect(Move);                   //ƒ}ƒX‚Ì‘I‘ğ
-                if (stop == true)                   //‘I‘ğ‚ªI—¹‚µ‚½‚ç
+            case 2://ãƒ€ã‚¤ã‚¹ã®ãƒã‚¹åˆ†ç§»å‹•å‡ºæ¥ã‚‹ã¨ã“ã‚ã‚’è¨­å®šã™ã‚‹
+                MoveSelect(Move);                   //ãƒã‚¹ã®é¸æŠ
+                if (stop == true)                   //é¸æŠãŒçµ‚äº†ã—ãŸã‚‰
                 {
                     step = 3;
                     stop = false;
                 }
                 break;
 
-            case 3://ƒvƒŒƒCƒ„[‚ÌˆÚ“®
+            case 3://ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•
 
-                currentTime += Time.deltaTime;      //ƒvƒŒƒCƒ„[‚ÌˆÚ“®‚ªˆê•à‚¸‚Âi‚Ş‚æ‚¤‚É
+                currentTime += Time.deltaTime;      //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•ãŒä¸€æ­©ãšã¤é€²ã‚€ã‚ˆã†ã«
                 if (currentTime > speed)
                 {
-                    MovePlayer();                   //ˆê•ài‚ß‚é
+                    MovePlayer();                   //ä¸€æ­©é€²ã‚ã‚‹
                     currentTime = 0f;
                 }
 
-                if (stop == true)                   //ˆÚ“®‚ªI—¹‚µ‚½‚ç
+                if (stop == true)                   //ç§»å‹•ãŒçµ‚äº†ã—ãŸã‚‰
                 {
                     step = 4;
                     stop = false;
                 }
                 break;
 
-            case 4://ƒS[ƒ‹•ƒ}ƒX‚ÌŒø‰Ê
-                if (week[yplay].day[xplay].GetComponent<Mass>().Goal == true)   //‚à‚µƒS[ƒ‹ƒ}ƒX‚É~‚Ü‚Á‚½‚ç
+            case 4://ã‚´ãƒ¼ãƒ«ï¼†ãƒã‚¹ã®åŠ¹æœ
+                if (week[yplay].day[xplay].GetComponent<Mass>().Goal == true)   //ã‚‚ã—ã‚´ãƒ¼ãƒ«ãƒã‚¹ã«æ­¢ã¾ã£ãŸã‚‰
                 {
-                    Goaladd();                                                  //ƒS[ƒ‹”‚ğ1ã‚°‚é
-                    Itemobtain("ƒS[ƒ‹");                                       //ƒhƒƒbƒvƒ_ƒEƒ“‚ÉƒS[ƒ‹‚ğ’Ç‰Á
-                    Goalup = true;                                              //ƒS[ƒ‹‚ğ‚µ‚½Û‚ÌéŒ¾
+                    Goaladd();                                                  //ã‚´ãƒ¼ãƒ«æ•°ã‚’1ä¸Šã’ã‚‹
+                    Itemobtain("ã‚´ãƒ¼ãƒ«");                                       //ãƒ‰ãƒ­ãƒƒãƒ—ãƒ€ã‚¦ãƒ³ã«ã‚´ãƒ¼ãƒ«ã‚’è¿½åŠ 
+                    Goalup = true;                                              //ã‚´ãƒ¼ãƒ«ã‚’ã—ãŸéš›ã®å®£è¨€
                     stop = true;
                 }
-                if (week[yplay].day[xplay].GetComponent<Mass>().Open == false)  //~‚Ü‚Á‚½ƒ}ƒX‚ª‹ó‚¢‚Ä‚¢‚È‚©‚Á‚½‚ç
+                if (week[yplay].day[xplay].GetComponent<Mass>().Open == false)  //æ­¢ã¾ã£ãŸãƒã‚¹ãŒç©ºã„ã¦ã„ãªã‹ã£ãŸã‚‰
                 {
-                    GetComponent<MassEffect>().Effects( week[yplay].day[xplay].GetComponent<Mass>().Day);//ƒ}ƒX‚ÌŒø‰Ê‚Ì”­“®
-                    week[yplay].day[xplay].GetComponent<Mass>().Open = true;    //ƒ}ƒX‚ğŠJ‚¯‚½ó‘Ô‚É‚·‚é
+                    GetComponent<MassEffect>().Effects( week[yplay].day[xplay].GetComponent<Mass>().Day);//ãƒã‚¹ã®åŠ¹æœã®ç™ºå‹•
+                    week[yplay].day[xplay].GetComponent<Mass>().Open = true;    //ãƒã‚¹ã‚’é–‹ã‘ãŸçŠ¶æ…‹ã«ã™ã‚‹
                 }
                 
-                if (stop == true)                      //ƒ}ƒX‚Ìˆ—‚ªI—¹‚µ‚½‚ç
+                if (stop == true)                      //ãƒã‚¹ã®å‡¦ç†ãŒçµ‚äº†ã—ãŸã‚‰
                 {
                     step = 5;
                     stop = false;
                 }
                 break;
 
-            case 5://Ÿ‚Ìl‚Ì”Ô‚É
-                nextturn = true;        //ƒvƒŒƒCƒ„[‚Ìƒ^[ƒ“‚ğI—¹‚·‚é
+            case 5://æ¬¡ã®äººã®ç•ªã«
+                nextturn = true;        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¿ãƒ¼ãƒ³ã‚’çµ‚äº†ã™ã‚‹
                 step = 0;
                 break;
         }
@@ -134,17 +134,17 @@ public class PlayerStatus : MonoBehaviour
         PlayerNumber = Pnum; Name = n; Goalcount = G;
     }
 
-    public void SetName(string n)//–¼‘O‚ÌÄİ’è
+    public void SetName(string n)//åå‰ã®å†è¨­å®š
     {
         Name = n;
     }
 
-    public void Goaladd()//ƒS[ƒ‹‚Ì”ƒvƒ‰ƒX
+    public void Goaladd()//ã‚´ãƒ¼ãƒ«ã®æ•°ãƒ—ãƒ©ã‚¹
     {
         Goalcount++;
     }
 
-    public void Itemobtain(string Item)//‚±‚¢‚Â‚ğƒAƒCƒeƒ€‚Ì–¼‘O‚ÅŒÄ‚Ô‚Æƒhƒƒbƒvƒ_ƒEƒ“‚É“ü‚é
+    public void Itemobtain(string Item)//ã“ã„ã¤ã‚’ã‚¢ã‚¤ãƒ†ãƒ ã®åå‰ã§å‘¼ã¶ã¨ãƒ‰ãƒ­ãƒƒãƒ—ãƒ€ã‚¦ãƒ³ã«å…¥ã‚‹
     {
         HabItem.Add(Item);
         dropdown.options.Add(new Dropdown.OptionData { text = Item + DictionaryManager.ItemDictionary[Item][0] + "P" });
@@ -163,86 +163,86 @@ public class PlayerStatus : MonoBehaviour
 
     }
 
-    public void Itemadd(string IName)//ƒAƒCƒeƒ€‚Ìæ“¾
+    public void Itemadd(string IName)//ã‚¢ã‚¤ãƒ†ãƒ ã®å–å¾—
     {
         HabItem.Add(IName);
 
     }
 
-    public void SetPlayerMass(int x,int y)//ƒvƒŒƒCƒ„[‚ª‚Ç‚Ìƒ}ƒX‚É‚¢‚é‚©‹L‰¯
+    public void SetPlayerMass(int x,int y)//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã©ã®ãƒã‚¹ã«ã„ã‚‹ã‹è¨˜æ†¶
     {
         PX = x;
         PY = y;
     }
 
-    public int GetPlayerNumber()//ƒvƒŒƒCƒ„[”Ô†‚Ìo—Í
+    public int GetPlayerNumber()//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç•ªå·ã®å‡ºåŠ›
     {
         return PlayerNumber;
     }
 
-    public string GetName()//–¼‘O‚Ìo—Í
+    public string GetName()//åå‰ã®å‡ºåŠ›
     {
         return Name;
     }
 
-    public string GetItemName(int num)//‚Á‚Ä‚¢‚éƒAƒCƒeƒ€‚Ì–¼‘O
+    public string GetItemName(int num)//æŒã£ã¦ã„ã‚‹ã‚¢ã‚¤ãƒ†ãƒ ã®åå‰
     {
         return HabItem[num];
     }
     /*
-    public int GetItemPoint(int num)//‚Á‚Ä‚¢‚éƒAƒCƒeƒ€‚Ìƒ|ƒCƒ“ƒg
+    public int GetItemPoint(int num)//æŒã£ã¦ã„ã‚‹ã‚¢ã‚¤ãƒ†ãƒ ã®ãƒã‚¤ãƒ³ãƒˆ
     {
         return ItemPoint[num];
     }
     */
-    public int GetGaol()//ƒS[ƒ‹‚µ‚½”
+    public int GetGaol()//ã‚´ãƒ¼ãƒ«ã—ãŸæ•°
     {
         return Goalcount;
     }
 
-    public int PlayerX()//ƒvƒŒƒCƒ„[‚Ìƒ}ƒXÀ•WX‚ğo—Í
+    public int PlayerX()//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒã‚¹åº§æ¨™Xã‚’å‡ºåŠ›
     {
         return PX;
     }
-    public int PlayerY()//ƒvƒŒƒCƒ„[‚Ìƒ}ƒXÀ•WY‚ğo—Í
+    public int PlayerY()//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒã‚¹åº§æ¨™Yã‚’å‡ºåŠ›
     {
         return PY;
     }
     
 
-    private void MoveSelect(int dice)//ƒvƒŒƒCƒ„[‚ÌˆÚ“®‚Ì‘I‘ğ
+    private void MoveSelect(int dice)//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•ã®é¸æŠ
     {
 
         switch (Switchnum)
         {
-            case 0://ˆÚ“®‚Ì‚½‚ß‚Ì‰Šúİ’è
-                xplay = PlayerX();//‘I‘ğ‚Ì’†Sƒ}ƒX‚ğ“ü‚ê‚é(Å‰‚È‚Ì‚ÅƒvƒŒƒCƒ„[‚Ì‚¢‚éƒ}ƒX‚ğ“ü‚ê‚é)
+            case 0://ç§»å‹•ã®ãŸã‚ã®åˆæœŸè¨­å®š
+                xplay = PlayerX();//é¸æŠã®ä¸­å¿ƒãƒã‚¹ã‚’å…¥ã‚Œã‚‹(æœ€åˆãªã®ã§ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã„ã‚‹ãƒã‚¹ã‚’å…¥ã‚Œã‚‹)
                 yplay = PlayerY();
-                diceconter = dice;//ˆÚ“®o—ˆ‚éƒ}ƒX‚Ì”‚ğ“ü‚ê‚é
-                XLoot[diceconter] = xplay;//‘«Œ³‚Ìƒ}ƒX‚ğ‡”Ô‚É‹L‰¯‚·‚é
+                diceconter = dice;//ç§»å‹•å‡ºæ¥ã‚‹ãƒã‚¹ã®æ•°ã‚’å…¥ã‚Œã‚‹
+                XLoot[diceconter] = xplay;//è¶³å…ƒã®ãƒã‚¹ã‚’é †ç•ªã«è¨˜æ†¶ã™ã‚‹
                 YLoot[diceconter] = yplay;
-                week[yplay].day[xplay].GetComponent<Mass>().Decisionon();//ƒvƒŒƒCƒ„[‚Ì‘«Œ³‚ğŒˆ’èƒ}ƒX‚É•Ï‚¦‚é
+                week[yplay].day[xplay].GetComponent<Mass>().Decisionon();//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¶³å…ƒã‚’æ±ºå®šãƒã‚¹ã«å¤‰ãˆã‚‹
                 Switchnum = 1;
                 break;
 
-            case 1://ˆÚ“®o—ˆ‚éƒ}ƒX‚ğ•\¦‚·‚é
-                way[0] = yplay - 1; way[1] = yplay + 1; way[2] = xplay - 1; way[3] = xplay + 1;//‘I‘ğ‚Ì’†Sƒ}ƒX‚Ìl•û‚ÌÀ•W‚ğ“ü‚ê‚é 0:ã 1:‰º 2:¶ 3:‰E
+            case 1://ç§»å‹•å‡ºæ¥ã‚‹ãƒã‚¹ã‚’è¡¨ç¤ºã™ã‚‹
+                way[0] = yplay - 1; way[1] = yplay + 1; way[2] = xplay - 1; way[3] = xplay + 1;//é¸æŠã®ä¸­å¿ƒãƒã‚¹ã®å››æ–¹ã®åº§æ¨™ã‚’å…¥ã‚Œã‚‹ 0:ä¸Š 1:ä¸‹ 2:å·¦ 3:å³
                 for (int i = 0; i < 2; i++)
                 {
-                    if (0 <= way[i] && way[i] < week.Length && week[way[i]].day[xplay].GetComponent<Mass>().invalid == false && (XLoot[diceconter + 1], YLoot[diceconter + 1]) != (xplay, way[i]))//‘I‘ğ’†Sƒ}ƒX‚Ìã‰º‚Éƒ}ƒX‚Í‘¶İ‚µ‚Äˆê‚Â‘O‚É‘I‘ğ‚µ‚Ä‚¢‚È‚¢ƒ}ƒX‚©
+                    if (0 <= way[i] && way[i] < week.Length && week[way[i]].day[xplay].GetComponent<Mass>().invalid == false && (XLoot[diceconter + 1], YLoot[diceconter + 1]) != (xplay, way[i]))//é¸æŠä¸­å¿ƒãƒã‚¹ã®ä¸Šä¸‹ã«ãƒã‚¹ã¯å­˜åœ¨ã—ã¦ä¸€ã¤å‰ã«é¸æŠã—ã¦ã„ãªã„ãƒã‚¹ã‹
                     {
-                        week[way[i]].day[xplay].GetComponent<Mass>().Selecton();//ƒ}ƒX‚ğ‘I‘ğo—ˆ‚é‚Æ‚¢‚¤image‚ğ•\¦‚³‚¹‚é
+                        week[way[i]].day[xplay].GetComponent<Mass>().Selecton();//ãƒã‚¹ã‚’é¸æŠå‡ºæ¥ã‚‹ã¨ã„ã†imageã‚’è¡¨ç¤ºã•ã›ã‚‹
                     }
                 }
                 for (int i = 2; i < 4; i++)
                 {
-                    if (0 <= way[i] && way[i] < week[0].day.Length && week[yplay].day[way[i]].GetComponent<Mass>().invalid == false && (XLoot[diceconter + 1], YLoot[diceconter + 1]) != (way[i], yplay))//‘I‘ğ’†Sƒ}ƒX‚Ì¶‰E‚Éƒ}ƒX‚Í‘¶İ‚µ‚Äˆê‚Â‘O‚É‘I‘ğ‚µ‚Ä‚¢‚È‚¢ƒ}ƒX‚©
+                    if (0 <= way[i] && way[i] < week[0].day.Length && week[yplay].day[way[i]].GetComponent<Mass>().invalid == false && (XLoot[diceconter + 1], YLoot[diceconter + 1]) != (way[i], yplay))//é¸æŠä¸­å¿ƒãƒã‚¹ã®å·¦å³ã«ãƒã‚¹ã¯å­˜åœ¨ã—ã¦ä¸€ã¤å‰ã«é¸æŠã—ã¦ã„ãªã„ãƒã‚¹ã‹
                     {
-                        week[yplay].day[way[i]].GetComponent<Mass>().Selecton();//ƒ}ƒX‚ğ‘I‘ğo—ˆ‚é‚Æ‚¢‚¤image‚ğ•\¦‚³‚¹‚é
+                        week[yplay].day[way[i]].GetComponent<Mass>().Selecton();//ãƒã‚¹ã‚’é¸æŠå‡ºæ¥ã‚‹ã¨ã„ã†imageã‚’è¡¨ç¤ºã•ã›ã‚‹
                     }
                 }
                 if ((xplay, yplay) == (0, 1) || (xplay, yplay) == (13, 0) || (xplay, yplay) == (0, 9) || (xplay, yplay) == (12, 9))
-                {//‘I‘ğ’†Sƒ}ƒX‚ªƒ[ƒvƒ}ƒX‚É‚ ‚é‚É”½‰
+                {//é¸æŠä¸­å¿ƒãƒã‚¹ãŒãƒ¯ãƒ¼ãƒ—ãƒã‚¹ã«ã‚ã‚‹æ™‚ã«åå¿œ
                     week[1].day[0].GetComponent<Mass>().Selecton();
                     week[0].day[13].GetComponent<Mass>().Selecton();
                     week[9].day[0].GetComponent<Mass>().Selecton();
@@ -252,35 +252,35 @@ public class PlayerStatus : MonoBehaviour
                 Switchnum = 2;
                 break;
 
-            case 2://‘I‘ğo—ˆ‚éƒ}ƒX‚ªƒNƒŠƒbƒN‚³‚ê‚½‚»‚Ì”½‰
+            case 2://é¸æŠå‡ºæ¥ã‚‹ãƒã‚¹ãŒã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸãã®åå¿œ
 
                 for (int i = 0; i < 2; i++)
                 {
-                    if (0 <= way[i] && way[i] < week.Length && week[way[i]].day[xplay].GetComponent<Mass>().walk == true)//‘I‘ğ’†Sƒ}ƒX‚Ìã‰º‚Éƒ}ƒX‚Í‘¶İ‚µ‚ÄƒNƒŠƒbƒN‚³‚ê‚½‚©
+                    if (0 <= way[i] && way[i] < week.Length && week[way[i]].day[xplay].GetComponent<Mass>().walk == true)//é¸æŠä¸­å¿ƒãƒã‚¹ã®ä¸Šä¸‹ã«ãƒã‚¹ã¯å­˜åœ¨ã—ã¦ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã‹
                     {
-                        diceconter--;//ˆÚ“®o—ˆ‚éƒ}ƒX”‚ğˆê‚ÂŒ¸‚ç‚·
-                        yplay = way[i];//‘I‘ğ’†Sƒ}ƒX‚ğƒNƒŠƒbƒN‚µ‚½ƒ}ƒX‚ÉˆÚ‚·
-                        XLoot[diceconter] = xplay;//ˆÚ“®Œˆ’è‚µ‚½ƒ}ƒX‚ğ‡”Ô‚É‹L‰¯‚·‚é
+                        diceconter--;//ç§»å‹•å‡ºæ¥ã‚‹ãƒã‚¹æ•°ã‚’ä¸€ã¤æ¸›ã‚‰ã™
+                        yplay = way[i];//é¸æŠä¸­å¿ƒãƒã‚¹ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸãƒã‚¹ã«ç§»ã™
+                        XLoot[diceconter] = xplay;//ç§»å‹•æ±ºå®šã—ãŸãƒã‚¹ã‚’é †ç•ªã«è¨˜æ†¶ã™ã‚‹
                         YLoot[diceconter] = yplay;
-                        clearSelect();//‘I‘ğ‚Å‚«‚éƒ}ƒX‚Ì‘SÁ‹
+                        clearSelect();//é¸æŠã§ãã‚‹ãƒã‚¹ã®å…¨æ¶ˆå»
                     }
                 }
 
                 for (int i = 2; i < 4; i++)
                 {
-                    if (0 <= way[i] && way[i] < week[0].day.Length && week[yplay].day[way[i]].GetComponent<Mass>().walk == true)//‘I‘ğ’†Sƒ}ƒX‚Ì¶‰E‚Éƒ}ƒX‚Í‘¶İ‚µ‚ÄƒNƒŠƒbƒN‚³‚ê‚½‚©
+                    if (0 <= way[i] && way[i] < week[0].day.Length && week[yplay].day[way[i]].GetComponent<Mass>().walk == true)//é¸æŠä¸­å¿ƒãƒã‚¹ã®å·¦å³ã«ãƒã‚¹ã¯å­˜åœ¨ã—ã¦ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã‹
                     {
-                        diceconter--;//ˆÚ“®o—ˆ‚éƒ}ƒX”‚ğˆê‚ÂŒ¸‚ç‚·
-                        xplay = way[i];//‘I‘ğ’†Sƒ}ƒX‚ğƒNƒŠƒbƒN‚µ‚½ƒ}ƒX‚ÉˆÚ‚·
-                        XLoot[diceconter] = xplay;//ˆÚ“®Œˆ’è‚µ‚½ƒ}ƒX‚ğ‡”Ô‚É‹L‰¯‚·‚é
+                        diceconter--;//ç§»å‹•å‡ºæ¥ã‚‹ãƒã‚¹æ•°ã‚’ä¸€ã¤æ¸›ã‚‰ã™
+                        xplay = way[i];//é¸æŠä¸­å¿ƒãƒã‚¹ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸãƒã‚¹ã«ç§»ã™
+                        XLoot[diceconter] = xplay;//ç§»å‹•æ±ºå®šã—ãŸãƒã‚¹ã‚’é †ç•ªã«è¨˜æ†¶ã™ã‚‹
                         YLoot[diceconter] = yplay;
-                        clearSelect();//‘I‘ğ‚Å‚«‚éƒ}ƒX‚Ì‘SÁ‹
+                        clearSelect();//é¸æŠã§ãã‚‹ãƒã‚¹ã®å…¨æ¶ˆå»
                     }
                 }
-                Warpdecision(0, 1); //‰Eãƒ[ƒv‚ª‘I‘ğ‚³‚ê‚½‚É”½‰
-                Warpdecision(13, 0);//¶ãƒ[ƒv‚ª‘I‘ğ‚³‚ê‚½‚É”½‰
-                Warpdecision(0, 9); //‰E‰ºƒ[ƒv‚ª‘I‘ğ‚³‚ê‚½‚É”½‰
-                Warpdecision(12, 9);//¶‰ºƒ[ƒv‚ª‘I‘ğ‚³‚ê‚½‚É”½‰
+                Warpdecision(0, 1); //å³ä¸Šãƒ¯ãƒ¼ãƒ—ãŒé¸æŠã•ã‚ŒãŸæ™‚ã«åå¿œ
+                Warpdecision(13, 0);//å·¦ä¸Šãƒ¯ãƒ¼ãƒ—ãŒé¸æŠã•ã‚ŒãŸæ™‚ã«åå¿œ
+                Warpdecision(0, 9); //å³ä¸‹ãƒ¯ãƒ¼ãƒ—ãŒé¸æŠã•ã‚ŒãŸæ™‚ã«åå¿œ
+                Warpdecision(12, 9);//å·¦ä¸‹ãƒ¯ãƒ¼ãƒ—ãŒé¸æŠã•ã‚ŒãŸæ™‚ã«åå¿œ
 
                 if (diceconter > 0)
                 {
@@ -289,7 +289,7 @@ public class PlayerStatus : MonoBehaviour
                 else
                 {
                     Switchnum = 0;
-                    Debug.Log("‘I‘ğI—¹");
+                    Debug.Log("é¸æŠçµ‚äº†");
                     stop = true;
                 }
 
@@ -297,75 +297,75 @@ public class PlayerStatus : MonoBehaviour
         }
     }
 
-    private void Warpdecision(int x, int y)//ƒ[ƒvæ‚ğ‘I‘ğ‚µ‚½
+    private void Warpdecision(int x, int y)//ãƒ¯ãƒ¼ãƒ—å…ˆã‚’é¸æŠã—ãŸæ™‚
     {
         if (week[y].day[x].GetComponent<Mass>().walk == true)
         {
-            diceconter--;//ˆÚ“®o—ˆ‚éƒ}ƒX”‚ğˆê‚ÂŒ¸‚ç‚·
-            xplay = x;//‘I‘ğ’†Sƒ}ƒX‚ğƒNƒŠƒbƒN‚µ‚½ƒ}ƒX‚ÉˆÚ‚·
+            diceconter--;//ç§»å‹•å‡ºæ¥ã‚‹ãƒã‚¹æ•°ã‚’ä¸€ã¤æ¸›ã‚‰ã™
+            xplay = x;//é¸æŠä¸­å¿ƒãƒã‚¹ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸãƒã‚¹ã«ç§»ã™
             yplay = y;
-            XLoot[diceconter] = xplay;//ˆÚ“®Œˆ’è‚µ‚½ƒ}ƒX‚ğ‡”Ô‚É‹L‰¯‚·‚é
+            XLoot[diceconter] = xplay;//ç§»å‹•æ±ºå®šã—ãŸãƒã‚¹ã‚’é †ç•ªã«è¨˜æ†¶ã™ã‚‹
             YLoot[diceconter] = yplay;
-            clearSelect();//‘I‘ğ‚Å‚«‚éƒ}ƒX‚Ì‘SÁ‹
+            clearSelect();//é¸æŠã§ãã‚‹ãƒã‚¹ã®å…¨æ¶ˆå»
         }
     }
 
-    private void clearSelect()//‘I‘ğ‚Å‚«‚éƒ}ƒX‚Ì‘SÁ‹
+    private void clearSelect()//é¸æŠã§ãã‚‹ãƒã‚¹ã®å…¨æ¶ˆå»
     {
         for (int i = 0; i < week.Length; i++)
         {
             for (int l = 0; l < week[0].day.Length; l++)
             {
-                week[i].day[l].GetComponent<Mass>().Selectoff();//ƒ}ƒX‚ğ‘I‘ğo—ˆ‚é‚Æ‚¢‚¤image‚ğÁ‚·
-                week[i].day[l].GetComponent<Mass>().walk = false;//ƒNƒŠƒbƒN‚³‚ê‚½‚Æ‚¢‚¤”»’è‚ğÁ‚·
+                week[i].day[l].GetComponent<Mass>().Selectoff();//ãƒã‚¹ã‚’é¸æŠå‡ºæ¥ã‚‹ã¨ã„ã†imageã‚’æ¶ˆã™
+                week[i].day[l].GetComponent<Mass>().walk = false;//ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã¨ã„ã†åˆ¤å®šã‚’æ¶ˆã™
             }
         }
     }
 
-    private void MovePlayer()//ƒvƒŒƒCƒ„[‚ÌˆÚ“®
+    private void MovePlayer()//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•
     {
-        int oneLoot = 0;//‚»‚Ìƒ}ƒX‚ªˆÚ“®‚ÌÛˆê‰ñ‚µ‚©’Ê‚ç‚È‚¢‚È‚çtrue
+        int oneLoot = 0;//ãã®ãƒã‚¹ãŒç§»å‹•ã®éš›ä¸€å›ã—ã‹é€šã‚‰ãªã„ãªã‚‰true
         switch (Switchnum)
         {
             case 0:
-                xplay = PlayerX();//ƒvƒŒƒCƒ„[‚Ìƒ}ƒXÀ•W
+                xplay = PlayerX();//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒã‚¹åº§æ¨™
                 yplay = PlayerY();
                 diceconter = Move;
                 Switchnum = 1;
                 break;
 
             case 1:
-                for (int i = 0; i < Move + 1; i++)//ˆÚ“®‡”Ô‚Ìƒ}ƒX‚ª‚à‚¤ˆê“x“¯‚¶ƒ}ƒX‚ğ’Ê‚ç‚È‚¢‚È‚çoneLoot‚ªMove-1‚É‚È‚é
+                for (int i = 0; i < Move + 1; i++)//ç§»å‹•é †ç•ªã®ãƒã‚¹ãŒã‚‚ã†ä¸€åº¦åŒã˜ãƒã‚¹ã‚’é€šã‚‰ãªã„ãªã‚‰oneLootãŒMove-1ã«ãªã‚‹
                 {
                     if ((xplay, yplay) != (XLoot[i], YLoot[i]))
                     {
                         oneLoot++;
                     }
                 }
-                if (Move == oneLoot)//ˆÚ“®ƒ}ƒX‚ª“¯‚¶ƒ}ƒX‚ğ’Ê‚ç‚È‚¢‚È‚çŒˆ’èƒ}ƒX‚ªÁ‚¦‚é
+                if (Move == oneLoot)//ç§»å‹•ãƒã‚¹ãŒåŒã˜ãƒã‚¹ã‚’é€šã‚‰ãªã„ãªã‚‰æ±ºå®šãƒã‚¹ãŒæ¶ˆãˆã‚‹
                 {
-                    week[yplay].day[xplay].GetComponent<Mass>().Decisionoff();//‘«Œ³‚ÌŒˆ’èƒ}ƒXÁ‹
+                    week[yplay].day[xplay].GetComponent<Mass>().Decisionoff();//è¶³å…ƒã®æ±ºå®šãƒã‚¹æ¶ˆå»
                 }
                 else
                 {
-                    XLoot[diceconter] = -1;//‚·‚Å‚É’Ê‚Á‚½‚Æ‚±‚ë‚ª”½‰‚µ‚È‚¢‚æ‚¤‚É‚·‚é
+                    XLoot[diceconter] = -1;//ã™ã§ã«é€šã£ãŸã¨ã“ã‚ãŒåå¿œã—ãªã„ã‚ˆã†ã«ã™ã‚‹
                     YLoot[diceconter] = -1;
                 }
-                diceconter--;//ˆÚ“®‚·‚éƒ}ƒX–Ú”‚ğˆê‚ÂŒ¸‚ç‚·
-                PlayerMass(XLoot[diceconter], YLoot[diceconter]);//ƒvƒŒƒCƒ„[‚ğLoot‚É‹L‰¯‚³‚¹‚½‡”Ô‚ÉˆÚ“®‚³‚¹‚é
+                diceconter--;//ç§»å‹•ã™ã‚‹ãƒã‚¹ç›®æ•°ã‚’ä¸€ã¤æ¸›ã‚‰ã™
+                PlayerMass(XLoot[diceconter], YLoot[diceconter]);//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’Lootã«è¨˜æ†¶ã•ã›ãŸé †ç•ªã«ç§»å‹•ã•ã›ã‚‹
 
-                if (xplay == XLoot[diceconter] && yplay > YLoot[diceconter]) { Debug.Log("ã" + diceconter); }//ã‚ÉˆÚ“®‚Ì‚É”½‰(ƒAƒjƒ[ƒVƒ‡ƒ“—pH)
-                if (xplay == XLoot[diceconter] && yplay < YLoot[diceconter]) { Debug.Log("‰º" + diceconter); }
-                if (xplay > XLoot[diceconter] && yplay == YLoot[diceconter]) { Debug.Log("¶" + diceconter); }
-                if (xplay < XLoot[diceconter] && yplay == YLoot[diceconter]) { Debug.Log("‰E" + diceconter); }
+                if (xplay == XLoot[diceconter] && yplay > YLoot[diceconter]) { Debug.Log("ä¸Š" + diceconter); }//ä¸Šã«ç§»å‹•ã®æ™‚ã«åå¿œ(ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç”¨ï¼Ÿ)
+                if (xplay == XLoot[diceconter] && yplay < YLoot[diceconter]) { Debug.Log("ä¸‹" + diceconter); }
+                if (xplay > XLoot[diceconter] && yplay == YLoot[diceconter]) { Debug.Log("å·¦" + diceconter); }
+                if (xplay < XLoot[diceconter] && yplay == YLoot[diceconter]) { Debug.Log("å³" + diceconter); }
 
-                xplay = XLoot[diceconter];//ƒvƒŒƒCƒ„[‚Ì‚¢‚éƒ}ƒX‚ğ‹L‰¯
+                xplay = XLoot[diceconter];//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã„ã‚‹ãƒã‚¹ã‚’è¨˜æ†¶
                 yplay = YLoot[diceconter];
 
                 if (diceconter == 0)
                 {
-                    Debug.Log("I‚í‚Á‚Ä‚é");
-                    week[yplay].day[xplay].GetComponent<Mass>().Decisionoff();//‘«Œ³‚ÌŒˆ’èƒ}ƒXÁ‹
+                    Debug.Log("çµ‚ã‚ã£ã¦ã‚‹");
+                    week[yplay].day[xplay].GetComponent<Mass>().Decisionoff();//è¶³å…ƒã®æ±ºå®šãƒã‚¹æ¶ˆå»
                     Switchnum = 0;
                     stop = true;
                 }
@@ -374,14 +374,14 @@ public class PlayerStatus : MonoBehaviour
 
     }
 
-    private void PlayerMass(int x, int y)//ƒvƒŒƒCƒ„[‚ğƒ}ƒXÀ•WˆÚ“®‚³‚¹‚é(“ú•tƒ[ƒv‚Ég‚¦‚é)
+    private void PlayerMass(int x, int y)//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ãƒã‚¹åº§æ¨™ç§»å‹•ã•ã›ã‚‹(æ—¥ä»˜ãƒ¯ãƒ¼ãƒ—ã«ä½¿ãˆã‚‹)
     {
-        transform.position = week[y].day[x].transform.position;//w’è‚µ‚½ƒ}ƒX‚Ìã‚ÉƒvƒŒƒCƒ„[‚ğˆÚ“®‚·‚é
-        SetPlayerMass(x, y);//ƒvƒŒƒCƒ„[‚ª‚Ç‚Ìƒ}ƒX‚É‚¢‚é‚©‹L‰¯‚·‚é
+        transform.position = week[y].day[x].transform.position;//æŒ‡å®šã—ãŸãƒã‚¹ã®ä¸Šã«ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ç§»å‹•ã™ã‚‹
+        SetPlayerMass(x, y);//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã©ã®ãƒã‚¹ã«ã„ã‚‹ã‹è¨˜æ†¶ã™ã‚‹
     }
 
 
-    public void stopon()//ƒ_ƒCƒX‚ğ~‚ß‚é
+    public void stopon()//ãƒ€ã‚¤ã‚¹ã‚’æ­¢ã‚ã‚‹
     {
         stop = true;
     }
@@ -390,7 +390,7 @@ public class PlayerStatus : MonoBehaviour
 
 
 [System.Serializable]
-public class days//week‚ÌqE‰¡—ñ‚ÌƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+public class days//weekã®å­ãƒ»æ¨ªåˆ—ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
 {
     public GameObject[] day;
 }

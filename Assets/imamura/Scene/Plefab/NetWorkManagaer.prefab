@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca248067f324bdd48a9449785e1283ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneManagerOj: {fileID: 6951032315310092053, guid: bf3e32786e448f043bf0fcfbaa8c8894, type: 3}
+  SceneManagerOj: {fileID: 0}
   inputField: {fileID: 0}
   PlayerName: {fileID: 0}
   RoomText:
@@ -53,4 +53,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   RoomBotton: []
+  playerStatasIMamura: {fileID: 0}
+  PlayerIdVew: 0
+  PlayerNameVew: 
+  parent: {fileID: 0}
   CanJoinRoom: 
