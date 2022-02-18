@@ -9,23 +9,12 @@ public class PlayerStatasOkura : MonoBehaviourPunCallbacks
 {
     private int PlayerNumber;//プレイヤーの番号
     private string Name;//名前
-    public static List<string> HabItem ;//持っているアイテム
+    public List<string> HabItem = new List<string>() {"ゴール", "牛タン","ハンバーガー", "牛タン" };//持っているアイテム
     private int Goalcount = 0; //ゴールした数
     private int PX, PY;//プレイヤーのマス座標
-    public GameObject Play;
-
-    [SerializeField]
-    private Dropdown dropdown;
-    public int PlayerIdVew;
-    public string PlayerNameVew;
-
-
 
     void Start()
     {
-        PlayerIdVew = photonView.OwnerActorNr;
-        PlayerNameVew = photonView.Owner.NickName;
-        Itemobtain("");
     }
 
 
@@ -42,8 +31,6 @@ public class PlayerStatasOkura : MonoBehaviourPunCallbacks
     public void Itemobtain(string Item)
     {
         HabItem.Add(Item);
-        dropdown.options.Add(new Dropdown.OptionData { text = Item + DictionaryManager.ItemDictionary[Item][0] + "P" });
-        dropdown.RefreshShownValue();
     }
 
     
