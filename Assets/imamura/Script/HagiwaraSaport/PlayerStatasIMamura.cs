@@ -27,12 +27,23 @@ public class PlayerStatasIMamura : MonoBehaviourPunCallbacks
     {
         PlayerIdVew = photonView.OwnerActorNr;　　//プレイヤーのIDの同期
         PlayerNameVew = photonView.Owner.NickName;//プレイヤーの名前の同期
-        SetPlayernumShorten();                    //アイテムリストUIとプレイヤーの同期
+        SetPlayernumShorten();                    //アイテムリストUIとプレイヤーの同期[
+
+        this.name = photonView.Owner.NickName;
+
+       
+
+
     }
 
     public async void SetPlayernumShorten()//アイテムリストUIの同期
     {
         await Task.Delay(50);//一気に複数のプレイヤーとアイテムリストの同期をするための一時停止
+
+
+
+
+
 
         int loop = 1;//アイテムリストの初期値
         foreach (var PList in PhotonNetwork.PlayerList)//プレイヤーリストの内容を順番に格納
