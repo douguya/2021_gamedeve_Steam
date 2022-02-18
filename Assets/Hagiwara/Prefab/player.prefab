@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2689861764392075146}
   - component: {fileID: 2689861764392075145}
+  - component: {fileID: 35755917982148759}
+  - component: {fileID: -6160423328859353163}
   - component: {fileID: 6940832895621703888}
   m_Layer: 0
   m_Name: player
@@ -83,6 +85,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &35755917982148759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2689861764392075144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1c15142f279a4840b70030a1e4a9cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-6160423328859353163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2689861764392075144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7596f4fde3b72874abee8cd31184791f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &6940832895621703888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,3 +126,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6300c687fd7df9f4ab24483569671886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: 
+  HabItem: []
+  Play: {fileID: 0}
+  dropdown: {fileID: 0}
+  dice: {fileID: 0}
+  initialX: 0
+  initialY: 0
+  week: []
+  step: 0
+  speed: 0.5
