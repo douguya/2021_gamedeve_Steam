@@ -71,6 +71,8 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
          {0,9},
          {0,9},
     };
+
+
        // Debug.Log(Position.GetLength());
         Gamemanager = GameObject.Find("GameControl");
         PlayerIdVew = photonView.OwnerActorNr;　　//プレイヤーのIDの同期
@@ -461,8 +463,8 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
                 dropdown.RefreshShownValue();//アイテムリストUIの更新
 
                 Debug.Log("aaaaaaaaaaaaaaa"+Position[0, 0]);
-                PX = Position[loop - 1, 0];
-                PY = Position[loop - 1, 1];
+                PlayerMass(Position[loop-1, 0], Position[loop-1,1]);
+            
 
                 this.name = "Player" + loop;
                 Gamemanager.GetComponent<sugorokuManager>().Player[loop] = this.gameObject;

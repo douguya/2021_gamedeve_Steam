@@ -75,7 +75,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         GameObject blockTile = PhotonNetwork.Instantiate("playerAA", position, Quaternion.identity);
         position = new Vector3(-303.5f, -71f);
         await Task.Delay(400);
-        blockTile.name = PhotonNetwork.LocalPlayer.NickName;
+       
     }
     public override void OnJoinRoomFailed(short returnCode, string message)//•”‰®‚É“ü‚ê‚È‚©‚Á‚½‚Æ‚«
     {
