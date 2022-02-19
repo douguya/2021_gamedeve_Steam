@@ -8,6 +8,7 @@ public class Mass : MonoBehaviour
     public bool Goal;//マスがゴールかどうか
     public bool invalid;//そのマスが存在するかどうか
     public bool walk;//onClickされたかどうか調べる
+    public string Day;//マスは何日か
 
     public GameObject GoalFlag;//ゴールの丸表示用
     public GameObject hako;//マスの表示用
@@ -62,8 +63,12 @@ public class Mass : MonoBehaviour
 
     public void onClick()
     {
-        if(select.activeSelf == true)
+        Debug.Log("AAA");
+        if (select.activeSelf == true)
         {
+            
+
+
             Selectoff();
             Decisionon();
             walk = true;

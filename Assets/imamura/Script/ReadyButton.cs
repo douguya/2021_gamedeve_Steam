@@ -7,156 +7,113 @@ using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 
-
-
-
 public class ReadyButton : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
 
     [SerializeField]
-    bool Ready = false;
-    GameObject ReadyBotton;
-    public GameObject GameStart;
-    public Text ReadyText;
-    public string Ready_Txt;
-    public int ReadyPlayerNum = 0;
-    public  Hashtable hashtable = new Hashtable();
+    bool Ready = false;　　　　//準備状態
+    GameObject ReadyBotton;　　//準備完了ボタンへのアクセス
+    public GameObject GameStart;//ゲームスタートボタンの実装
+    public Text ReadyText;　　　//準備完了ボタンのテキスト
+    public string Ready_Txt;　　//準備完了ボタンのテキスト代入用文字列　見やすくする用
+    public int ReadyPlayerNum = 0;//準備完了したプレイヤーの人数
+    public Hashtable hashtable = new Hashtable();//カスタムプロパティのリスト
 
     void Start()
     {
         // var properties = new ExitGames.Client.Photon.Hashtable();
-  
+
         //  PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("OOOOOOOOOOOOOOOOOO");
-
-        //  ReadyText.text =(string) PhotonNetwork.CurrentRoom.CustomProperties["ReadyPlayerNum"];
+  
     }
 
-
-
-    public void RedayChange()
+    public void RedayChange()//準備状態の変遷用
     {
-        // int ReadyPlayerNum = (int)PhotonNetwork.CurrentRoom.CustomProperties["ReadyPlayerNum"];
-
-
-
-
-        if (Ready == false)
+        if (Ready == false)//準備を完了していないときに起動したら
         {
-            hashtable["ReadyPlayerNum"] = true;
-          
-            Ready = true;
+            hashtable["ReadyPlayerNum"] = true;//準備を完了する:カスタムプロパティ
+            Ready = true;//準備を完了する
         }
-        else if (Ready == true)
+        else if (Ready == true)//準備を完了しているときに起動したら
         {
-            hashtable["ReadyPlayerNum"] = false;
-    
-            Ready = false;
+            hashtable["ReadyPlayerNum"] = false;//準備しなおす：カスタムプロパティ
+            Ready = false;//準備をし直す
         }
-
-
-       
-
-
-
-        Debug.Log("999999999999999999999999"+PhotonNetwork.LocalPlayer);
-        PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
-     
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);//変更したカスタムプロパティの更新
     }
 
 
 
-
-    public override void OnPlayerPropertiesUpdate (Player player, Hashtable propertiesThatChanged)
+    //カスタムプロパィが更新された際のコールバック
+     public override void OnPlayerPropertiesUpdate(Player player, Hashtable propertiesThatChanged)
     {
 
         int loop = 0;
-        foreach (var p in PhotonNetwork.PlayerList)
+        foreach (var p in PhotonNetwork.PlayerList)//プレイヤー全員のカスタムプロパティ：準備状態の集計
         {
-            
-           // Debug.Log("AAAAAAAAAA" + hashtable["ReadyPlayerNum"]);
-            if ((bool)p.CustomProperties["ReadyPlayerNum"] == true)
+            if ((bool)p.CustomProperties["ReadyPlayerNum"] == true)//ｐ番目のプレイヤーの準備が完了しているなら
             {
-               Debug.Log("BBBBBBBBBB"+ p+ propertiesThatChanged["ReadyPlayerNum"]);
-                loop++; 
+                loop++;//人数をカウント
             }
-           
+        }
+      //テキスト　=準備完了人数/プレイヤー全体の人数
+        Ready_Txt = loop + "/ " + PhotonNetwork.PlayerList.Length;//準備完了テキスト：見やすくするためにここでまとめる
+
+        if (Ready == false)//当プレイヤーの準備ができていない
+        {
+            ReadyText.text = "準備を完了する" + Ready_Txt;//準備完了を待つテキストへ変更
+        }
+        else if (Ready == true) //当プレイヤーの準備ができている
+        {
+            ReadyText.text = "準備に戻る" + Ready_Txt;//再度準備に戻るテキストへ変更
         }
 
-
-        Ready_Txt = loop + "/ " + PhotonNetwork.PlayerList.Length;
-
-        if (Ready == false)
+        if (PhotonNetwork.PlayerList.Length == loop) //準備完了人数と プレイヤー全体の人数が同じとき
         {
-            ReadyText.text = "準備を完了する" + Ready_Txt;
-        }
-        else if (Ready == true)
-        {
-            ReadyText.text = "準備に戻る" + Ready_Txt;
-        }
-
-        if (PhotonNetwork.PlayerList.Length == loop)
-        {
-            if (PhotonNetwork.LocalPlayer.IsMasterClient)
+            if (PhotonNetwork.LocalPlayer.IsMasterClient)//そのうえでプレイヤーがマスタークライアントである場合
             {
-                GameStart.SetActive(true);
+                GameStart.SetActive(true);//ゲームスタートボタンの出現
             }
         }
         else
         {
-            GameStart.SetActive(false);
+            GameStart.SetActive(false);//ゲームスタートボタンの消失
         }
 
-
-
     }
 
 
 
 
 
-    public override void OnPlayerLeftRoom(Player otherPlayer)
+    public override void OnPlayerLeftRoom(Player otherPlayer)//他のプレイヤーが退出した場合
     {
 
-        PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
-        OnRoomPropertiesUpdate(hashtable);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);//上下どっちかいらない　時間があったら試す
+        OnRoomPropertiesUpdate(hashtable);//カスタムプロパティを更新（準備完了状況の反映）
     }
-    public override void OnJoinedRoom()
+    public override void OnJoinedRoom()//自身がルームに入ったとき
     {
-      
-        hashtable["ReadyPlayerNum"] = false;
-        Debug.Log(hashtable["ReadyPlayerNum"]);
-      
-         Debug.Log(hashtable["ReadyPlayerNum"]);
-        PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
-        OnRoomPropertiesUpdate(hashtable);
-   
-        Debug.Log("へうあにはいったよおおおおおおおお");
-
-
+        hashtable["ReadyPlayerNum"] = false;//カスタムプロパティのセッティング　初手なのでfalse
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);//更新
+        OnRoomPropertiesUpdate(hashtable);////カスタムプロパティを更新（準備完了状況の反映）
     }
 
-    public void GameStartn()
+    public void GameStartn()//ゲームスタートボタンがらGamestartToRPCを起動する用
     {
-
         photonView.RPC(nameof(GamestartToRPC), RpcTarget.All);
-
-
     }
-
 
     [PunRPC]
-    public void GamestartToRPC()
+    public void GamestartToRPC()//ゲームスタート
     {
-        Debug.Log("ゲームスタート＝＝＝＝＝＝＝＝＝＝＝＝＝");
-
-        ReadyText.text = "バーカバーカ";
+        ReadyText.text = "ゲーム中";
 
     }
 
