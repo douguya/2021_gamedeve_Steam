@@ -171,6 +171,8 @@ MonoBehaviour:
   Itemadd: {fileID: 503957496}
   display: {fileID: 425899202}
   interval: -30
+  players: {fileID: 0}
+  OriginalItem: []
 --- !u!1 &330368170
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,6 +457,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 444113404}
   m_CullTransparentMesh: 1
+--- !u!1 &448553781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 448553783}
+  - component: {fileID: 448553782}
+  m_Layer: 0
+  m_Name: Player1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &448553782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448553781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 987f447cd27163c41bb1b52738cdf602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HabItem: []
+--- !u!4 &448553783
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448553781}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.7941785, y: -3.444586, z: 83.78924}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &503957493
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,7 +726,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: "\u30B4\u30FC\u30EB"
+          m_StringArgument: "\u30CF\u30F3\u30D0\u30FC\u30AC\u30FC"
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &699338591
@@ -870,7 +916,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30B4\u30FC\u30EB"
+  m_Text: "\u30CF\u30F3\u30D0\u30FC\u30AC\u30FC"
 --- !u!222 &1318983731
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1095,7 +1141,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u3042\u304B\u3055\u305F\u306A"
+  m_Text: 
 --- !u!222 &2054906933
 CanvasRenderer:
   m_ObjectHideFlags: 0
