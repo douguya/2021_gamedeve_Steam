@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class sugorokuManager : MonoBehaviour
+public class sugorokuManager : MonoBehaviourPunCallbacks
 {
+
     private int XGoal, YGoal;                       //ゴールの座標
     
     public GameObject[] Player = new GameObject[4]; //プレイヤーオブジェクト取得
@@ -32,44 +35,8 @@ public class sugorokuManager : MonoBehaviour
 
         if (gamestart)
         {
-            switch (Playerturn)
-            {
-                case 0:
-                    Player[play].GetComponent<PlayerStatus>().step = 1;             //プレイヤーをコントロール出来るようにする
-                    Playerturn = 1;
-                    break;
+            photonView.RPC(nameof(SugorokuTUrntoRPC), RpcTarget.All);
 
-                case 1:
-                    if (Player[play].GetComponent<PlayerStatus>().Goalup == true)   //もしこの手番にゴールしていたら
-                    {
-                        Player[play].GetComponent<PlayerStatus>().Goalup = false;   //ゴール宣言取り消し
-                        GoalAgain();                                                //ゴールの再設置
-                    }
-                    if (Player[play].GetComponent<PlayerStatus>().GetGaol() == 4)   //ゴールした数が４なら
-                    {
-                        Playerturn = 3;                                             //ゲーム終了
-                    }
-                    if (Player[play].GetComponent<PlayerStatus>().nextturn == true) //プレイヤーがターンを終了していたら
-                    {
-                        Player[play].GetComponent<PlayerStatus>().nextturn = false;
-                        Playerturn = 2;
-                        play++;                                                    //次のプレイヤーの番にする
-                    }
-                    break;
-
-                case 2:
-                    Playerturn = 0;
-                    if (play >= Playcount)//プレイヤー参加人数を超えたら
-                    {
-                        play = 0;     //プレイヤー0の手番になる
-                    }
-                    break;
-
-                case 3:
-                    //ゲーム終了
-                    Debug.Log("ゲーム終了");
-                    break;
-            }
         }
     }
 
@@ -141,12 +108,61 @@ public class sugorokuManager : MonoBehaviour
 
     }
 
+  
+       
+    
 
 
 
 
+    [PunRPC]
+    public void SugorokuTUrntoRPC()
+    {
+        switch (Playerturn)
+        {
+            case 0:
+                Player[play].GetComponent<PlayerStatus>().step = 1;             //プレイヤーをコントロール出来るようにする
+                Playerturn = 1;
+                break;
 
+            case 1:
+                if (Player[play].GetComponent<PlayerStatus>().Goalup == true)   //もしこの手番にゴールしていたら
+                {
+                    Player[play].GetComponent<PlayerStatus>().Goalup = false;   //ゴール宣言取り消し
+                    GoalAgain();                                                //ゴールの再設置
+                }
+                if (Player[play].GetComponent<PlayerStatus>().GetGaol() == 4)   //ゴールした数が４なら
+                {
+                    Playerturn = 3;                                             //ゲーム終了
+                }
+                
+                if (Player[play].GetComponent<PlayerStatus>().returnhash() == true) //プレイヤーがターンを終了していたら
+                {
+
+                    Player[play].GetComponent<PlayerStatus>().TurnEnd();
+                    Playerturn = 2;
+                    play++;                                                    //次のプレイヤーの番にする
+                }
+                
+                break;
+
+            case 2:
+                Playerturn = 0;
+                if (play >= Playcount)//プレイヤー参加人数を超えたら
+                {
+                    play = 0;     //プレイヤー0の手番になる
+                }
+                break;
+
+            case 3:
+                //ゲーム終了
+                Debug.Log("ゲーム終了");
+                break;
+        }
+    }
 }
+
+
 [System.Serializable]
 public class Width//weekの子・横列のオブジェクトの取得
 {

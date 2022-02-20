@@ -18,10 +18,27 @@ public class MassEffect : MonoBehaviour
 
     public void Effects(string day)
     {
-        switch(DictionaryManager.DayEffectictDictionary[day][0, 1])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Debug.Log(DictionaryManager.DayEffectictDictionary[day][0]);
+       // Debug.Log("RRRRRRRRRRRRR" + DictionaryManager.DayEffectictDictionary[day][0,0]);
+        switch (DictionaryManager.EffectictCategoryDictionary[DictionaryManager.DayEffectictDictionary[day][0]][0])
         {
             case "ƒAƒCƒeƒ€":
-                GetItem( DictionaryManager.DayEffectictDictionary[day][0, 2]);
+                GetItem( DictionaryManager.EffectictCategoryDictionary[DictionaryManager.DayEffectictDictionary[day][0]][1]);
                 step();
                 break;
 
