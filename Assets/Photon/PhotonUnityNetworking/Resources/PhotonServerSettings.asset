@@ -42,6 +42,9 @@ MonoBehaviour:
   - Itemobtain
   - ItemobtainToRPC
   - GamestartToRPC
+  - PlayerNameShare
+  - RoomID
+  - SugorokuTUrntoRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
