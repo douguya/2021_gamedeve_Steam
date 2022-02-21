@@ -52,7 +52,7 @@ public class imamuraDice : MonoBehaviour
 
     public void StopDiceBotton()//ƒ{ƒ^ƒ“‚©‚ç–³—‚â‚è‹N“®‚·‚æ‚¤
     {
-       // StopDice();
+        StopDice();
         Debug.Log(StopDice());
 
     }

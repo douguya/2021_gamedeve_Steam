@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Threading.Tasks;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerStatus : MonoBehaviourPunCallbacks
 {
@@ -24,8 +25,8 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
     public string PlayerNameVew;//プレイヤーの名前
     public int HowPlayer;       //何人プレイヤーがいるかの閲覧用
     public Button Botton;　　　 //動作テスト用ボタンへのアクセス用
-
-
+    public Button StopDice;    //動作テスト用ボタンへのアクセス用
+    public Hashtable hashPlaySTatas = new Hashtable();
 
 
     public GameObject dice;                         //ダイスを取得
@@ -65,15 +66,9 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        Position = new int[4, 2] {
-         {0,0} ,
-         {13,0},
-         {0,9},
-         {0,9},
-    };
 
 
-       // Debug.Log(Position.GetLength());
+        // Debug.Log(Position.GetLength());
         Gamemanager = GameObject.Find("GameControl");
         PlayerIdVew = photonView.OwnerActorNr;　　//プレイヤーのIDの同期
         PlayerNameVew = photonView.Owner.NickName;//プレイヤーの名前の同期
@@ -81,8 +76,33 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
 
 
 
+        dice = GameObject.Find("Dice");
+        if (photonView.IsMine)//PListがプレイヤーのものなら
+        {   
+            hashPlaySTatas["nextturn"] = true;
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hashPlaySTatas);
+       
 
-     
+            StopDice = GameObject.Find("Stop").GetComponent<Button>();//テスト用ボタンへのアクセス用
+            StopDice.GetComponent<Button>().onClick.AddListener( stopon);//テスト用ボタンへの関数追加
+        }
+
+    
+
+        Position = new int[4, 2] {
+         {0,0} ,
+         {13,0},
+         {0,9},
+         {0,9},
+        };
+
+
+
+        
+
+
+
+
 
 
         for (int loop = 0; loop < 10; loop++)
@@ -165,6 +185,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
                     }
                     if (week[yplay].width[xplay].GetComponent<Mass>().Open == false)  //止まったマスが空いていなかったら
                     {
+                       // Debug.Log("WWWWWWWWWWWWWWWW"+week[yplay].width[xplay].GetComponent<Mass>().Day);
                         GetComponent<MassEffect>().Effects(week[yplay].width[xplay].GetComponent<Mass>().Day);//マスの効果の発動
                         week[yplay].width[xplay].GetComponent<Mass>().Open = true;    //マスを開けた状態にする
                     }
@@ -177,8 +198,10 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
                     break;
 
                 case 5://次の人の番に
-                    nextturn = true;        //プレイヤーのターンを終了する
-                    step = 0;
+
+                hashPlaySTatas["nextturn"] = true;//カスタムプロパティのセッティング　
+                PhotonNetwork.LocalPlayer.SetCustomProperties(hashPlaySTatas);//更新        //プレイヤーのターンを終了する
+                step = 0;
                     break;
             }
         
@@ -462,12 +485,17 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
                 dropdown.options.Add(new Dropdown.OptionData { text = "" + PlayerNameVew });//アイテムリストのラベル付け
                 dropdown.RefreshShownValue();//アイテムリストUIの更新
 
-                Debug.Log("aaaaaaaaaaaaaaa"+Position[0, 0]);
+                Debug.Log("aaaaaaaaaaaaaaa" + Position[loop - 1, 0]+ Position[loop - 1, 1]);
                 PlayerMass(Position[loop-1, 0], Position[loop-1,1]);
-            
+                this.name = "Player" + (loop-1);
+                Debug.Log("aaaaaaaaaaaaaaa" + this.name);
+                Gamemanager.GetComponent<sugorokuManager>().Player[loop-1] = this.gameObject;
 
-                this.name = "Player" + loop;
-                Gamemanager.GetComponent<sugorokuManager>().Player[loop] = this.gameObject;
+
+
+
+
+
                 //テスト用ボタンのセッティング
                 if (photonView.IsMine)//PListがプレイヤーのものなら
                 {
@@ -481,6 +509,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)//他のプレイヤーがいなくなった時のコールバック
     {
+
         //アイテムリストUIの更新のための全体初期化
         for (int loop = 1; loop < 5; loop++)
         {
@@ -491,6 +520,57 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
 
         SetPlayernumShorten();//改めてのアイテムリストUIの同期
     }
+    public override void OnJoinedRoom()//自身がルームに入ったとき
+    {
+        hashPlaySTatas["nextturn"] = false;//カスタムプロパティのセッティング　
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hashPlaySTatas);//更新        /
+   
+    
+    }
+
+    public void TurnUp()
+    {
+
+        hashPlaySTatas["nextturn"] = true;//カスタムプロパティのセッティング　初手なのでfalse
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hashPlaySTatas);//更新
+
+    }
+    public void TurnEnd()
+    {
+
+        hashPlaySTatas["nextturn"] = false;//カスタムプロパティのセッティング　初手なのでfalse
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hashPlaySTatas);//更新
+
+    }
+
+    /*
+    public override void OnPlayerPropertiesUpdate(Player player, Hashtable propertiesThatChanged)
+    {
+        foreach (var p in PhotonNetwork.PlayerList)//プレイヤー全員のカスタムプロパティ：準備状態の集計
+        {
+
+            Debug.Log((bool)p.CustomProperties["nextturn"]);
+        }
+
+      
+
+
+
+    }
+    */
+       public bool returnhash()
+   {
+
+     
+        bool kariy= (bool)PhotonNetwork.LocalPlayer.CustomProperties["nextturn"];
+        return kariy;// カスタムプロパティのセッティング　初手なのでfalse
+        // PhotonNetwork.LocalPlayer.SetCustomProperties(hashPlaySTatas);//更新
+
+    }
+
+
+
+
 
 
     public void Itemobtain(string Item)//アイテムを手に入れた場合の関数を呼び出す
@@ -502,6 +582,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
     public void ItemobtainToRPC(string Item)//アイテムを手に入れた場合の関数
     {
         HabItem.Add(Item);//Itemのリストへの追加
+        Debug.Log("AAAA"+Item);
         dropdown.options.Add(new Dropdown.OptionData { text = Item + DictionaryManager.ItemDictionary[Item][0] + "P" });//アイテムとそのポイントをアイテムリストUIに追加
         dropdown.RefreshShownValue();//アイテムリストUIの更新
     }
