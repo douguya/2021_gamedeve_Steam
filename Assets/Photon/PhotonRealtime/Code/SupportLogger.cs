@@ -340,7 +340,6 @@ namespace Photon.Realtime
         public void OnCreatedRoom()
         {
             Debug.Log(this.GetFormattedTimestamp() + " SupportLogger OnCreatedRoom(" + this.client.CurrentRoom + "). " + this.client.CurrentLobby + " GameServer:" + this.client.GameServerAddress);
-                                                     
         }
 
         public void OnLeftRoom()

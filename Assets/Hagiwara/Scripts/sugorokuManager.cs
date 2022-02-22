@@ -1,179 +1,174 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class sugorokuManager : MonoBehaviour
+public class sugorokuManager : MonoBehaviourPunCallbacks
 {
-    private GameObject[,] mass = new GameObject[14,10];//マスの格納
-    private int XGoal,YGoal;//ゴールの座標
-    public GameObject obj;//プレハブのMassを取得
-    public GameObject June;
-    public GameObject July;
-    public GameObject August;
-    public GameObject September;
+
+    private int XGoal, YGoal;                       //ゴールの座標
+    
+    public GameObject[] Player = new GameObject[4]; //プレイヤーオブジェクト取得
+    public Width[] height=new Width[10];                             //Massの縦列のオブジェクトの取得・一番下で二次元配列にしている
+    private int Playerturn = 0;                     //プレイヤーの手番管理
+    
+    private int Playcount = 0;                      //プレイヤーの参加人数
+    private int play = 0;                           //誰の番か
+
+
+    private bool gamestart = false;
 
     void Start()
     {
-        float x = -2.25f;
-        float y = 1.2f;
-        int count = 0;
-        for(int i =0;i < 5; i++)//6月の生成
-        {
-            for (int l = 0; l < 7; l++)
-            {
-                mass[l, i] = Instantiate(obj, new Vector3(x, y, 0.0f), Quaternion.identity);//マスを指定座標への生成and格納
-                mass[l, i].transform.parent = June.transform;//6月の子として生成
-                x = x + 0.75f;
-                count++;
-            }
-            y = y - 0.6f;
-            x = -2.25f;
-        }
-
-        y = 1.2f;
-        for (int i = 0; i < 5; i++)//7月の生成
-        {
-            for (int l = 7; l < 14; l++)
-            {
-                mass[l, i] = Instantiate(obj, new Vector3(x, y, 0.0f), Quaternion.identity);//マスを指定座標への生成and格納
-                mass[l, i].transform.parent = July.transform;//7月の子として生成
-                x = x + 0.75f;
-                count++;
-            }
-            y = y - 0.6f;
-            x = -2.25f;
-        }
+    
         
-        y = 1.2f;
-        for (int i = 5; i < 10; i++)//8月の生成
-        {
-            for (int l = 0; l < 7; l++)
-            {
-                mass[l, i] = Instantiate(obj, new Vector3(x, y, 0.0f), Quaternion.identity);//マスを指定座標への生成and格納
-                mass[l, i].transform.parent = August.transform;//8月の子として生成
-                x = x + 0.75f;
-                count++;
-            }
-            y = y - 0.6f;
-            x = -2.25f;
-        }
 
-        y = 1.2f;
-        for (int i = 5; i < 10; i++)//9月の生成
-        {
-            for (int l = 7; l < 14; l++)
-            {
-                mass[l, i] = Instantiate(obj, new Vector3(x, y, 0.0f), Quaternion.identity);//マスを指定座標への生成and格納
-                mass[l, i].transform.parent = September.transform;//9月の子として生成
-                x = x + 0.75f;
-                count++;
-            }
-            y = y - 0.6f;
-            x = -2.25f;
-        }
-        June.transform.position = new Vector3(-2.9f, 1.6f, 0);//6月の移動
-        July.transform.position = new Vector3(2.9f, 1.6f, 0);//7月の移動
-        August.transform.position = new Vector3(-2.9f, -1.6f, 0);//8月の移動
-        September.transform.position = new Vector3(2.9f, -1.6f, 0);//9月の移動
 
-        invalid();//いらないマスの無効化
         GoalDecision();//ゴールの選択
+
     }
 
-    
-    void Update() 
+
+    void Update()
     {
-        
+
+        if (gamestart)
+        {
+            photonView.RPC(nameof(SugorokuTUrntoRPC), RpcTarget.All);
+
+        }
+    }
+
+
+    private void GoalClear()//全てのマスのゴールを消す
+    {
+        for (int i = 0; i < height.Length; i++)
+        {
+            for (int l = 0; l < height[0].width.Length; l++)
+            {
+               // Debug.Log(height[i].width[l]);
+                height[i].width[l].GetComponent<Mass>().GoalOff();//ゴールを消していく
+            }
+        }
     }
 
     private void GoalDecision()//初めてゴールを出現させる
     {
-        int vertical, beside;
+        int Week, Day;                                               //ランダムなゴールの場所を入れる
+        GoalClear();                                                 //全てのマスのゴールを消す
         do {
-            vertical = Random.Range(0, 14);
-            beside = Random.Range(0, 10);
-        } while (mass[vertical, beside].GetComponent<Mass>().invalid == true );//ランダムに選んだマスが無効化じゃないものを探す
-        mass[vertical, beside].GetComponent<Mass>().Goal = true;//ゴールの設置
-        XGoal = vertical; YGoal = beside;//ゴール位置の記憶
+            Week = Random.Range(0, height.Length);                  //week・横の列のランダム
+            Day = Random.Range(0, height[0].width.Length);          //day・縦の列のランダム
+        } while (height[Week].width[Day].GetComponent<Mass>().invalid == true);//ランダムに選んだマスが存在しているものを見つけるまで繰り返す
+        height[Week].width[Day].GetComponent<Mass>().GoalOn();      //ゴールの設置
+        XGoal = Day; YGoal = Week;                                  //ゴール配列番号を記憶
 
     }
 
-    private void GoalAgain()//ゴールの再設置
+    public void GoalAgain()                                         //ゴールの再設置(同じ月にならないように)
     {
-        int vertical, beside;
+        int Week, Day;                                              //ランダムなゴールの場所を入れる
+        GoalClear();                                                //全てのマスのゴールを消す
         do
         {
-            vertical = Random.Range(0, 14);
-            beside = Random.Range(0, 10);
-        } while (mass[vertical, beside].GetComponent<Mass>().invalid == true || MonthCount(vertical, beside) == true);//選んだマスが無効化＆同じ月じゃないものを探す
-        mass[vertical, beside].GetComponent<Mass>().Goal = true;//ゴールの設置
-        XGoal = vertical; YGoal = beside;//ゴール位置の記憶
+            Week = Random.Range(0, height.Length);                  //横の列のランダム
+            Day = Random.Range(0, height[0].width.Length);          //縦の列のランダム
+        } while (height[Week].width[Day].GetComponent<Mass>().invalid == true && MonthCount(Day, Week) == true);//選んだマスが存在しているもの＆同じ月じゃないものを見つけるまで繰り返す
+        height[Week].width[Day].GetComponent<Mass>().GoalOn();      //ゴールの設置
+        XGoal = Day; YGoal = Week;                                  //ゴール配列番号を記憶
     }
 
-    private bool MonthCount(int x,int y)//ゴールと同じ月か判断する
+    private bool MonthCount(int x, int y)//ゴールと同じ月か判断する
     {
-        bool Jach = false;
-        int BeforeMonth = 0,NextMonth =0;
-
-        if (XGoal < 7 && YGoal < 5) { BeforeMonth = 1; }
-        if (7 <= XGoal&& YGoal < 5) { BeforeMonth = 2; }
-        if (XGoal < 7 && 5 < YGoal) { BeforeMonth = 3; }
-        if (7 <= XGoal&& 5 < YGoal) { BeforeMonth = 4; }
-
-        if (x < 7 && y < 5) { NextMonth = 1; }
-        if (7 <= x && y < 5) { NextMonth = 2; }
-        if (x < 7 && 5 < y) { NextMonth = 3; }
-        if (7 <= x && 5 < y) { NextMonth = 4; }
-
-        if(BeforeMonth == NextMonth)
+        if (WhichMonth(XGoal, YGoal) == WhichMonth(x,y))//同じ月ならtrue
         {
-            Jach = true;
+            return true;
         }
-        else
+        else//違う月ならfalse
         {
-            Jach = false;
+            return false;
         }
-        return Jach;
     }
-
-    private void GoalClear()//ゴールを消す
+    private int WhichMonth(int x,int y)//x,yが何月にいるのか調べる
     {
-
-        for (int i = 0; i < 14; i++)
-        {
-            for (int l = 0; l < 10; l++)
-            {
-                mass[i, l].GetComponent<Mass>().Goal = false;
-
-            }
-        }
+        int Month = 0;
+        if (x < height[0].width.Length/2 && y < height.Length/2) { Month = 1; }//左上の月にいるかどうか
+        if (height[0].width.Length/2 <= x && y < height.Length/2) { Month = 2; }//左上の月にいるかどうか
+        if (x < height[0].width.Length/2 && height.Length/2 < y) { Month = 3; }//左上の月にいるかどうか
+        if (height[0].width.Length/2 <= x && height.Length/2 < y) { Month = 4; }//左上の月にいるかどうか
+        return Month;
+         
     }
+
+
+    public void StartOfimitation()
+    {
+        gamestart = (gamestart == false);//反転
+
+    }
+
+  
+       
     
-    private void invalid()//いらないマスの無効化
+
+
+
+
+    [PunRPC]
+    public void SugorokuTUrntoRPC()
     {
-        mass[0, 0].GetComponent<Mass>().invalid = true;//5/29
-        mass[1, 0].GetComponent<Mass>().invalid = true;//5/30
-        mass[2, 0].GetComponent<Mass>().invalid = true;//5/31
-        mass[5, 4].GetComponent<Mass>().invalid = true;//7/1
-        mass[6, 4].GetComponent<Mass>().invalid = true;//7/2
-        
-        mass[7, 0].GetComponent<Mass>().invalid = true;//6/26
-        mass[8, 0].GetComponent<Mass>().invalid = true;//6/27
-        mass[9, 0].GetComponent<Mass>().invalid = true;//6/28
-        mass[10, 0].GetComponent<Mass>().invalid = true;//6/29
-        mass[11, 0].GetComponent<Mass>().invalid = true;//6/30
+        switch (Playerturn)
+        {
+            case 0:
+                Player[play].GetComponent<PlayerStatus>().step = 1;             //プレイヤーをコントロール出来るようにする
+                Playerturn = 1;
+                break;
 
-        mass[0, 5].GetComponent<Mass>().invalid = true;//7/31koko
-        mass[4, 9].GetComponent<Mass>().invalid = true;//9/1
-        mass[5, 9].GetComponent<Mass>().invalid = true;//9/2
-        mass[6, 9].GetComponent<Mass>().invalid = true;//9/3
+            case 1:
+                if (Player[play].GetComponent<PlayerStatus>().Goalup == true)   //もしこの手番にゴールしていたら
+                {
+                    Player[play].GetComponent<PlayerStatus>().Goalup = false;   //ゴール宣言取り消し
+                    GoalAgain();                                                //ゴールの再設置
+                }
+                if (Player[play].GetComponent<PlayerStatus>().GetGaol() == 4)   //ゴールした数が４なら
+                {
+                    Playerturn = 3;                                             //ゲーム終了
+                }
+                
+                if (Player[play].GetComponent<PlayerStatus>().returnhash() == true) //プレイヤーがターンを終了していたら
+                {
 
-        mass[7, 5].GetComponent<Mass>().invalid = true;//8/28
-        mass[8, 5].GetComponent<Mass>().invalid = true;//8/29
-        mass[9, 5].GetComponent<Mass>().invalid = true;//8/30
-        mass[10, 5].GetComponent<Mass>().invalid = true;//8/31
-        mass[13, 9].GetComponent<Mass>().invalid = true;//10/1
-        
+                    Player[play].GetComponent<PlayerStatus>().TurnEnd();
+                    Playerturn = 2;
+                    play++;                                                    //次のプレイヤーの番にする
+                }
+                
+                break;
+
+            case 2:
+                Playerturn = 0;
+                if (play >= Playcount)//プレイヤー参加人数を超えたら
+                {
+                    play = 0;     //プレイヤー0の手番になる
+                }
+                break;
+
+            case 3:
+                //ゲーム終了
+                Debug.Log("ゲーム終了");
+                break;
+        }
     }
-    
+}
+
+
+[System.Serializable]
+public class Width//weekの子・横列のオブジェクトの取得
+{
+    public  GameObject[] width;
+
+
+
+
 }
