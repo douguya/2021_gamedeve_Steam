@@ -131,7 +131,7 @@ MonoBehaviour:
   PlayerNameVew: 
   HowPlayer: 0
   Botton: {fileID: 0}
-  StopDice: {fileID: 0}
+  StopDiceButton: {fileID: 0}
   dice: {fileID: 0}
   week:
   - width: []
@@ -149,6 +149,7 @@ MonoBehaviour:
   nextturn: 0
   Goalup: 0
   Gamemanager: {fileID: 0}
+  Effecting: 0
 --- !u!114 &8510935963758404761
 MonoBehaviour:
   m_ObjectHideFlags: 0

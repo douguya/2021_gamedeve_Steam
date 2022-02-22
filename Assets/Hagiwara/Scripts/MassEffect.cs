@@ -65,7 +65,7 @@ public class MassEffect : MonoBehaviour
     
     private void step()
     {
-        GetComponent<PlayerStatus>().stopon();
+       // GetComponent<PlayerStatus>().stopon();
     }
 
     private void GetItem(string Iname)
