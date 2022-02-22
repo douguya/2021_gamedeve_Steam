@@ -45,6 +45,13 @@ MonoBehaviour:
   - PlayerNameShare
   - RoomID
   - SugorokuTUrntoRPC
+  - AbleToPlayerControl
+  - GameFinish
+  - GoalPut_RPC
+  - GoalClear
+  - GoalPutRPC
+  - GoalAgain
+  - hashRoom_StartUp
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

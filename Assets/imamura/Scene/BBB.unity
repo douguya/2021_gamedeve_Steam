@@ -3308,6 +3308,8 @@ MonoBehaviour:
     - {fileID: 1900955490}
     - {fileID: 1409003570}
     - {fileID: 747448394}
+  play: 0
+  GameStartButton: {fileID: 2113182239}
 --- !u!114 &513922115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12702,7 +12704,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9aeb86cc3e6dd634cb6a8620e59210e3, type: 3}
   - {fileID: 21300000, guid: c3443217af3aebb41ad5d92dc060a106, type: 3}
   - {fileID: 21300000, guid: e7e626cd8c8ec8a4e966d2fb903d0e46, type: 3}
-  DiceSpin: 1
   DiseSpeed: 80
 --- !u!114 &2137794636
 MonoBehaviour:
