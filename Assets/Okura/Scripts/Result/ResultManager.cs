@@ -71,7 +71,6 @@ public class ResultManager : MonoBehaviour
             point.transform.SetParent(Copytext.transform, false);
             point.alignment = TextAnchor.MiddleRight;
             point.text = Item[i] + "P";
-            Debug.Log("OK,count is " + count);
 
             count++;
         }
@@ -80,7 +79,6 @@ public class ResultManager : MonoBehaviour
     //重複アイテムをまとめてすっきりさせる
     void DuplicateItem()
     {
-        Debug.Log(OriginalItem.Length);
         for (int num = 0; num < OriginalItem.Length; num++)//プレイヤーの数と同じ回数行う
         {
             for (int i = 0; i < OriginalItem[num].Count; i++)//num番目のプレイヤーの持ち物の数だけ行う
