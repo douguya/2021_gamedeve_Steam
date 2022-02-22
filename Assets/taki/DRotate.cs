@@ -14,6 +14,7 @@ public class DRotate : MonoBehaviour
     private float xKeep, yKeep, zKeep; //回転速度の保存用
 
     public float xShow, zShow; //さいころの目を見せるときの角度
+    public bool ShowNum; //さいころの目を見せるときのロック
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,7 @@ public class DRotate : MonoBehaviour
         //trueの場合常に回転する
         if (rotate == true)
         {
+            ShowNum = false;
             xSpeed = xKeep;
             ySpeed = yKeep;
             zSpeed = zKeep;
@@ -58,12 +60,12 @@ public class DRotate : MonoBehaviour
         {
             if (xSpeed > 0)
             {
-                xSpeed -= 30f * Time.deltaTime;
+                xSpeed -= 60f * Time.deltaTime;
             }
 
             if (ySpeed > 0)
             {
-                ySpeed -= 30f * Time.deltaTime;
+                ySpeed -= 45f * Time.deltaTime;
             }
 
             if (zSpeed > 0)
@@ -73,36 +75,40 @@ public class DRotate : MonoBehaviour
         }
 
         //0になったら数字を判定
-        if (xSpeed == 0 && ySpeed == 0 && zSpeed == 0) {
+        if (xSpeed == 0 && ySpeed == 0 && zSpeed == 0 && ShowNum == false) {
             DiceStop();
             Debug.Log(max);
+            ShowNum = true;
+        }
+
+        if (ShowNum == true)
+        {
 
             //出た目の数によって向く方向をセット
             switch (DiceNum)
             {
                 case 1:
-                    xShow = -30; zShow = 0;
+                    xShow = -90; zShow = 0;
                     break;
                 case 2:
-                    xShow = -30; zShow = 90;
+                    xShow = -90; zShow = 90;
                     break;
                 case 3:
-                    xShow = 60; zShow = 0;
+                    xShow = 180; zShow = 0;
                     break;
                 case 4:
-                    xShow = -120; zShow = 0;
+                    xShow = 0; zShow = 0;
                     break;
                 case 5:
-                    xShow = -30; zShow = -90;
+                    xShow = -90; zShow = -90;
                     break;
                 case 6:
-                    xShow = 150; zShow = 0;
+                    xShow = 90; zShow = 0;
                     break;
             }
 
             //出た目の面がこっちを向く
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(xShow, 0, zShow), 1.0f * Time.deltaTime);
-
         }
 
     }
