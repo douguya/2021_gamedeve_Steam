@@ -46,7 +46,6 @@ public class imamuraDice : MonoBehaviour
         DiceSpin = false;//ダイスストップ
        
         return loop+1;// ダイスの値を返す
-       
     }
 
 

@@ -18,6 +18,8 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
 
     int[,] Position;
 
+
+       
     public GameObject Play;
 
     [SerializeField]
