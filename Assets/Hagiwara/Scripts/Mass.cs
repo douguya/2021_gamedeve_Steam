@@ -66,9 +66,7 @@ public class Mass : MonoBehaviour
         Debug.Log("AAA");
         if (select.activeSelf == true)
         {
-            
-
-
+           
             Selectoff();
             Decisionon();
             walk = true;

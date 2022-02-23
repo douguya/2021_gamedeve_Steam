@@ -105,7 +105,6 @@ public class DictionaryManager : MonoBehaviour
     public static Dictionary<string, string[]> DayEffectictDictionary = new Dictionary<string, string[]>
     {
       /*
-       * 
       効果の種類について
       　手に入るアイテムや変化するBGMが示せるもの
       　　アイテム　      アイテムが手に入るだけのもの

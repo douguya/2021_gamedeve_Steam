@@ -38,6 +38,8 @@ public class SceneManagaer : MonoBehaviour
         SceneManager.LoadScene(lobby);
     }
 
+
+
     public async void TransitionToGame() 　　　//タイトルに飛ぶ
     {
         await Task.Delay(400);

@@ -9,6 +9,8 @@ using System.Collections.Generic;
 public class RoomSceneManager : MonoBehaviourPunCallbacks
 {
     [SerializeField]
+
+
     private GameObject LobbyUI;//ƒƒr[‚ÌUI
     [SerializeField]
     private GameObject enterMatchWaitRoomUI;//‘Ò‹@•”‰®‚ÌUI
