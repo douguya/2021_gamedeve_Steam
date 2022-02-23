@@ -136,6 +136,10 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
 
     public async void StartOfimitation()
     {
+
+
+       
+        PhotonNetwork.CurrentRoom.IsOpen = false;
         photonView.RPC(nameof(hashRoom_StartUp), RpcTarget.AllViaServer);
         await Task.Delay(100);
         // await Task.Delay(200);//ネットワークの処理の待機　仮のため
