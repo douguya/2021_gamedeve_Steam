@@ -18,7 +18,7 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
     public int play = 0;                           //誰の番か
     public Hashtable hashRoom;
     public GameObject GameStartButton;
-
+   
 
 
     private bool gamestart = false;
@@ -66,8 +66,9 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
     private void GoalDecision()//初めてゴールを出現させる
     {
       
-        int Week, Day;                                               //ランダムなゴールの場所を入れる
-        GoalClear();                                                 //全てのマスのゴールを消す
+        int Week, Day;
+        photonView.RPC(nameof(GoalClear), RpcTarget.All);//ランダムなゴールの場所を入れる
+                                               //全てのマスのゴールを消す
         do {
             Week = Random.Range(0, height.Length);                  //week・横の列のランダム
             Day = Random.Range(0, height[0].width.Length);          //day・縦の列のランダム
@@ -81,7 +82,7 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
     public void GoalAgain()                                         //ゴールの再設置(同じ月にならないように)
     {
         int Week, Day;                                              //ランダムなゴールの場所を入れる
-        GoalClear();                                                //全てのマスのゴールを消す
+        photonView.RPC(nameof(GoalClear), RpcTarget.All);                                            //全てのマスのゴールを消す
         do
         {
             Week = Random.Range(0, height.Length);                  //横の列のランダム
@@ -149,6 +150,7 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
     {
         hashRoom = new Hashtable();
         hashRoom["Turn_of_Player"] = 0;
+        hashRoom["GoalCount"] = 0;
         PhotonNetwork.CurrentRoom.SetCustomProperties(hashRoom);
 
     }
@@ -176,6 +178,17 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
         Debug.Log(Player[play].GetComponent<PlayerStatus>().Goalup);
         if (Player[play].GetComponent<PlayerStatus>().Goalup == true)   //もしこの手番にゴールしていたら
         {
+
+
+
+            hashRoom["GoalCount"] = (int)PhotonNetwork.CurrentRoom.CustomProperties["GoalCount"] + 1;
+            PhotonNetwork.CurrentRoom.SetCustomProperties(hashRoom);
+
+
+
+
+
+
             Player[play].GetComponent<PlayerStatus>().Goalup = false;   //ゴール宣言取り消し
             GoalAgain();
             //ゴールの再設置
@@ -210,7 +223,7 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void GameFinish()
     {
-        Debug.Log("ゲーム終了");
+        Debug.Log("ゲーム終了!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 
 
