@@ -59,7 +59,9 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
     private int diceconter;
     private bool CanSelect=false;
 
-
+    public SpriteRenderer PlayerSpriteRenderer;
+    public  Sprite PlayerSprite;
+    
    
 
 
@@ -71,12 +73,15 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
         Debug.Log("Awake:"+hashPlayStatus);
     }
 
-
-
-
-
     void Start()
     {
+
+        PlayerSpriteRenderer = GetComponent<SpriteRenderer>();
+
+
+
+
+
 
 
         // Debug.Log(Position.GetLength());
@@ -135,23 +140,34 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
 
 
 
-    public void TurnDice()//ダイスを回す
-    {     
 
+    public void TurnDice()//ダイスを回す
+    {
+        
 
                                 //一回しか反応しない
-            dice.GetComponent<imamuraDice>().OnDiceSpin();  //ダイスを回す
+        dice.GetComponent<imamuraDice>().OnDiceSpin();  //ダイスを回す
             dicestart = false;
        
 
-     
-            Debug.Log(Move);
+
+
+        Debug.Log(Move);
             step = 2;
             stop = false;
             dicestart = true;
         
 
     }
+ 
+
+
+
+
+
+
+
+
 
     public void StopDice()//ダイスを止める ボタンクリックで起動する。
     {
@@ -748,7 +764,9 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
         photonView.RPC(nameof(ItemobtainToRPC), RpcTarget.All, Item);
     }
 
-    [PunRPC]
+
+
+   [PunRPC]
     public void ItemobtainToRPC(string Item)//アイテムを手に入れた場合の関数
     {
         HabItem.Add(Item);//Itemのリストへの追加
