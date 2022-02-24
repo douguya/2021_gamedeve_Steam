@@ -16,6 +16,7 @@ public class SceneManagaer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.developerConsoleVisible = false;
         Gamesend = Game;
         Lobysend = lobby;
     }
@@ -32,7 +33,7 @@ public class SceneManagaer : MonoBehaviour
         SceneManager.LoadScene(Main);
     }
 
-    public async void TransitionTolobby() 　　　//タイトルに飛ぶ
+    public async void TransitionTolobby() 　　　//ロビーに飛ぶ
     {
         await Task.Delay(400);
         SceneManager.LoadScene(lobby);
@@ -40,13 +41,13 @@ public class SceneManagaer : MonoBehaviour
 
 
 
-    public async void TransitionToGame() 　　　//タイトルに飛ぶ
+    public async void TransitionToGame() 　　　//ゲームシーンに飛ぶ
     {
         await Task.Delay(400);
         SceneManager.LoadScene(Game);
     }
 
-    public async void TransitionToResult() 　　　//タイトルに飛ぶ
+    public async void TransitionToResult() 　　　//リザルトに飛ぶ
     {
         await Task.Delay(400);
         SceneManager.LoadScene(Result);

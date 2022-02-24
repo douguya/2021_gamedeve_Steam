@@ -22,14 +22,14 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     public int PlayerIdVew;
     public string PlayerNameVew;
     public GameObject parent;
-   
-    public bool[] CanJoinRoom = new bool[5] {true,true,true,true,true};
+
+    public bool[] CanJoinRoom = new bool[5] { true, true, true, true, true };
     string GameVersion = "Ver1.0";
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
         inputField = GetComponent<InputField>();
-      
+
     }
 
 
@@ -50,32 +50,32 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)//ルームリスト更新時
     {
-        int forL=0;
+        int forL = 0;
         foreach (var info in roomList)//ルームリストの取得
         {  //部屋のテキスト   部屋の名前　　部屋のプレイヤーの数　　部屋の最大人数
-            RoomText[forL].text=info.Name +"  "+info.PlayerCount+"/"+info.MaxPlayers;
-            forL ++;
-            
+            RoomText[forL].text = info.Name + "  " + info.PlayerCount + "/" + info.MaxPlayers;
+            forL++;
+
         }
     }
     public async void JoineLoom(int RoomNum)//部屋に入る処理
     {
-            SceneManagerOj.GetComponent<SceneManagaer>().TransitionToGame();//ゲームシーンへ遷移
-            await Task.Delay(400);//ディレイ　タイミング用
-            var roomOptions = new RoomOptions();//ルームオプションの設定
-            roomOptions.MaxPlayers = 4;
-            PhotonNetwork.JoinOrCreateRoom("ルーム" + RoomNum, roomOptions, TypedLobby.Default);
-          
+        SceneManagerOj.GetComponent<SceneManagaer>().TransitionToGame();//ゲームシーンへ遷移
+        await Task.Delay(400);//ディレイ　タイミング用
+        var roomOptions = new RoomOptions();//ルームオプションの設定
+        roomOptions.MaxPlayers = 4;
+        PhotonNetwork.JoinOrCreateRoom("ルーム" + RoomNum, roomOptions, TypedLobby.Default);
+
     }
     public async override void OnJoinedRoom()//部屋に入る
     {
-      
+
         // ランダムな座標に自身のアバター（ネットワークオブジェクト）を生成する
         var position = new Vector3(-7.69f, -3.66f);
         GameObject blockTile = PhotonNetwork.Instantiate("playerAA", position, Quaternion.identity);
         position = new Vector3(-303.5f, -71f);
         await Task.Delay(400);
-       
+
     }
     public override void OnJoinRoomFailed(short returnCode, string message)//部屋に入れなかったとき
     {
@@ -95,8 +95,10 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     }
 
 
-  
 
+    public void Leave_the_room(){
+        PhotonNetwork.LeaveRoom();
+    }
 
 
 
