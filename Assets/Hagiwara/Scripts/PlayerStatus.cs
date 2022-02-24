@@ -118,7 +118,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
          {0,0} ,
          {13,0},
          {0,9},
-         {0,9},
+         {13,9},
         };
 
         for (int loop = 0; loop < 10; loop++)
@@ -361,10 +361,10 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
         if ((xplay, yplay) == (0, 0) || (xplay, yplay) == (13, 0) || (xplay, yplay) == (0, 9) || (xplay, yplay) == (12, 9))
         {//選択中心マスがワープマスにある時に反応
 
-            week[1].width[0].GetComponent<Mass>().Selecton();
+            week[0].width[0].GetComponent<Mass>().Selecton();
             week[0].width[13].GetComponent<Mass>().Selecton();
             week[9].width[0].GetComponent<Mass>().Selecton();
-            week[9].width[12].GetComponent<Mass>().Selecton();
+            week[9].width[13].GetComponent<Mass>().Selecton();
         }
         week[yplay].width[xplay].GetComponent<Mass>().Selectoff();
         Switchnum = 2;
@@ -410,10 +410,10 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
                     clearSelect();//選択できるマスの全消去
                 }
             }
-            Warpdecision(0, 1); //右上ワープが選択された時に反応
+            Warpdecision(0, 0); //右上ワープが選択された時に反応
             Warpdecision(13, 0);//左上ワープが選択された時に反応
             Warpdecision(0, 9); //右下ワープが選択された時に反応
-            Warpdecision(12, 9);//左下ワープが選択された時に反応
+            Warpdecision(13, 9);//左下ワープが選択された時に反応
 
             if (diceconter > 0)
             {
