@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 using Photon.Pun;
+
 using Photon.Realtime;
 using System.Threading.Tasks;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
@@ -19,10 +21,13 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
     int[,] Position;
 
 
-       
+    private TextMeshPro nameLabel = default;
+
+    //private ProjectileManager projectileManager;
     public GameObject Play;
 
     [SerializeField]
+   
     private Dropdown dropdown;
     public int PlayerIdVew;　　 //プレイヤーのID
     public string PlayerNameVew;//プレイヤーの名前
@@ -30,7 +35,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
     public Button Botton;　　　 //動作テスト用ボタンへのアクセス用
     public Button StopDiceButton;    //動作テスト用ボタンへのアクセス用
     public Hashtable hashPlayStatus;
-
+   
 
 
     public GameObject dice;                         //ダイスを取得
@@ -64,7 +69,8 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
     public SpriteRenderer PlayerSpriteRenderer;
     public  Sprite PlayerSprite;
     public GameObject Dcomment;
-   
+  
+
 
 
     private void Awake()
@@ -82,8 +88,9 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
 
         Dcomment = GameObject.Find("DayComment");
 
+        nameLabel = transform.GetChild(0).gameObject.GetComponent<TextMeshPro>();
 
-
+            nameLabel.text = photonView.Owner.NickName;
 
 
         // Debug.Log(Position.GetLength());
@@ -130,7 +137,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
         XLoot = new int[10];
         YLoot = new int[10];
         // PlayerMass(initialX, initialY);         //プレイヤーを初期位置にに
-
+      //  nameLabel.text ="asd";
     }
 
 
