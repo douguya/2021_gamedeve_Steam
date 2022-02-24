@@ -27,32 +27,35 @@ public class MassEffect : MonoBehaviour
         GetComponent<PlayerStatus>().daycomment(day);
         
         Debug.Log(DictionaryManager.DayEffectictDictionary[day][0]);
+        Debug.Log("éEÇ∑"+DictionaryManager.EffectictCategoryDictionary[DictionaryManager.DayEffectictDictionary[day][0]][0]); 
        // Debug.Log("RRRRRRRRRRRRR" + DictionaryManager.DayEffectictDictionary[day][0,0]);
-        switch (DictionaryManager.EffectictCategoryDictionary[DictionaryManager.DayEffectictDictionary[day][0]][0])
+        switch (DictionaryManager.EffectictCategoryDictionary [DictionaryManager.DayEffectictDictionary[day][0]] [0])
         {
             case "ÉAÉCÉeÉÄ":
+                Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 GetItem( DictionaryManager.EffectictCategoryDictionary[DictionaryManager.DayEffectictDictionary[day][0]][1]);
                 break;
 
-            case "ÉAÉCÉRÉì":
+           // case "ÉAÉCÉRÉì":
 
-                break;
+                //break;
 
-            case "BGM":
-                break;
+          //  case "BGM":
+           //     break;
 
 
-            case "îwåi":
-                break;
+         //   case "îwåi":
+         //       break;
 
-            case "îg":
+         //   case "îg":
                 
-                break;
+         //       break;
 
-            case "":
-                break;
+         //   case "":
+         //       break;
 
             default:
+                GetItem("îƒópÉJÉåÉìÉ_Å[");
                 break;
         }
         
@@ -67,6 +70,7 @@ public class MassEffect : MonoBehaviour
 
     private void GetItem(string Iname)
     {
+        Debug.Log("aaaaaaaaaaaaaaaaaaaaa"+Iname);
         GetComponent<PlayerStatus>().Itemobtain(Iname);
     }
 
