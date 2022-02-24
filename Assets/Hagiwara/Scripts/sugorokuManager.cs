@@ -18,7 +18,7 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
     public int play = 0;                           //íNÇÃî‘Ç©
     public Hashtable hashRoom;
     public GameObject GameStartButton;
-   
+    public GameObject Dcomment;
 
 
     private bool gamestart = false;
@@ -33,7 +33,9 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
     }
     void Start()
     {
-       
+        Dcomment = GameObject.Find("DayComment");
+
+
     }
 
 
@@ -229,11 +231,22 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
 
 
 
+    public void daycommentoff()
+    {
+        photonView.RPC(nameof(Daycommentoff), RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void Daycommentoff()//à¯Ç¡çûÇﬂÇÈ
+    {
+
+        Dcomment.GetComponent<DayComment>().DayCommentoff();
+
+    }
 
 
 
 
-    
 }
 
 

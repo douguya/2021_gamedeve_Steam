@@ -90,7 +90,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
         Gamemanager = GameObject.Find("GameControl");
         PlayerIdVew = photonView.OwnerActorNr;　　//プレイヤーのIDの同期
         PlayerNameVew = photonView.Owner.NickName;//プレイヤーの名前の同期
-        SetPlayernumShorten();                    //アイテムリストUIとプレイヤーの同期[
+        SetPlayernumShorten();                    //アイテムリストUIとプレイヤーの同期
 
 
 
@@ -200,6 +200,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
                 // Debug.Log("WWWWWWWWWWWWWWWW"+week[yplay].width[xplay].GetComponent<Mass>().Day);
                 GetComponent<MassEffect>().Effects(week[yplay].width[xplay].GetComponent<Mass>().Day);//マスの効果の発動
                 week[yplay].width[xplay].GetComponent<Mass>().Open = true;    //マスを開けた状態にする
+              
             }
 
         
@@ -691,11 +692,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
 
 
                 //テスト用ボタンのセッティング
-                if (photonView.IsMine)//PListがプレイヤーのものなら
-                {
-                    Botton = GameObject.Find("traffic_lights").GetComponent<Button>();//テスト用ボタンへのアクセス用
-                    Botton.onClick.AddListener(() => Itemobtain("信号機"));//テスト用ボタンへの関数追加
-                }
+          
             }
             loop++;
         }
@@ -794,6 +791,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
         }
     }
 
+
     public void daycomment(string Day)
     {
         photonView.RPC(nameof(Daycomment), RpcTarget.All, Day);
@@ -807,18 +805,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
         
     }
 
-    public void daycommentoff()
-    {
-        photonView.RPC(nameof(Daycommentoff), RpcTarget.All);
-    }
 
-    [PunRPC]
-    public void Daycommentoff()//引っ込める
-    {
-
-        Dcomment.GetComponent<DayComment>().DayCommentoff();
-
-    }
 
     /*
 

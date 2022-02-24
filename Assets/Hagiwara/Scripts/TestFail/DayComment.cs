@@ -9,6 +9,7 @@ public class DayComment : MonoBehaviour
     public GameObject ItemImage;
     public GameObject dayTaitl;
     public GameObject comment;
+    public GameObject Close;
     void Start()
     {
     }
@@ -24,7 +25,7 @@ public class DayComment : MonoBehaviour
         ItemImage.SetActive(true);
         dayTaitl.SetActive(true);
         comment.SetActive(true);
-
+        Close.SetActive(true);
         dayTaitl.GetComponent<Text>().text = DictionaryManager.DayEffectictDictionary[day][0];
         comment.GetComponent<Text>().text = DictionaryManager.DayEffectictDictionary[day][0];
     }
@@ -35,6 +36,7 @@ public class DayComment : MonoBehaviour
         ItemImage.SetActive(false);
         dayTaitl.SetActive(false);
         comment.SetActive(false);
+        Close.SetActive(false);
     }
 
 }
