@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class ResultManager : MonoBehaviour
+public class ResultManager : MonoBehaviourPunCallbacks
 {
     //----------------------------------変数----------------------------------
     [SerializeField]
@@ -36,8 +38,11 @@ public class ResultManager : MonoBehaviour
     //----------------------------------関数----------------------------------
     private void Awake()
     {
+
+      
+
         //ワールド変数を代入
-        playersnum = 4;
+        playersnum = PhotonNetwork.PlayerList.Length;
         total = new Text[playersnum];
         Canvas = GameObject.Find("Canvas").transform;
         ScoreBackGround = new Transform[playersnum];
@@ -63,14 +68,14 @@ public class ResultManager : MonoBehaviour
 
             //プレイヤーの名前を参照し設定
             Text Playername = GameObject.Find("Playername" + i).GetComponent<Text>();
-            Playername.text = players.GetComponent<PlayerStatasOkura>().Name;
+            Playername.text = players.GetComponent<PlayerStatus>().Name;
             
             //表示時に使うSBGとトータルスコアを出すテキストボックスを参照し設定
             ScoreBackGround[i] = GameObject.Find("Content" + i).transform;
             total[i] = GameObject.Find("Total" + i).GetComponent<Text>();
 
             //並び替え前のプレイヤーの持ち物を参照
-            OriginalItem[i] = players.GetComponent<PlayerStatasOkura>().HabItem;
+            OriginalItem[i] = players.GetComponent<PlayerStatus>().HabItem;
         }
 
         DisplayItems();

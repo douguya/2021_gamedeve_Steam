@@ -14,6 +14,7 @@ public class PlayerStatasOkura : MonoBehaviour
 
     void Start()
     {
+        DontDestroyOnLoad(this.gameObject);
     }
 
 

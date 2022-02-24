@@ -76,7 +76,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
     private void Awake()
     {
         hashPlayStatus = new Hashtable();
-
+        DontDestroyOnLoad(this.gameObject);
 
         Debug.Log("Awake:"+hashPlayStatus);
     }
@@ -691,6 +691,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
               //  Debug.Log("aaaaaaaaaaaaaaa" + Position[loop - 1, 0]+ Position[loop - 1, 1]);
                 PlayerMass(Position[loop-1, 0], Position[loop-1,1]);
                 this.name = "Player" + (loop-1);
+                Name = this.name;
               //  Debug.Log("aaaaaaaaaaaaaaa" + this.name);
                 Gamemanager.GetComponent<sugorokuManager>().Player[loop-1] = this.gameObject;
 
@@ -812,7 +813,10 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
             Dcomment.GetComponent<DayComment>().DayCommenton(Day);
         
     }
-
+    public override void OnLeftRoom()
+    {
+        Destroy(this.gameObject);
+    }
 
 
     /*

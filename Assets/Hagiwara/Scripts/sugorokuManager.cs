@@ -19,16 +19,19 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
     public Hashtable hashRoom;
     public GameObject GameStartButton;
     public GameObject Dcomment;
-
+    public GameObject SceneManager;
 
     private bool gamestart = false;
-
+    public int playersnum;
+    public int Goalcount;
 
 
     private void Awake()
     {
+  
+           
+        
 
-       
 
     }
     void Start()
@@ -41,7 +44,7 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
 
     void Update()
     {
-
+        
         if (gamestart)
         {
             //   photonView.RPC(nameof(SugorokuTUrntoRPC), RpcTarget.All);
@@ -76,7 +79,8 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
             Day = Random.Range(0, height[0].width.Length);          //day・縦の列のランダム
        
         } while (height[Week].width[Day].GetComponent<Mass>().invalid == true);//ランダムに選んだマスが存在しているものを見つけるまで繰り返す
-  
+
+        Debug.Log("EWEW"+height[Week].width[Day]);
         photonView.RPC(nameof(GoalPutRPC), RpcTarget.All, Week, Day);                        //ゴール配列番号を記憶
 
     }
@@ -153,7 +157,7 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
     {
         hashRoom = new Hashtable();
         hashRoom["Turn_of_Player"] = 0;
-        hashRoom["GoalCount"] = 0;
+        hashRoom["GoalCount"] =2;
         PhotonNetwork.CurrentRoom.SetCustomProperties(hashRoom);
 
 
@@ -177,10 +181,11 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
     }
 
 
-    public void AfterMoving()
+    public async void  AfterMoving()
     {
+        
 
-      //  Debug.Log(Player[play].GetComponent<PlayerStatus>().Goalup);
+        //  Debug.Log(Player[play].GetComponent<PlayerStatus>().Goalup);
         if (Player[play].GetComponent<PlayerStatus>().Goalup == true)   //もしこの手番にゴールしていたら
         {
 
@@ -190,15 +195,12 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
             PhotonNetwork.CurrentRoom.SetCustomProperties(hashRoom);
 
 
-
-
-
-
             Player[play].GetComponent<PlayerStatus>().Goalup = false;   //ゴール宣言取り消し
             GoalAgain();
+            await Task.Delay(200);
             //ゴールの再設置
         }
-        if (Player[play].GetComponent<PlayerStatus>().GetGaol() == 4)   //ゴールした数が４なら
+        if ((int)PhotonNetwork.CurrentRoom.CustomProperties["GoalCount"] == 4)   //ゴールした数が４なら
         {
             photonView.RPC(nameof(GameFinish), RpcTarget.All);
             //ゲーム終了
@@ -228,6 +230,8 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void GameFinish()
     {
+
+        SceneManager.GetComponent<SceneManagaer>().TransitionToResult();
         Debug.Log("ゲーム終了!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 
