@@ -140,7 +140,7 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.CurrentRoom.IsOpen = false;
         photonView.RPC(nameof(hashRoom_StartUp), RpcTarget.AllViaServer);
-        await Task.Delay(100);
+        await Task.Delay(500);
         // await Task.Delay(200);//ネットワークの処理の待機　仮のため
         GoalDecision();//ゴールの選択
         GameStartButton.SetActive(false);
@@ -155,6 +155,8 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
         hashRoom["Turn_of_Player"] = 0;
         hashRoom["GoalCount"] = 0;
         PhotonNetwork.CurrentRoom.SetCustomProperties(hashRoom);
+
+
 
     }
 
@@ -178,7 +180,7 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
     public void AfterMoving()
     {
 
-        Debug.Log(Player[play].GetComponent<PlayerStatus>().Goalup);
+      //  Debug.Log(Player[play].GetComponent<PlayerStatus>().Goalup);
         if (Player[play].GetComponent<PlayerStatus>().Goalup == true)   //もしこの手番にゴールしていたら
         {
 
@@ -213,7 +215,7 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
 
             play = 0;     //プレイヤー0の手番になる*****************
         }
-        Debug.Log("################################"+ hashRoom);
+      //  Debug.Log("################################"+ hashRoom);
         //Debug.Log("################################" +hashRoom["Turn_of_Player"]);
         hashRoom["Turn_of_Player"] = play;
 

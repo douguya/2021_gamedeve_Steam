@@ -154,7 +154,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
 
 
 
-        Debug.Log(Move);
+       // Debug.Log(Move);
             step = 2;
             stop = false;
             dicestart = true;
@@ -197,6 +197,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
             }
             if (week[yplay].width[xplay].GetComponent<Mass>().Open == false)  //止まったマスが空いていなかったら
             {
+                 
                 // Debug.Log("WWWWWWWWWWWWWWWW"+week[yplay].width[xplay].GetComponent<Mass>().Day);
                 GetComponent<MassEffect>().Effects(week[yplay].width[xplay].GetComponent<Mass>().Day);//マスの効果の発動
                 week[yplay].width[xplay].GetComponent<Mass>().Open = true;    //マスを開けた状態にする
@@ -378,7 +379,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
             CanSelect = false;
             for (int i = 0; i < 2; i++)
             {
-                Debug.Log("aaaaaaaaaaaaa0 <" + way[i] + "&& " + way[i] + "<" + week.Length + "&&" + " week[way[i]]+.width[xplay].GetComponent<Mass>().walk ");
+                //Debug.Log("aaaaaaaaaaaaa0 <" + way[i] + "&& " + way[i] + "<" + week.Length + "&&" + " week[way[i]]+.width[xplay].GetComponent<Mass>().walk ");
 
                 if (0 <= way[i] && way[i] < week.Length && week[way[i]].width[xplay].GetComponent<Mass>().walk == true)//選択中心マスの上下にマスは存在してクリックされたか
                 {
