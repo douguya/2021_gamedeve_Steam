@@ -109,11 +109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7596f4fde3b72874abee8cd31184791f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  daycomment: {fileID: 0}
+  speed: 0.5
 --- !u!114 &6940832895621703888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,9 +127,18 @@ MonoBehaviour:
   HabItem: []
   Play: {fileID: 0}
   dropdown: {fileID: 0}
+  PlayerIdVew: 0
+  PlayerNameVew: 
+  HowPlayer: 0
+  Botton: {fileID: 0}
+  StopDiceButton: {fileID: 0}
   dice: {fileID: 0}
-  initialX: 0
-  initialY: 0
   week: []
   step: 0
   speed: 0.5
+  nextturn: 0
+  Goalup: 0
+  Gamemanager: {fileID: 0}
+  Effecting: 0
+  PlayerSpriteRenderer: {fileID: 0}
+  PlayerSprite: {fileID: 0}

@@ -63,7 +63,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
 
     public SpriteRenderer PlayerSpriteRenderer;
     public  Sprite PlayerSprite;
-    
+    public GameObject Dcomment;
    
 
 
@@ -80,7 +80,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
 
         PlayerSpriteRenderer = GetComponent<SpriteRenderer>();
 
-
+        Dcomment = GameObject.Find("DayComment");
 
 
 
@@ -653,7 +653,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
 
     }
 
-    private void PlayerMass(int x, int y)//プレイヤーをマス座標移動させる(日付ワープに使える)
+    public void PlayerMass(int x, int y)//プレイヤーをマス座標移動させる(日付ワープに使える)
     {
         transform.position = week[y].width[x].transform.position;//指定したマスの上にプレイヤーを移動する
         SetPlayerMass(x, y);//プレイヤーがどのマスにいるか記憶する
@@ -777,6 +777,48 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
         dropdown.RefreshShownValue();//アイテムリストUIの更新
     }
 
+
+    public void IconChange()
+    {
+        photonView.RPC(nameof(iconChange), RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber);
+    }
+    
+    [PunRPC]
+    public void iconChange(int PID)
+    {
+
+        if ((int)photonView.CreatorActorNr == PID)
+        {
+            //PlayerSprite = 
+            PlayerSpriteRenderer.sprite = PlayerSprite;
+        }
+    }
+
+    public void daycomment(string Day)
+    {
+        photonView.RPC(nameof(Daycomment), RpcTarget.All, Day);
+    }
+
+    [PunRPC]
+    public void Daycomment(string Day)
+    {
+        
+            Dcomment.GetComponent<DayComment>().DayCommenton(Day);
+        
+    }
+
+    public void daycommentoff()
+    {
+        photonView.RPC(nameof(Daycommentoff), RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void Daycommentoff()//引っ込める
+    {
+
+        Dcomment.GetComponent<DayComment>().DayCommentoff();
+
+    }
 
     /*
 
