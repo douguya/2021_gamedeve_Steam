@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Photon.Pun;
 
 
-public class PlayerStatasOkura : MonoBehaviourPunCallbacks
+public class PlayerStatasOkura : MonoBehaviour
 {
     private int PlayerNumber;//プレイヤーの番号
-    private string Name;//名前
-    public List<string> HabItem = new List<string>() {"ゴール", "牛タン","ハンバーガー", "牛タン" };//持っているアイテム
+    public string Name;//名前
+    public List<string> HabItem;//持っているアイテム
     private int Goalcount = 0; //ゴールした数
     private int PX, PY;//プレイヤーのマス座標
 

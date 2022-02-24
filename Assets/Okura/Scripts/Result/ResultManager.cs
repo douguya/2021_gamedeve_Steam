@@ -7,74 +7,146 @@ public class ResultManager : MonoBehaviour
 {
     //----------------------------------変数----------------------------------
     [SerializeField]
+    int playersnum;         //プレイヤーの人数
+    [SerializeField]
     Text textUI;           //コピー元のテキスト
     [SerializeField]
-    Transform ScoreBackGround;      //テキストボックスの親にするオブジェクト
+    Text[] total;           //トータルスコア
     [SerializeField]
-    Button Itemadd;
+    Transform Canvas;       //Canvas
+    [SerializeField]
+    Transform[] ScoreBackGround;      //TextUIのコピーの親にするオブジェクト(以下SBG)
+    [SerializeField]
+    GameObject[] PlayerBackGround;    //プレイヤーの情報を出す場所(以下PBG)
     [SerializeField]
     Button display;
     [SerializeField]
-    float interval = -30.0f;        //生成されたテキストボックスの間隔
+    float interval = -30.0f;        //PBGで生成されるテキストボックスの間隔
     [SerializeField]
-    GameObject players;
+    GameObject players;             //playerstatusを持ってるオブジェクト
     [SerializeField]
-    List<string>[] OriginalItem = new List<string>[1];//実装するときの要素数は4にしてね
+    List<string>[] OriginalItem;    //プレイヤーが持っている処理前のアイテム
 
-    Dictionary<string, int> Item = new Dictionary<string, int> { };//並べ替え用の空のdictionary
+    Dictionary<string, int> Item0 = new Dictionary<string, int> { };//並べ替え用の空のdictionaryを人数分
+    Dictionary<string, int> Item1 = new Dictionary<string, int> { };
+    Dictionary<string, int> Item2 = new Dictionary<string, int> { };
+    Dictionary<string, int> Item3 = new Dictionary<string, int> { };
+
+    Dictionary<int, Dictionary<string, int>> Items;//上のdictionaryを多次元化したもの。player1のアイテムは1と入力する
     //----------------------------------関数----------------------------------
-    private void Awake()        //下準備
+    private void Awake()
     {
-        /*int playersnum = 1;//プレイヤーの数を参照してね
+        //ワールド変数を代入
+        playersnum = 4;
+        total = new Text[playersnum];
+        Canvas = GameObject.Find("Canvas").transform;
+        ScoreBackGround = new Transform[playersnum];
+        OriginalItem = new List<string>[playersnum];
+        Items = new Dictionary<int, Dictionary<string, int>> {{ 0, Item0 },{ 1, Item1 },{ 2, Item2 },{ 3, Item3 }};
 
-        //ここからしおりを複製するための下準備
-        GameObject PlayerBackGround = Resources.Load<GameObject>("PlayerItems");//コピー元
-        float[] PBGinitpos = new float[2] {30.0f, 0.0f};//複製する際の初期位置xyご自由に変えてください
-        float PBGinterval = 30.0f;//複製する際のx座標の間隔*/
 
-        players = GameObject.Find("Player1");
-        OriginalItem[0] = players.GetComponent<PlayerStatasOkura>().HabItem;
-        /*for (int i = 0; i < playersnum; i++)
+        //ここからプレハブを生成するための下準備
+        PlayerBackGround = new GameObject[playersnum];
+        float[] PBGinitpos = new float[2] {-235.0f, -16.9f};//複製する際の初期位置xy
+        float PBGinterval = 160.0f;//複製する際のx座標の間隔
+
+        for (int i = 0; i < playersnum; i++)
         {
-            //しおりの複製
-            GameObject CopyedPBG = 
-                Instantiate(PlayerBackGround,new Vector3(PBGinitpos[0] + (PBGinterval * i),PBGinitpos[1],0.0f), Quaternion.identity);
-            CopyedPBG.name = "PlayerItems" + i;
-            
-            //並び替え元のプレイヤーの持ち物を複製
+            //プレハブとプレイヤーの情報をロード
+            PlayerBackGround[i] = Resources.Load<GameObject>("PlayerItems" + i);
             players = GameObject.Find("Player" + i);
+
+            //プレハブを生成する
+            GameObject CopyedPBG = Instantiate(PlayerBackGround[i],new Vector3(PBGinitpos[0] + (PBGinterval * i),PBGinitpos[1],0.0f), Quaternion.identity);
+            CopyedPBG.name = "PlayerItems" + i;//名前を変更
+            CopyedPBG.transform.SetParent(Canvas, false);//canvasの子に設定して表示
+
+            //プレイヤーの名前を参照し設定
+            Text Playername = GameObject.Find("Playername" + i).GetComponent<Text>();
+            Playername.text = players.GetComponent<PlayerStatasOkura>().Name;
+            
+            //表示時に使うSBGとトータルスコアを出すテキストボックスを参照し設定
+            ScoreBackGround[i] = GameObject.Find("Content" + i).transform;
+            total[i] = GameObject.Find("Total" + i).GetComponent<Text>();
+
+            //並び替え前のプレイヤーの持ち物を参照
             OriginalItem[i] = players.GetComponent<PlayerStatasOkura>().HabItem;
-        }*/
+        }
+
+        DisplayItems();
     }
 
-    public void AddItem(string Item)
-    {
-        OriginalItem[0].Add(Item);
-    }
 
     //アイテムの表示
     public void DisplayItems()
     {
+        textUI = GameObject.Find("Items").GetComponent<Text>();//コピー元を参照
         float[] initpos = new float[2] { textUI.transform.localPosition.x, textUI.transform.localPosition.y };//テキストの初期位置
-        int count = 0;
-        DuplicateItem();        //テストのためここに入れました。実際のゲームシーンではアイテムを追加する必要がないため、Awakeにいれてください
+        int[] totalpoint = new int[playersnum];//トータルスコア格納用
+        int count = 0;//ループ回数
 
-        foreach (string i in Item.Keys)
+        DuplicateItem();
+
+        foreach(Transform i in ScoreBackGround)
         {
-            //最初は獲得したものを左揃えで表示
-            Text Copytext = Instantiate(textUI, new Vector3(initpos[0], initpos[1]+ (count * interval), 0.0f), Quaternion.identity);
-            Copytext.transform.SetParent(ScoreBackGround, false);
-            Copytext.text = i;
+            int dupcount = 0;//アイテムの表示回数
+            foreach (string j in Items[count].Keys)
+            {
+                //最初は獲得したものを左揃えで表示
+                Text Copytext = Instantiate(textUI, new Vector3(initpos[0], initpos[1] + (dupcount * interval), 0.0f), Quaternion.identity);
+                Copytext.transform.SetParent(i, false);
+                Copytext.text = j;
 
-            //次に獲得したもののポイントを右揃えで表示
-            Text point = Instantiate(textUI, new Vector3(initpos[0], initpos[1], 0.0f), Quaternion.identity);
-            point.transform.SetParent(Copytext.transform, false);
-            point.alignment = TextAnchor.MiddleRight;
-            point.text = Item[i] + "P";
+                //次に獲得したもののポイントを右揃えで表示
+                Text point = Instantiate(textUI, new Vector3(initpos[0], initpos[1], 0.0f), Quaternion.identity);
+                point.transform.SetParent(Copytext.transform, false);
+                point.alignment = TextAnchor.MiddleRight;
+                point.text = Items[count][j] + "P";
 
+                totalpoint[count] += Items[count][j];
+                dupcount++;
+            }
+
+            total[count].text = totalpoint[count].ToString() + "P";//トータルスコアの表示
             count++;
         }
+
+
+        //順位表示,totalpointのうつしと順位
+        int[] tp = new int[playersnum];
+        int[] Rank = new int[playersnum];
+
+        //値を代入
+        for (int i = 0; i < playersnum; ++i)
+        {
+            tp[i] = totalpoint[i];
+            Rank[i] = i;
+        }
+
+        //降順に
+        for (int i = 0; i < playersnum; ++i)
+        {
+            for (int j = 0; j < playersnum; ++j)
+            {
+                if(tp[i] > tp[j])
+                {
+                    int tmp;
+                    tmp = Rank[i];
+                    Rank[i] = Rank[j];
+                    Rank[j] = tmp;
+
+                    tmp = tp[i];
+                    tp[i] = tp[j];
+                    tp[j] = tmp;
+                }
+            }
+        }
+
+        //一位(Rank[0])のみ王冠を表示
+        Image RImage = GameObject.Find("Rank" + Rank[0]).GetComponent<Image>();
+        RImage.sprite = Resources.Load<Sprite>("1st");
     }
+
 
     //重複アイテムをまとめてすっきりさせる
     void DuplicateItem()
@@ -83,13 +155,13 @@ public class ResultManager : MonoBehaviour
         {
             for (int i = 0; i < OriginalItem[num].Count; i++)//num番目のプレイヤーの持ち物の数だけ行う
             {
-                if (Item.ContainsKey(OriginalItem[num][i]))//アイテムの中に重複する者があれば
+                if (Items[num].ContainsKey(OriginalItem[num][i]))//アイテムの中に重複する者があれば
                 {
-                    Item[OriginalItem[num][i]] += DictionaryManager.ItemDictionary[OriginalItem[0][i]][0];//ポイントを増やす
+                    Items[num][OriginalItem[num][i]] += DictionaryManager.ItemDictionary[OriginalItem[num][i]][0];//ポイントを増やす
                 }
                 else
                 {
-                    Item.Add(OriginalItem[0][i], DictionaryManager.ItemDictionary[OriginalItem[0][i]][0]);//なければ新しい項目を作る
+                    Items[num].Add(OriginalItem[num][i], DictionaryManager.ItemDictionary[OriginalItem[num][i]][0]);//なければ新しい項目を作る
                 }
             }
         }
