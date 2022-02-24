@@ -111,6 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7596f4fde3b72874abee8cd31184791f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  daycomment: {fileID: 0}
+  speed: 0.5
 --- !u!114 &2937869412067782353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,6 +154,7 @@ MonoBehaviour:
   Effecting: 0
   PlayerSpriteRenderer: {fileID: 0}
   PlayerSprite: {fileID: 21300000, guid: c91121f4a2f5aa24fb009252ea5ee2d3, type: 3}
+  Dcomment: {fileID: 0}
 --- !u!114 &8510935963758404761
 MonoBehaviour:
   m_ObjectHideFlags: 0
