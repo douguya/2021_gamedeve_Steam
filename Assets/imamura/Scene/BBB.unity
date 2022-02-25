@@ -2892,7 +2892,7 @@ GameObject:
   - component: {fileID: 454400295}
   - component: {fileID: 454400299}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Ready
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3687,6 +3687,7 @@ MonoBehaviour:
   GameStartButton: {fileID: 2113182239}
   Dcomment: {fileID: 0}
   SceneManager: {fileID: 75230676}
+  RadyButton: {fileID: 454400293}
   playersnum: 0
   Goalcount: 0
 --- !u!114 &513922115
@@ -4046,7 +4047,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 556772219}
   m_OnClick:
     m_PersistentCalls:
@@ -4329,6 +4330,14 @@ PrefabInstance:
       propertyPath: m_Text
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 386643605372257832, guid: 65cd91566dade034fb4f735f387d8714, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: f56362f3f09a1e74b94484c56df5eeb5, type: 3}
+    - target: {fileID: 2343777149721384246, guid: 65cd91566dade034fb4f735f387d8714, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: f56362f3f09a1e74b94484c56df5eeb5, type: 3}
     - target: {fileID: 5397050816507415271, guid: 65cd91566dade034fb4f735f387d8714, type: 3}
       propertyPath: m_Name
       value: Dropdown:Player1
@@ -4577,7 +4586,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: f56362f3f09a1e74b94484c56df5eeb5, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
@@ -8633,6 +8642,14 @@ PrefabInstance:
       propertyPath: m_Text
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 386643605372257832, guid: 65cd91566dade034fb4f735f387d8714, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: f56362f3f09a1e74b94484c56df5eeb5, type: 3}
+    - target: {fileID: 2343777149721384246, guid: 65cd91566dade034fb4f735f387d8714, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: f56362f3f09a1e74b94484c56df5eeb5, type: 3}
     - target: {fileID: 5397050816507415271, guid: 65cd91566dade034fb4f735f387d8714, type: 3}
       propertyPath: m_Name
       value: Dropdown:Player2
@@ -13331,7 +13348,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: f56362f3f09a1e74b94484c56df5eeb5, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
@@ -14798,6 +14815,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6361100108749537733, guid: e6f635bb67ce2b340bd12141d028a4d0, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: f56362f3f09a1e74b94484c56df5eeb5, type: 3}
     - target: {fileID: 6361100109485908760, guid: e6f635bb67ce2b340bd12141d028a4d0, type: 3}
       propertyPath: m_Type
       value: 0
