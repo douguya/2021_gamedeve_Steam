@@ -5,9 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using Photon.Pun;
-
 using Photon.Realtime;
-using System.Threading.Tasks;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerStatus : MonoBehaviourPunCallbacks
@@ -108,7 +106,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
             hashPlayStatus["nextturn"] = false;
             PhotonNetwork.LocalPlayer.SetCustomProperties(hashPlayStatus);
             Debug.Log("Start:" + hashPlayStatus);
-
+            
             StopDiceButton = GameObject.Find("Stop").GetComponent<Button>();//テスト用ボタンへのアクセス用
             StopDiceButton.GetComponent<Button>().onClick.AddListener(StopDice);//テスト用ボタンへの関数追加 (インスペクターには映らない)
         }
@@ -157,12 +155,12 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
                                 //一回しか反応しない
         dice.GetComponent<imamuraDice>().OnDiceSpin();  //ダイスを回す
             dicestart = false;
-       
 
 
+        StopDiceButton.interactable = true;
 
-       // Debug.Log(Move);
-            step = 2;
+        // Debug.Log(Move);
+        step = 2;
             stop = false;
             dicestart = true;
         
@@ -183,6 +181,7 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
         Move = dice.GetComponent<imamuraDice>().StopDice();//ダイスを止める
 
         MoveSelect_Setting(Move);
+        StopDiceButton.interactable = false;
     }
 
 
@@ -571,32 +570,32 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
 
 
 
-    public async void PlayerMovement()//移動
+    public  void PlayerMovement()//移動
     {
-
-        Moving = true;
-        while (Moving)
-        {
-            currentTime += Time.deltaTime;      //プレイヤーの移動が一歩ずつ進むように
-            if (currentTime > speed)
-            {
-                MovePlayer();                   //一歩進める
-                currentTime = 0f;
-                await Task.Delay(500);
-            }
-        }
-
-        GoalAnniversaries();
-
+        StartCoroutine(PlayerMovement_Coroutine());
     }
 
 
 
 
-    
+    public IEnumerator PlayerMovement_Coroutine()
+    {
 
+       
+        Moving = true;
+        while (Moving)
+        {
+           
+            MovePlayer();                   //一歩進める
+            currentTime = 0f;
+            yield return new WaitForSeconds(0.5f);
+            Debug.Log("sdasdasdasdasdasdasasdasdsadasdasdasddddddddddddddddddddddddddddddddddddddddddddddddd");
+           
 
-
+        }
+        GoalAnniversaries();
+        yield break;
+    }
 
 
 
@@ -660,7 +659,17 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
                 break;
         }
 
+        
+
     }
+
+
+
+
+
+
+
+
 
     public void PlayerMass(int x, int y)//プレイヤーをマス座標移動させる(日付ワープに使える)
     {
@@ -671,29 +680,39 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
 
-    public async void SetPlayernumShorten()//アイテムリストUIの同期
+    public  void SetPlayernumShorten()//アイテムリストUIの同期
     {
-        await Task.Delay(50);//一気に複数のプレイヤーとアイテムリストの同期をするための一時停止
+        StartCoroutine(SetPlayernumShorten_Coroutine());
 
- 
+
+
+    }
+
+
+
+
+    public IEnumerator SetPlayernumShorten_Coroutine()
+    {
+
+        yield return new WaitForSeconds(0.07f);
         int loop = 1;//アイテムリストの初期値
         foreach (var PList in PhotonNetwork.PlayerList)//プレイヤーリストの内容を順番に格納
         {
             if (photonView.CreatorActorNr == PList.ActorNumber)//自分の作成者のIDがPListのIDとイコールなら
             {
-               // dropdown.ClearOptions();//移行前のリスト消去
+                // dropdown.ClearOptions();//移行前のリスト消去
                 dropdown = GameObject.Find("Dropdown:Player" + loop).GetComponent<Dropdown>();//プレイヤーの順番に対応したアイテムリストUIとの同期
                 dropdown.ClearOptions();//同期したアイテムリストの初期化
 
                 dropdown.options.Add(new Dropdown.OptionData { text = "" + PlayerNameVew });//アイテムリストのラベル付け
                 dropdown.RefreshShownValue();//アイテムリストUIの更新
 
-              //  Debug.Log("aaaaaaaaaaaaaaa" + Position[loop - 1, 0]+ Position[loop - 1, 1]);
-                PlayerMass(Position[loop-1, 0], Position[loop-1,1]);
-                this.name = "Player" + (loop-1);
+                //  Debug.Log("aaaaaaaaaaaaaaa" + Position[loop - 1, 0]+ Position[loop - 1, 1]);
+                PlayerMass(Position[loop - 1, 0], Position[loop - 1, 1]);
+                this.name = "Player" + (loop - 1);
                 Name = this.name;
-              //  Debug.Log("aaaaaaaaaaaaaaa" + this.name);
-                Gamemanager.GetComponent<sugorokuManager>().Player[loop-1] = this.gameObject;
+                //  Debug.Log("aaaaaaaaaaaaaaa" + this.name);
+                Gamemanager.GetComponent<sugorokuManager>().Player[loop - 1] = this.gameObject;
 
 
 
@@ -701,11 +720,26 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
 
 
                 //テスト用ボタンのセッティング
-          
+
             }
             loop++;
         }
+
+        yield break;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public override void OnPlayerLeftRoom(Player otherPlayer)//他のプレイヤーがいなくなった時のコールバック
     {
