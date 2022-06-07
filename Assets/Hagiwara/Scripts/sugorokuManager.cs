@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using System.Threading.Tasks;
+
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class sugorokuManager : MonoBehaviourPunCallbacks
 {
@@ -20,10 +20,10 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
     public GameObject GameStartButton;
     public GameObject Dcomment;
     public GameObject SceneManager;
-
+    public GameObject RadyButton;
     private bool gamestart = false;
     public int playersnum;
-    public int Goalcount;
+    public int Goalcount=0;
 
 
     private void Awake()
@@ -137,19 +137,47 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
 
 
 
-//======================================================================================================
+    //======================================================================================================
 
 
-    public async void StartOfimitation()
+    public void StartOfimitation()
     {
         PhotonNetwork.CurrentRoom.IsOpen = false;
         photonView.RPC(nameof(hashRoom_StartUp), RpcTarget.AllViaServer);
-        await Task.Delay(500);
-        // await Task.Delay(200);//ネットワークの処理の待機　仮のため
+        StartCoroutine(StartOfimitation_TransitionToResult());
+       
+
+    }
+
+
+    public IEnumerator StartOfimitation_TransitionToResult() 　　　//リザルトに飛ぶ
+    {
+        yield return new WaitForSeconds(0.4f);
+        Start_Col_Debac();
+        yield break;
+
+    }
+
+
+
+    public void Start_Col_Debac()
+    { 
         GoalDecision();//ゴールの選択
+        photonView.RPC(nameof(RadyClose), RpcTarget.All);
         GameStartButton.SetActive(false);
         photonView.RPC(nameof(AbleToPlayerControl), RpcTarget.All);
     }
+
+
+    [PunRPC]
+    public void RadyClose()
+    {
+        RadyButton.SetActive(false);
+
+    }
+
+
+
 
 
     [PunRPC]
@@ -157,10 +185,8 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
     {
         hashRoom = new Hashtable();
         hashRoom["Turn_of_Player"] = 0;
-        hashRoom["GoalCount"] =2;
+        hashRoom["GoalCount"] =0;
         PhotonNetwork.CurrentRoom.SetCustomProperties(hashRoom);
-
-
 
     }
 
@@ -181,35 +207,60 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
     }
 
 
-    public async void  AfterMoving()
+    public void  AfterMoving()
     {
-        
-
         //  Debug.Log(Player[play].GetComponent<PlayerStatus>().Goalup);
         if (Player[play].GetComponent<PlayerStatus>().Goalup == true)   //もしこの手番にゴールしていたら
         {
 
-
-
-            hashRoom["GoalCount"] = (int)PhotonNetwork.CurrentRoom.CustomProperties["GoalCount"] + 1;
-            PhotonNetwork.CurrentRoom.SetCustomProperties(hashRoom);
-
-
+            photonView.RPC(nameof(GettingGoal), RpcTarget.All);
             Player[play].GetComponent<PlayerStatus>().Goalup = false;   //ゴール宣言取り消し
             GoalAgain();
-            await Task.Delay(200);
-            //ゴールの再設置
+      
         }
-        if ((int)PhotonNetwork.CurrentRoom.CustomProperties["GoalCount"] == 4)   //ゴールした数が４なら
-        {
-            photonView.RPC(nameof(GameFinish), RpcTarget.All);
-            //ゲーム終了
-        }
+
         playerRounded();
     }
 
 
-    public async void playerRounded()
+    [PunRPC]
+    public void GettingGoal()
+    {
+
+        Goalcount++;
+
+        if (Goalcount >= 4)   //ゴールした数が４なら
+        {
+            photonView.RPC(nameof(GameFinish), RpcTarget.All);
+            //ゲーム終了
+        }
+
+    }
+
+
+
+
+
+
+
+
+    public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+    {
+        // 更新されたルームのカスタムプロパティのペアをコンソールに出力する
+       
+
+
+
+
+       
+
+
+    }
+
+
+
+
+        public void playerRounded()
     {
         play++;
         if (play >= PhotonNetwork.PlayerList.Length)//プレイヤー参加人数を超えたら
@@ -222,10 +273,52 @@ public class sugorokuManager : MonoBehaviourPunCallbacks
         hashRoom["Turn_of_Player"] = play;
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(hashRoom);
-        await Task.Delay(200);
-        photonView.RPC(nameof(AbleToPlayerControl), RpcTarget.All);
+
+
+        StartCoroutine(playerRounded_Coroutine());
+       
+        
+
 
     }
+
+
+
+
+
+    public IEnumerator playerRounded_Coroutine()
+    {
+
+        yield return new WaitForSeconds(0.2f);
+        AbleToPlayerControl_Demo();
+
+        yield break;
+    }
+
+
+
+    public void AbleToPlayerControl_Demo()
+    {
+        photonView.RPC(nameof(AbleToPlayerControl), RpcTarget.All);
+    }
+
+
+
+
+
+
+    //  public IEnumerator AfterMoving_Coroutine()
+    //  {
+    //
+    //  yield return new WaitForSeconds(1.2f);
+
+
+
+    //     yield break;
+    //   }
+
+
+
 
     [PunRPC]
     public void GameFinish()

@@ -136,7 +136,7 @@ public class DictionaryManager : MonoBehaviour
 
         {"手羽先記念日" ,new string[]{ "アイテム", "手羽先" } },
 
-        {"暑中見舞いの日" ,new string[]{ "アイテム", "暑中見舞い" } },
+        {"暑中見舞いの日" ,new string[]{ "アイテム", "暑中見舞いの品" } },
 
         {"和菓子の日" ,new string[]{ "アイテム", "和菓子" } },
 
@@ -250,7 +250,7 @@ public class DictionaryManager : MonoBehaviour
 
         {"水泳の日" ,new string[]{ "", "" } },
 
-        {"終戦記念日" ,new string[]{ "アイテム", "ラジオ放送" } },
+        {"終戦記念日" ,new string[]{ " ", "ラジオ放送" } },
 
         {"トロの日" ,new string[]{ "アイテム", "大トロ" } },
 
