@@ -56,6 +56,8 @@ MonoBehaviour:
   - iconChange
   - Daycomment
   - Daycommentoff
+  - GettingGoal
+  - RadyClose
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

@@ -4,7 +4,6 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
 
 public class NetWorkManager : MonoBehaviourPunCallbacks
@@ -58,25 +57,49 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
         }
     }
-    public async void JoineLoom(int RoomNum)//部屋に入る処理
+    public void JoineLoom(int RoomNum)//部屋に入る処理
     {
         SceneManagerOj.GetComponent<SceneManagaer>().TransitionToGame();//ゲームシーンへ遷移
-        await Task.Delay(400);//ディレイ　タイミング用
+        StartCoroutine(JoineLoom_Coroutine(RoomNum));
+    }
+
+
+
+
+    public IEnumerator JoineLoom_Coroutine(int RoomNum)
+    {
+
+        yield return new WaitForSeconds(0.4f);
         var roomOptions = new RoomOptions();//ルームオプションの設定
         roomOptions.MaxPlayers = 4;
         PhotonNetwork.JoinOrCreateRoom("ルーム" + RoomNum, roomOptions, TypedLobby.Default);
 
+        yield break;
     }
-    public async override void OnJoinedRoom()//部屋に入る
-    {
 
-        // ランダムな座標に自身のアバター（ネットワークオブジェクト）を生成する
+
+
+    public  override void OnJoinedRoom()//部屋に入る
+    {
+        StartCoroutine(OnJoinedRoom_Coroutine());
+    }
+
+    public IEnumerator OnJoinedRoom_Coroutine()
+    {
         var position = new Vector3(-7.69f, -3.66f);
         GameObject blockTile = PhotonNetwork.Instantiate("playerAA", position, Quaternion.identity);
         position = new Vector3(-303.5f, -71f);
-        await Task.Delay(400);
-
+        yield return new WaitForSeconds(0.4f);
+        yield break;
     }
+
+
+
+
+
+
+
+
     public override void OnJoinRoomFailed(short returnCode, string message)//部屋に入れなかったとき
     {
         if (SceneManager.GetActiveScene().name == SceneManagaer.Gamesend)//ゲームシーンに入ってしまった場合

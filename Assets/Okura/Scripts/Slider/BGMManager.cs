@@ -29,7 +29,7 @@ public class BGMManager : MonoBehaviour
     {
         audiosource = this.GetComponent<AudioSource>();
         Music = this.GetComponent<musiclist>();
-        audiosource.volume = PlayerPrefs.GetFloat("BGMValue", 1.0f);
+        audiosource.volume = PlayerPrefs.GetFloat("BGMValue", 1.0f) * 0.5f;
         Debug.Log(PlayerPrefs.GetFloat("BGMValue", 999.9f));
     }
 
@@ -60,7 +60,7 @@ public class BGMManager : MonoBehaviour
     public void BGMSlider(float Value)
     {
         audiosource.volume = Value;
-        PlayerPrefs.SetFloat("BGMValue", Value);
+        PlayerPrefs.SetFloat("BGMValue", Value*0.1f);
         PlayerPrefs.Save();
         Debug.Log(PlayerPrefs.GetFloat("BGMValue", 999.9f));
     }

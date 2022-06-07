@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Threading.Tasks;
+
 
 public class SceneManagaer : MonoBehaviour
 {
@@ -10,13 +10,15 @@ public class SceneManagaer : MonoBehaviour
     public string lobby;
     public static string Lobysend; //
     public string Game;
-    public static string Gamesend;  
+    public static string Gamesend;
     public string Result;      //
+
+    float timer;
 
     // Start is called before the first frame update
     void Start()
     {
-        Debug.developerConsoleVisible = false;
+        // Debug.developerConsoleVisible = false;
         Gamesend = Game;
         Lobysend = lobby;
     }
@@ -24,38 +26,46 @@ public class SceneManagaer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+
+
+
     }
 
-    public async void TransitionToMain() 　　　//タイトルに飛ぶ
+    public void TransitionToMain() 　　　//タイトルに飛ぶ
     {
-        await Task.Delay(400);
-        SceneManager.LoadScene(Main);
+
+
+        StartCoroutine(Scene_transition(Main));
+
     }
 
-    public async void TransitionTolobby() 　　　//ロビーに飛ぶ
+    public void TransitionTolobby() 　　　//ロビーに飛ぶ
     {
-        await Task.Delay(400);
-        SceneManager.LoadScene(lobby);
+        StartCoroutine(Scene_transition(lobby));
+
     }
 
 
 
-    public async void TransitionToGame() 　　　//ゲームシーンに飛ぶ
+    public void TransitionToGame() 　　　//ゲームシーンに飛ぶ
     {
-        await Task.Delay(400);
-        SceneManager.LoadScene(Game);
+        StartCoroutine(Scene_transition(Game));
     }
 
-    public async void TransitionToResult() 　　　//リザルトに飛ぶ
+    public void TransitionToResult() 　　　//リザルトに飛ぶ
     {
-        await Task.Delay(400);
-        SceneManager.LoadScene(Result);
+
+        StartCoroutine(Scene_transition(Result));
     }
-    public async void Quit()//ゲーム終了
+
+
+    public IEnumerator Scene_transition(string Sene)
     {
-        await Task.Delay(400);
-        Application.Quit();
-       //  UnityEditor.EditorApplication.isPlaying = false;
+
+        yield return new WaitForSeconds(0.4f);
+        SceneManager.LoadScene(Sene);
+
+        yield break;
     }
 }
