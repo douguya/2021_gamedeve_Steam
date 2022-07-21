@@ -3392,11 +3392,19 @@ PrefabInstance:
       value: NetWorkManagaer
       objectReference: {fileID: 0}
     - target: {fileID: 5228020121527939329, guid: 55e18925c8a517d4b9300695a4dfe72f, type: 3}
+      propertyPath: InputField
+      value: 
+      objectReference: {fileID: 766869399}
+    - target: {fileID: 5228020121527939329, guid: 55e18925c8a517d4b9300695a4dfe72f, type: 3}
       propertyPath: PlayerName
       value: 
       objectReference: {fileID: 40491687}
     - target: {fileID: 5228020121527939329, guid: 55e18925c8a517d4b9300695a4dfe72f, type: 3}
       propertyPath: SceneManagerOj
+      value: 
+      objectReference: {fileID: 1502712374}
+    - target: {fileID: 5228020121527939329, guid: 55e18925c8a517d4b9300695a4dfe72f, type: 3}
+      propertyPath: SceneManagerObj
       value: 
       objectReference: {fileID: 1502712374}
     - target: {fileID: 5228020121527939329, guid: 55e18925c8a517d4b9300695a4dfe72f, type: 3}
