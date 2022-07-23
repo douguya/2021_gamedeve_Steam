@@ -18,6 +18,8 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     public Text[] RoomText;           //ルームの名前とテキスト
     public GameObject[] RoomBotton;   //ルームボタンのオブジェクト
     public PlayerStatasIMamura PlayerStatasIMamura;
+    public GameObject LoadImage;
+
 
     [SerializeField]
     public int PlayerIdVew;
@@ -34,12 +36,10 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
 
     void Start()
-
-
     {
         PhotonNetwork.ConnectUsingSettings();
         InputField = GetComponent<InputField>();
-
+        LoadImage.SetActive(true);
     }
 
 
@@ -51,7 +51,8 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         Debug.Log("ロビーへ参加しました");
-    
+        LoadImage.SetActive(false);
+
     }
 
 
@@ -103,7 +104,9 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         GameObject blockTile = PhotonNetwork.Instantiate("playerAA", position, Quaternion.identity);
         position = new Vector3(-303.5f, -71f);
         yield return new WaitForSeconds(0.4f);
+        LoadImage.SetActive(false);
         yield break;
+        
     }
 
 
