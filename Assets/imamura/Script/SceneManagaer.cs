@@ -13,6 +13,11 @@ public class SceneManagaer : MonoBehaviour
     public static string Gamesend;
     public string Result;      //
 
+    //-----------------------------------------大蔵-----------------------------------------
+    public GameObject OptionButton;
+    public GameObject OptionWindow;
+    //---------------------------------------ここまで-----------------------------------------
+
     float timer;
 
     // Start is called before the first frame update
@@ -68,4 +73,22 @@ public class SceneManagaer : MonoBehaviour
 
         yield break;
     }
+
+
+    //-----------------------------------------大蔵-----------------------------------------
+
+    public void DisplayOptionWindow() 　　　//オプション画面を表示する
+    {
+        OptionButton.SetActive(false);
+        OptionWindow.SetActive(true);
+    }
+
+    public void UnDisplayOptionWindow() 　　　//オプション画面を非表示にする
+    {
+        OptionButton.SetActive(true);
+        OptionWindow.SetActive(false);
+    }
+
+    //---------------------------------------ここまで-----------------------------------------
+
 }
