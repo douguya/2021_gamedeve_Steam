@@ -15,7 +15,7 @@ public class newRotate : MonoBehaviour
     //廃止　public GameObject[] Dice = new GameObject[6];　//ダイスの各面に張り付けてある空箱
     //廃止　public GameObject max; //一番上の面の空箱
 
-    public List<int> OutDiceNum = new List<int>(); //指定された数がさいころからでなくなる
+    public List<int> InDiceNum = new List<int> {1, 2, 3, 4, 5, 6}; //指定された数がさいころから出る
 
     // Start is called before the first frame update
     void Start()
@@ -65,9 +65,9 @@ public class newRotate : MonoBehaviour
         for(;;)
         {
             DiceNum = Random.Range(1, 7);
-            if (OutDiceNum.Contains(DiceNum) == false)
+            if (InDiceNum.Contains(DiceNum) == true)
             {
-                break;//数字が禁止されてなければ通す
+                break;//数字が許可されていれば通す
             }
         }
 
@@ -105,17 +105,17 @@ public class newRotate : MonoBehaviour
 
     public void OddDice() //奇数ダイスになる
     {
-        OutDiceNum.Clear();
-        OutDiceNum.Add(2);
-        OutDiceNum.Add(4);
-        OutDiceNum.Add(6);
+        InDiceNum.Clear();
+        InDiceNum.Add(1);
+        InDiceNum.Add(3);
+        InDiceNum.Add(5);
     }
 
     public void EvenDice()　//偶数ダイスになる
     {
-        OutDiceNum.Clear();
-        OutDiceNum.Add(1);
-        OutDiceNum.Add(3);
-        OutDiceNum.Add(5);
+        InDiceNum.Clear();
+        InDiceNum.Add(2);
+        InDiceNum.Add(4);
+        InDiceNum.Add(6);
     }
 }
