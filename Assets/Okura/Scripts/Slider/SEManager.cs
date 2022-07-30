@@ -87,9 +87,16 @@ public class SEManager : MonoBehaviour
     //スライダーで音量調節
     public void SESlider(float Value)
     {
-        audiosource.volume = Value;
-        PlayerPrefs.SetFloat("SEValue", Value);
+        audiosource.volume = Db2Pa(Value);
+        PlayerPrefs.SetFloat("SEValue", Db2Pa(Value));
         PlayerPrefs.Save();
         Debug.Log(PlayerPrefs.GetFloat("SEValue", 999.9f));
+    }
+
+    //デシベルから音圧に変換
+    private float Db2Pa(float db)
+    {
+        db = Mathf.Clamp(db, -80f, 20f);
+        return Mathf.Pow(10f, db / 20f);
     }
 }

@@ -15,6 +15,13 @@ public class BGMSlider : MonoBehaviour
     public void BGMOnValueChange(float newSliderValue)
     {
         BGMManager bGmManager = BGMManager.Instance;
-        bGmManager.BGMSlider(newSliderValue);
+        bGmManager.BGMSlider(Pa2Db(newSliderValue));
+    }
+
+    //‰¹ˆ³‚©‚çƒfƒVƒxƒ‹‚Ö•ÏŠ·
+    private float Pa2Db(float pa)
+    {
+        pa = Mathf.Clamp(pa, 0.0001f, 10f);
+        return 20f * Mathf.Log10(pa);
     }
 }

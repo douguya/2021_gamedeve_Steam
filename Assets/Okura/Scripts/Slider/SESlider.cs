@@ -15,6 +15,13 @@ public class SESlider : MonoBehaviour
     public void SEOnValueChange(float newSliderValue)
     {
         SEManager sEManager = SEManager.Instance;
-        sEManager.SESlider(newSliderValue);
+        sEManager.SESlider(Pa2Db(newSliderValue));
+    }
+
+    //‰¹ˆ³‚©‚çƒfƒVƒxƒ‹‚Ö•ÏŠ·
+    private float Pa2Db(float pa)
+    {
+        pa = Mathf.Clamp(pa, 0.0001f, 10f);
+        return 20f * Mathf.Log10(pa);
     }
 }

@@ -29,7 +29,7 @@ public class BGMManager : MonoBehaviour
     {
         audiosource = this.GetComponent<AudioSource>();
         Music = this.GetComponent<musiclist>();
-        audiosource.volume = PlayerPrefs.GetFloat("BGMValue", 1.0f) * 0.5f;
+        audiosource.volume = PlayerPrefs.GetFloat("BGMValue", 0.434f);
         Debug.Log(PlayerPrefs.GetFloat("BGMValue", 999.9f));
     }
 
@@ -59,9 +59,16 @@ public class BGMManager : MonoBehaviour
     //スライダーで音量調節
     public void BGMSlider(float Value)
     {
-        audiosource.volume = Value;
-        PlayerPrefs.SetFloat("BGMValue", Value*0.1f);
+        audiosource.volume = Db2Pa(Value);
+        PlayerPrefs.SetFloat("BGMValue", Db2Pa(Value));
         PlayerPrefs.Save();
         Debug.Log(PlayerPrefs.GetFloat("BGMValue", 999.9f));
+    }
+
+    //デシベルから音圧に変換
+    private float Db2Pa(float db)
+    {
+        db = Mathf.Clamp(db, -80f, 20f);
+        return Mathf.Pow(10f, db / 20f);
     }
 }
