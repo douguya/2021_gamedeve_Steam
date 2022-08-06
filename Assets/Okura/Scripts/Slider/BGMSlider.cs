@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class BGMSlider : MonoBehaviour
 {
     private Slider slider;
+
     private void Awake()
     {
         slider = GetComponent<Slider>();
