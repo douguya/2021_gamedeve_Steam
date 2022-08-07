@@ -8,7 +8,7 @@ public class ButtonController : MonoBehaviour
     public void OnClick(string objectName)
     {
         SEManager sEManager = SEManager.Instance;
-        sEManager.DecisionSE();
+        sEManager.SEsetandplay("Decition1");
 
         // オブジェクトの数だけ処理を分岐
         if ("Scene1".Equals(objectName)) this.Button1Click();
