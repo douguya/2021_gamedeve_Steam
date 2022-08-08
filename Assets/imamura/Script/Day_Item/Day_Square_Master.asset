@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 110a34f480c8ce14c807126adc2c2e66, type: 3}
+  m_Name: Day_Square_Master
+  m_EditorClassIdentifier: 
+  Day_Squares:
+  - {fileID: 11400000, guid: 0b12c74bb5c71b9408f044b89c024899, type: 2}
+  - {fileID: 11400000, guid: 3a426202cb5fc9540a6b5a81054990c0, type: 2}
