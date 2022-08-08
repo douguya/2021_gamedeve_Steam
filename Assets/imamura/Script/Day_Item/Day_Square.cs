@@ -19,8 +19,8 @@ public class Day_Square : ScriptableObject
     public Sprite HopUp;   @ 
     [Tooltip("“ú•t‚Ìà–¾")][Multiline(7)]
     public string Commentary;
-   
-  
+    
+    
 
 
     [Header("")]
