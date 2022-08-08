@@ -19,7 +19,7 @@ public class Day_Square : ScriptableObject
     public Sprite HopUp;   　 
     [Tooltip("日付の説明")][Multiline(7)]
     public string Commentary;
-    [HideInInspector]
+   
   
 
 
@@ -27,6 +27,8 @@ public class Day_Square : ScriptableObject
     [Header("日付に該当する効果がない場合はNoonと入力する")]
     [Header("日付効果、該当する物を書き込む")]
       
+
+
 
     [Tooltip("アイテムの名前")]
     public string Item;　　 　　　 
