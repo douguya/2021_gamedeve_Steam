@@ -15,7 +15,7 @@ public class SESlider : MonoBehaviour
     public void SEOnValueChange(float newSliderValue)
     {
         SEManager sEManager = SEManager.Instance;
-        sEManager.SESlider(Pa2Db(newSliderValue));
+        sEManager.VolumeControl(Pa2Db(newSliderValue));
     }
 
     //‰¹ˆ³‚©‚çƒfƒVƒxƒ‹‚Ö•ÏŠ·

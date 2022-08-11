@@ -17,20 +17,21 @@ public class SEManager : MonoBehaviour
 
     void Awake()
     {
+        audiosource = this.GetComponent<AudioSource>();
         Instance = this;
     }
 
     //下準備
     private void Start()
     {
-        audiosource = this.GetComponent<AudioSource>();
         Music = this.GetComponent<musiclist>();
         audiosource.volume = PlayerPrefs.GetFloat("SEValue", 1.0f);
+        Debug.Log(PlayerPrefs.GetFloat("SEValue", 999.9f));
     }
 
 
     //スライダーで音量調節
-    public void SESlider(float Value)
+    public void VolumeControl(float Value)
     {
         audiosource.volume = Db2Pa(Value);
         PlayerPrefs.SetFloat("SEValue", Db2Pa(Value));
