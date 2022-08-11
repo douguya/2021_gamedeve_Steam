@@ -9,6 +9,9 @@ public class Day_Square : ScriptableObject
 {
 
 
+
+
+
     [Tooltip("記念日の名前")]
     public string Anniversary;
     [Tooltip("記念日の日付")]
@@ -19,8 +22,8 @@ public class Day_Square : ScriptableObject
     public Sprite HopUp;   　 
     [Tooltip("日付の説明")][Multiline(7)]
     public string Commentary;
-    [HideInInspector]
-  
+    
+    
 
 
     [Header("")]
@@ -28,8 +31,10 @@ public class Day_Square : ScriptableObject
     [Header("日付効果、該当する物を書き込む")]
       
 
+
+
     [Tooltip("アイテムの名前")]
-    public string Item;　　 　　　 
+    public string ItemName;　　 　　　 
     [Tooltip("その瞬間の移動")]
     public string Move;　　　 　   
     [Tooltip("変更するBGM")]
