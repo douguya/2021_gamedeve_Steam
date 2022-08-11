@@ -6,6 +6,8 @@ public class BGMManager : MonoBehaviour
 {
     private AudioSource audiosource;
     musiclist Music;
+    [SerializeField]
+    string BGMname;
 
     //シーン遷移しても大丈夫
     public static BGMManager Instance
@@ -31,28 +33,8 @@ public class BGMManager : MonoBehaviour
         Music = this.GetComponent<musiclist>();
         audiosource.volume = PlayerPrefs.GetFloat("BGMValue", 0.434f);
         Debug.Log(PlayerPrefs.GetFloat("BGMValue", 999.9f));
-    }
 
-
-    //BGM鳴らす用
-    public void TitleBGM()
-    {
-        audiosource.PlayOneShot(Music.TitleBGM);
-    }
-
-    public void LobbyBGM()
-    {
-        audiosource.PlayOneShot(Music.LobbyBGM);
-    }
-
-    public void IngameBGM()
-    {
-        audiosource.PlayOneShot(Music.IngameBGM);
-    }
-
-    public void ResultSE()
-    {
-        audiosource.PlayOneShot(Music.ResultBGM);
+        BGMsetandplay(BGMname);
     }
 
 
@@ -62,7 +44,6 @@ public class BGMManager : MonoBehaviour
         audiosource.volume = Db2Pa(Value);
         PlayerPrefs.SetFloat("BGMValue", Db2Pa(Value));
         PlayerPrefs.Save();
-        Debug.Log(PlayerPrefs.GetFloat("BGMValue", 999.9f));
     }
 
     //デシベルから音圧に変換
@@ -70,5 +51,11 @@ public class BGMManager : MonoBehaviour
     {
         db = Mathf.Clamp(db, -80f, 20f);
         return Mathf.Pow(10f, db / 20f);
+    }
+
+    //BGMを鳴らす機構
+    public void BGMsetandplay(string BGMname) {
+        audiosource.clip = (AudioClip)Resources.Load(BGMname);
+        audiosource.Play();
     }
 }
