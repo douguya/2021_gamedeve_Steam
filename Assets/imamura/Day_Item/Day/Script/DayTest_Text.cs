@@ -22,7 +22,7 @@ public class DayTest_Text : MonoBehaviour
         text.text=(Day.Day_Squares[ASD].Anniversary+"\n"+
                    Day.Day_Squares[ASD].Day+"\n"+
                    Day.Day_Squares[ASD].Commentary+"\n"+
-                   Day.Day_Squares[ASD].Item+"\n"+
+                   Day.Day_Squares[ASD].ItemName+"\n"+
                    Day.Day_Squares[ASD].Move+"\n"+
                    Day.Day_Squares[ASD].BGM+"\n"+
                    Day.Day_Squares[ASD].Instance+"\n"+

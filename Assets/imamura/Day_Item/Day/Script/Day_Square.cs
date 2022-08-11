@@ -9,6 +9,9 @@ public class Day_Square : ScriptableObject
 {
 
 
+
+
+
     [Tooltip("記念日の名前")]
     public string Anniversary;
     [Tooltip("記念日の日付")]
@@ -31,7 +34,7 @@ public class Day_Square : ScriptableObject
 
 
     [Tooltip("アイテムの名前")]
-    public string Item;　　 　　　 
+    public string ItemName;　　 　　　 
     [Tooltip("その瞬間の移動")]
     public string Move;　　　 　   
     [Tooltip("変更するBGM")]
