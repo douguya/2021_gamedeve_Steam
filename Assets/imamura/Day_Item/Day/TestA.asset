@@ -17,8 +17,8 @@ MonoBehaviour:
   Staging: {fileID: 0}
   HopUp: {fileID: 21300000, guid: 7377013011b4c3348809ff574abe799e, type: 3}
   Commentary: 1231231312312312
-  Item: 
-  Move: 1
+  ItemName: 
+  Move: noon
   BGM: 2
   Instance: 3
   particle: 4
