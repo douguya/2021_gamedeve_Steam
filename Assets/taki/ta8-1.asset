@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058df27e0b5527648bdc699cd6d531d5, type: 3}
+  m_Name: ta8-1
+  m_EditorClassIdentifier: 
+  Anniversary: "\u306F\u3063\u3074\u306E\u65E5"
+  Day: 1/8
+  Staging: {fileID: 0}
+  HopUp: {fileID: 0}
+  Commentary: "\u306F\u3063\u3074\u3092\u624B\u306B\u5165\u308C\u308B"
+  Item: 
+  Move: 
+  BGM: 
+  Instance: 
+  particle: 
+  NextDice: 
+  NextMove: 
+  ItemLost: 
+  ConditionalPoint: 5
