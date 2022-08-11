@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon.Pun;
 public class Mass : MonoBehaviour
 {
     public bool Open;//ƒ}ƒX‚ª‹ó‚¢‚Ä‚é‚©‚Ç‚¤‚©
@@ -66,9 +66,7 @@ public class Mass : MonoBehaviour
         Debug.Log("AAA");
         if (select.activeSelf == true)
         {
-            
-
-
+           
             Selectoff();
             Decisionon();
             walk = true;

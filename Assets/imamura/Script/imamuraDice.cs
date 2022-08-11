@@ -9,7 +9,7 @@ public class imamuraDice : MonoBehaviour
     Sprite[] DiceImages=new Sprite[6]; //ダイスの画像
 
     private Image Dice;　　　　　　　　//Imagへの干渉
-    public bool DiceSpin = true;　　　 //サイコロを回す許可
+    private bool DiceSpin = true;　　　 //サイコロを回す許可
     public int DiseSpeed;       //サイコロの切り替えスピード
     int loop = 1;
     
@@ -46,7 +46,6 @@ public class imamuraDice : MonoBehaviour
         DiceSpin = false;//ダイスストップ
        
         return loop+1;// ダイスの値を返す
-       
     }
 
 

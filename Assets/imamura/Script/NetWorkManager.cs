@@ -4,36 +4,46 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
+using System.Text.RegularExpressions;
 
 public class NetWorkManager : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
+    public string[] Room=new string[5];
 
-    public GameObject SceneManagerOj;
-    public InputField inputField;
-    public Text PlayerName;
-    public Text[] RoomText;
-    public GameObject[] RoomBotton;
-    public PlayerStatasIMamura playerStatasIMamura;
+    public GameObject SceneManagerObj;//シーンマネージャーのオブジェクト
+    public InputField InputField;     //名前入力欄
+    public Text PlayerName;           //入力されたプレイヤーの名前
+    public Text[] RoomText;           //ルームの名前とテキスト
+    public GameObject[] RoomBotton;   //ルームボタンのオブジェクト
+    public PlayerStatasIMamura PlayerStatasIMamura;
+    public GameObject LoadImage;
+
 
     [SerializeField]
     public int PlayerIdVew;
     public string PlayerNameVew;
     public GameObject parent;
-   
-    public bool[] CanJoinRoom = new bool[5] {true,true,true,true,true};
+
+    public bool[] CanJoinRoom = new bool[5] { true, true, true, true, true };
+
+    private byte MaxRoomPeople = 4;//一つのルームの最大人数
     string GameVersion = "Ver1.0";
+
+
+
+
+
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
-        inputField = GetComponent<InputField>();
-      
+        InputField = GetComponent<InputField>();
+        LoadImage.SetActive(true);
     }
 
 
-    public override void OnConnectedToMaster()
+    public override void OnConnectedToMaster()//マスターサーバに接続された時に呼ばれる
     {
         PhotonNetwork.JoinLobby();//ロビーに入る
     }
@@ -41,42 +51,72 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         Debug.Log("ロビーへ参加しました");
-    }
-    void Update()
-    {
+        LoadImage.SetActive(false);
 
     }
 
 
-    public override void OnRoomListUpdate(List<RoomInfo> roomList)//ルームリスト更新時
-    {
-        int forL=0;
-        foreach (var info in roomList)//ルームリストの取得
-        {  //部屋のテキスト   部屋の名前　　部屋のプレイヤーの数　　部屋の最大人数
-            RoomText[forL].text=info.Name +"  "+info.PlayerCount+"/"+info.MaxPlayers;
-            forL ++;
-            
-        }
-    }
-    public async void JoineLoom(int RoomNum)//部屋に入る処理
-    {
-            SceneManagerOj.GetComponent<SceneManagaer>().TransitionToGame();//ゲームシーンへ遷移
-            await Task.Delay(400);//ディレイ　タイミング用
-            var roomOptions = new RoomOptions();//ルームオプションの設定
-            roomOptions.MaxPlayers = 4;
-            PhotonNetwork.JoinOrCreateRoom("ルーム" + RoomNum, roomOptions, TypedLobby.Default);
-          
-    }
-    public async override void OnJoinedRoom()//部屋に入る
+
+
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)//ルームリスト更新時 更新されたルームのみを受け取る
     {
       
-        // ランダムな座標に自身のアバター（ネットワークオブジェクト）を生成する
+        foreach (var info in roomList)//ルームリストの取得
+        {
+            int RoomNum = int.Parse(Regex.Replace(info.Name, @"[^0-9]", ""));//変更されたルームの番号を抽出
+
+            RoomText[RoomNum-1].text = info.Name + "A " + info.PlayerCount + "/" + MaxRoomPeople;
+
+
+        }
+    
+        
+    }
+
+
+    public void JoineLoom(int RoomNum)//部屋に入る処理
+    {
+        SceneManagerObj.GetComponent<SceneManagaer>().TransitionToGame();//ゲームシーンへ遷移
+        StartCoroutine(JoineLoom_Coroutine(RoomNum));
+    }
+
+    public IEnumerator JoineLoom_Coroutine(int RoomNum)//部屋に入る処理,コルーチン
+    {
+        yield return new WaitForSeconds(0.4f);
+        var roomOptions = new RoomOptions();//ルームオプションの設定
+        roomOptions.MaxPlayers = MaxRoomPeople;
+        PhotonNetwork.JoinOrCreateRoom("ルーム" + RoomNum, roomOptions, TypedLobby.Default);
+
+        yield break;
+    }
+
+
+
+
+    public  override void OnJoinedRoom()//部屋に入れた時の処理
+    {
+        StartCoroutine(OnJoinedRoom_Coroutine());
+    }
+
+    public IEnumerator OnJoinedRoom_Coroutine()///部屋に入れた時の処理　コルーチン
+    {
         var position = new Vector3(-7.69f, -3.66f);
         GameObject blockTile = PhotonNetwork.Instantiate("playerAA", position, Quaternion.identity);
         position = new Vector3(-303.5f, -71f);
-        await Task.Delay(400);
-       
+        yield return new WaitForSeconds(0.4f);
+        LoadImage.SetActive(false);
+        yield break;
+        
     }
+
+
+
+
+
+
+
+
+
     public override void OnJoinRoomFailed(short returnCode, string message)//部屋に入れなかったとき
     {
         if (SceneManager.GetActiveScene().name == SceneManagaer.Gamesend)//ゲームシーンに入ってしまった場合
@@ -95,8 +135,10 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     }
 
 
-  
 
+    public void Leave_the_room(){
+        PhotonNetwork.LeaveRoom();
+    }
 
 
 

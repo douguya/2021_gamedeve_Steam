@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 450284a16c0958143859da23cbe93fca, type: 3}
+  m_Name: Anniversary_Item_Master 1
+  m_EditorClassIdentifier: 
+  Anniversary_Items:
+  - {fileID: 11400000, guid: 6ae0f302889f696498cd4704e9ada55f, type: 2}
+  - {fileID: 11400000, guid: a2f1b1059d763e246beb5d86645995d8, type: 2}
+  - {fileID: 11400000, guid: 75df8deb691c30e4dabb7ebf97d8313b, type: 2}
+  - {fileID: 11400000, guid: 861c6a898708a534ca55fb219a5ec177, type: 2}
