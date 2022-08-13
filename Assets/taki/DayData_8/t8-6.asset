@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058df27e0b5527648bdc699cd6d531d5, type: 3}
   m_Name: t8-6
   m_EditorClassIdentifier: 
-  Anniversary: 
+  Anniversary: "\u5E73\u548C\u8A18\u5FF5\u65E5"
   Day: 8/6
   Staging: {fileID: 0}
   HopUp: {fileID: 0}

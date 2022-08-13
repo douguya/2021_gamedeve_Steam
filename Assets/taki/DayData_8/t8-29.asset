@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 058df27e0b5527648bdc699cd6d531d5, type: 3}
-  m_Name: t8-13
+  m_Name: t8-29
   m_EditorClassIdentifier: 
-  Anniversary: "\u602A\u7363\u306E\u65E5"
-  Day: 8/13
+  Anniversary: "\u713C\u8089\u306E\u65E5"
+  Day: 8/29
   Staging: {fileID: 0}
   HopUp: {fileID: 0}
   Commentary: 
