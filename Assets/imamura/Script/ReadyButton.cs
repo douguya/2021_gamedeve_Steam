@@ -89,35 +89,19 @@ public class ReadyButton : MonoBehaviourPunCallbacks
     }
 
 
-
-
-
-    public override void OnPlayerLeftRoom(Player otherPlayer)//他のプレイヤーが退出した場合
+    
+    public void PlayerLeftRoom_Jointed()//他のプレイヤーが退出した場合
     {
-
         PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);//上下どっちかいらない　時間があったら試す
         OnRoomPropertiesUpdate(hashtable);//カスタムプロパティを更新（準備完了状況の反映）
     }
-    public override void OnJoinedRoom()//自身がルームに入ったとき
+
+    public void JoinedRoom_Jointed()//自身がルームに入ったとき
     {
         hashtable["ReadyPlayerNum"] = false;//カスタムプロパティのセッティング　初手なのでfalse
         PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);//更新
         OnRoomPropertiesUpdate(hashtable);////カスタムプロパティを更新（準備完了状況の反映）
     }
-
-    public void GameStartn()//ゲームスタートボタンがらGamestartToRPCを起動する用
-    {
-        photonView.RPC(nameof(GamestartToRPC), RpcTarget.All);
-    }
-
-    [PunRPC]
-    public void GamestartToRPC()//ゲームスタート
-    {
-        ReadyText.text = "ゲーム中";
-
-    }
-
-
 
 
 }

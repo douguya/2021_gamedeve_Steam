@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Okura/Scenes/Result.unity
     guid: 56667d319aa4f3e4a8206dc0a2d0c07f
   - enabled: 1
-    path: Assets/imamura/Scene/imamura.unity
+    path: Assets/imamura/Scene/any/imamura.unity
     guid: a552f076361816345a2f7badf0cc4198
   - enabled: 1
     path: Assets/imamura/Scene/L1.unity
@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/imamura/Scene/BBB.unity
     guid: 50b66fa69d5c9534d89113d43b3a9765
+  - enabled: 1
+    path: Assets/imamura/3DGamescene/Hagiwara_3DTest 1.unity
+    guid: 672416d1b2f76104b95678fa1be03b34
   m_configObjects: {}

@@ -13,25 +13,31 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     public string[] Room=new string[5];
 
     public GameObject SceneManagerObj;//シーンマネージャーのオブジェクト
+   // public GameObject I_game_manager;//ゲームマネージャーのオブジェクト;
+    public I_game_manager I_game_Manager_Script;//ゲームマネージャーのオブジェクトのスクリプト;
+
+    //  public GameObject ReadyButton;//ゲームマネージャーのオブジェクト;
+    public ReadyButton ReadyButton_Script;//ゲームマネージャーのオブジェクトのスクリプト;
+
     public InputField InputField;     //名前入力欄
     public Text PlayerName;           //入力されたプレイヤーの名前
     public Text[] RoomText;           //ルームの名前とテキスト
     public GameObject[] RoomBotton;   //ルームボタンのオブジェクト
-    public PlayerStatasIMamura PlayerStatasIMamura;
-    public GameObject LoadImage;
 
+    public GameObject LoadImage;//ロード画面のもどき
+    
 
     [SerializeField]
     public int PlayerIdVew;
     public string PlayerNameVew;
-    public GameObject parent;
+  
 
     public bool[] CanJoinRoom = new bool[5] { true, true, true, true, true };
 
     private byte MaxRoomPeople = 4;//一つのルームの最大人数
     string GameVersion = "Ver1.0";
 
-
+    private GameObject[] Players_spot;
 
 
 
@@ -40,6 +46,9 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
         InputField = GetComponent<InputField>();
         LoadImage.SetActive(true);
+       // I_game_Manager_Script=I_game_manager.GetComponent<I_game_manager>();
+       // ReadyButton_Script=ReadyButton.GetComponent<ReadyButton>();
+
     }
 
 
@@ -100,16 +109,24 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
     public IEnumerator OnJoinedRoom_Coroutine()///部屋に入れた時の処理　コルーチン
     {
-        var position = new Vector3(-7.69f, -3.66f);
-        GameObject blockTile = PhotonNetwork.Instantiate("playerAA", position, Quaternion.identity);
+
+        var position = new Vector3(0.28f, -3.37f, -0.73f);
+        GameObject blockTile = PhotonNetwork.Instantiate("Player3D", position, Quaternion.identity);
         position = new Vector3(-303.5f, -71f);
+        Playerlist_Update();
+        Debug.Log(blockTile);
+        
         yield return new WaitForSeconds(0.4f);
         LoadImage.SetActive(false);
         yield break;
         
     }
 
-
+    [PunRPC]
+    public void PlayerAppearance(GameObject Player)
+    {
+        Player.SetActive(true);
+    }
 
 
 
@@ -140,11 +157,46 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
+    public override void OnPlayerLeftRoom(Player player)//プレイヤーが抜けたときの処理
+    {
+        Playerlist_Update();//プレイヤーのオブジェクト格納用/初期位置への移動も含む
+        ReadyButton_Script.PlayerLeftRoom_Jointed();
+    }
+    public override void OnPlayerEnteredRoom(Player newPlayer)//自身がルームに入ったとき
+    {
+        Playerlist_Update();//プレイヤーのオブジェクト格納用/初期位置への移動も含む
+        ReadyButton_Script.JoinedRoom_Jointed();
+
+    }
 
 
+    public void Playerlist_Update()//プレイヤーのオブジェクト格納用/初期位置への移動も含む
+    {
 
-
-
+        Players_spot = GameObject.FindGameObjectsWithTag("Player");//プレイヤーオブジェクトの一時保存場所　タグで軒並みとる
    
+
+        int loop = 0;//アイテムリストの初期値
+        foreach (var PList in PhotonNetwork.PlayerList)//プレイヤーリストの内容を順番に格納
+        {
+            foreach (GameObject obj in Players_spot)//プレイヤーリストの中身と、一時保存したプレイヤーオブジェクトを突き合わせる
+            {
+
+                if (PList.ActorNumber==obj.GetComponent<PhotonView>().CreatorActorNr) //リストのプレイヤーのIDとオブジェクトの作成者のADを比較
+                { I_game_Manager_Script.Player.Add(obj);}//この処理で、プレイヤーリストの順番どおりにプレイヤーオブジェクトを保存できる　順番を変えられるようにしたいなら変更の余地あり
+                I_game_Manager_Script.Player_setting(loop);//プレイ矢―を所定の位置に移動
+            }
+
+            loop++;
+        }
+        I_game_Manager_Script.joining_Player = PhotonNetwork.PlayerList.Length;
+        if (I_game_Manager_Script.Player.Count!=loop)
+        {
+            Debug.LogError("問題発生。部屋を入りなおして下さい");
+        }
+    }
+
+
+
 
 }
