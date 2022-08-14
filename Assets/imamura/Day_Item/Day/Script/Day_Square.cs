@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Video;
 
 
 [Serializable]
@@ -17,7 +18,7 @@ public class Day_Square : ScriptableObject
     [Tooltip("記念日の日付")]
     public string Day;        
     [Tooltip("演出アニメーション")]
-    public Animation Staging;    
+    public VideoClip Staging;    
     [Tooltip("ホップアップ画像")]
     public Sprite HopUp;   　 
     [Tooltip("日付の説明")][Multiline(7)]

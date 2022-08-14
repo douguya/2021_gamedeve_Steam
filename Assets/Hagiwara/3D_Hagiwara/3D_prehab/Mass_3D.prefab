@@ -234,7 +234,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4386184498969469272}
-  - component: {fileID: 4517256201837103634}
+  - component: {fileID: 4307650580244691226}
   - component: {fileID: 7446157185085702657}
   m_Layer: 0
   m_Name: Mass_3D
@@ -263,7 +263,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4517256201837103634
+--- !u!114 &4307650580244691226
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -272,9 +272,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3572927107592911265}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00b859994e661e645bb6ed7638038569, type: 3}
+  m_Script: {fileID: 11500000, guid: 72cb44665d5bf2041bd1d13c85cedc7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Open: 0
   Goal: 0
   warp: 0
   decision: 0
@@ -302,8 +303,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 4517256201837103634}
-          m_TargetAssemblyTypeName: Mass_3D, Assembly-CSharp
+        - m_Target: {fileID: 4307650580244691226}
+          m_TargetAssemblyTypeName: I_Mass_3D, Assembly-CSharp
           m_MethodName: OnClick
           m_Mode: 1
           m_Arguments:
