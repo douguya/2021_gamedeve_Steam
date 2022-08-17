@@ -59,6 +59,33 @@ MonoBehaviour:
   - GettingGoal
   - RadyClose
   - PlayerAppearance
+  - Output_anotherTurn
+  - Output_Dice_ready
+  - Output_GoalSetting
+  - Output_PlayerTurn
+  - Output_GameFinish
+  - Output_GoalAdd
+  - Output_GoalClear
+  - Output_AnimationDown
+  - Output_AnimationDownMonth
+  - Output_AnimationLeft
+  - Output_AnimationLeftMonth
+  - Output_AnimationRight
+  - Output_AnimationRightMonth
+  - Output_AnimationStop
+  - Output_AnimationUp
+  - Output_AnimationUpMonth
+  - Output_AnimationWarpUp
+  - Output_decisionClear
+  - Output_decisionSetting
+  - Output_GoalCount
+  - Output_hideCoverClear
+  - Output_HopUp
+  - Output_PlayerMove
+  - Output_SelectClear
+  - Output_SelectSetting
+  - Output_VideoFinish
+  - Output_VideoStart
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

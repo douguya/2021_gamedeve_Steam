@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class I_Player_3D : MonoBehaviour
+
+public class I_Player_3D : MonoBehaviourPunCallbacks
 {
     public int PlayerNumber;                      //プレイヤー番号
 
@@ -11,6 +14,8 @@ public class I_Player_3D : MonoBehaviour
     public int YPlayer_position;                  //プレイヤーの現在の縦の位置
 
     int Xcenter, Ycenter;                         //選択できるマスの中心マス
+
+    public List<Anniversary_Item> Hub_Items = new List<Anniversary_Item>();
 
     public int Move_Point = 0;                    //プレイヤーの移動できる歩数 
     private int select_Point = 0;                 //マスを選択できる数
@@ -29,15 +34,20 @@ public class I_Player_3D : MonoBehaviour
     public GameObject ButtonText;                           //ダイスのテキストオブジェクト取得
     private bool DiceStrat = true;                          //ボタンがダイスの開始かストップか
 
+   
+
     private void Awake()
     {
         GameManager= GameObject.FindWithTag("GameController");
         DiceButton=GameObject.FindWithTag("Dice");
         ButtonText=DiceButton.transform.GetChild(0).gameObject;
+        
+            
+        
     }
     void Start()
     {
-
+        name=""+GetComponent<PhotonView>().CreatorActorNr;
     }
 
 
@@ -117,8 +127,7 @@ public class I_Player_3D : MonoBehaviour
         Ycenter = YPlayer_position;
         YPlayer_Loot[0] = Ycenter;                  //プレイヤーの現在のマスを記憶する
         XPlayer_Loot[0] = Xcenter;
-
-        Output_decisionSetting(Ycenter, Xcenter);   //現在のマスを移動決定したマスにする
+        photonView.RPC(nameof(Output_decisionSetting), RpcTarget.All, Ycenter, Xcenter);//現在のマスを移動決定したマスにする
         select_Point = Move_Point;                  //選択できる数にダイスの目を入れる
         MoveSelect_Display();                       //選択できるマスの表示
     }
@@ -215,45 +224,45 @@ public class I_Player_3D : MonoBehaviour
         {
             if (Player_warpMove[Move] == true)      //ワープするか
             {
-                Output_AnimationWarpUp();           //ワープのアニメーション
+                photonView.RPC(nameof(Output_AnimationWarpUp), RpcTarget.AllViaServer);  //ワープのアニメーション
                 yield return new WaitForSeconds(1);     //1秒待つ
-                Output_AnimationStop();
-                Output_PlayerMove(Move);              //ワープのアニメーションと移動
+                photonView.RPC(nameof(Output_AnimationStop), RpcTarget.AllViaServer);     //ビデオの再生
+                photonView.RPC(nameof(Output_PlayerMove), RpcTarget.AllViaServer, YPlayer_Loot[Move], XPlayer_Loot[Move]);//ワープのアニメーションと移動
                 yield return new WaitForSeconds(0.1f);     //0.1秒待つ
             }
             else
             {
                 if (YPlayer_Loot[Move] < YPlayer_Loot[Move - 1] && YPlayer_Loot[Move - 1] != 5)
                 {
-                    Output_AnimationUp();//上移動のアニメーション
+                   photonView.RPC(nameof(Output_AnimationUp), RpcTarget.AllViaServer); //上移動のアニメーション
                 }
                 else if (YPlayer_Loot[Move - 1] == 5)
                 {
-                    Output_AnimationUpMonth();//上移動で月を跨ぐアニメーション
+                    photonView.RPC(nameof(Output_AnimationUpMonth), RpcTarget.AllViaServer); //上移動で月を跨ぐアニメーション
                 }
                 if (YPlayer_Loot[Move] > YPlayer_Loot[Move - 1] && YPlayer_Loot[Move - 1] != 4)
                 {
-                    Output_AnimationDown();//下移動のアニメーション
+                   photonView.RPC(nameof(Output_AnimationDown), RpcTarget.AllViaServer); //下移動のアニメーション
                 }
                 else if (YPlayer_Loot[Move - 1] == 4)
                 {
-                    Output_AnimationDownMonth();//下移動で月を跨ぐアニメーション
+                   photonView.RPC(nameof(Output_AnimationDownMonth), RpcTarget.AllViaServer);//下移動で月を跨ぐアニメーション
                 }
                 if (XPlayer_Loot[Move] > XPlayer_Loot[Move - 1] && XPlayer_Loot[Move - 1] != 6)
                 {
-                    Output_AnimationRight();//右移動のアニメーション
+                   photonView.RPC(nameof(Output_AnimationRight), RpcTarget.AllViaServer);//右移動のアニメーション
                 }
                 else if (XPlayer_Loot[Move - 1] == 6)
                 {
-                    Output_AnimationRightMonth();//右移動で月を跨ぐアニメーション
+                   photonView.RPC(nameof(Output_AnimationRightMonth), RpcTarget.AllViaServer);//右移動で月を跨ぐアニメーション
                 }
                 if (XPlayer_Loot[Move] < XPlayer_Loot[Move - 1] && XPlayer_Loot[Move - 1] != 7)
                 {
-                    Output_AnimationLeft();//左移動のアニメーション
+                   photonView.RPC(nameof(Output_AnimationLeft), RpcTarget.AllViaServer);//右移動で月を跨ぐアニメーショ//左移動のアニメーション
                 }
                 else if (XPlayer_Loot[Move - 1] == 7)
                 {
-                    Output_AnimationLeftMonth();//左移動で月を跨ぐアニメーション
+                   photonView.RPC(nameof(Output_AnimationLeftMonth), RpcTarget.AllViaServer);//左移動で月を跨ぐアニメーション
                 }
 
             }
@@ -261,15 +270,16 @@ public class I_Player_3D : MonoBehaviour
             YPlayer_position = YPlayer_Loot[Move];
             yield return new WaitForSeconds(1);     //1秒待つ
 
-            Output_AnimationStop();                 //全てのアニメーションを止める
-            Output_PlayerMove(Move);                //座標移動
-            yield return new WaitForSeconds(0.1f);     //0.1秒待つ
+           photonView.RPC(nameof(Output_AnimationStop), RpcTarget.AllViaServer);  //全てのアニメーションを止める
+            photonView.RPC(nameof(Output_PlayerMove), RpcTarget.AllViaServer, YPlayer_Loot[Move], XPlayer_Loot[Move]);                //座標移動
+            yield return new WaitForSeconds(0.3f);     //0.1秒待つ
         }
         for (int week = 0; week < Manager.Week.Length; week++)
         {
             for (int day = 0; day < Manager.Week[0].Day.Length; day++)
             {
-                Output_decisionClear(week, day);    //全ての移動決定したマスを消す
+                photonView.RPC(nameof(Output_decisionClear), RpcTarget.AllViaServer, week, day);
+        
             }
         }
         if (Effect == true)
@@ -280,63 +290,65 @@ public class I_Player_3D : MonoBehaviour
 
 
 
-    //移動の際の座標移動を出力
-    private void Output_PlayerMove(int Move)
+    [PunRPC]  //移動の際の座標移動を出力
+    private void Output_PlayerMove(int YPlayer_Loot_Move, int XPlayer_Loot_Move)
     {
-        transform.position = Manager.Week[YPlayer_Loot[Move]].Day[XPlayer_Loot[Move]].GetComponent<I_Mass_3D>().transform.position;//プレイヤーの移動
+        transform.position = Manager.Week[YPlayer_Loot_Move].Day[XPlayer_Loot_Move].GetComponent<I_Mass_3D>().transform.position;//プレイヤーの移動
     }
 
 
 
 
-    //上移動のアニメーションを出力
+    [PunRPC]//上移動のアニメーションを出力
     private void Output_AnimationUp()
     {
         gameObject.GetComponent<Animator>().SetBool("Move_up", true);
     }
-    //上移動で月を跨ぐアニメーションを出力
+    [PunRPC] //上移動で月を跨ぐアニメーションを出力
     private void Output_AnimationUpMonth()
     {
         gameObject.GetComponent<Animator>().SetBool("Move_upMonth", true);
     }
-    //下移動のアニメーションを出力
+    [PunRPC]//下移動のアニメーションを出力
     private void Output_AnimationDown()
     {
         gameObject.GetComponent<Animator>().SetBool("Move_down", true);
     }
-    //下移動で月を跨ぐアニメーションを出力
+    [PunRPC]//下移動で月を跨ぐアニメーションを出力
     private void Output_AnimationDownMonth()
     {
         gameObject.GetComponent<Animator>().SetBool("Move_downMonth", true);
     }
-    //右移動のアニメーションを出力
+    [PunRPC]//右移動のアニメーションを出力
     private void Output_AnimationRight()
     {
         gameObject.GetComponent<Animator>().SetBool("Move_right", true);
     }
-    //右移動で月を跨ぐアニメーションを出力
+    [PunRPC]//右移動で月を跨ぐアニメーションを出力
     private void Output_AnimationRightMonth()
     {
         gameObject.GetComponent<Animator>().SetBool("Move_rightMonth", true);
     }
-    //左移動のアニメーションを出力
+    [PunRPC] //左移動のアニメーションを出力
     private void Output_AnimationLeft()
     {
         gameObject.GetComponent<Animator>().SetBool("Move_left", true);
     }
-    //左移動で月を跨ぐアニメーションを出力
+    [PunRPC] //左移動で月を跨ぐアニメーションを出力
     private void Output_AnimationLeftMonth()
     {
         gameObject.GetComponent<Animator>().SetBool("Move_leftMonth", true);
     }
-    //ワープのアニメーションを出力
+    [PunRPC] //ワープのアニメーションを出力
     private void Output_AnimationWarpUp()
     {
         gameObject.GetComponent<Animator>().SetBool("Move_warpup", true);
     }
 
 
-    //移動アニメーションを止めるを出力
+
+
+    [PunRPC] //移動アニメーションを止めるを出力
     private void Output_AnimationStop()
     {
         gameObject.GetComponent<Animator>().SetBool("Move_up", false);
@@ -400,25 +412,25 @@ public class I_Player_3D : MonoBehaviour
 
 
 
-    //選択できるマスを表示して出力(共有すると他プレイヤーもクリック出来る可能性がある為共有しないように頼む)
+    [PunRPC]  //選択できるマスを表示して出力(共有すると他プレイヤーもクリック出来る可能性がある為共有しないように頼む)
     private void Output_SelectSetting(int week, int day)
     {
         Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().select_display();
     }
 
-    //選択できるマスを非表示にして出力
+    [PunRPC] //選択できるマスを非表示にして出力
     private void Output_SelectClear(int week, int day)
     {
         Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().select_hidden();
     }
 
-    //移動決定したマスを表示して出力
+    [PunRPC] //移動決定したマスを表示して出力
     private void Output_decisionSetting(int week, int day)
     {
         Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().decision_display();
     }
 
-    //移動決定したマスを非表示にして出力
+    [PunRPC]//移動決定したマスを非表示にして出力
     private void Output_decisionClear(int week, int day)
     {
         Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().decision_hidden();
@@ -439,7 +451,8 @@ public class I_Player_3D : MonoBehaviour
         {
             if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Open == false)//まだ開いてないマスなら
             {
-                Output_hideCoverClear(YPlayer_position, XPlayer_position);//マスを開いた表示にする
+               
+                photonView.RPC(nameof(Output_hideCoverClear), RpcTarget.All, YPlayer_position, XPlayer_position); //マスを開いた表示にする
                 Player_DayEffect();//日付の効果
             }
             else
@@ -456,13 +469,13 @@ public class I_Player_3D : MonoBehaviour
     //ゴールした時の処理
     public void Player_Goal()
     {
-        Output_GoalCount();//ゴール数を加算
+        photonView.RPC(nameof(Output_GoalCount), RpcTarget.All); //ゴール数を加算
         Manager.Goal_Add();//ゲーム全体のゴール数に加算
         Player_DayEffect();//日付の効果
     }
 
     //ゴールした時のゴール数を出力
-    private void Output_GoalCount()
+     [PunRPC]private void Output_GoalCount()
     {
         Goalcount++;
     }
@@ -477,7 +490,7 @@ public class I_Player_3D : MonoBehaviour
     }
 
     //開いたマスを非表示にして出力
-    private void Output_hideCoverClear(int week, int day)
+    [PunRPC] private void Output_hideCoverClear(int week, int day)
     {
         Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().hideCover_Clear();//マスを開いた表示にする
     }
@@ -485,10 +498,10 @@ public class I_Player_3D : MonoBehaviour
     //ビデオの再生とホップアップの表示
     IEnumerator Day_Animation(string day)
     {
-        Manager.Output_VideoStart(day);     //ビデオの再生
+        Manager.VideoStart(day);     //ビデオの再生
         yield return new WaitForSeconds(8);     //8秒待つ
-        Manager.Output_VideoFinish();     //ビデオの再生
-        Manager.Output_HopUp();    //ホップアップの表示
+        Manager.VideoFinish();
+        Manager.HopUpAppearance();//ホップアップの表示
         Manager.PlayerTurn_change();         //ターンを変える
     }
 }

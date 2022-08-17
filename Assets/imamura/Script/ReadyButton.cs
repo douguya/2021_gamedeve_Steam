@@ -53,38 +53,41 @@ public class ReadyButton : MonoBehaviourPunCallbacks
     //カスタムプロパィが更新された際のコールバック
      public override void OnPlayerPropertiesUpdate(Player player, Hashtable propertiesThatChanged)
     {
-
-        int loop = 0;
-        foreach (var p in PhotonNetwork.PlayerList)//プレイヤー全員のカスタムプロパティ：準備状態の集計
-        {
-            if ((bool)p.CustomProperties["ReadyPlayerNum"] == true)//ｐ番目のプレイヤーの準備が完了しているなら
+            
+            int loop = 0;
+            foreach (var p in PhotonNetwork.PlayerList)//プレイヤー全員のカスタムプロパティ：準備状態の集計
             {
-                loop++;//人数をカウント
+            Debug.Log("8888888888888888888888888888888888");
+                if ((bool)p.CustomProperties["ReadyPlayerNum"] == true)//ｐ番目のプレイヤーの準備が完了しているなら
+                {
+                    loop++;//人数をカウント
+                }
             }
-        }
-      //テキスト　=準備完了人数/プレイヤー全体の人数
-        Ready_Txt = loop + "/ " + PhotonNetwork.PlayerList.Length;//準備完了テキスト：見やすくするためにここでまとめる
 
-        if (Ready == false)//当プレイヤーの準備ができていない
-        {
-            ReadyText.text = "準備を完了する" + Ready_Txt;//準備完了を待つテキストへ変更
-        }
-        else if (Ready == true) //当プレイヤーの準備ができている
-        {
-            ReadyText.text = "準備に戻る" + Ready_Txt;//再度準備に戻るテキストへ変更
-        }
+            //テキスト　=準備完了人数/プレイヤー全体の人数
+            Ready_Txt = loop + "/ " + PhotonNetwork.PlayerList.Length;//準備完了テキスト：見やすくするためにここでまとめる
 
-        if (PhotonNetwork.PlayerList.Length == loop) //準備完了人数と プレイヤー全体の人数が同じとき
-        {
-            if (PhotonNetwork.LocalPlayer.IsMasterClient)//そのうえでプレイヤーがマスタークライアントである場合
+            if (Ready == false)//当プレイヤーの準備ができていない
             {
-                GameStart.SetActive(true);//ゲームスタートボタンの出現
+                ReadyText.text = "準備を完了する" + Ready_Txt;//準備完了を待つテキストへ変更
             }
-        }
-        else
-        {
-            GameStart.SetActive(false);//ゲームスタートボタンの消失
-        }
+            else if (Ready == true) //当プレイヤーの準備ができている
+            {
+                ReadyText.text = "準備に戻る" + Ready_Txt;//再度準備に戻るテキストへ変更
+            }
+
+            if (PhotonNetwork.PlayerList.Length == loop) //準備完了人数と プレイヤー全体の人数が同じとき
+            {
+                if (PhotonNetwork.LocalPlayer.IsMasterClient)//そのうえでプレイヤーがマスタークライアントである場合
+                {
+                    GameStart.SetActive(true);//ゲームスタートボタンの出現
+                }
+            }
+            else
+            {
+                GameStart.SetActive(false);//ゲームスタートボタンの消失
+            }
+        
 
     }
 
@@ -98,9 +101,10 @@ public class ReadyButton : MonoBehaviourPunCallbacks
 
     public void JoinedRoom_Jointed()//自身がルームに入ったとき
     {
+        Debug.Log("444444444444444444");
         hashtable["ReadyPlayerNum"] = false;//カスタムプロパティのセッティング　初手なのでfalse
         PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);//更新
-        OnRoomPropertiesUpdate(hashtable);////カスタムプロパティを更新（準備完了状況の反映）
+       // OnRoomPropertiesUpdate(hashtable);////カスタムプロパティを更新（準備完了状況の反映）
     }
 
 

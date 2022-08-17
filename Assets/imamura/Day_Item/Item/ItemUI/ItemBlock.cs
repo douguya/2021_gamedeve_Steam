@@ -16,8 +16,7 @@ public class ItemBlock : MonoBehaviour
     void Start()
     {
         //ItemDetail.SetActive(Detail_bool);
-        ItemImage.sprite=Item_Master.Anniversary_Items[ItemNumber].ItemSprite;
-        ItemName.text=Item_Master.Anniversary_Items[ItemNumber].ItemName;
+
     }
 
     // Update is called once per frame
@@ -28,9 +27,8 @@ public class ItemBlock : MonoBehaviour
 
     public void Detail_Switch ()
     {
-        //Detail_bool=!Detail_bool;
-        //ItemDetail.SetActive(Detail_bool);
-        
+        ItemImage.sprite=Item_Master.Anniversary_Items[ItemNumber].ItemSprite;
+        ItemName.text=Item_Master.Anniversary_Items[ItemNumber].ItemName;
     }
 
 

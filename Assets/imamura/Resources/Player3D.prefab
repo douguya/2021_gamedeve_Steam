@@ -19,6 +19,22 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3532696377981779206, guid: f252f681ab4e2794aa412acc9bb12aaa, type: 3}
+      propertyPath: observableSearch
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532696377981779206, guid: f252f681ab4e2794aa412acc9bb12aaa, type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532696377981779206, guid: f252f681ab4e2794aa412acc9bb12aaa, type: 3}
+      propertyPath: ObservedComponents.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532696377981779206, guid: f252f681ab4e2794aa412acc9bb12aaa, type: 3}
+      propertyPath: ObservedComponents.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5256909742392665806, guid: f252f681ab4e2794aa412acc9bb12aaa, type: 3}
       propertyPath: m_Name
       value: Player3D
@@ -103,5 +119,7 @@ PrefabInstance:
       propertyPath: GameManager
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6819573566134703295, guid: f252f681ab4e2794aa412acc9bb12aaa, type: 3}
+    - {fileID: 422788049709336997, guid: f252f681ab4e2794aa412acc9bb12aaa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f252f681ab4e2794aa412acc9bb12aaa, type: 3}

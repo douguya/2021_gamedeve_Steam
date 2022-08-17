@@ -23,6 +23,7 @@ public class newRotate : MonoBehaviour
         xKeep = xSpeed;
         yKeep = ySpeed;
         zKeep = zSpeed;
+        newDiceStop();
     }
 
     // Update is called once per frame
@@ -38,18 +39,8 @@ public class newRotate : MonoBehaviour
             ySpeed = yKeep;
             zSpeed = zKeep;
         }
-
-        //デバッグ用で右キー
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            rotate = true;
-        }
-
-        //デバッグ用で左キー
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            newDiceStop();
-        }
+      
+      
     }
 
     //回すときの呼び出し用関数
