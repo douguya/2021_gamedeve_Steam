@@ -22,7 +22,7 @@ MonoBehaviour:
   BGM: 
   Instance: 
   particle: 
-  NextDice: 
+  NextDice: 1/2/3
   NextMove: 
   ItemLost: 
   ConditionalPoint: 

@@ -20,9 +20,9 @@ MonoBehaviour:
   ItemName: 
   Move: 
   BGM: 
-  Instance: 
+  Instance: "\u30DE\u30B0\u30ED\u306B\u306A\u308B"
   particle: 
   NextDice: 
-  NextMove: 
+  NextMove: "\u76F4\u7DDA\u79FB\u52D5"
   ItemLost: 
   ConditionalPoint: 

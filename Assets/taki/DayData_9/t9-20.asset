@@ -23,6 +23,6 @@ MonoBehaviour:
   Instance: 
   particle: 
   NextDice: 
-  NextMove: 
+  NextMove: "1\u30DE\u30B9\u81EA\u7531"
   ItemLost: 
   ConditionalPoint: 

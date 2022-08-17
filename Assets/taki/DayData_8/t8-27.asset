@@ -17,7 +17,7 @@ MonoBehaviour:
   Staging: {fileID: 0}
   HopUp: {fileID: 0}
   Commentary: 
-  ItemName: 
+  ItemName: "\u30B8\u30A7\u30E9\u30FC\u30C8"
   Move: 
   BGM: 
   Instance: 
@@ -25,4 +25,4 @@ MonoBehaviour:
   NextDice: 
   NextMove: 
   ItemLost: 
-  ConditionalPoint: 
+  ConditionalPoint: 3
