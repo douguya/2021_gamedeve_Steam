@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058df27e0b5527648bdc699cd6d531d5, type: 3}
+  m_Name: 0716
+  m_EditorClassIdentifier: 
+  Anniversary: 
+  Day: 
+  Staging: {fileID: 0}
+  HopUp: {fileID: 0}
+  Commentary: 
+  ItemName: Noon
+  Move: Noon
+  BGM: Noon
+  Instance: Noon
+  particle: Noon
+  NextDice: Noon
+  NextMove: Noon
+  ItemLost: Noon
+  ConditionalPoint: Noon

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058df27e0b5527648bdc699cd6d531d5, type: 3}
+  m_Name: 0605
+  m_EditorClassIdentifier: 
+  Anniversary: "\u74B0\u5883\u306E\u65E5"
+  Day: 0605
+  Staging: {fileID: 0}
+  HopUp: {fileID: 0}
+  Commentary: "\u74B0\u5883\u57FA\u672C\u6CD5\u306B\u3066\u5B9A\u3081\u3089\u308C\u305F\u8A18\u5FF5\u65E5\u3002\n\u4E8B\u696D\u8005\u53CA\u3073\u56FD\u6C11\u306E\u9593\u306B\u5E83\u304F\u74B0\u5883\u306E\u4FDD\u5168\u306B\u3064\u3044\u3066\u306E\n\u95A2\u5FC3\u3068\u7406\u89E3\u3092\u6DF1\u3081\u308B\u3068\u3068\u3082\u306B\u3001\u7A4D\u6975\u7684\u306B\u74B0\u5883\u306E\u4FDD\u5168\u306B\u95A2\u3059\u308B\n\u6D3B\u52D5\u3092\u884C\u3046\u610F\u6B32\u3092\u9AD8\u3081\u308B\u3053\u3068\u3092\u76EE\u7684\u3068\u3055\u308C\u3066\u3044\u308B\u3002\n\n\nBGM\u304C\u74B0\u5883\u97F3\u306B\u5909\u308F\u308B\n(\u5143\u304C\u74B0\u5883\u306B\u3064\u3044\u3066\u8003\u3048\u308D\u3060\u3063\u305F\u306E\u3067\u9069\u5F53\u306B\u5909\u3048\u307E\u3057\u305F)"
+  ItemName: Noon
+  Move: Noon
+  BGM: "\u74B0\u5883\u97F3"
+  Instance: Noon
+  particle: Noon
+  NextDice: Noon
+  NextMove: Noon
+  ItemLost: Noon
+  ConditionalPoint: Noon
