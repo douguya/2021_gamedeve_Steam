@@ -16,13 +16,13 @@ MonoBehaviour:
   Day: 9/30
   Staging: {fileID: 0}
   HopUp: {fileID: 0}
-  Commentary: 
-  ItemName: 
+  Commentary: "\uFF08\u8AB0\u304B\u3068\u540C\u3058\u30DE\u30B9\u306B\u6B62\u307E\u3063\u305F\u30897\u30DD\u30A4\u30F3\u30C8\uFF09"
+  ItemName: "\u5B85\u914D\u30D4\u30B6"
   Move: 
   BGM: 
   Instance: 
   particle: 
-  NextDice: 
+  NextDice: "2\u500B"
   NextMove: 
   ItemLost: 
   ConditionalPoint: 

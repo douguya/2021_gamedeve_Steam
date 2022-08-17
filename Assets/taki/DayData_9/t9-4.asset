@@ -16,7 +16,7 @@ MonoBehaviour:
   Day: 9/4
   Staging: {fileID: 0}
   HopUp: {fileID: 0}
-  Commentary: 
+  Commentary: "\uFF08\u30DD\u30A4\u30F3\u30C8\u306F\u30B4\u30FC\u30EB\u3092\u9664\u304F\uFF09"
   ItemName: 
   Move: 
   BGM: 
@@ -25,4 +25,4 @@ MonoBehaviour:
   NextDice: 
   NextMove: 
   ItemLost: 
-  ConditionalPoint: 
+  ConditionalPoint: "\u6700\u5F8C\u306B\u7372\u5F97\u3055\u308C\u305F\u30DD\u30A4\u30F3\u30C8\xF72"

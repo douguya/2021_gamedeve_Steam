@@ -25,4 +25,4 @@ MonoBehaviour:
   NextDice: 
   NextMove: 
   ItemLost: 
-  ConditionalPoint: 
+  ConditionalPoint: "1~6(\u30C0\u30A4\u30B9\u306E\u6570)"

@@ -16,8 +16,8 @@ MonoBehaviour:
   Day: 9/18
   Staging: {fileID: 0}
   HopUp: {fileID: 0}
-  Commentary: 
-  ItemName: 
+  Commentary: "\uFF08\u30BF\u30FC\u30F3\u7D4C\u904E\u3068\u3068\u3082\u306B1\u30DD\u30A4\u30F3\u30C8\uFF09"
+  ItemName: "\u30AB\u30A4\u30EF\u30EC\u5927\u6839"
   Move: 
   BGM: 
   Instance: 

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058df27e0b5527648bdc699cd6d531d5, type: 3}
   m_Name: t8-13
   m_EditorClassIdentifier: 
-  Anniversary: "\u602A\u7363\u306E\u65E5"
+  Anniversary: "\u602A\u8AC7\u306E\u65E5"
   Day: 8/13
   Staging: {fileID: 0}
   HopUp: {fileID: 0}
   Commentary: 
-  ItemName: 
+  ItemName: "\u602A\u8AC7\u8A71\u96C6"
   Move: 
   BGM: 
   Instance: 
@@ -25,4 +25,4 @@ MonoBehaviour:
   NextDice: 
   NextMove: 
   ItemLost: 
-  ConditionalPoint: 
+  ConditionalPoint: 4

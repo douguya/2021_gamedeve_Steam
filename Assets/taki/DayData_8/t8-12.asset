@@ -22,7 +22,7 @@ MonoBehaviour:
   BGM: 
   Instance: 
   particle: 
-  NextDice: 
+  NextDice: "\u5168\u54E1\u306E\u6B21\u306E\u30C0\u30A4\u30B9\uFF0B\uFF11"
   NextMove: 
   ItemLost: 
   ConditionalPoint: 
