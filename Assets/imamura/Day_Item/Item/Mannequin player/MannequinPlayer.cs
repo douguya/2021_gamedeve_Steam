@@ -8,8 +8,8 @@ public class MannequinPlayer : MonoBehaviour
     // Start is called before the first frame update
     public Text text;
     public Anniversary_Item_Master ItemMaster;
-    public List<Anniversary_Item> Hub_Items = new List<Anniversary_Item>(); 
-    public List<int> Itemu_Life = new List<int>();
+    public List<Anniversary_Item> Hub_Items = new List<Anniversary_Item>();
+    public GameObject blocs;
     void Start()
     {
 
@@ -23,12 +23,15 @@ public class MannequinPlayer : MonoBehaviour
     public void ItemAdd(int ItemNum)//ItemNum＝マスター登録順の番号
     {
         Hub_Items.Add(ScriptableObject.Instantiate(ItemMaster.Anniversary_Items[ItemNum]));//マスターにあるItemNumのアイテムを生成し、Hubに追加
+        blocs.GetComponent<ItemBlock_List_Script>().BlockUpdate2();
     }
 
     public void ItemLost(int HubItemNum)//HubItemNum＝所持アイテム登録順の番号
     {
         Hub_Items.RemoveAt(HubItemNum);//所持中のHubItemNum番目のアイテムを消去
-       
+        blocs.GetComponent<ItemBlock_List_Script>().BlockUpdate2();
+
+
     }
 
     public void NextMyTurn()
@@ -48,10 +51,7 @@ public class MannequinPlayer : MonoBehaviour
 
     }
 
-    public void Doun()
-    {
-        Hub_Items[0].ItemLifespan=(int.Parse(Hub_Items[0].ItemLifespan)-1).ToString();
-    }
+
 
  
 

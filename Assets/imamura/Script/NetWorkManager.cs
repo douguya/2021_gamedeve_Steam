@@ -37,9 +37,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     private byte MaxRoomPeople = 4;//一つのルームの最大人数
     string GameVersion = "Ver1.0";
 
-    private GameObject[] Players_spot;
-
-
+    public GameObject[] myArray;
 
     void Start()
     {
@@ -50,7 +48,10 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
        // ReadyButton_Script=ReadyButton.GetComponent<ReadyButton>();
 
     }
-
+    private void Update()
+    {
+      
+    }
 
     public override void OnConnectedToMaster()//マスターサーバに接続された時に呼ばれる
     {
@@ -75,7 +76,6 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
             int RoomNum = int.Parse(Regex.Replace(info.Name, @"[^0-9]", ""));//変更されたルームの番号を抽出
 
             RoomText[RoomNum-1].text = info.Name + "A " + info.PlayerCount + "/" + MaxRoomPeople;
-
 
         }
     
@@ -112,11 +112,15 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
         var position = new Vector3(0.28f, -3.37f, -0.73f);
         GameObject blockTile = PhotonNetwork.Instantiate("Player3D", position, Quaternion.identity);
-        position = new Vector3(-303.5f, -71f);
-        Playerlist_Update();
+
+        ReadyButton_Script.JoinedRoom_Jointed();
+
+
         Debug.Log(blockTile);
-        
+        blockTile.GetComponent<I_Player_3D>().DiceButton.GetComponent<Button>().onClick.AddListener(blockTile.GetComponent<I_Player_3D>().DicePush);
+
         yield return new WaitForSeconds(0.4f);
+        Playerlist_Update();
         LoadImage.SetActive(false);
         yield break;
         
@@ -159,23 +163,57 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player player)//プレイヤーが抜けたときの処理
     {
-        Playerlist_Update();//プレイヤーのオブジェクト格納用/初期位置への移動も含む
-        ReadyButton_Script.PlayerLeftRoom_Jointed();
+        StartCoroutine(OnPlayerLeftRoom_Coroutine());
     }
+
+    public IEnumerator OnPlayerLeftRoom_Coroutine()//プレイヤーが抜けたときの処理 コルーチン
+    {
+        ReadyButton_Script.PlayerLeftRoom_Jointed();
+        yield return new WaitForSeconds(0.4f);
+        Playerlist_Update();//プレイヤーのオブジェクト格納用/初期位置への移動も含む
+        
+        
+        yield break;
+    }
+
+
+
+
     public override void OnPlayerEnteredRoom(Player newPlayer)//自身がルームに入ったとき
     {
-        Playerlist_Update();//プレイヤーのオブジェクト格納用/初期位置への移動も含む
-        ReadyButton_Script.JoinedRoom_Jointed();
+        StartCoroutine(OnPlayerEnteredRoom_Coroutine());
 
     }
+
+    public IEnumerator OnPlayerEnteredRoom_Coroutine()//他者がルームに入ったときコルーチン
+    {
+      
+        
+        Debug.Log("55555555555555");
+        yield return new WaitForSeconds(0.4f);
+        Playerlist_Update();//プレイヤーのオブジェクト格納用/初期位置への移動も含む
+        
+        yield break;
+    }
+
+
 
 
     public void Playerlist_Update()//プレイヤーのオブジェクト格納用/初期位置への移動も含む
     {
+        Debug.Log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+        GameObject[] Players_spot =GameObject.FindGameObjectsWithTag("Player");//プレイヤーオブジェクトの一時保存場所　タグで軒並みとる
 
-        Players_spot = GameObject.FindGameObjectsWithTag("Player");//プレイヤーオブジェクトの一時保存場所　タグで軒並みとる
-   
+        Debug.Log("QQQ"+Players_spot.Length);
+        Debug.Log("QQQ"+PhotonNetwork.PlayerList.Length);
+        for (int loop1=0;loop1<PhotonNetwork.PlayerList.Length;loop1++)
+        {
+            Debug.Log("UUU"+Players_spot[loop1].GetComponent<PhotonView>().CreatorActorNr);
+        }
 
+        I_game_Manager_Script.Player.Clear();
+        
+    
         int loop = 0;//アイテムリストの初期値
         foreach (var PList in PhotonNetwork.PlayerList)//プレイヤーリストの内容を順番に格納
         {
@@ -183,8 +221,15 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
             {
 
                 if (PList.ActorNumber==obj.GetComponent<PhotonView>().CreatorActorNr) //リストのプレイヤーのIDとオブジェクトの作成者のADを比較
-                { I_game_Manager_Script.Player.Add(obj);}//この処理で、プレイヤーリストの順番どおりにプレイヤーオブジェクトを保存できる　順番を変えられるようにしたいなら変更の余地あり
-                I_game_Manager_Script.Player_setting(loop);//プレイ矢―を所定の位置に移動
+                {
+                    Debug.Log("DDDDDDDDDDDDDDDDDDDDDDDDDDD");
+                    I_game_Manager_Script.Player.Add(obj);//この処理で、プレイヤーリストの順番どおりにプレイヤーオブジェクトを保存できる　順番を変えられるようにしたいなら変更の余地あり
+                    I_game_Manager_Script.Player_setting(loop);//プレイ矢―を所定の位置に移動
+                    obj.GetComponent<I_Player_3D>().PlayerNumber=loop;
+
+                }
+               
+               
             }
 
             loop++;

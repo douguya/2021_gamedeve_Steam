@@ -7,7 +7,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
 using System.Text.RegularExpressions;
-
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class I_game_manager : MonoBehaviourPunCallbacks
 {
@@ -33,12 +33,12 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
     public GameObject Dice;                                 //サイコロのオブジェクト取得
 
-
+    public Hashtable hashtable = new Hashtable();//カスタムプロパティのリスト
 
     //　以下今村========================================================================================//
 
     private bool GameStart=false;
-
+    public GameObject GameStartButton;                                 
 
 
     //  ここまで=========================================================================================//
@@ -47,17 +47,20 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     {
         Day_Animation = GetComponent<I_Day_Animation>();
         Month_Setting();
-        Goal_Decision();
+       
         //Goal_Again();
     }
    public void Gamestart()
     {
+        Goal_Decision();
+        
+        PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);//変更したカスタムプロパティの更新
+        PhotonNetwork.CurrentRoom.IsOpen = false;
         PlayerTurn_change();
-        Output_DiceStop();
-
+        GameStartButton.SetActive(false);
     }
 
-    
+
     void Update()
     {
 
@@ -229,6 +232,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     //プレイヤーの初期位置設定の結果出力
     private void Output_PlayerSetting(int player, int week, int day)
     {
+       
         Player[player].GetComponent<I_Player_3D>().Player_indicate();                 //プレイヤーの表示
         Player[player].GetComponent<I_Player_3D>().Player_position_setting(week, day);//プレイヤーを初期位置へ
     }
@@ -247,9 +251,15 @@ public class I_game_manager : MonoBehaviourPunCallbacks
             day = Random.Range(0, Week[0].Day.Length);            //day・縦の列のランダム
         } while (Week[week].Day[day].GetComponent<I_Mass_3D>().Day == "null");//ランダムに選んだマスが存在しているものを見つけるまで繰り返す
 
-        Output_GoalSetting(week, day);
-
+       
+        photonView.RPC(nameof(Output_GoalSetting), RpcTarget.AllViaServer, week, day);
     }
+
+
+
+
+
+
 
     public void Goal_Again()                                         //ゴールの再設置(同じ月にならないように)
     {
@@ -257,8 +267,8 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         for (int w = 0; w < Week.Length; w++)
         {
             for (int d = 0; d < Week[0].Day.Length; d++)
-            {
-                Output_GoalClear(w, d);                                   //全てのゴールを消す
+            {                                   
+                photonView.RPC(nameof(Output_GoalClear), RpcTarget.AllViaServer, w, d);//全てのゴールを消す
             }
         }
         do
@@ -267,7 +277,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
             day = Random.Range(0, Week[0].Day.Length);              //縦の列のランダム
         } while (Week[week].Day[day].GetComponent<I_Mass_3D>().Day == "null" && MonthCount(day, week) == true);//選んだマスに日付があるか＆同じ月じゃないものを見つけるまで繰り返す
 
-        Output_GoalSetting(week, day);
+        photonView.RPC(nameof(Output_GoalSetting), RpcTarget.AllViaServer, week, day);
     }
 
     private bool MonthCount(int day, int week)//ゴールと同じ月か判断する
@@ -292,13 +302,19 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     }
 
     //ゴールを設置する結果出力
+
+    [PunRPC]
     private void Output_GoalSetting(int week, int day)
     {
         XGoal = day; YGoal = week;
         Week[week].Day[day].GetComponent<I_Mass_3D>().Goal_setting();
     }
 
-    //ゴールを消す結果出力
+
+
+
+
+    [PunRPC]//ゴールを消す結果出力
     private void Output_GoalClear(int week, int day)
     {
         Week[week].Day[day].GetComponent<I_Mass_3D>().Goal_Clear();
@@ -330,34 +346,54 @@ public class I_game_manager : MonoBehaviourPunCallbacks
             Goal_check = false;
         }
 
-        Output_PlayerTurn();//プレイヤーのターンを変える
-        if (joining_Player <= Player_Turn)
+        Debug.Log("AAAAAAAAA"+photonView.OwnerActorNr);
+        photonView.RPC(nameof(Output_PlayerTurn), RpcTarget.AllViaServer);
+        Debug.Log("BBBBBBBBBBBBB"+photonView.OwnerActorNr);
+
+        for (int turn = 0; turn < Player.Count; turn++)
+        {
+            photonView.RPC(nameof(Output_anotherTurn), RpcTarget.AllViaServer, turn);//他プレイヤーのターンのボタンテキストを変更
+        }
+        Debug.Log("ccccccccccc"+photonView.OwnerActorNr);
+
+
+        photonView.RPC(nameof(Output_Dice_ready), RpcTarget.AllViaServer);
+        Debug.Log("プレイヤー：" + Player_Turn);
+        Debug.Log("DDDDDDDDDDD"+photonView.OwnerActorNr);
+    }
+
+    [PunRPC]
+    private void Output_PlayerTurn()    //プレイヤーのターンを追加して出力
+    {
+        Debug.Log("1111111111111111"+photonView.OwnerActorNr);
+        Player_Turn++;
+        if (Player.Count <= Player_Turn)
         {
             Player_Turn = 0;
         }
 
-        for (int turn = 0; turn < Player.Count; turn++)
-        {
-            Output_anotherTurn(turn);//他プレイヤーのターンのボタンテキストを変更
-        }
-
-        Player[Player_Turn].GetComponent<I_Player_3D>().Dice_ready();
-
-        Debug.Log("プレイヤー：" + Player_Turn);
     }
-
-    //プレイヤーのターンを追加して出力
-    private void Output_PlayerTurn()
-    {
-        Player_Turn++;
-    }
-
-    //他プレイヤーのターンの際、ボタンテキストを変える出力
+    [PunRPC]//他プレイヤーのターンの際、ボタンテキストを変える出力
     private void Output_anotherTurn(int player)
     {
+        Debug.Log("222222222222"+photonView.OwnerActorNr);
         Player[player].GetComponent<I_Player_3D>().another_turn();
     }
 
+    [PunRPC]
+    private void Output_Dice_ready()    //プレイヤーのターンを追加して出力
+    {
+        Debug.Log("333333333333333"+photonView.OwnerActorNr);
+        if (Player[Player_Turn].GetComponent<PhotonView>().IsMine)
+        {
+            Player[Player_Turn].GetComponent<I_Player_3D>().Dice_ready();
+        }
+          
+    }
+
+
+
+  
 
     //マスクリックしたらplayerに飛ばす
     public void Player_select()
@@ -380,36 +416,43 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     //ゴールしたらの処理
     public void Goal_Add()
     {
-        Output_GoalAdd();                       //ゴールした全体数に加える
+        photonView.RPC(nameof(Output_GoalAdd), RpcTarget.All);
+                             //ゴールした全体数に加える
         for (int week = 0; week < Week.Length; week++)
         {
             for (int day = 0; day < Week[0].Day.Length; day++)
             {
-                Output_GoalClear(week, day);    //全てのゴールマスを消す
+                photonView.RPC(nameof(Output_GoalClear), RpcTarget.AllViaServer, week, day);//全てのゴールマスを消す
             }
         }
         Goal_check = true;                      //ゴールの再設置をするようにする
         if (Goal_AddCount >= 4)                  //全体で4回ゴールしたら
         {
             Output_GameFinish();                //ゲーム終了の処理
+            photonView.RPC(nameof(Output_GameFinish), RpcTarget.AllViaServer);
         }
     }
 
-    //ゴールした全体数に加えて出力
+    [PunRPC]//ゴールした全体数に加えて出力
     private void Output_GoalAdd()
     {
         Goal_AddCount++;
     }
 
-    //ゲーム終了の処理を出力
+    [PunRPC]//ゲーム終了の処理を出力
     private void Output_GameFinish()
     {
         Debug.Log("ゲーム終了");
     }
 
 
+    public void VideoStart(string day)
+    {
+        photonView.RPC(nameof(Output_VideoStart), RpcTarget.AllViaServer,day);
+    }
 
-    //日付のビデオを再生する出力
+
+    [PunRPC] //日付のビデオを再生する出力
     public void Output_VideoStart(string day)
     {
         Video_obj.SetActive(true);                      //ビデオを表示にする
@@ -418,13 +461,24 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         Video_obj.GetComponent<VideoPlayer>().Play();   //ビデオの再生
     }
 
-    //日付のビデオを非表示にする出力
+
+
+    public void VideoFinish()
+    {
+        photonView.RPC(nameof(Output_VideoFinish), RpcTarget.AllViaServer);
+    }
+    [PunRPC]//日付のビデオを非表示にする出力
     public void Output_VideoFinish()
     {
         Video_obj.SetActive(false);
     }
 
-    //ホップアップの表示の出力
+
+    public void HopUpAppearance()
+    {
+        photonView.RPC(nameof(Output_HopUp), RpcTarget.AllViaServer);
+    }
+    [PunRPC] //ホップアップの表示の出力
     public void Output_HopUp()
     {
         HopUp.SetActive(true);
@@ -438,8 +492,16 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
     //以下今村=============================================================================================================================
 
+    public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)//カスタムプロパティが変更されたときの挙動
+    {
+       
+        if (propertiesThatChanged ==  hashtable["Gamestart"]&& (bool)propertiesThatChanged["Gamestart"]==true)//ｐ番目のプレイヤーの準備が完了しているなら
+        {
+       
+        }
 
-    
+    }
+
 
 
 
