@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058df27e0b5527648bdc699cd6d531d5, type: 3}
   m_Name: 0722
   m_EditorClassIdentifier: 
-  Anniversary: 
-  Day: 
+  Anniversary: "\u4E0B\u99C4\u306E\u65E5"
+  Day: 0722
   Staging: {fileID: 0}
   HopUp: {fileID: 0}
-  Commentary: 
-  ItemName: Noon
+  Commentary: "\u4E0B\u99C4\u3092\u624B\u306B\u5165\u308C\u308B\n\uFF0B\uFF12\u30DD\u30A4\u30F3\u30C8"
+  ItemName: "\u4E0B\u99C4"
   Move: Noon
   BGM: Noon
   Instance: Noon
