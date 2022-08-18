@@ -9,6 +9,7 @@ using Photon.Realtime;
 public class I_Player_3D : MonoBehaviourPunCallbacks
 {
     public int PlayerNumber;                      //プレイヤー番号
+    
 
     public int XPlayer_position;                  //プレイヤーの現在の横の位置
     public int YPlayer_position;                  //プレイヤーの現在の縦の位置
@@ -34,7 +35,11 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     public GameObject ButtonText;                           //ダイスのテキストオブジェクト取得
     private bool DiceStrat = true;                          //ボタンがダイスの開始かストップか
 
-   
+    // 以下MannequinPlayer空の引用=====================================================================
+    public Anniversary_Item_Master ItemMaster;
+    public GameObject ItemBlock;//アイテムリストのUGI
+
+    // =====================================================================
 
     private void Awake()
     {
@@ -271,7 +276,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             yield return new WaitForSeconds(1);     //1秒待つ
 
            photonView.RPC(nameof(Output_AnimationStop), RpcTarget.AllViaServer);  //全てのアニメーションを止める
-            photonView.RPC(nameof(Output_PlayerMove), RpcTarget.AllViaServer, YPlayer_Loot[Move], XPlayer_Loot[Move]);                //座標移動
+           photonView.RPC(nameof(Output_PlayerMove), RpcTarget.AllViaServer, YPlayer_Loot[Move], XPlayer_Loot[Move]);                //座標移動
             yield return new WaitForSeconds(0.3f);     //0.1秒待つ
         }
         for (int week = 0; week < Manager.Week.Length; week++)
@@ -504,6 +509,45 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         Manager.HopUpAppearance();//ホップアップの表示
         Manager.PlayerTurn_change();         //ターンを変える
     }
+
+
+
+
+
+
+    // 以下MannequinPlayer空の引用=====================================================================
+    public void ItemAdd(int ItemNum)//ItemNum＝マスター登録順の番号
+    {
+        Hub_Items.Add(ScriptableObject.Instantiate(ItemMaster.Anniversary_Items[ItemNum]));//マスターにあるItemNumのアイテムを生成し、Hubに追加
+        ItemBlock.GetComponent<ItemBlock_List_Script>().AddItem(ItemNum);
+    }
+
+    public void ItemLost(int HubItemNum)//HubItemNum＝所持アイテム登録順の番号
+    {
+
+        Hub_Items.RemoveAt(HubItemNum);//所持中のHubItemNum番目のアイテムを消去
+        ItemBlock.GetComponent<ItemBlock_List_Script>().LostItem(HubItemNum);
+
+
+    }
+    // =====================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

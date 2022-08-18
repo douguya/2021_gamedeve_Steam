@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Mass
   - Dice
+  - ItemList_UGI
   layers:
   - Default
   - TransparentFX
