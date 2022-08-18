@@ -516,13 +516,13 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
 
     // 以下MannequinPlayer空の引用=====================================================================
-    public void ItemAdd(int ItemNum)//ItemNum＝マスター登録順の番号
+    [PunRPC] public void ItemAdd(int ItemNum)//ItemNum＝マスター登録順の番号
     {
         Hub_Items.Add(ScriptableObject.Instantiate(ItemMaster.Anniversary_Items[ItemNum]));//マスターにあるItemNumのアイテムを生成し、Hubに追加
         ItemBlock.GetComponent<ItemBlock_List_Script>().AddItem(ItemNum);
     }
 
-    public void ItemLost(int HubItemNum)//HubItemNum＝所持アイテム登録順の番号
+    [PunRPC] public void ItemLost(int HubItemNum)//HubItemNum＝所持アイテム登録順の番号
     {
 
         Hub_Items.RemoveAt(HubItemNum);//所持中のHubItemNum番目のアイテムを消去
