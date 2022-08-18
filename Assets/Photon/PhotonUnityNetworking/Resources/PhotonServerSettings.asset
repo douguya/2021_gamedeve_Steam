@@ -86,6 +86,8 @@ MonoBehaviour:
   - Output_SelectSetting
   - Output_VideoFinish
   - Output_VideoStart
+  - ItemList_UGI_Transform
+  - ItemList_UGI_Transform_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

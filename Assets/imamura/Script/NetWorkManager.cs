@@ -10,10 +10,10 @@ using System.Text.RegularExpressions;
 public class NetWorkManager : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
-    public string[] Room=new string[5];
+    public string[] Room = new string[5];
 
     public GameObject SceneManagerObj;//シーンマネージャーのオブジェクト
-   // public GameObject I_game_manager;//ゲームマネージャーのオブジェクト;
+                                      // public GameObject I_game_manager;//ゲームマネージャーのオブジェクト;
     public I_game_manager I_game_Manager_Script;//ゲームマネージャーのオブジェクトのスクリプト;
 
     //  public GameObject ReadyButton;//ゲームマネージャーのオブジェクト;
@@ -24,13 +24,15 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     public Text[] RoomText;           //ルームの名前とテキスト
     public GameObject[] RoomBotton;   //ルームボタンのオブジェクト
 
+    public GameObject ItemListBox;//アイテムリストの親
     public GameObject LoadImage;//ロード画面のもどき
-    
+
+    public GameObject ItemList_Moment;//アイテムリストの親
 
     [SerializeField]
     public int PlayerIdVew;
     public string PlayerNameVew;
-  
+
 
     public bool[] CanJoinRoom = new bool[5] { true, true, true, true, true };
 
@@ -44,13 +46,13 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
         InputField = GetComponent<InputField>();
         LoadImage.SetActive(true);
-       // I_game_Manager_Script=I_game_manager.GetComponent<I_game_manager>();
-       // ReadyButton_Script=ReadyButton.GetComponent<ReadyButton>();
+        // I_game_Manager_Script=I_game_manager.GetComponent<I_game_manager>();
+        // ReadyButton_Script=ReadyButton.GetComponent<ReadyButton>();
 
     }
     private void Update()
     {
-      
+
     }
 
     public override void OnConnectedToMaster()//マスターサーバに接続された時に呼ばれる
@@ -70,7 +72,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)//ルームリスト更新時 更新されたルームのみを受け取る
     {
-      
+
         foreach (var info in roomList)//ルームリストの取得
         {
             int RoomNum = int.Parse(Regex.Replace(info.Name, @"[^0-9]", ""));//変更されたルームの番号を抽出
@@ -78,8 +80,8 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
             RoomText[RoomNum-1].text = info.Name + "A " + info.PlayerCount + "/" + MaxRoomPeople;
 
         }
-    
-        
+
+
     }
 
 
@@ -102,7 +104,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
 
 
-    public  override void OnJoinedRoom()//部屋に入れた時の処理
+    public override void OnJoinedRoom()//部屋に入れた時の処理
     {
         StartCoroutine(OnJoinedRoom_Coroutine());
     }
@@ -111,20 +113,32 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     {
 
         var position = new Vector3(0.28f, -3.37f, -0.73f);
-        GameObject blockTile = PhotonNetwork.Instantiate("Player3D", position, Quaternion.identity);
-
+        GameObject Player = PhotonNetwork.Instantiate("Player3D", position, Quaternion.identity);
+        GameObject ItemList_UGI = PhotonNetwork.Instantiate("ItemBlock_List", position, Quaternion.identity);
         ReadyButton_Script.JoinedRoom_Jointed();
-
-
-        Debug.Log(blockTile);
-        blockTile.GetComponent<I_Player_3D>().DiceButton.GetComponent<Button>().onClick.AddListener(blockTile.GetComponent<I_Player_3D>().DicePush);
+        Debug.Log(Player);
+        Player.GetComponent<I_Player_3D>().DiceButton.GetComponent<Button>().onClick.AddListener(Player.GetComponent<I_Player_3D>().DicePush);
+        
 
         yield return new WaitForSeconds(0.4f);
         Playerlist_Update();
         LoadImage.SetActive(false);
         yield break;
-        
+
     }
+
+    public void ItemList_UGI_Transform(GameObject ItemList)
+    {
+        ItemList_Moment=ItemList;
+        photonView.RPC(nameof(ItemList_UGI_Transform_RPC), RpcTarget.AllViaServer);
+    }
+
+    [PunRPC]
+    public void ItemList_UGI_Transform_RPC()
+    {
+        ItemList_Moment.transform.parent=ItemListBox.transform;
+    }
+
 
     [PunRPC]
     public void PlayerAppearance(GameObject Player)
@@ -157,7 +171,8 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
 
 
-    public void Leave_the_room(){
+    public void Leave_the_room()
+    {
         PhotonNetwork.LeaveRoom();
     }
 
@@ -171,8 +186,8 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         ReadyButton_Script.PlayerLeftRoom_Jointed();
         yield return new WaitForSeconds(0.4f);
         Playerlist_Update();//プレイヤーのオブジェクト格納用/初期位置への移動も含む
-        
-        
+
+
         yield break;
     }
 
@@ -187,12 +202,12 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
     public IEnumerator OnPlayerEnteredRoom_Coroutine()//他者がルームに入ったときコルーチン
     {
-      
-        
+
+
         Debug.Log("55555555555555");
         yield return new WaitForSeconds(0.4f);
         Playerlist_Update();//プレイヤーのオブジェクト格納用/初期位置への移動も含む
-        
+
         yield break;
     }
 
@@ -202,24 +217,28 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     public void Playerlist_Update()//プレイヤーのオブジェクト格納用/初期位置への移動も含む
     {
         Debug.Log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-        GameObject[] Players_spot =GameObject.FindGameObjectsWithTag("Player");//プレイヤーオブジェクトの一時保存場所　タグで軒並みとる
+        GameObject[] Players_spot = GameObject.FindGameObjectsWithTag("Player");//プレイヤーオブジェクトの一時保存場所　タグで軒並みとる
+        GameObject[] ItemListSpot = GameObject.FindGameObjectsWithTag("ItemList_UGI");//プレイヤーオブジェクトの一時保存場所　タグで軒並みとる
+
+
+
 
         Debug.Log("QQQ"+Players_spot.Length);
         Debug.Log("QQQ"+PhotonNetwork.PlayerList.Length);
-        for (int loop1=0;loop1<PhotonNetwork.PlayerList.Length;loop1++)
+        for (int loop1 = 0; loop1<PhotonNetwork.PlayerList.Length; loop1++)
         {
             Debug.Log("UUU"+Players_spot[loop1].GetComponent<PhotonView>().CreatorActorNr);
         }
 
         I_game_Manager_Script.Player.Clear();
-        
-    
+
+
+
         int loop = 0;//アイテムリストの初期値
         foreach (var PList in PhotonNetwork.PlayerList)//プレイヤーリストの内容を順番に格納
         {
             foreach (GameObject obj in Players_spot)//プレイヤーリストの中身と、一時保存したプレイヤーオブジェクトを突き合わせる
             {
-
                 if (PList.ActorNumber==obj.GetComponent<PhotonView>().CreatorActorNr) //リストのプレイヤーのIDとオブジェクトの作成者のADを比較
                 {
                     Debug.Log("DDDDDDDDDDDDDDDDDDDDDDDDDDD");
@@ -227,21 +246,51 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
                     I_game_Manager_Script.Player_setting(loop);//プレイ矢―を所定の位置に移動
                     obj.GetComponent<I_Player_3D>().PlayerNumber=loop;
 
+                   
                 }
-               
-               
             }
 
+            foreach (GameObject obj in ItemListSpot)//プレイヤーリストの中身と、一時保存したプレイヤーオブジェクトを突き合わせる
+            {
+                obj.transform.parent=ItemListBox.transform;
+                string name= obj.GetComponent<PhotonView>().Owner.NickName;
+                Debug.Log("AAAAAAASSSSSSSS"+name);
+                obj.GetComponent<ItemBlock_List_Script>().Namedisplay(name);
+                if (PList.ActorNumber==obj.GetComponent<PhotonView>().CreatorActorNr) //リストのプレイヤーのIDとオブジェクトの作成者のADを比較
+                {
+                    Debug.Log("DDDDDDDDDDDDDDDDDDDDDDDDDDD");
+                  
+                    
+
+
+                    foreach (GameObject Player in Players_spot)//対応するプレイヤーにプレイヤーリストを突っ込む
+                    {
+                        if (Player.GetComponent<PhotonView>().CreatorActorNr==obj.GetComponent<PhotonView>().CreatorActorNr) //リストのプレイヤーのIDとオブジェクトの作成者のADを比較
+                        {
+                            Player.GetComponent<I_Player_3D>().ItemBlock=obj;
+                            I_game_Manager_Script.ItemList_setting(obj, loop);//プレイ矢―を所定の位置に移動
+
+                        }
+                    }
+
+
+
+
+
+
+                }
+
+               
+            }
             loop++;
+            I_game_Manager_Script.joining_Player = PhotonNetwork.PlayerList.Length;
+            if (I_game_Manager_Script.Player.Count!=loop)
+            {
+                Debug.LogError("問題発生。部屋を入りなおして下さい");
+            }
         }
-        I_game_Manager_Script.joining_Player = PhotonNetwork.PlayerList.Length;
-        if (I_game_Manager_Script.Player.Count!=loop)
-        {
-            Debug.LogError("問題発生。部屋を入りなおして下さい");
-        }
+
+
+
     }
-
-
-
-
 }
