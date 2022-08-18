@@ -88,6 +88,8 @@ MonoBehaviour:
   - Output_VideoStart
   - ItemList_UGI_Transform
   - ItemList_UGI_Transform_RPC
+  - ItemAdd
+  - ItemLost
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
