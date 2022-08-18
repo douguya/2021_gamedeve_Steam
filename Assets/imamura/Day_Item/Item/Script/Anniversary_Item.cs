@@ -14,6 +14,8 @@ public class Anniversary_Item : ScriptableObject
 
     [Tooltip("アイテムの名前")]
     public string ItemName;
+    [Tooltip("アイテムのポイント")]
+    public int ItemPoint;
     [Tooltip("記念日の名前")]
     public string Anniversary;
     [Tooltip("記念日の日付")]

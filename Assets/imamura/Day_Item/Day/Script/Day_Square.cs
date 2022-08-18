@@ -34,8 +34,8 @@ public class Day_Square : ScriptableObject
 
 
 
-    [Tooltip("アイテムの名前")]
-    public string ItemName;　　 　　　 
+    [Tooltip("アイテムのオブジェクト")]
+    public Anniversary_Item Anniversary_Item;　　 　　　 
     [Tooltip("その瞬間の移動")]
     public string Move;　　　 　   
     [Tooltip("変更するBGM")]
