@@ -30,7 +30,7 @@ public class Camera_Mouse : MonoBehaviour
 
         if (Mousewheel!=0)//マウスホイールが行われた場合
         {
-            Vector3 Zoom_Adjust = mouse_set*Adjust_Variable;//マウスホイールによる画面の原点修正
+            Vector3 Zoom_Adjust = new Vector3(mouse_set.x*Adjust_Variable, 0, mouse_set.y*Adjust_Variable);//マウスホイールによる画面の原点修正
             if (Mousewheel>0)//上向きホイール
             {
                 transform.position+= (transform.forward*Mousewheel*Zoom_Speed)+ Zoom_Adjust;
