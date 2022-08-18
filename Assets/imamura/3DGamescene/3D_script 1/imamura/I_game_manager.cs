@@ -16,6 +16,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     public string[] warp = new string[4];                   //設置するワープの位置を受け取る
 
     public List<GameObject> Player = new List<GameObject>();
+    public List<GameObject> ItemList = new List<GameObject>();
     public int joining_Player = 0;                          //参加するプレイヤーの人数を取得
     public string[] Player_InitialPosition = new string[4]; //設置するプレイヤーの初期位置を受け取る
     public int Player_Turn = -1;                             //プレイヤーの現在の手番
@@ -38,8 +39,8 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     //　以下今村========================================================================================//
 
     private bool GameStart=false;
-    public GameObject GameStartButton;                                 
-
+    public GameObject GameStartButton;
+    
 
     //  ここまで=========================================================================================//
 
@@ -227,6 +228,30 @@ public class I_game_manager : MonoBehaviourPunCallbacks
                 }
             }
         
+    }
+
+    //アイテムリストの初期位置設定
+    public void ItemList_setting(GameObject List,int num)
+    {
+
+
+        var ListTransform = List.GetComponent<RectTransform>().position;
+
+        var ListSize = List.GetComponent<RectTransform>().sizeDelta;//リストのサイズを取得　（戻り値のため）
+
+        ListTransform.x = (ListSize.x/2)+(ListSize.x*num);//マジックナンバーはUIの初期座標
+        ListTransform.y =-ListSize.y/2;
+
+        Debug.Log(ListTransform);
+        List.GetComponent<RectTransform>().anchoredPosition=ListTransform;
+
+
+        
+
+
+
+
+
     }
 
     //プレイヤーの初期位置設定の結果出力

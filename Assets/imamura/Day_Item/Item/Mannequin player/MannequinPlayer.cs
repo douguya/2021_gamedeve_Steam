@@ -18,18 +18,19 @@ public class MannequinPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
     public void ItemAdd(int ItemNum)//ItemNum＝マスター登録順の番号
     {
         Hub_Items.Add(ScriptableObject.Instantiate(ItemMaster.Anniversary_Items[ItemNum]));//マスターにあるItemNumのアイテムを生成し、Hubに追加
-        blocs.GetComponent<ItemBlock_List_Script>().BlockUpdate2();
+        blocs.GetComponent<ItemBlock_List_Script>().AddItem(ItemNum);
     }
 
     public void ItemLost(int HubItemNum)//HubItemNum＝所持アイテム登録順の番号
     {
+      
         Hub_Items.RemoveAt(HubItemNum);//所持中のHubItemNum番目のアイテムを消去
-        blocs.GetComponent<ItemBlock_List_Script>().BlockUpdate2();
+        blocs.GetComponent<ItemBlock_List_Script>().LostItem(HubItemNum);
 
 
     }
