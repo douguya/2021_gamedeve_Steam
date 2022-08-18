@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: 0731
   m_EditorClassIdentifier: 
   Anniversary: 
-  Day: 
+  Day: 0731
   Staging: {fileID: 0}
   HopUp: {fileID: 0}
-  Commentary: 
+  Commentary: "\u8A18\u5FF5\u65E5\u306A\u3057,\u5F8C\u306B\u8FFD\u52A0"
   ItemName: Noon
   Move: Noon
   BGM: Noon
