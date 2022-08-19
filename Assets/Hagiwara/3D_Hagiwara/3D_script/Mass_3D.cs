@@ -12,6 +12,7 @@ public class Mass_3D : MonoBehaviour
     public string Day = "null";//マスは何日か
 
 
+    public GameObject DayText;//マスの日付用
     public GameObject goal_flag;//ゴールの丸表示用
     public GameObject warp_point;//移動できるマスの表示用
     public GameObject hideCover;//マスの表示用
@@ -26,6 +27,11 @@ public class Mass_3D : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void DayText_setting(int day)
+    {
+        DayText.GetComponent<TextMesh>().text = "" + day;
     }
 
     public void hideCover_setting()

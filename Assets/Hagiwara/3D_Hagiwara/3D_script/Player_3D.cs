@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class Player_3D : MonoBehaviour
 {
@@ -480,10 +481,13 @@ public class Player_3D : MonoBehaviour
     //ビデオの再生とホップアップの表示
     IEnumerator Day_Animation(string day)
     {
-        Manager.Output_VideoStart(day);     //ビデオの再生
+        Manager.Output_VideoSetting();
+        Manager.Output_HopUp();
+        gameObject.GetComponent<Day_Effect>().Output_HopUp_Setting(day);
+        Manager.Video_obj.GetComponent<VideoPlayer>().clip = gameObject.GetComponent<Day_Effect>().Output_VideoClip(day);
+        Manager.Output_VideoStart();     //ビデオの再生
         yield return new WaitForSeconds(8);     //8秒待つ
-        Manager.Output_VideoFinish();     //ビデオの再生
-        Manager.Output_HopUp();    //ホップアップの表示
+        Manager.Output_VideoFinish();     //ビデオの非表示
         Manager.PlayerTurn_change();         //ターンを変える
     }
 }

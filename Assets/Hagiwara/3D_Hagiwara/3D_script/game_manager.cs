@@ -19,8 +19,7 @@ public class game_manager : MonoBehaviour
     private int XGoal = 0, YGoal = 0;                       //ゴールのマスの横・縦の現在位置
     private bool Goal_check;                                //ゴールしたかどうか
     private int Goal_AddCount = 0;                          //ゴールした合計
-
-    private Day_Animation Day_Animation;                    //日付の再生するビデオを受け渡すスクリプト取得
+    
     public GameObject Video_obj;                            //ビデオ再生用のオブジェクト取得
 
     public GameObject HopUp;                                //ホップアップのオブジェクト取得
@@ -30,7 +29,6 @@ public class game_manager : MonoBehaviour
 
     void Start()
     {
-        Day_Animation = GetComponent<Day_Animation>();
         Month_Setting();
         Player_setting();
         Goal_Decision();
@@ -176,6 +174,7 @@ public class game_manager : MonoBehaviour
     {
         Week[week].Day[day].GetComponent<Mass_3D>().Day = month + 1 + "/" + countday;//日付を入れる
         Week[week].Day[day].GetComponent<Mass_3D>().hideCover_setting();             //hideCover(青いやつ)の表示
+        Week[week].Day[day].GetComponent<Mass_3D>().DayText_setting(countday);
     }
 
     //ワープ出来るマスの設置出力
@@ -391,12 +390,15 @@ public class game_manager : MonoBehaviour
 
 
     //日付のビデオを再生する出力
-    public void Output_VideoStart(string day)
+    public void Output_VideoStart()
     {
-        Video_obj.SetActive(true);                      //ビデオを表示にする
-        Video_obj.GetComponent<VideoPlayer>().clip = Day_Animation.play_video("1/1");
-        //Video_obj.GetComponent<VideoPlayer>().clip = Day_Animation.play_video(day); //本来こっちだがビデオが揃ってないので上ので代用
         Video_obj.GetComponent<VideoPlayer>().Play();   //ビデオの再生
+    }
+
+    //日付のビデオを表示にする出力
+    public void Output_VideoSetting()
+    {
+        Video_obj.SetActive(true);
     }
 
     //日付のビデオを非表示にする出力
