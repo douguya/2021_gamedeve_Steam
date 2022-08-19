@@ -43,4 +43,13 @@ public class ItemPoint : MonoBehaviour
     {
         
     }
+
+    //ポイント追加用イベント
+    void ConditionalPoint(string x,int y)
+    {
+        int num = int.Parse(x);
+        y += num;
+    }
+
+
 }
