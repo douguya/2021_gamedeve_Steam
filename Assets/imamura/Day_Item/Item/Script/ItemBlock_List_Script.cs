@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+
 
 public class ItemBlock_List_Script : MonoBehaviour
 {
@@ -18,6 +20,8 @@ public class ItemBlock_List_Script : MonoBehaviour
     public Text PlayerName;
     public float FarstBlock_Transform;
     public bool Rist_View=false;
+    public Hashtable hashtable = new Hashtable();//カスタムプロパティのリスト
+
 
     public void Start()
     {
@@ -115,7 +119,7 @@ public class ItemBlock_List_Script : MonoBehaviour
         Mask.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, -2, MaskSize_y+3.5f);
      
         var MasTransform = Mask.GetComponent<RectTransform>().position;
-         Debug.Log(MasTransform);
+ 
         MasTransform.y = MasTransform.y+1.50f;
         if (Block_List.Count==3) {
             Mask.GetComponent<RectTransform>().position=MasTransform;

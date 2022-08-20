@@ -13237,6 +13237,38 @@ PrefabInstance:
       propertyPath: I_game_Manager_Script
       value: 
       objectReference: {fileID: 1265593756}
+    - target: {fileID: 5228020121527939329, guid: 55e18925c8a517d4b9300695a4dfe72f, type: 3}
+      propertyPath: Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5c7f13048f290a745882b98bbed5a89b, type: 2}
+    - target: {fileID: 5228020121527939329, guid: 55e18925c8a517d4b9300695a4dfe72f, type: 3}
+      propertyPath: Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 83eb9cc659e96a24b8c153dd09e797c5, type: 2}
+    - target: {fileID: 5228020121527939329, guid: 55e18925c8a517d4b9300695a4dfe72f, type: 3}
+      propertyPath: Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d7fd89fb97593624fbd9bdaad86ffd22, type: 2}
+    - target: {fileID: 5228020121527939329, guid: 55e18925c8a517d4b9300695a4dfe72f, type: 3}
+      propertyPath: Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1ed9b1d265244884c8a72b7662cd5b60, type: 2}
+    - target: {fileID: 5228020121527939329, guid: 55e18925c8a517d4b9300695a4dfe72f, type: 3}
+      propertyPath: MaterialsList.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 81a9d4ee1aa929d4d9b968a10683f4d1, type: 2}
+    - target: {fileID: 5228020121527939329, guid: 55e18925c8a517d4b9300695a4dfe72f, type: 3}
+      propertyPath: MaterialsList.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 82d018242e3f4b44ca582d80708e4a41, type: 2}
+    - target: {fileID: 5228020121527939329, guid: 55e18925c8a517d4b9300695a4dfe72f, type: 3}
+      propertyPath: MaterialsList.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 667577bbd1d06934385c8797c36b0739, type: 2}
+    - target: {fileID: 5228020121527939329, guid: 55e18925c8a517d4b9300695a4dfe72f, type: 3}
+      propertyPath: MaterialsList.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: ee4fa5f6ca757104fb3bbb02380ae945, type: 2}
     - target: {fileID: 5228020121527939330, guid: 55e18925c8a517d4b9300695a4dfe72f, type: 3}
       propertyPath: m_RootOrder
       value: 1

@@ -90,6 +90,7 @@ MonoBehaviour:
   - ItemList_UGI_Transform_RPC
   - ItemAdd
   - ItemLost
+  - Output_ItemLifeSpan
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
