@@ -35,6 +35,10 @@ PrefabInstance:
       propertyPath: ObservedComponents.Array.data[1]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3695304115525922125, guid: f252f681ab4e2794aa412acc9bb12aaa, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1f8ae4fc60e73ff42aff54fa3829edf8, type: 2}
     - target: {fileID: 5256909742392665806, guid: f252f681ab4e2794aa412acc9bb12aaa, type: 3}
       propertyPath: m_Name
       value: Player3D

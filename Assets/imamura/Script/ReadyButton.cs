@@ -53,11 +53,10 @@ public class ReadyButton : MonoBehaviourPunCallbacks
     //カスタムプロパィが更新された際のコールバック
      public override void OnPlayerPropertiesUpdate(Player player, Hashtable propertiesThatChanged)
     {
-            
+        if (propertiesThatChanged==player.CustomProperties["ReadyPlayerNum"]) {
             int loop = 0;
             foreach (var p in PhotonNetwork.PlayerList)//プレイヤー全員のカスタムプロパティ：準備状態の集計
             {
-            Debug.Log("8888888888888888888888888888888888");
                 if ((bool)p.CustomProperties["ReadyPlayerNum"] == true)//ｐ番目のプレイヤーの準備が完了しているなら
                 {
                     loop++;//人数をカウント
@@ -87,6 +86,8 @@ public class ReadyButton : MonoBehaviourPunCallbacks
             {
                 GameStart.SetActive(false);//ゲームスタートボタンの消失
             }
+
+        }
         
 
     }
@@ -101,7 +102,6 @@ public class ReadyButton : MonoBehaviourPunCallbacks
 
     public void JoinedRoom_Jointed()//自身がルームに入ったとき
     {
-        Debug.Log("444444444444444444");
         hashtable["ReadyPlayerNum"] = false;//カスタムプロパティのセッティング　初手なのでfalse
         PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);//更新
        // OnRoomPropertiesUpdate(hashtable);////カスタムプロパティを更新（準備完了状況の反映）

@@ -7,7 +7,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
 using System.Text.RegularExpressions;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
+
 
 public class I_game_manager : MonoBehaviourPunCallbacks
 {
@@ -40,7 +40,8 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
     private bool GameStart=false;
     public GameObject GameStartButton;
-    
+   
+
 
     //  ここまで=========================================================================================//
 
@@ -55,7 +56,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     {
         Goal_Decision();
         
-        PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);//変更したカスタムプロパティの更新
+      //  PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);//変更したカスタムプロパティの更新
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PlayerTurn_change();
         GameStartButton.SetActive(false);
@@ -242,7 +243,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         ListTransform.x = (ListSize.x/2)+(ListSize.x*num);//マジックナンバーはUIの初期座標
         ListTransform.y =-ListSize.y/2;
 
-        Debug.Log(ListTransform);
+    
         List.GetComponent<RectTransform>().anchoredPosition=ListTransform;
 
 
@@ -364,6 +365,8 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     //プレイヤーターンを切り替える
     public void PlayerTurn_change()
     {
+        
+
 
         if (Goal_check == true)//誰かがゴールしていたら
         {
@@ -371,26 +374,23 @@ public class I_game_manager : MonoBehaviourPunCallbacks
             Goal_check = false;
         }
 
-        Debug.Log("AAAAAAAAA"+photonView.OwnerActorNr);
+        photonView.RPC(nameof(Output_ItemLifeSpan), RpcTarget.AllViaServer, Player_Turn);
         photonView.RPC(nameof(Output_PlayerTurn), RpcTarget.AllViaServer);
-        Debug.Log("BBBBBBBBBBBBB"+photonView.OwnerActorNr);
+     
 
         for (int turn = 0; turn < Player.Count; turn++)
         {
             photonView.RPC(nameof(Output_anotherTurn), RpcTarget.AllViaServer, turn);//他プレイヤーのターンのボタンテキストを変更
         }
-        Debug.Log("ccccccccccc"+photonView.OwnerActorNr);
-
-
+     
         photonView.RPC(nameof(Output_Dice_ready), RpcTarget.AllViaServer);
-        Debug.Log("プレイヤー：" + Player_Turn);
-        Debug.Log("DDDDDDDDDDD"+photonView.OwnerActorNr);
+      
     }
 
     [PunRPC]
     private void Output_PlayerTurn()    //プレイヤーのターンを追加して出力
     {
-        Debug.Log("1111111111111111"+photonView.OwnerActorNr);
+   
         Player_Turn++;
         if (Player.Count <= Player_Turn)
         {
@@ -398,17 +398,35 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         }
 
     }
+
+    [PunRPC]
+    private void Output_ItemLifeSpan(int NowTurn)    //プレイヤーのターンを追加して出力
+    {
+        var NowPlayerItemus = Player[NowTurn].GetComponent<I_Player_3D>().Hub_Items;
+        int num = NowPlayerItemus.Count;
+
+        for (int loop = num-1; loop>=0; loop--)
+        {
+
+            if (NowPlayerItemus[loop].ItemLifespan!="null")
+            {
+                NowPlayerItemus[loop].ItemLifespan=(int.Parse(NowPlayerItemus[loop].ItemLifespan)-1).ToString();
+                if (int.Parse(NowPlayerItemus[loop].ItemLifespan)<=0) { NowPlayerItemus.Remove(NowPlayerItemus[loop]); }
+            }
+        }
+
+    }
     [PunRPC]//他プレイヤーのターンの際、ボタンテキストを変える出力
     private void Output_anotherTurn(int player)
     {
-        Debug.Log("222222222222"+photonView.OwnerActorNr);
+       
         Player[player].GetComponent<I_Player_3D>().another_turn();
     }
 
     [PunRPC]
     private void Output_Dice_ready()    //プレイヤーのターンを追加して出力
     {
-        Debug.Log("333333333333333"+photonView.OwnerActorNr);
+ 
         if (Player[Player_Turn].GetComponent<PhotonView>().IsMine)
         {
             Player[Player_Turn].GetComponent<I_Player_3D>().Dice_ready();
