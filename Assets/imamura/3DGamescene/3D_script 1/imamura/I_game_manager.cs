@@ -200,7 +200,10 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     {
         Week[week].Day[day].GetComponent<I_Mass_3D>().Day = month + 1 + "/" + countday;//日付を入れる
         Week[week].Day[day].GetComponent<I_Mass_3D>().hideCover_setting();             //hideCover(青いやつ)の表示
+        Week[week].Day[day].GetComponent<I_Mass_3D>().DayText_setting(countday);
     }
+   
+  
 
     //ワープ出来るマスの設置出力
     private void Output_WarpSetting(int week, int day)
@@ -496,12 +499,13 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
 
     [PunRPC] //日付のビデオを再生する出力
-    public void Output_VideoStart(string day)
+    public void Output_VideoStart()
     {
-        Video_obj.SetActive(true);                      //ビデオを表示にする
-        Video_obj.GetComponent<VideoPlayer>().clip = Day_Animation.play_video("1/1");
-        //Video_obj.GetComponent<VideoPlayer>().clip = Day_Animation.play_video(day); //本来こっちだがビデオが揃ってないので上ので代用
         Video_obj.GetComponent<VideoPlayer>().Play();   //ビデオの再生
+    }
+    [PunRPC]public void Output_VideoSetting()
+    {
+        Video_obj.SetActive(true);
     }
 
 

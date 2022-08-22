@@ -53,41 +53,58 @@ public class ReadyButton : MonoBehaviourPunCallbacks
     //カスタムプロパィが更新された際のコールバック
      public override void OnPlayerPropertiesUpdate(Player player, Hashtable propertiesThatChanged)
     {
-        if (propertiesThatChanged==player.CustomProperties["ReadyPlayerNum"]) {
-            int loop = 0;
-            foreach (var p in PhotonNetwork.PlayerList)//プレイヤー全員のカスタムプロパティ：準備状態の集計
+
+        foreach (var prop in propertiesThatChanged)
+        {
+
+            if ((string)prop.Key=="ReadyPlayerNum")//変更されたプレイヤープロパティがマテリアルに関するものだった場合
             {
-                if ((bool)p.CustomProperties["ReadyPlayerNum"] == true)//ｐ番目のプレイヤーの準備が完了しているなら
-                {
-                    loop++;//人数をカウント
-                }
+
+                Debug.Log("CCCCCCCCCCCCCCCCCCC");
+              
+                    int loop = 0;
+
+                    foreach (var p in PhotonNetwork.PlayerList)//プレイヤー全員のカスタムプロパティ：準備状態の集計
+                    {
+                        if ((bool)p.CustomProperties["ReadyPlayerNum"] == true)//ｐ番目のプレイヤーの準備が完了しているなら
+                        {
+                            loop++;//人数をカウント
+                        }
+                    }
+
+                    //テキスト　=準備完了人数/プレイヤー全体の人数
+                    Ready_Txt = loop + "/ " + PhotonNetwork.PlayerList.Length;//準備完了テキスト：見やすくするためにここでまとめる
+
+                    if (Ready == false)//当プレイヤーの準備ができていない
+                    {
+                        ReadyText.text = "準備を完了する" + Ready_Txt;//準備完了を待つテキストへ変更
+                    }
+                    else if (Ready == true) //当プレイヤーの準備ができている
+                    {
+                        ReadyText.text = "準備に戻る" + Ready_Txt;//再度準備に戻るテキストへ変更
+                    }
+
+                    if (PhotonNetwork.PlayerList.Length == loop) //準備完了人数と プレイヤー全体の人数が同じとき
+                    {
+                        if (PhotonNetwork.LocalPlayer.IsMasterClient)//そのうえでプレイヤーがマスタークライアントである場合
+                        {
+                            GameStart.SetActive(true);//ゲームスタートボタンの出現
+                        }
+                    }
+                    else
+                    {
+                        GameStart.SetActive(false);//ゲームスタートボタンの消失
+                    }
+
+                
+
             }
 
-            //テキスト　=準備完了人数/プレイヤー全体の人数
-            Ready_Txt = loop + "/ " + PhotonNetwork.PlayerList.Length;//準備完了テキスト：見やすくするためにここでまとめる
-
-            if (Ready == false)//当プレイヤーの準備ができていない
-            {
-                ReadyText.text = "準備を完了する" + Ready_Txt;//準備完了を待つテキストへ変更
-            }
-            else if (Ready == true) //当プレイヤーの準備ができている
-            {
-                ReadyText.text = "準備に戻る" + Ready_Txt;//再度準備に戻るテキストへ変更
-            }
-
-            if (PhotonNetwork.PlayerList.Length == loop) //準備完了人数と プレイヤー全体の人数が同じとき
-            {
-                if (PhotonNetwork.LocalPlayer.IsMasterClient)//そのうえでプレイヤーがマスタークライアントである場合
-                {
-                    GameStart.SetActive(true);//ゲームスタートボタンの出現
-                }
-            }
-            else
-            {
-                GameStart.SetActive(false);//ゲームスタートボタンの消失
-            }
+            Debug.Log("----------------"+ player.ActorNumber);
 
         }
+        Debug.Log("HHHHHHHHHHHHHHHHH");
+       
         
 
     }

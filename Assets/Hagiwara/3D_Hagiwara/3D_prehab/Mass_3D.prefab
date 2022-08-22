@@ -286,6 +286,7 @@ MonoBehaviour:
   hideCover: {fileID: 4710278831961188508}
   select: {fileID: 701741331384381864}
   decision_Mass: {fileID: 2227794945659897074}
+  DayText: {fileID: 5054539077136966147, guid: 82d96f937f036f64d963a84da6a6978b, type: 3}
 --- !u!114 &7446157185085702657
 MonoBehaviour:
   m_ObjectHideFlags: 0
