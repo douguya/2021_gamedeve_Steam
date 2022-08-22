@@ -11350,6 +11350,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mass_3D (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 4307650580244691226, guid: 9ce1460160f9b1941b40ad928fa22e72, type: 3}
+      propertyPath: DayText
+      value: 
+      objectReference: {fileID: 5054539077136966147, guid: 82d96f937f036f64d963a84da6a6978b, type: 3}
     - target: {fileID: 4386184498969469272, guid: 9ce1460160f9b1941b40ad928fa22e72, type: 3}
       propertyPath: m_RootOrder
       value: 9

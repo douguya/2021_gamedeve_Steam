@@ -17,6 +17,7 @@ public class I_Mass_3D : MonoBehaviour
     public GameObject hideCover;//マスの表示用
     public GameObject select;//移動できるマスの表示用
     public GameObject decision_Mass;//決定したマスの表示用
+    public GameObject DayText;//マスの日付用
 
     void Start()
     {
@@ -90,6 +91,10 @@ public class I_Mass_3D : MonoBehaviour
             GameObject.Find("I_game_manager").GetComponent<I_game_manager>().Player_select();
         }
 
+    }
+    public void DayText_setting(int day)
+    {
+        DayText.GetComponent<TextMesh>().text = "" + day;
     }
 }
 

@@ -91,6 +91,7 @@ MonoBehaviour:
   - ItemAdd
   - ItemLost
   - Output_ItemLifeSpan
+  - Output_VideoSetting
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

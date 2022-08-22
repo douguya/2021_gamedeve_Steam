@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.Video;
 
 
 public class I_Player_3D : MonoBehaviourPunCallbacks
@@ -501,16 +502,20 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     }
 
     //ビデオの再生とホップアップの表示
+  
+
+    //ビデオの再生とホップアップの表示
     IEnumerator Day_Animation(string day)
     {
-        Manager.VideoStart(day);     //ビデオの再生
+        Manager.Output_VideoSetting();
+        Manager.Output_HopUp();
+        gameObject.GetComponent<Day_Effect>().Output_HopUp_Setting(day);
+        Manager.Video_obj.GetComponent<VideoPlayer>().clip = gameObject.GetComponent<Day_Effect>().Output_VideoClip(day);
+        Manager.Output_VideoStart();     //ビデオの再生 Dayが入るとエラーを吐くのでこう書いた
         yield return new WaitForSeconds(8);     //8秒待つ
-        Manager.VideoFinish();
-        Manager.HopUpAppearance();//ホップアップの表示
+        Manager.Output_VideoFinish();     //ビデオの非表示
         Manager.PlayerTurn_change();         //ターンを変える
     }
-
-
 
 
 
