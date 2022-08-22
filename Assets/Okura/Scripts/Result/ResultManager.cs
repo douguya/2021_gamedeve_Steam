@@ -27,14 +27,14 @@ public class ResultManager : MonoBehaviourPunCallbacks
     [SerializeField]
     GameObject players;             //playerstatusを持ってるオブジェクト
     [SerializeField]
-    List<string>[] OriginalItem;    //プレイヤーが持っている処理前のアイテム
+    List<Anniversary_Item>[] OriginalItem;    //プレイヤーが持っている処理前のアイテム
 
-    Dictionary<string, int> Item0 = new Dictionary<string, int> { };//並べ替え用の空のdictionaryを人数分
+    Dictionary<string, int> Item0 = new Dictionary<string, int> { };//並べ替え用の空のListを人数分
     Dictionary<string, int> Item1 = new Dictionary<string, int> { };
     Dictionary<string, int> Item2 = new Dictionary<string, int> { };
     Dictionary<string, int> Item3 = new Dictionary<string, int> { };
 
-    Dictionary<int, Dictionary<string, int>> Items;//上のdictionaryを多次元化したもの。player1のアイテムは1と入力する
+    List<Dictionary<string, int>> Items;//上のdictionaryを多次元化したもの。player1のアイテムは1と入力する
     //----------------------------------関数----------------------------------
     private void Awake()
     {
@@ -42,12 +42,12 @@ public class ResultManager : MonoBehaviourPunCallbacks
       
 
         //ワールド変数を代入
-        playersnum = PhotonNetwork.PlayerList.Length;
+        //playersnum = PhotonNetwork.PlayerList.Length;
         total = new Text[playersnum];
         Canvas = GameObject.Find("Canvas").transform;
         ScoreBackGround = new Transform[playersnum];
-        OriginalItem = new List<string>[playersnum];
-        Items = new Dictionary<int, Dictionary<string, int>> {{ 0, Item0 },{ 1, Item1 },{ 2, Item2 },{ 3, Item3 }};
+        OriginalItem = new List<Anniversary_Item>[playersnum];
+        Items = new List<Dictionary<string, int>> {{ Item0 },{ Item1 },{ Item2 },{ Item3 }};
 
 
         //ここからプレハブを生成するための下準備
@@ -75,7 +75,7 @@ public class ResultManager : MonoBehaviourPunCallbacks
             total[i] = GameObject.Find("Total" + i).GetComponent<Text>();
 
             //並び替え前のプレイヤーの持ち物を参照
-            OriginalItem[i] = players.GetComponent<PlayerStatus>().HabItem;
+            OriginalItem[i] = players.GetComponent<I_Player_3D>().Hub_Items;
         }
 
         DisplayItems();
@@ -160,13 +160,13 @@ public class ResultManager : MonoBehaviourPunCallbacks
         {
             for (int i = 0; i < OriginalItem[num].Count; i++)//num番目のプレイヤーの持ち物の数だけ行う
             {
-                if (Items[num].ContainsKey(OriginalItem[num][i]))//アイテムの中に重複する者があれば
+                if (Items[num].ContainsKey(OriginalItem[num][i].ItemName))//アイテムの中に重複する者があれば
                 {
-                    Items[num][OriginalItem[num][i]] += DictionaryManager.ItemDictionary[OriginalItem[num][i]][0];//ポイントを増やす
+                    Items[num][OriginalItem[num][i].ItemName] += OriginalItem[num][i].ItemPoint;//ポイントを増やす
                 }
                 else
                 {
-                    Items[num].Add(OriginalItem[num][i], DictionaryManager.ItemDictionary[OriginalItem[num][i]][0]);//なければ新しい項目を作る
+                    Items[num].Add(OriginalItem[num][i].ItemName, OriginalItem[num][i].ItemPoint);//なければ新しい項目を作る
                 }
             }
         }
