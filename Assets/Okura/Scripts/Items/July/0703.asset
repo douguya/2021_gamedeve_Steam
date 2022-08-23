@@ -9,20 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 058df27e0b5527648bdc699cd6d531d5, type: 3}
+  m_Script: {fileID: 11500000, guid: e070eb0ab68448c4ab1ec019c3956a76, type: 3}
   m_Name: 0703
   m_EditorClassIdentifier: 
+  ItemName: "\u30BD\u30D5\u30C8\u30AF\u30EA\u30FC\u30E0"
+  ItemPoint: 3
   Anniversary: "\u30BD\u30D5\u30C8\u30AF\u30EA\u30FC\u30E0\u306E\u65E5"
   Day: 0703
-  Staging: {fileID: 0}
-  HopUp: {fileID: 0}
-  Commentary: "\u30BD\u30D5\u30C8\u30AF\u30EA\u30FC\u30E0\u306E\u65E5\n\n\u30BD\u30D5\u30C8\u30AF\u30EA\u30FC\u30E0\u3092\u5165\u624B\n3pt"
-  Anniversary_Item: {fileID: 11400000, guid: cde219ffff69fc644ad76ac9d9e03746, type: 2}
+  ItemSprite: {fileID: 0}
+  ItemLifespan: null
+  Commentary: 
+  ItemEffect: 0
   Move: Noon
   BGM: Noon
   Instance: Noon
   particle: Noon
-  NextDice: Noon
-  NextMove: Noon
+  DiceInfluence: Noon
   ItemLost: Noon
   ConditionalPoint: Noon
