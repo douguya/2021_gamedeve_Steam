@@ -418,4 +418,213 @@ public class game_manager : MonoBehaviour
     {
         HopUp.SetActive(false);
     }
+
+
+
+
+    public void Player_Same()
+    {
+        int[] Alignment = { 4, 4, 4, 4 };
+        int Count = 0;
+        bool differNum_1 = true;
+        bool differNum_2 = true;
+        int[] Player_XPosition = new int[4];
+        int[] Player_YPosition = new int[4];
+        //01,02,03,12,13,23
+        for (int PlayerNumber = 0; PlayerNumber < Player.Length; PlayerNumber++)
+        {
+            Player_XPosition[PlayerNumber] = Player[PlayerNumber].GetComponent<Player_3D>().XPlayer_position;
+            Player_YPosition[PlayerNumber] = Player[PlayerNumber].GetComponent<Player_3D>().YPlayer_position;
+        }
+        for (int PlayerNumber = 0; PlayerNumber < Player.Length - 1; PlayerNumber++)// 0, 1, 2
+        {
+            if (PlayerNumber + 1 < Player.Length)//01,12,23
+            {
+                if (Player_XPosition[PlayerNumber] == Player_XPosition[PlayerNumber + 1] && Player_YPosition[PlayerNumber] == Player_YPosition[PlayerNumber + 1])
+                {
+                    for (int PCount = 0; PCount < Alignment.Length; PCount++)
+                    {
+                        if (Alignment[PCount] == PlayerNumber)
+                        {
+                            differNum_1 = false;
+                        }
+                        if (Alignment[PCount] == PlayerNumber + 1)
+                        {
+                            differNum_2 = false;
+                        }
+                    }
+                    if (differNum_1)
+                    {
+                        Alignment[Count] = PlayerNumber;
+                        Count++;
+                    }
+                    if (differNum_2)
+                    {
+                        Alignment[Count] = PlayerNumber + 1;
+                        Count++;
+                    }
+                    differNum_1 = true;
+                    differNum_2 = true;
+                }
+            }
+            if (PlayerNumber + 2 < Player.Length)//02,13
+            {
+                if (Player_XPosition[PlayerNumber] == Player_XPosition[PlayerNumber + 2] && Player_YPosition[PlayerNumber] == Player_YPosition[PlayerNumber + 2])
+                {
+                    for (int PCount = 0; PCount < Alignment.Length; PCount++)
+                    {
+                        if (Alignment[PCount] == PlayerNumber)
+                        {
+                            differNum_1 = false;
+                        }
+                        if (Alignment[PCount] == PlayerNumber + 2)
+                        {
+                            differNum_2 = false;
+                        }
+                    }
+                    if (differNum_1)
+                    {
+                        Alignment[Count] = PlayerNumber;
+                        Count++;
+                    }
+                    if (differNum_2)
+                    {
+                        Alignment[Count] = PlayerNumber + 2;
+                        Count++;
+                    }
+                    differNum_1 = true;
+                    differNum_2 = true;
+                }
+            }
+            if (PlayerNumber + 3 < Player.Length)//03
+            {
+                if (Player_XPosition[PlayerNumber] == Player_XPosition[PlayerNumber + 3] && Player_YPosition[PlayerNumber] == Player_YPosition[PlayerNumber + 3])
+                {
+                    for (int PCount = 0; PCount < Alignment.Length; PCount++)
+                    {
+                        if (Alignment[PCount] == PlayerNumber)
+                        {
+                            differNum_1 = false;
+                        }
+                        if (Alignment[PCount] == PlayerNumber + 3)
+                        {
+                            differNum_2 = false;
+                        }
+                    }
+                    if (differNum_1)
+                    {
+                        Alignment[Count] = PlayerNumber;
+                        Count++;
+                    }
+                    if (differNum_2)
+                    {
+                        Alignment[Count] = PlayerNumber + 3;
+                        Count++;
+                    }
+                    differNum_1 = true;
+                    differNum_2 = true;
+                }
+            }
+        }
+        //Debug.Log("0:" + Alignment[0] + "   1:" + Alignment[1] + "   2:" + Alignment[2] + "   3:" + Alignment[3]);
+        Player_Alignment(Alignment, Player_XPosition, Player_YPosition);
+    }
+
+    private void Player_Alignment(int[] Alignment, int[] Player_XPosition, int[] Player_YPosition)
+    {
+        bool Alignment_Num = true;
+        if (Alignment[0] != 4)//同じマスのものはいるか
+        {
+            bool[] num = { false, false, false, false };
+            for (int Player = 0; Player < Alignment.Length; Player++)
+            {
+                if (Alignment[Player] != 4)
+                {
+                    num[Player] = true;
+                }
+            }
+            for (int Player = 0; Player < Alignment.Length; Player++)
+            {
+                if (num[Player])
+                {
+                    this.Player[Player].GetComponent<Transform>().position = Week[Player_YPosition[Player]].Day[Player_XPosition[Player]].GetComponent<Transform>().position;
+                }
+            }
+            if (Alignment[2] != 4)//3つ以上いるか
+            {
+                if (Player_XPosition[Alignment[1]] == Player_XPosition[Alignment[2]] && Player_YPosition[Alignment[1]] == Player_YPosition[Alignment[2]])//3つが同じマスになのか
+                {
+                    //昇順
+                    int tmp;
+                    for (int i = 0; i < Alignment.Length; ++i)
+                    {
+                        for (int j = i + 1; j < Alignment.Length; ++j)
+                        {
+                            if (Alignment[i] > Alignment[j])
+                            {
+                                tmp = Alignment[i];
+                                Alignment[i] = Alignment[j];
+                                Alignment[j] = tmp;
+                            }
+                        }
+                    }
+                    Alignment_Num = false;
+                    //3つが同じマス
+                    //Debug.Log("みっつ");
+                    Setting_Aligement(3, Alignment, Player_XPosition, Player_YPosition);
+                }
+                else//2つの別の組か
+                {
+                    Alignment_Num = false;
+                    //Debug.Log("二組");
+                    Setting_Aligement(0, Alignment, Player_XPosition, Player_YPosition);
+                    Setting_Aligement(2, Alignment, Player_XPosition, Player_YPosition);
+                }
+            }
+            if (Alignment_Num)
+            {
+                //1組のみ
+                //Debug.Log("一組");
+                Setting_Aligement(0, Alignment, Player_XPosition, Player_YPosition);
+            }
+        }
+    }
+
+    private void Setting_Aligement(int Same, int[] Alignment, int[] Player_XPosition, int[] Player_YPosition)
+    {
+        //Debug.Log("aaaaa" + Alignment[a] + ":" + Alignment[a]);
+        Vector3 SameMass = Week[Player_YPosition[Alignment[0]]].Day[Player_XPosition[Alignment[0]]].GetComponent<Transform>().position;
+        if (Same == 0)
+        {
+            Output_PlayerAlignment(SameMass, Alignment[0], -0.6f, 0);
+            Output_PlayerAlignment(SameMass, Alignment[1], 0.6f, 0);
+        }
+        if (Same == 2)
+        {
+            SameMass = Week[Player_YPosition[Alignment[Same]]].Day[Player_XPosition[Alignment[Same]]].GetComponent<Transform>().position;
+            Output_PlayerAlignment(SameMass, Alignment[2], -0.6f, 0);
+            Output_PlayerAlignment(SameMass, Alignment[3], 0.6f, 0);
+        }
+        if (Same == 3)
+        {
+            if (Alignment[3] == 4)
+            {
+                Output_PlayerAlignment(SameMass, Alignment[0], -0.6f, 0.6f);
+                Output_PlayerAlignment(SameMass, Alignment[1], 0.6f, 0.6f);
+                Output_PlayerAlignment(SameMass, Alignment[2], 0, -0.6f);
+            }
+            else
+            {
+                Output_PlayerAlignment(SameMass, Alignment[0], -0.6f, 0.6f);
+                Output_PlayerAlignment(SameMass, Alignment[1], 0.6f, 0.6f);
+                Output_PlayerAlignment(SameMass, Alignment[2], -0.6f, -0.6f);
+                Output_PlayerAlignment(SameMass, Alignment[3], 0.6f, -0.6f);
+            }
+        }
+    }
+
+    private void Output_PlayerAlignment(Vector3 SameMass, int Player, float Xslide, float Zslide)
+    {
+        this.Player[Player].GetComponent<Transform>().position = new Vector3(SameMass.x + Xslide, SameMass.y, SameMass.z + Zslide);
+    }
 }
