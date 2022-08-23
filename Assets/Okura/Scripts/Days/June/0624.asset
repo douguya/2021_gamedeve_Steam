@@ -17,7 +17,7 @@ MonoBehaviour:
   Staging: {fileID: 0}
   HopUp: {fileID: 0}
   Commentary: "UFO\u306B\u4E57\u308B\n\u597D\u304D\u306A\u6708\u306E24\u65E5\u306B\n\u79FB\u52D5\u3059\u308B\u3002"
-  Anniversary_Item: {fileID: 11400000, guid: 653e174661dde4c429fc27fc7be3955c, type: 2}
+  Anniversary_Item: {fileID: 11400000, guid: 1543523400265784d9c2abc0d6aad631, type: 2}
   Move: "\u597D\u304D\u306A\u6708\u306E24\u65E5\u306B\u79FB\u52D5"
   BGM: Noon
   Instance: Noon
