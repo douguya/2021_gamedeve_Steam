@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058df27e0b5527648bdc699cd6d531d5, type: 3}
   m_Name: t8-12
   m_EditorClassIdentifier: 
-  Anniversary: "\u914D\u5E03\u306E\u65E5"
+  Anniversary: "\u592A\u5E73\u6D0B\u6A2A\u65AD\u8A18\u5FF5\u65E5"
   Day: 8/12
   Staging: {fileID: 0}
   HopUp: {fileID: 0}
-  Commentary: 
-  ItemName: 
+  Commentary: "\u4FEE\u6B63"
+  Anniversary_Item: {fileID: 0}
   Move: 
   BGM: 
   Instance: 
