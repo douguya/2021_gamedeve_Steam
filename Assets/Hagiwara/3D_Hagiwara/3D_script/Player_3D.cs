@@ -211,10 +211,12 @@ public class Player_3D : MonoBehaviour
         {
             if (Player_warpMove[Move] == true)      //ワープするか
             {
+                Player_warpMove[Move] = false;
                 Output_AnimationWarpUp();           //ワープのアニメーション
                 yield return new WaitForSeconds(1);     //1秒待つ
                 Output_AnimationStop();
                 Output_PlayerMove(Move);              //ワープのアニメーションと移動
+                Manager.Player_Same();
                 yield return new WaitForSeconds(0.1f);     //0.1秒待つ
             }
             else
@@ -223,7 +225,7 @@ public class Player_3D : MonoBehaviour
                 {
                     Output_AnimationUp();//上移動のアニメーション
                 }
-                else if(YPlayer_Loot[Move - 1] == 5)
+                else if (YPlayer_Loot[Move - 1] == 5)
                 {
                     Output_AnimationUpMonth();//上移動で月を跨ぐアニメーション
                 }
@@ -256,9 +258,10 @@ public class Player_3D : MonoBehaviour
             XPlayer_position = XPlayer_Loot[Move];  //プレイヤーの現在の縦・横位置を設定
             YPlayer_position = YPlayer_Loot[Move];
             yield return new WaitForSeconds(1);     //1秒待つ
-            
+
             Output_AnimationStop();                 //全てのアニメーションを止める
             Output_PlayerMove(Move);                //座標移動
+            Manager.Player_Same();
             yield return new WaitForSeconds(0.1f);     //0.1秒待つ
         }
         for (int week = 0; week < Manager.Week.Length; week++)
@@ -273,7 +276,7 @@ public class Player_3D : MonoBehaviour
             StopDay_Effect(); //止まったマスの処理
         }
     }
-    
+
 
 
     //移動の際の座標移動を出力
