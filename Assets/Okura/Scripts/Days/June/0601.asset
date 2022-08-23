@@ -17,7 +17,7 @@ MonoBehaviour:
   Staging: {fileID: 0}
   HopUp: {fileID: 0}
   Commentary: "\u30DE\u30EA\u30EA\u30F3\u30E2\u30F3\u30ED\u30FC\u306E\u8A95\u751F\u65E5\u3002(1)\n\n(1)https://netwadai.com/blog/post-22924\n\n\u98A8\u3067\u5439\u3063\u98DB\u3070\u3055\u308C\u308B\u3002\n\u4E09\u30DE\u30B9\u53F3\u3078"
-  Anniversary_Item: {fileID: 0}
+  Anniversary_Item: {fileID: 11400000, guid: 653e174661dde4c429fc27fc7be3955c, type: 2}
   Move: "\u53F33"
   BGM: Noon
   Instance: Noon

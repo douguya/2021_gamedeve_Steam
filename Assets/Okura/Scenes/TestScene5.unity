@@ -2316,7 +2316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047d9b11bae665543984b5157b520304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Itemname: Tokyotower
+  Itemname: akachannokoushin
   InstantiateTimes: 0
   BGM: {fileID: 0}
 --- !u!114 &1813119698
