@@ -12,10 +12,11 @@ public class Camera_Mouse : MonoBehaviour
     public int Zoom_Speed;//ズームのスピード
     private Vector2 mouse_set;//マウスの座標
     private float Adjust_Variable= 0.009f;//原点修正用の値　Zoom_Speed＝50専用　用改修
+    private Vector3 OriginPoint;
     // Start is called before the first frame update
     void Start()
     {
-        
+        OriginPoint=transform.position;
     }
 
     // Update is called once per frame
@@ -23,6 +24,14 @@ public class Camera_Mouse : MonoBehaviour
     {
         Wheel_Zoom();//マウスホイールによるズーム
     }
+
+    public void CameraReset()
+    {
+        transform.position=OriginPoint;
+    }
+
+
+
     private void Wheel_Zoom()
     {
         Mousewheel =Input.GetAxis("Mouse ScrollWheel");//マウスホイール値の保存
