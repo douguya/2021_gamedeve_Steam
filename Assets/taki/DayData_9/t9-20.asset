@@ -17,12 +17,12 @@ MonoBehaviour:
   Staging: {fileID: 0}
   HopUp: {fileID: 0}
   Commentary: 
-  ItemName: 
-  Move: 
-  BGM: 
-  Instance: 
-  particle: 
-  NextDice: 
+  Anniversary_Item: {fileID: 11400000, guid: 44a9851a4452cb74e8b6353507e97c81, type: 2}
+  Move: none
+  BGM: none
+  Instance: none
+  particle: none
+  NextDice: none
   NextMove: "1\u30DE\u30B9\u81EA\u7531"
-  ItemLost: 
-  ConditionalPoint: 
+  ItemLost: none
+  ConditionalPoint: none

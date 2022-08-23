@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058df27e0b5527648bdc699cd6d531d5, type: 3}
   m_Name: 0703
   m_EditorClassIdentifier: 
-  Anniversary: "\u6CE2\u306E\u65E5"
+  Anniversary: "\u30BD\u30D5\u30C8\u30AF\u30EA\u30FC\u30E0\u306E\u65E5"
   Day: 0703
   Staging: {fileID: 0}
   HopUp: {fileID: 0}
-  Commentary: "\u6CE2\u306B\u62BC\u3057\u6D41\u3055\u308C\u308B\n\u53F3\u6A2A\u306B3\u30DE\u30B9\u9032\u3080"
-  ItemName: Noon
-  Move: +3
+  Commentary: "\u30BD\u30D5\u30C8\u30AF\u30EA\u30FC\u30E0\u306E\u65E5\n\n\u30BD\u30D5\u30C8\u30AF\u30EA\u30FC\u30E0\u3092\u5165\u624B\n3pt"
+  Anniversary_Item: {fileID: 11400000, guid: cde219ffff69fc644ad76ac9d9e03746, type: 2}
+  Move: Noon
   BGM: Noon
   Instance: Noon
   particle: Noon

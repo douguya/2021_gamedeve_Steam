@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c9e638612565fb44ba2d7de53f35bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playersnum: 0
+  playersnum: 1
   textUI: {fileID: 0}
   total: []
   Canvas: {fileID: 0}
@@ -596,6 +596,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9588c617a9be2e40b4a896a108ecab1, type: 3}
+--- !u!1 &1131472630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1131472632}
+  - component: {fileID: 1131472631}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1131472631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131472630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c31fd1c61f0b77d48962d877b643578a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerNumber: 0
+  XPlayer_position: 0
+  YPlayer_position: 0
+  Hub_Items: []
+  Move_Point: 0
+  Goalcount: 0
+  GameManager: {fileID: 0}
+  DiceButton: {fileID: 0}
+  ButtonText: {fileID: 0}
+  ItemMaster: {fileID: 0}
+  ItemBlock: {fileID: 0}
+--- !u!4 &1131472632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131472630}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 551.2681, y: 2.4029107, z: -100.89615}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1233633037 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5109198027349537351, guid: bf3e32786e448f043bf0fcfbaa8c8894, type: 3}

@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058df27e0b5527648bdc699cd6d531d5, type: 3}
   m_Name: 0712
   m_EditorClassIdentifier: 
-  Anniversary: "\u6D0B\u98DF\u5668\u306E\u65E5"
+  Anniversary: "\u30DE\u30E9\u30E9\u30FB\u30C7\u30FC"
   Day: 0712
   Staging: {fileID: 0}
   HopUp: {fileID: 0}
-  Commentary: "\u30AB\u30C8\u30E9\u30EA\u30FC\u30BB\u30C3\u30C8\u3092\u624B\u306B\u5165\u308C\u308B\n\uFF0B\uFF15\u30DD\u30A4\u30F3\u30C8\n\n\u98DF\u6599\u30A2\u30A4\u30C6\u30E0\u30921\u3064\u98DF\u3079\u3066\u3057\u307E\u3063\u305F\uFF01"
-  ItemName: "\u30AB\u30C8\u30E9\u30EA\u30FC\u30BB\u30C3\u30C8"
+  Commentary: "\u30DE\u30E9\u30E9\u30FB\u30C7\u30FC\n\n\u5B66\u6821\u304C\u73FE\u308C\u308B\u3002"
+  Anniversary_Item: {fileID: 0}
   Move: Noon
   BGM: Noon
-  Instance: Noon
+  Instance: "\u30DE\u30E9\u30E9\u30FB\u30C7\u30FC"
   particle: Noon
   NextDice: Noon
   NextMove: Noon
-  ItemLost: "\u98DF\u6599\u30A2\u30A4\u30C6\u30E0"
+  ItemLost: Noon
   ConditionalPoint: Noon
