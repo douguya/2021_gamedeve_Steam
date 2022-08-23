@@ -16,7 +16,7 @@ MonoBehaviour:
   ItemPoint: 5
   Anniversary: "\u30B8\u30A7\u30C3\u30C8\u30B3\u30FC\u30B9\u30BF\u30FC\u306E\u65E5"
   Day: 0709
-  ItemSprite: {fileID: 0}
+  ItemSprite: {fileID: 21300000, guid: 7092bb8941e7e2c49aa0d6f4a1be30df, type: 3}
   ItemLifespan: null
   Commentary: 
   ItemEffect: 0
