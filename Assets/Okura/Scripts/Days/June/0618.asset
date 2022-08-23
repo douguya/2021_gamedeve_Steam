@@ -17,7 +17,7 @@ MonoBehaviour:
   Staging: {fileID: 0}
   HopUp: {fileID: 0}
   Commentary: "\u5BFF\u53F8\u3092\u5165\u624B\n3pt"
-  ItemName: "\u5BFF\u53F8"
+  Anniversary_Item: {fileID: 11400000, guid: 3e4a0ad86b1eb55448defae089f83569, type: 2}
   Move: Noon
   BGM: Noon
   Instance: Noon

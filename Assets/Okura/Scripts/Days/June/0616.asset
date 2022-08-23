@@ -20,7 +20,7 @@ MonoBehaviour:
     | \u5168\u56FD\u548C\u83D3\u5B50\u5354\u4F1A\u300D\nhttps://www.wagashi.or.jp/wagashinohi\t(2022\u5E74
     8\u6708 15\u65E5\u95B2\u89A7)\n(2)\u7F8A\u7FB9 | \u6B74\u53F2 | \u3068\u3089\u3084\u306E\u548C\u83D3\u5B50\uFF5C\u682A\u5F0F\u4F1A\u793E
     \u864E\u5C4B\n\n\u548C\u83D3\u5B50\u3092\u5165\u624B\n3pt"
-  ItemName: "\u548C\u83D3\u5B50"
+  Anniversary_Item: {fileID: 11400000, guid: 435037fa953c6e044b8d74009b78ad9d, type: 2}
   Move: Noon
   BGM: Noon
   Instance: Noon
