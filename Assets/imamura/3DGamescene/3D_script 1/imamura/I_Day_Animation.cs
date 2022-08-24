@@ -15,7 +15,6 @@ public class I_Day_Animation : MonoBehaviour
     public class videos//weekの子・横列のオブジェクトの取得
     {
         public VideoClip[] Day = new VideoClip[31];
-
     }
 
     //日付を受けとり対応するビデオを渡す
