@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e070eb0ab68448c4ab1ec019c3956a76, type: 3}
+  m_Name: 8-12
+  m_EditorClassIdentifier: 
+  ItemName: "\u5C0F\u578B\u30E8\u30C3\u30C8"
+  ItemPoint: 0
+  Anniversary: "\u592A\u5E73\u6D0B\u6A2A\u65AD\u8A18\u5FF5\u65E5"
+  Day: 8/12
+  ItemSprite: {fileID: 0}
+  ItemLifespan: 
+  Commentary: "1962\u5E748\u670812\u65E5\u306B\u6D77\u6D0B\u5192\u967A\u5BB6\u306E\u5800\u6C5F\u8B19\u4E00\u3055\u3093\u304C\u5C0F\u578B\u30E8\u30C3\u30C8\u3067\u30A2\u30E1\u30EA\u30AB\u30FB\u30B5\u30F3\u30D5\u30E9\u30F3\u30B7\u30B9\u30B3\u306B\u5230\u7740\u3057\u305F\u65E5\u306B\u3061\u306A\u307F\u5236\u5B9A\u3055\u308C\u307E\u3057\u305F\u3002\nhttps://toki-labo.fun/article/997"
+  ItemEffect: 0
+  Move: 
+  BGM: 
+  Instance: 
+  particle: 
+  DiceInfluence: 
+  ItemLost: 
+  ConditionalPoint: 

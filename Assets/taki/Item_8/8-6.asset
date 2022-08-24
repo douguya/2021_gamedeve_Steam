@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e070eb0ab68448c4ab1ec019c3956a76, type: 3}
-  m_Name: 8-1
+  m_Name: 8-6
   m_EditorClassIdentifier: 
-  ItemName: "\u6D17\u6FEF\u6A5F"
+  ItemName: "\u30CF\u30E0"
   ItemPoint: 0
-  Anniversary: "\u6D17\u6FEF\u6A5F\u306E\u65E5"
-  Day: 8/1
+  Anniversary: "\u30CF\u30E0\u306E\u65E5"
+  Day: 8/6
   ItemSprite: {fileID: 0}
-  ItemLifespan: none
-  Commentary: 
+  ItemLifespan: 
+  Commentary: "\uFF08\u30A4\u30E1\u30FC\u30B8\u3068\u3057\u3066\u306F\u304A\u4E2D\u5143\u7528\u306E\u5186\u67F1\u5F62\u306E\u7269\uFF09"
   ItemEffect: 0
-  Move: none
-  BGM: none
-  Instance: none
-  particle: none
-  DiceInfluence: none
-  ItemLost: none
-  ConditionalPoint: none
+  Move: 
+  BGM: 
+  Instance: 
+  particle: 
+  DiceInfluence: 
+  ItemLost: 
+  ConditionalPoint: 
