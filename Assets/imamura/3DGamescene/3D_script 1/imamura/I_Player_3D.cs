@@ -230,13 +230,15 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         {
             if (Player_warpMove[Move] == true)      //ワープするか
             {
+                Player_warpMove[Move] = false;
                 photonView.RPC(nameof(Output_AnimationWarpUp), RpcTarget.AllViaServer);  //ワープのアニメーション
                 yield return new WaitForSeconds(1);     //1秒待つ
                 photonView.RPC(nameof(Output_AnimationStop), RpcTarget.AllViaServer);     //ビデオの再生
                 photonView.RPC(nameof(Output_PlayerMove), RpcTarget.AllViaServer, YPlayer_Loot[Move], XPlayer_Loot[Move]);//ワープのアニメーションと移動
+                Manager.Player_Same();
                 yield return new WaitForSeconds(0.1f);     //0.1秒待つ
             }
-            else
+                else
             {
                 if (YPlayer_Loot[Move] < YPlayer_Loot[Move - 1] && YPlayer_Loot[Move - 1] != 5)
                 {
@@ -278,6 +280,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
            photonView.RPC(nameof(Output_AnimationStop), RpcTarget.AllViaServer);  //全てのアニメーションを止める
            photonView.RPC(nameof(Output_PlayerMove), RpcTarget.AllViaServer, YPlayer_Loot[Move], XPlayer_Loot[Move]);                //座標移動
+           Manager.Player_Same();
             yield return new WaitForSeconds(0.3f);     //0.1秒待つ
         }
         for (int week = 0; week < Manager.Week.Length; week++)
@@ -288,11 +291,11 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         
             }
         }
-        if (Effect == true)
-        {
-            StopDay_Effect(); //止まったマスの処理
-        }
+
+
+   
     }
+        
 
 
 
