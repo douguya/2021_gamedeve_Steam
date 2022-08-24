@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: 0609
   m_EditorClassIdentifier: 
   Anniversary: "\u30CD\u30C3\u30B7\u30FC\u306E\u65E5"
-  Day: 0609
-  Staging: {fileID: 0}
-  HopUp: {fileID: 0}
-  Commentary: "\u30CD\u30C3\u30B7\u30FC\u306E\u65E5\u3002\n\n\u30CD\u30C3\u30B7\u30FC\u304C\u73FE\u308C\u308B\u3002"
-  Anniversary_Item: {fileID: 11400000, guid: 653e174661dde4c429fc27fc7be3955c, type: 2}
+  Day: 6/9
+  Staging: {fileID: 32900000, guid: c35255d56da939c478313678b4c77d29, type: 3}
+  HopUp: {fileID: 21300000, guid: 7188671e3aaa9844d9205735e8a2a6d6, type: 3}
+  Commentary: "\u30B9\u30B3\u30C3\u30C8\u30E9\u30F3\u30C9\u306B\u3066\u3001\u521D\u3081\u3066\u30CD\u30C3\u30B7\u30FC\u306E\u5199\u771F\u304C\u65B0\u805E\u306B\u8F09\u3063\u305F\u65E5\u3002\n\u30CD\u30C3\u30B7\u30FC\u3068\u306F\u3001\u30CD\u30B9\u6E56\u306E\u602A\u7363\u306E\u3053\u3068\u3092\u6307\u3059\u3002(1)\n\n\u30CB\u30E5\u30FC\u30B8\u30FC\u30E9\u30F3\u30C9\u306E\u907A\u4F1D\u5B50\u5B66\u8005\u30CB\u30FC\u30EB\u30FB\u30B8\u30A7\u30E1\u30EB\u6C0F\u306F\u3001\u30CD\u30B9\u6E56\u306B\u6563\u4E71\u3057\u305F\nDNA\u3092\u7247\u3063\u7AEF\u304B\u3089\u96C6\u3081\u3066\u30CD\u30C3\u30B7\u30FC\u304C\u3044\u308B\u304B\u3044\u306A\u3044\u304B\u3092\u7814\u7A76\u3057\u3066\u3044\u308B\u3089\u3057\u3044(2)\n\n(1)https://prtimes.jp/magazine/today/nessies-day\n(2)https://www.afpbb.com/articles/-/3179025\n\n\n\u30CD\u30C3\u30B7\u30FC\u304C\u73FE\u308C\u308B\u3002"
+  Anniversary_Item: {fileID: 11400000, guid: 1e3c93341d60f7445810243a09926bef, type: 2}
   Move: Noon
   BGM: Noon
   Instance: "\u30CD\u30C3\u30B7\u30FC\u306E\u65E5"

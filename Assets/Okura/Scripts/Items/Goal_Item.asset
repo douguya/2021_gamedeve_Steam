@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e070eb0ab68448c4ab1ec019c3956a76, type: 3}
   m_Name: Goal_Item
   m_EditorClassIdentifier: 
-  ItemName: 
-  ItemPoint: 0
-  Anniversary: 
-  Day: 
-  ItemSprite: {fileID: 0}
-  ItemLifespan: 
+  ItemName: "\u30B4\u30FC\u30EB"
+  ItemPoint: 15
+  Anniversary: null
+  Day: null
+  ItemSprite: {fileID: 21300000, guid: 5155aa3f80b34e9499d4b330289dc626, type: 3}
+  ItemLifespan: null
   Commentary: 
   ItemEffect: 0
-  Move: 
-  BGM: 
-  Instance: 
-  particle: 
-  DiceInfluence: 
-  ItemLost: 
-  ConditionalPoint: 
+  Move: Noon
+  BGM: Noon
+  Instance: Noon
+  particle: Noon
+  DiceInfluence: Noon
+  ItemLost: Noon
+  ConditionalPoint: Noon
