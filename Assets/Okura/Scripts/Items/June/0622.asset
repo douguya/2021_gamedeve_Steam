@@ -15,7 +15,7 @@ MonoBehaviour:
   ItemName: "\u5BCC\u58EB\u5C71\u9802\u3067\u8CB7\u3063\u305F\u30AB\u30C3\u30D7\u30E9\u30FC\u30E1\u30F3"
   ItemPoint: 1
   Anniversary: "\u5BCC\u58EB\u5C71\u304C\u4E16\u754C\u907A\u7523\u306B\u767B\u9332\u3055\u308C\u305F\u65E5"
-  Day: 0622
+  Day: 6/22
   ItemSprite: {fileID: 21300000, guid: 3cc5b63f846bf5e42b7dfba9ea316a6a, type: 3}
   ItemLifespan: null
   Commentary: 

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: 0626
   m_EditorClassIdentifier: 
   Anniversary: "\u30AA\u30EA\u30A8\u30F3\u30C6\u30FC\u30EA\u30F3\u30B0\u306E\u65E5"
-  Day: 0626
-  Staging: {fileID: 0}
-  HopUp: {fileID: 0}
-  Commentary: "\u30AA\u30EA\u30A8\u30F3\u30C6\u30FC\u30EA\u30F3\u30B0\u306E\u65E5\u3002\n\n\u5168\u54E1\u3001\u6307\u5B9A\u3055\u308C\u305F\u30DE\u30B9\u3092\u8E0F\u307E\u306A\u3044\u3068\u30B4\u30FC\u30EB\u3067\u304D\u306A\u304F\u306A\u308B"
+  Day: 6/26
+  Staging: {fileID: 32900000, guid: c35255d56da939c478313678b4c77d29, type: 3}
+  HopUp: {fileID: 21300000, guid: 7188671e3aaa9844d9205735e8a2a6d6, type: 3}
+  Commentary: "\u30AA\u30EA\u30A8\u30F3\u30C6\u30FC\u30EA\u30F3\u30B0\u306E\u65E5\u3002\n\n\u5168\u54E1\u3001\u6307\u5B9A\u3055\u308C\u305F\u30DE\u30B9\u3092\u8E0F\u307E\u306A\u3044\u3068\u30B4\u30FC\u30EB\u3067\u304D\u306A\u304F\u306A\u308B\u3002"
   Anniversary_Item: {fileID: 11400000, guid: 9b046ad0302781d46a194f72ae0d60ed, type: 2}
   Move: Noon
   BGM: Noon

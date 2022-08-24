@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: 0720
   m_EditorClassIdentifier: 
   Anniversary: "T\u30B7\u30E3\u30C4\u306E\u65E5"
-  Day: 0720
-  Staging: {fileID: 0}
-  HopUp: {fileID: 0}
+  Day: 7/20
+  Staging: {fileID: 32900000, guid: c35255d56da939c478313678b4c77d29, type: 3}
+  HopUp: {fileID: 21300000, guid: 7188671e3aaa9844d9205735e8a2a6d6, type: 3}
   Commentary: "\u30A2\u30A4\u30B3\u30F3\u304C\u30D3\u30AD\u30CB\u306A\u3089\u3001\u30A2\u30A4\u30B3\u30F3\u3092\u623B\u3057\u3066\u3088\u3044"
   Anniversary_Item: {fileID: 11400000, guid: b3ca5056df274304cb18d2c699f1d5c8, type: 2}
   Move: Noon
   BGM: Noon
-  Instance: "\u30A2\u30A4\u30B3\u30F3\u3092\u623B\u3059"
+  Instance: "T\u30B7\u30E3\u30C4\u306E\u65E5"
   particle: Noon
   NextDice: Noon
   NextMove: Noon

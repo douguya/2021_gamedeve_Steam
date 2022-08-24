@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: "\u30B8\u30F3\u30D9\u30A8\u30B6\u30E1\u306E\u4EBA\u5F62"
   ItemPoint: 6
-  Anniversary: 0608
-  Day: "\u4E16\u754C\u6D77\u6D0B\u30C7\u30FC"
+  Anniversary: "\u4E16\u754C\u6D77\u6D0B\u30C7\u30FC"
+  Day: 6/8
   ItemSprite: {fileID: 21300000, guid: 72defdf8b844a6b449d2991288ec02a2, type: 3}
   ItemLifespan: null
   Commentary: 
