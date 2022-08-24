@@ -41,7 +41,9 @@ public class Day_Square : ScriptableObject
     [Tooltip("変更するBGM")]
     public string BGM;             
     [Tooltip("出現するオブジェクト")]
-    public string Instance;        
+    public string Instance;
+    [Tooltip("アイコンの変更")]
+    public Sprite Icon;
     [Tooltip("パーティクルによる二次演出")]
     public string particle;        
     [Tooltip("次の自分のターンでのダイス")]
@@ -52,6 +54,7 @@ public class Day_Square : ScriptableObject
     public string ItemLost;        
     [Tooltip("条件付きのポイント付与")]
     public string ConditionalPoint;
+    [Tooltip("その他の効果")]
+    public string　OtherEffects;
 
-    
 }
