@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 0623
   m_EditorClassIdentifier: 
   Anniversary: "\u30AA\u30EA\u30F3\u30D4\u30C3\u30AF\u30C7\u30FC"
-  Day: 0623
-  Staging: {fileID: 0}
-  HopUp: {fileID: 0}
+  Day: 6/23
+  Staging: {fileID: 32900000, guid: c35255d56da939c478313678b4c77d29, type: 3}
+  HopUp: {fileID: 21300000, guid: 7188671e3aaa9844d9205735e8a2a6d6, type: 3}
   Commentary: "\u30AA\u30EA\u30F3\u30D4\u30C3\u30AF\u306E\u8A18\u5FF5\u54C1\u3092\u5165\u624B\n5pt"
   Anniversary_Item: {fileID: 11400000, guid: 2da911d3fc23f0547a9d91c2c4b7fa65, type: 2}
   Move: Noon

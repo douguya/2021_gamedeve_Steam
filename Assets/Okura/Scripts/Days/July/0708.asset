@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: 0708
   m_EditorClassIdentifier: 
   Anniversary: "\u8CEA\u5C4B\u306E\u65E5"
-  Day: 0708
-  Staging: {fileID: 0}
-  HopUp: {fileID: 0}
+  Day: 7/8
+  Staging: {fileID: 32900000, guid: c35255d56da939c478313678b4c77d29, type: 3}
+  HopUp: {fileID: 21300000, guid: 7188671e3aaa9844d9205735e8a2a6d6, type: 3}
   Commentary: "\u8CEA\u5C4B\u306E\u65E5\n\n\u4E00\u3064\u30A2\u30A4\u30C6\u30E0\u3092\u72A0\u7272\u306B\u3057\u3066\u3001\u65B0\u3057\u3044\u30A2\u30A4\u30C6\u30E0\u3092\u624B\u306B\u5165\u308C\u308B"
-  Anniversary_Item: {fileID: 11400000, guid: 653e174661dde4c429fc27fc7be3955c, type: 2}
+  Anniversary_Item: {fileID: 11400000, guid: af032c65d8fffd3409f29ca8532b6a35, type: 2}
   Move: Noon
   BGM: Noon
   Instance: Noon
   particle: Noon
   NextDice: Noon
   NextMove: Noon
-  ItemLost: "\u30E9\u30F3\u30C0\u30E0"
+  ItemLost: "\u8CEA\u5C4B\u306E\u65E5"
   ConditionalPoint: Noon

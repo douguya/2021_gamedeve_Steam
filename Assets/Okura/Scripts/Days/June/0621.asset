@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: 0621
   m_EditorClassIdentifier: 
   Anniversary: "\u30B9\u30CA\u30C3\u30AF\u306E\u65E5"
-  Day: 0621
-  Staging: {fileID: 0}
-  HopUp: {fileID: 0}
-  Commentary: "\u30B9\u30CA\u30C3\u30AF\u306E\u65E5\n\n\u30B9\u30CA\u30C3\u30AF\u83D3\u5B50\u3092\u5165\u624B\n3pt"
+  Day: 6/21
+  Staging: {fileID: 32900000, guid: c35255d56da939c478313678b4c77d29, type: 3}
+  HopUp: {fileID: 21300000, guid: 7188671e3aaa9844d9205735e8a2a6d6, type: 3}
+  Commentary: "\u30B9\u30CA\u30C3\u30AF\u306E\u65E5\n\n(1)\u30B9\u30CA\u30C3\u30AF\u306E\u65E5\uFF5C\u30E2\u30F3\u30C6\u30FC\u30EB
+    \u30B9\u30A4\u30FC\u30C4\u5B66\u5712\nhttps://gakuen.monteur.co.jp/library/anniversary/entry/002838.html\u3000\u3000(2022\u5E74
+    8\u6708 23\u65E5\u95B2\u89A7)\n\n\u30B9\u30CA\u30C3\u30AF\u83D3\u5B50\u3092\u5165\u624B\n3pt"
   Anniversary_Item: {fileID: 11400000, guid: 5bfd515c93ec09c4696e708c4bc629cd, type: 2}
   Move: Noon
   BGM: Noon
