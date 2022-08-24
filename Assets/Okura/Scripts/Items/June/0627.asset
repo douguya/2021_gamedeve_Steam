@@ -26,4 +26,4 @@ MonoBehaviour:
   particle: Noon
   DiceInfluence: Noon
   ItemLost: Noon
-  ConditionalPoint: +1
+  ConditionalPoint: Noon
