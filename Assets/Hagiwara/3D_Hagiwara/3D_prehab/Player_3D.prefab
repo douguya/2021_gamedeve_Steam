@@ -106,6 +106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6684371639335841435}
   - component: {fileID: 7121969133606610354}
+  - component: {fileID: 932187485661129587}
   - component: {fileID: 2419249759203937776}
   - component: {fileID: 3532696377981779206}
   m_Layer: 0
@@ -152,6 +153,21 @@ MonoBehaviour:
   GameManager: {fileID: 0}
   DiceButton: {fileID: 0}
   ButtonText: {fileID: 0}
+  ItemMaster: {fileID: 11400000, guid: 249da88aa34ce6442b26e5553f66c0e1, type: 2}
+  ItemBlock: {fileID: 0}
+--- !u!114 &932187485661129587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5256909742392665806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a37f8c35e704d94892d809b319cb390, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Day_Square_Master: []
 --- !u!95 &2419249759203937776
 Animator:
   serializedVersion: 3
