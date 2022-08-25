@@ -17,7 +17,7 @@ MonoBehaviour:
   Staging: {fileID: 32900000, guid: c35255d56da939c478313678b4c77d29, type: 3}
   HopUp: {fileID: 21300000, guid: 6d7904310a58aeb4688d536c459c08d7, type: 3}
   Commentary: "\u6539\u5584\u6848\n\u57FA\u672C2\u30DD\u30A4\u30F3\u30C8\u8FFD\u52A0\n\u6E29\u6CC9\u7528\u306E\u80CC\u666F\u8FFD\u52A0\u3067\u8FFD\u52A0\u52B9\u679C\u3068\u304B\uFF1F"
-  Anniversary_Item: {fileID: 11400000, guid: 44a9851a4452cb74e8b6353507e97c81, type: 2}
+  Anniversary_Item: {fileID: 11400000, guid: 2e104cddab3babb41ba675ad635b03f2, type: 2}
   Move: none
   BGM: none
   Instance: none
