@@ -349,10 +349,32 @@ public class Player_3D : MonoBehaviour
         gameObject.GetComponent<Animator>().SetBool("Move_warpup", false);
     }
 
-    
+
+
+    public void Player_WarpMove(string Mode, string Day)
+    {
+        if (Mode == "ワープ")
+        {
+            YPlayer_Loot[0] = YPlayer_position;                  //プレイヤーの現在のマスを記憶する
+            XPlayer_Loot[0] = XPlayer_position;
+            for (int week = 0; week < Manager.Week.Length; week++)
+            {
+                for (int day = 0; day < Manager.Week[0].Day.Length; day++)
+                {
+                    if (Manager.Week[week].Day[day].GetComponent<Mass_3D>().Day == Day)
+                    {
+                        YPlayer_Loot[1] = week;
+                        XPlayer_Loot[1] = day;
+                    }
+                }
+            }
+            Player_warpMove[1] = true;
+            StartCoroutine(PlayerMove_Coroutine(1, false));//プレイヤーの移動開始
+        }
+    }
 
     //移動方向に歩数分進む(方向(上下左右), 歩数)
-    public void Player_wayMove(string way, int step)
+    public void Player_wayMove(char way, int step)
     {
         YPlayer_Loot[0] = YPlayer_position;                  //プレイヤーの現在のマスを記憶する
         XPlayer_Loot[0] = XPlayer_position;
@@ -361,22 +383,22 @@ public class Player_3D : MonoBehaviour
         {
             switch (way)
             {
-                case "上":
+                case '上':
                     YPlayer_Loot[Move] = YPlayer_Loot[Move - 1] - 1;
                     XPlayer_Loot[Move] = XPlayer_Loot[Move - 1];
                     break;
 
-                case "下":
+                case '下':
                     YPlayer_Loot[Move] = YPlayer_Loot[Move - 1] + 1;
                     XPlayer_Loot[Move] = XPlayer_Loot[Move - 1];
                     break;
 
-                case "右":
+                case '右':
                     YPlayer_Loot[Move] = YPlayer_Loot[Move - 1];
                     XPlayer_Loot[Move] = XPlayer_Loot[Move - 1] + 1;
                     break;
 
-                case "左":
+                case '左':
                     YPlayer_Loot[Move] = YPlayer_Loot[Move - 1];
                     XPlayer_Loot[Move] = XPlayer_Loot[Move - 1] - 1;
                     break;
