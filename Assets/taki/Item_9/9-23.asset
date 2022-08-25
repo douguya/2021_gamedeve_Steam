@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: 9-23
   m_EditorClassIdentifier: 
   ItemName: "\u7D05\u8449"
-  ItemPoint: 0
+  ItemPoint: 1
   Anniversary: "\u79CB\u5206\u306E\u65E5"
   Day: 9/23
-  ItemSprite: {fileID: 0}
-  ItemLifespan: 
+  ItemSprite: {fileID: 21300000, guid: 3cc5b63f846bf5e42b7dfba9ea316a6a, type: 3}
+  ItemLifespan: null
   Commentary: 
   ItemEffect: 0
-  Move: 
-  BGM: 
-  Instance: 
-  particle: 
-  DiceInfluence: 
-  ItemLost: 
-  ConditionalPoint: 
+  Move: Noon
+  BGM: Noon
+  Instance: Noon
+  particle: Noon
+  DiceInfluence: Noon
+  ItemLost: Noon
+  ConditionalPoint: Noon
