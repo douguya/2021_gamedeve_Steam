@@ -291,9 +291,11 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         
             }
         }
+        if (Effect == true)
+        {
+            StopI_Day_Effect(); //止まったマスの処理
+        }
 
-
-   
     }
         
 
@@ -450,7 +452,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
 
     //止まったマスの処理
-    private void StopDay_Effect()
+    private void StopI_Day_Effect()
     {
         if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Goal == true)
         {
@@ -494,12 +496,38 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     {
         string day = Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Day;//発動する日付を取得
         StartCoroutine(Day_Animation(day));     //ビデオの再生とホップアップの表示
-                                                //ここに日付の効果入れる
-
+        Item_Get(day);                               //ここに日付の効果入れる
+       
+        //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     }
 
-    //開いたマスを非表示にして出力
-    [PunRPC] private void Output_hideCoverClear(int week, int day)
+    public void Item_Get(string day)
+    {
+        Debug.Log("WWWWWWWWWWWWWWWWWWWWWWWWWWWWW"+day);
+        int loop = 0;
+          foreach (var Item in ItemMaster.Anniversary_Items)//プレイヤーリストの内容を順番に格納
+          {
+            if (Item.Day==day)
+            {
+               
+                photonView.RPC(nameof(ItemAdd), RpcTarget.All,loop); //ゴール数を加算
+            }
+            loop++;
+          }
+        
+    }
+
+
+
+
+
+
+
+
+
+
+        //開いたマスを非表示にして出力
+        [PunRPC] private void Output_hideCoverClear(int week, int day)
     {
         Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().hideCover_Clear();//マスを開いた表示にする
     }
@@ -510,10 +538,11 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     //ビデオの再生とホップアップの表示
     IEnumerator Day_Animation(string day)
     {
+        Debug.Log("ムービーーーーーーーーーーーーーーーーーーーー");
         Manager.Output_VideoSetting();
         Manager.Output_HopUp();
-        gameObject.GetComponent<Day_Effect>().Output_HopUp_Setting(day);
-        Manager.Video_obj.GetComponent<VideoPlayer>().clip = gameObject.GetComponent<Day_Effect>().Output_VideoClip(day);
+        gameObject.GetComponent<I_Day_Effect>().Output_HopUp_Setting(day);
+        Manager.Video_obj.GetComponent<VideoPlayer>().clip = gameObject.GetComponent<I_Day_Effect>().Output_VideoClip(day);
         Manager.Output_VideoStart();     //ビデオの再生 Dayが入るとエラーを吐くのでこう書いた
         yield return new WaitForSeconds(8);     //8秒待つ
         Manager.Output_VideoFinish();     //ビデオの非表示
