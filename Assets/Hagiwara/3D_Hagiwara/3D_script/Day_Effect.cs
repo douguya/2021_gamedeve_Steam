@@ -66,20 +66,33 @@ public class Day_Effect : MonoBehaviour
 
     private void Effect_Move()
     {
-
-        if (Day_Square_Master[MonthNumber].Day_Squares[DayNumber].Move != "noon")
+        string daySquare_Move = Day_Square_Master[MonthNumber].Day_Squares[DayNumber].Move;
+        if (daySquare_Move != "noon")
         {
-            //char[] Char_Move = Day_Square_Master.Day_Squares[DayNumber].Move.ToCharArray(); //Moveの内容をchar型に変換
-            //if (Day_Square_Master.Day_Squares[DayNumber].Move.StartsWith("ワープ"))
-            //{
-            //    //ワープモーションを利用する座標移動
-            //    //gameObject.GetComponent<Player_3D>().Player_Move(Char_Move[3], Char_Move[5]);
-            //}
-            //else
-            //{
-            //    Debug.Log("日付効果でのスライド移動" + Char_Move[0] + ":" + Toint(Char_Move[1]));
-            //    //gameObject.GetComponent<Player_3D>().Player_wayMove(Char_Move[0],Toint(Char_Move[1]));
-            //}
+            char[] Char_Move = daySquare_Move.ToCharArray(); //Moveの内容をchar型に変換
+            if (daySquare_Move.StartsWith("ワープ"))
+            {
+                if (daySquare_Move.Substring(3, 2) == "選択")
+                {
+                    //選択したプレイヤーの元に飛ぶ
+                }
+                else
+                {
+                    //指定マスへのワープ
+                    gameObject.GetComponent<Player_3D>().Player_WarpMove("ワープ", daySquare_Move.Substring(3, 3));
+                }
+
+            }
+            if (daySquare_Move.StartsWith("交換"))
+            {
+                //選択したプレイヤーとマスを交換する
+            }
+            if (daySquare_Move.StartsWith("上") || daySquare_Move.StartsWith("下") || daySquare_Move.StartsWith("右") || daySquare_Move.StartsWith("左"))
+            {
+                //上下左右、何マスの移動
+                //Debug.Log("日付効果でのスライド移動" + Char_Move[0] + ":" + Toint(Char_Move[1]));
+                gameObject.GetComponent<Player_3D>().Player_wayMove(Char_Move[0], Toint(Char_Move[1]));
+            }
         }
     }
 
