@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e070eb0ab68448c4ab1ec019c3956a76, type: 3}
+  m_Name: 8-16
+  m_EditorClassIdentifier: 
+  ItemName: "\u7CBE\u970A\u99AC"
+  ItemPoint: 0
+  Anniversary: "\u9001\u308A\u76C6"
+  Day: 8/16
+  ItemSprite: {fileID: 0}
+  ItemLifespan: 
+  Commentary: "\uFF08\u7CBE\u970A\u99AC\u306F\u30CA\u30B9\u3084\u30AD\u30E5\u30A6\u30EA\u306B\u5272\u308A\u7BB8\u3092\u4ED8\u3051\u305F\u99AC\uFF09"
+  ItemEffect: 0
+  Move: 
+  BGM: 
+  Instance: 
+  particle: 
+  DiceInfluence: 
+  ItemLost: 
+  ConditionalPoint: 
