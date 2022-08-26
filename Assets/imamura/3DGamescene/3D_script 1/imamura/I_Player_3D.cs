@@ -47,9 +47,11 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         GameManager= GameObject.FindWithTag("GameController");
         DiceButton=GameObject.FindWithTag("Dice");
         ButtonText=DiceButton.transform.GetChild(0).gameObject;
+
+       
+        DontDestroyOnLoad(this.gameObject);
         
-            
-        
+
     }
     void Start()
     {

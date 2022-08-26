@@ -44,10 +44,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
 
     //  ‚±‚±‚Ü‚Å=========================================================================================//
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
+   
     void Start()
     {
         Day_Animation = GetComponent<I_Day_Animation>();
