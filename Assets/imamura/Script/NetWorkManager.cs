@@ -293,7 +293,9 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
                     {
                         if (Player.GetComponent<PhotonView>().CreatorActorNr==obj.GetComponent<PhotonView>().CreatorActorNr) //リストのプレイヤーのIDとオブジェクトの作成者のADを比較
                         {
-                            Player.GetComponent<I_Player_3D>().ItemBlock=obj;
+                            Player.GetComponent<I_Player_3D>().ItemBlock=obj;//ブロックリストを格納
+                            Debug.Log("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
+                            obj.GetComponent<ItemBlock_List_Script>().Player=Player;
                             I_game_Manager_Script.ItemList_setting(obj, loop);//プレイ矢―を所定の位置に移動
 
                         }
@@ -341,25 +343,23 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
     public void Playerlist_Material_Update()
     {
-        Debug.Log("11111111111111");
+       
         GameObject[] Players_spot = GameObject.FindGameObjectsWithTag("Player");//プレイヤーオブジェクトの一時保存場所　タグで軒並みとる
         foreach (var PList in PhotonNetwork.PlayerList)//プレイヤーリストの内容を順番に格納
         {
-            Debug.Log("wwwwwwwwwwww"+PList.CustomProperties["PlayerNumMaterial"]);
+           
 
-            Debug.Log("22222222222222");
             foreach (GameObject obj in Players_spot)//プレイヤーリストの中身と、一時保存したプレイヤーオブジェクトを突き合わせる
             {
-                Debug.Log("333333333333333");
+              
                 if (PList.ActorNumber==obj.GetComponent<PhotonView>().CreatorActorNr) //リストのプレイヤーのIDとオブジェクトの作成者のADを比較
                 {
 
-                    Debug.Log("4444444444444");
                     Transform children = obj.GetComponentInChildren<Transform>();
 
                     foreach (Transform ob in children)
                     {
-                        Debug.Log("5555555555555");
+          
                         ob.GetComponent<Renderer>().material=MaterialsList[(int)PList.CustomProperties["PlayerNumMaterial"]];
                     }
 
