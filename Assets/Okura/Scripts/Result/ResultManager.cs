@@ -25,7 +25,7 @@ public class ResultManager : MonoBehaviourPunCallbacks
     [SerializeField]
     float interval = -30.0f;        //PBGで生成されるテキストボックスの間隔
     [SerializeField]
-    GameObject[] players;             //playerstatusを持ってるオブジェクト
+    GameObject[] players;             //I_Player_3Dを持ってるオブジェクト
     [SerializeField]
     List<Anniversary_Item>[] OriginalItem;    //プレイヤーが持っている処理前のアイテム
 
@@ -69,13 +69,13 @@ public class ResultManager : MonoBehaviourPunCallbacks
             //プレイヤーの名前を参照し設定
             Text Playername = GameObject.Find("Playername" + i).GetComponent<Text>();
             Playername.text = ReferencePlayername(players[i]);
-            
+
             //表示時に使うSBGとトータルスコアを出すテキストボックスを参照し設定
             ScoreBackGround[i] = GameObject.Find("Content" + i).transform;
             total[i] = GameObject.Find("Total" + i).GetComponent<Text>();
 
             //並び替え前のプレイヤーの持ち物を参照
-            OriginalItem[i] = players[i].GetComponent<MannequinPlayer>().Hub_Items;
+            OriginalItem[i] = players[i].GetComponent<I_Player_3D>().Hub_Items;
         }
 
         DisplayItems();
