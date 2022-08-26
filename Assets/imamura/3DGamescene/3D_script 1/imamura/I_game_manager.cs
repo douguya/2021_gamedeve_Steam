@@ -40,7 +40,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
     private bool GameStart=false;
     public GameObject GameStartButton;
-   
+    public GameObject SceneManager;
 
 
     //  ここまで=========================================================================================//
@@ -488,6 +488,8 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     [PunRPC]//ゲーム終了の処理を出力
     private void Output_GameFinish()
     {
+
+        SceneManager.GetComponent<SceneManagaer>().TransitionToResult();
         Debug.Log("ゲーム終了");
     }
 
