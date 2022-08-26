@@ -42,7 +42,7 @@ public class ResultManager : MonoBehaviourPunCallbacks
       
 
         //ƒ[ƒ‹ƒh•Ï”‚ğ‘ã“ü
-        //playersnum = PhotonNetwork.PlayerList.Length;
+        playersnum = PhotonNetwork.PlayerList.Length;
         total = new Text[playersnum];
         Canvas = GameObject.Find("Canvas").transform;
         ScoreBackGround = new Transform[playersnum];
