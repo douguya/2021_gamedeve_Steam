@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 932187485661129587, guid: f252f681ab4e2794aa412acc9bb12aaa, type: 3}
+      propertyPath: Day_Square_Master
+      value: 
+      objectReference: {fileID: 11400000, guid: 1c4b2749714a69f4ca478e7b09861e88, type: 2}
     - target: {fileID: 2419249759203937776, guid: f252f681ab4e2794aa412acc9bb12aaa, type: 3}
       propertyPath: m_Enabled
       value: 1

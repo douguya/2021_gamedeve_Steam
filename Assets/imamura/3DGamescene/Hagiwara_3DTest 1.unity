@@ -8686,6 +8686,7 @@ MonoBehaviour:
   HopUp: {fileID: 1652382788}
   Dice: {fileID: 1818983301}
   GameStartButton: {fileID: 763056919}
+  SceneManager: {fileID: 1925810204}
 --- !u!114 &1265593757
 MonoBehaviour:
   m_ObjectHideFlags: 0
