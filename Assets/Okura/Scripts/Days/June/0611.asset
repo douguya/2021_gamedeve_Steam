@@ -20,13 +20,15 @@ MonoBehaviour:
     \u30B9\u30DA\u30B7\u30E3\u30EB | \u65E5\u672C\u6D0B\u5098\u632F\u8208\u5354\u8B70\u4F1A\nhttps://www.jupa.gr.jp/posts/view/75\t(2022\u5E74
     8\u6708 15\u65E5\u95B2\u89A7)\n(2)\u30A2\u30F3\u30D6\u30EC\u30E9\u30FB\u30DE\u30B9\u30BF\u30FC\u306B\u3064\u3044\u3066
     | \u65E5\u672C\u6D0B\u5098\u632F\u8208\u5354\u8B70\u4F1A\nhttps://www.jupa.gr.jp/pages/about_masters\t(2022\u5E74
-    8\u6708 15\u65E5\u95B2\u89A7)\n\n\n\u5098\u3092\u5165\u624B\n3pt"
+    8\u6708 15\u65E5\u95B2\u89A7)\n\n\n\u5098\u3092\u5165\u624B"
   Anniversary_Item: {fileID: 11400000, guid: 0ebc5d64c034a024699f1676fdea1903, type: 2}
   Move: Noon
   BGM: Noon
   Instance: Noon
+  Icon: {fileID: 0}
   particle: Noon
   NextDice: Noon
   NextMove: Noon
   ItemLost: Noon
   ConditionalPoint: Noon
+  OtherEffects: Noon

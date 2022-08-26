@@ -22,13 +22,15 @@ MonoBehaviour:
     8\u6708 23\u65E5\u95B2\u89A7)\n(2)\u4FA1\u683C\u306F1\u5104\u5186\uFF01 \u2015
     \u7D14\u91D1\u3067\u30B3\u30FC\u30C6\u30A3\u30F3\u30B0\u3055\u308C\u305F\u4E16\u754C\u4E00\u9AD8\u4FA1\u306A\u81EA\u8EE2\u8ECA\u300C24K
     EXTREME MOUNTAIN BIKE\u300D [\u3048\u3093\u4E57\u308A]\nhttps://ennori.jp/news/article/1830\t(2022\u5E74
-    8\u6708 23\u65E5\u95B2\u89A7)\n\n\n\u30DE\u30A6\u30F3\u30C6\u30F3\u30D0\u30A4\u30AF\u3092\u5165\u624B\n5pt"
+    8\u6708 23\u65E5\u95B2\u89A7)\n\n\n\u30DE\u30A6\u30F3\u30C6\u30F3\u30D0\u30A4\u30AF\u3092\u5165\u624B"
   Anniversary_Item: {fileID: 11400000, guid: 40551a6d70a26eb43b25f9a94ebbd5b2, type: 2}
   Move: Noon
   BGM: Noon
   Instance: Noon
+  Icon: {fileID: 0}
   particle: Noon
   NextDice: Noon
   NextMove: Noon
   ItemLost: Noon
   ConditionalPoint: Noon
+  OtherEffects: Noon
