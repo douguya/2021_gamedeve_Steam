@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class MannequinPlayer : MonoBehaviour
 {
+    public int PlayerNumber;
     // Start is called before the first frame update
     public Text text;
     public Anniversary_Item_Master ItemMaster;
