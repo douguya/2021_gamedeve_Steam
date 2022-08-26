@@ -257,8 +257,8 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         GameObject[] Players_spot = GameObject.FindGameObjectsWithTag("Player");//プレイヤーオブジェクトの一時保存場所　タグで軒並みとる
         GameObject[] ItemListSpot = GameObject.FindGameObjectsWithTag("ItemList_UGI");//プレイヤーオブジェクトの一時保存場所　タグで軒並みとる
 
-      
-       
+     
+
         I_game_Manager_Script.Player.Clear();
 
 
@@ -270,7 +270,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
             {
                 if (PList.ActorNumber==obj.GetComponent<PhotonView>().CreatorActorNr) //リストのプレイヤーのIDとオブジェクトの作成者のADを比較
                 {
-                
+                    
                     I_game_Manager_Script.Player.Add(obj);//この処理で、プレイヤーリストの順番どおりにプレイヤーオブジェクトを保存できる　順番を変えられるようにしたいなら変更の余地あり
                     I_game_Manager_Script.Player_setting(loop);//プレイ矢―を所定の位置に移動
                     obj.GetComponent<I_Player_3D>().PlayerNumber=loop;
@@ -321,6 +321,22 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
 
     }
+
+
+
+    public string Playername(GameObject Player)
+    {
+        string name="";
+        foreach (var PList in PhotonNetwork.PlayerList)//プレイヤーリストの内容を順番に格納
+        {
+            if (PList.ActorNumber== Player.GetComponent<PhotonView>().CreatorActorNr) //リストのプレイヤーのIDとオブジェクトの作成者のADを比較
+            {
+                name=PList.NickName;
+            }
+        }
+        return name;
+    }
+
 
     public override void OnPlayerPropertiesUpdate(Player player, Hashtable propertiesThatChanged)
     {
