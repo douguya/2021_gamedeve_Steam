@@ -20,13 +20,15 @@ MonoBehaviour:
     \u305D\u306E\u7531\u6765\u3068\u6B63\u3057\u3044 \u201D\u6C34\u306E\u98F2\u307F\u65B9\u201D
     \u3068\u306F\uFF1F | \u30CB\u30C3\u30DD\u30F3\u767E\u8B58\nhttp://khkg121.com/archives/800.html\t(2022\u5E74
     8\u6708 23\u65E5\u95B2\u89A7)\n(2)\u56FD\u571F\u4EA4\u901A\u7701\nhttps://www.mlit.go.jp/common/001257609.pdf\t(2022\u5E74
-    8\u6708 24\u65E5\u95B2\u89A7))\n\n\n\u5229\u6839\u5DDD\u3092\u5165\u624B\n6pt"
+    8\u6708 24\u65E5\u95B2\u89A7))\n\n\n\u5229\u6839\u5DDD\u3092\u5165\u624B"
   Anniversary_Item: {fileID: 11400000, guid: a4b7b4eca869df1468b47720b7ed5183, type: 2}
   Move: Noon
   BGM: Noon
   Instance: Noon
+  Icon: {fileID: 0}
   particle: Noon
   NextDice: Noon
   NextMove: Noon
   ItemLost: Noon
   ConditionalPoint: Noon
+  OtherEffects: Noon

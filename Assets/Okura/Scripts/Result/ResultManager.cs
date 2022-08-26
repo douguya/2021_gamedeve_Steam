@@ -25,7 +25,7 @@ public class ResultManager : MonoBehaviourPunCallbacks
     [SerializeField]
     float interval = -30.0f;        //PBGで生成されるテキストボックスの間隔
     [SerializeField]
-    GameObject players;             //playerstatusを持ってるオブジェクト
+    GameObject[] players;             //playerstatusを持ってるオブジェクト
     [SerializeField]
     List<Anniversary_Item>[] OriginalItem;    //プレイヤーが持っている処理前のアイテム
 
@@ -48,6 +48,7 @@ public class ResultManager : MonoBehaviourPunCallbacks
         ScoreBackGround = new Transform[playersnum];
         OriginalItem = new List<Anniversary_Item>[playersnum];
         Items = new List<Dictionary<string, int>> {{ Item0 },{ Item1 },{ Item2 },{ Item3 }};
+        players = GameObject.FindGameObjectsWithTag("Player");
 
 
         //ここからプレハブを生成するための下準備
@@ -59,7 +60,6 @@ public class ResultManager : MonoBehaviourPunCallbacks
         {
             //プレハブとプレイヤーの情報をロード
             PlayerBackGround[i] = Resources.Load<GameObject>("PlayerItems" + i);
-            players = GameObject.Find("Player" + i);
 
             //プレハブを生成する
             GameObject CopyedPBG = Instantiate(PlayerBackGround[i],new Vector3(PBGinitpos[0] + (PBGinterval * i),PBGinitpos[1],0.0f), Quaternion.identity);
@@ -68,17 +68,32 @@ public class ResultManager : MonoBehaviourPunCallbacks
 
             //プレイヤーの名前を参照し設定
             Text Playername = GameObject.Find("Playername" + i).GetComponent<Text>();
-            Playername.text = players.GetComponent<PlayerStatus>().Name;
+            Playername.text = ReferencePlayername(players[i]);
             
             //表示時に使うSBGとトータルスコアを出すテキストボックスを参照し設定
             ScoreBackGround[i] = GameObject.Find("Content" + i).transform;
             total[i] = GameObject.Find("Total" + i).GetComponent<Text>();
 
             //並び替え前のプレイヤーの持ち物を参照
-            OriginalItem[i] = players.GetComponent<I_Player_3D>().Hub_Items;
+            OriginalItem[i] = players[i].GetComponent<MannequinPlayer>().Hub_Items;
         }
 
         DisplayItems();
+    }
+
+
+    //名前の参照
+    public string ReferencePlayername(GameObject Player)
+    {
+        string name = "";
+        foreach (var PList in PhotonNetwork.PlayerList)//プレイヤーリストの内容を順番に格納
+        {
+            if (PList.ActorNumber == Player.GetComponent<PhotonView>().CreatorActorNr) //リストのプレイヤーのIDとオブジェクトの作成者のADを比較
+            {
+                name = PList.NickName;
+            }
+        }
+        return name;
     }
 
 
