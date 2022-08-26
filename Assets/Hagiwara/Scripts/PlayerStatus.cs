@@ -75,7 +75,6 @@ public class PlayerStatus : MonoBehaviourPunCallbacks
     {
         hashPlayStatus = new Hashtable();
         DontDestroyOnLoad(this.gameObject);
-
         Debug.Log("Awake:"+hashPlayStatus);
     }
 
