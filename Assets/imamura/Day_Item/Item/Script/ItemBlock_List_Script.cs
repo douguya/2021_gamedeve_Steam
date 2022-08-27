@@ -69,11 +69,11 @@ public class ItemBlock_List_Script : MonoBehaviour
     public void BordSize()//ボードのサイズ調整
     {
 
-        int BlockPuantity;
+        int BlockQuantity;
         if (Block_List.Count<=3) 
         {
             
-            BlockPuantity = 3;
+            BlockQuantity = 3;
 
             ScrollBar.GetComponent<ScrollRect>().vertical=false;
 
@@ -81,14 +81,14 @@ public class ItemBlock_List_Script : MonoBehaviour
         else
         {
           
-            BlockPuantity = Block_List.Count;//ブロックの数
+            BlockQuantity = Block_List.Count;//ブロックの数
             ScrollBar.GetComponent<ScrollRect>().vertical=true;
 
         }
 
 
         var BordSize_x = BlockSumple.GetComponent<RectTransform>().sizeDelta.x;//ボードのサイズを取得　（戻り値のため）
-        var BordSize_y = BlockSumple.GetComponent<RectTransform>().sizeDelta.y*BlockPuantity;//ボードのサイズを取得　（戻り値のため）
+        var BordSize_y = BlockSumple.GetComponent<RectTransform>().sizeDelta.y*BlockQuantity;//ボードのサイズを取得　（戻り値のため）
 
         AllBord.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top,0, BordSize_y);
 

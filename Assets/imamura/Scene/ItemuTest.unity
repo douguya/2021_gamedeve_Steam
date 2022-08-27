@@ -1526,6 +1526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3761d6cf2266a10409e5f30934141a49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerNumber: 0
   text: {fileID: 0}
   ItemMaster: {fileID: 11400000, guid: c777a3ffbeeb77e4793b45cbb028c21f, type: 2}
   Hub_Items: []
@@ -2699,6 +2700,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5603847151302778797, guid: 0743066c9ca450940b8ee8572113a842, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5603847151673479268, guid: 0743066c9ca450940b8ee8572113a842, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2786,6 +2791,18 @@ PrefabInstance:
     - target: {fileID: 5603847151673479269, guid: 0743066c9ca450940b8ee8572113a842, type: 3}
       propertyPath: m_Name
       value: ItemBlock_List
+      objectReference: {fileID: 0}
+    - target: {fileID: 5603847152605087057, guid: 0743066c9ca450940b8ee8572113a842, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 550.3829
+      objectReference: {fileID: 0}
+    - target: {fileID: 5603847152605087057, guid: 0743066c9ca450940b8ee8572113a842, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.0000042612
+      objectReference: {fileID: 0}
+    - target: {fileID: 5603847152605087057, guid: 0743066c9ca450940b8ee8572113a842, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 108.2967
       objectReference: {fileID: 0}
     - target: {fileID: 5970486755111284751, guid: 0743066c9ca450940b8ee8572113a842, type: 3}
       propertyPath: Player
