@@ -7,10 +7,12 @@ public class MannequinPlayer : MonoBehaviour
 {
     public int PlayerNumber;
     // Start is called before the first frame update
-    public Text text;
+   
     public Anniversary_Item_Master ItemMaster;
     public List<Anniversary_Item> Hub_Items = new List<Anniversary_Item>();
     public GameObject blocs;
+    public GameObject Log;
+    public Text JujeText;
     void Start()
     {
 
@@ -53,7 +55,19 @@ public class MannequinPlayer : MonoBehaviour
 
     }
 
+    public void textadd(string LogText)//日本語50文字
+    {
+      
+      Text texts=  Log.GetComponent<Text_Log>().TextObj.GetComponent<Text>();//ログのテキストを参照で取得
+        /*
+      JujeText.text=LogText;
 
+      float height = JujeText.preferredWidth;
+         Debug.Log(height);
+        */
+
+        texts.text=texts.text+"\n"+LogText;//ログのテキスト内容に追加
+    }
 
  
 
