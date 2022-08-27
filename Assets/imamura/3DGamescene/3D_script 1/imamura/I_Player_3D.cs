@@ -540,16 +540,32 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     //ビデオの再生とホップアップの表示
     IEnumerator Day_Animation(string day)
     {
+        photonView.RPC(nameof(Day_Animation_RPC_1), RpcTarget.AllViaServer, day);//コルーチン回避用
+        yield return new WaitForSeconds(8);     //8秒待つ
+        photonView.RPC(nameof(Day_Animation_RPC_2), RpcTarget.AllViaServer);//コルーチン回避用
+    }
+
+
+    [PunRPC]public void Day_Animation_RPC_1(string day)//コルーチン回避用
+    {
+
         Debug.Log("ムービーーーーーーーーーーーーーーーーーーーー");
         Manager.Output_VideoSetting();
         Manager.Output_HopUp();
         gameObject.GetComponent<I_Day_Effect>().Output_HopUp_Setting(day);
         Manager.Video_obj.GetComponent<VideoPlayer>().clip = gameObject.GetComponent<I_Day_Effect>().Output_VideoClip(day);
         Manager.Output_VideoStart();     //ビデオの再生 Dayが入るとエラーを吐くのでこう書いた
-        yield return new WaitForSeconds(8);     //8秒待つ
+    }
+
+    [PunRPC]
+    public void Day_Animation_RPC_2()//コルーチン回避用
+    {
+
         Manager.Output_VideoFinish();     //ビデオの非表示
         Manager.PlayerTurn_change();         //ターンを変える
     }
+
+
 
 
 
