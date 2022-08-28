@@ -39,9 +39,11 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     //　以下今村========================================================================================//
 
     private bool GameStart=false;
+    public GameObject Camera;
     public GameObject GameStartButton;
     public GameObject SceneManager;
     public GameObject Log;
+    public Icon_Sprite_Manager IconSprits;
 
     //  ここまで=========================================================================================//
 
@@ -250,8 +252,10 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     
         List.GetComponent<RectTransform>().anchoredPosition=ListTransform;
 
+        Debug.Log("まさかーーーーーーー"+num);
+        List.GetComponent<ItemBlock_List_Script>().IcobImage.GetComponent<Image>().sprite=IconSprits.Icons[num];
 
-        
+
 
 
 
@@ -805,7 +809,21 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         Log.GetComponent<Text_Log>().textadd(LogText);
     }
 
+    public void Output_ClickVideoFinish()
 
+    {
+
+        Video_obj.SetActive(false);
+
+        HopUp.SetActive(true);
+
+        int XMass = Player[Player_Turn].GetComponent<I_Player_3D>().XPlayer_position;
+
+        int YMass = Player[Player_Turn].GetComponent<I_Player_3D>().YPlayer_position;
+
+        Player[Player_Turn].GetComponent<I_Player_3D>().HopUp_Setting(Week[YMass].Day[XMass].GetComponent<Mass_3D>().Day);
+
+    }
 }
 
 

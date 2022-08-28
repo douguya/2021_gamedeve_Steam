@@ -13,6 +13,8 @@ public class Camera_Mouse : MonoBehaviour
     private Vector2 mouse_set;//マウスの座標
     private float Adjust_Variable= 0.009f;//原点修正用の値　Zoom_Speed＝50専用　用改修
     private Vector3 OriginPoint;
+    private Vector3 velocity = Vector3.zero;
+    public bool Camera_Move = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,13 +24,21 @@ public class Camera_Mouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Wheel_Zoom();//マウスホイールによるズーム
+        Wheel_Zoom();//マウスホイールによるズーム]
+
+
+        if (Camera_Move)
+        {
+            transform.position = Vector3.SmoothDamp(transform.position, OriginPoint, ref velocity, 0.4f);
+        }
+
+        if (Vector3.Distance(transform.position, OriginPoint)<1)
+        {
+            Camera_Move=false;
+        }
     }
 
-    public void CameraReset()
-    {
-        transform.position=OriginPoint;
-    }
+  
 
 
 
@@ -62,7 +72,10 @@ public class Camera_Mouse : MonoBehaviour
     }
 
 
-
+    public void CameraReset()
+    {
+        Camera_Move=true;
+    }
 
 
 }
