@@ -10,12 +10,12 @@ public class newRotate : MonoBehaviour
     public int DiceNum; //出たさいころの目
 
     private float xKeep, yKeep, zKeep; //回転速度の保存用
-    private float xShow, yShow; //さいころの目を見せるときの角度
+    private float xShow, zShow; //さいころの目を見せるときの角度
 
     //廃止　public GameObject[] Dice = new GameObject[6];　//ダイスの各面に張り付けてある空箱
     //廃止　public GameObject max; //一番上の面の空箱
 
-    public List<int> InDiceNum = new List<int> {1, 2, 3, 4, 5, 6}; //指定された数がさいころから出る
+    public List<int> InDiceNum = new List<int> { 1, 2, 3, 4, 5, 6 }; //指定された数がさいころから出る
 
     // Start is called before the first frame update
     void Start()
@@ -39,8 +39,8 @@ public class newRotate : MonoBehaviour
             ySpeed = yKeep;
             zSpeed = zKeep;
         }
-      
-      
+
+
     }
 
     //回すときの呼び出し用関数
@@ -53,7 +53,7 @@ public class newRotate : MonoBehaviour
     public void newDiceStop()
     {
         //出た目の数をランダムで生成
-        for(;;)
+        for (; ; )
         {
             DiceNum = Random.Range(1, 7);
             if (InDiceNum.Contains(DiceNum) == true)
@@ -72,26 +72,26 @@ public class newRotate : MonoBehaviour
         switch (DiceNum)
         {
             case 1:
-                xShow = -90; yShow = 0;
+                xShow = 0; zShow = 0;
                 break;
             case 2:
-                xShow = 0; yShow = 90;
+                xShow = 0; zShow = 90;
                 break;
             case 3:
-                xShow = 180; yShow = 0;
+                xShow = -90; zShow = 0;
                 break;
             case 4:
-                xShow = 0; yShow = 0;
+                xShow = 90; zShow = 0;
                 break;
             case 5:
-                xShow = 0; yShow = -90;
+                xShow = 0; zShow = -90;
                 break;
             case 6:
-                xShow = 90; yShow = 0;
+                xShow = 180; zShow = 0;
                 break;
         }
         //さいころの目を見せる
-        transform.rotation = Quaternion.Euler(xShow,yShow,0);
+        transform.rotation = Quaternion.Euler(xShow, 0, zShow);
     }
 
     public void OddDice() //奇数ダイスになる
@@ -107,6 +107,17 @@ public class newRotate : MonoBehaviour
         InDiceNum.Clear();
         InDiceNum.Add(2);
         InDiceNum.Add(4);
+        InDiceNum.Add(6);
+    }
+
+    public void resetDice()
+    {
+        InDiceNum.Clear();
+        InDiceNum.Add(1);
+        InDiceNum.Add(2);
+        InDiceNum.Add(3);
+        InDiceNum.Add(4);
+        InDiceNum.Add(5);
         InDiceNum.Add(6);
     }
 }
