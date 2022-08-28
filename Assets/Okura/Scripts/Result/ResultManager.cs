@@ -46,7 +46,7 @@ public class ResultManager : MonoBehaviourPunCallbacks
 
 
         //ワールド変数を代入
-        playersnum = 4;//PhotonNetwork.PlayerList.Length;
+        playersnum = PhotonNetwork.PlayerList.Length;
         total = new Text[playersnum];
         Canvas = GameObject.Find("Canvas").transform;
         ScoreBackGround = new Transform[playersnum];
@@ -73,14 +73,14 @@ public class ResultManager : MonoBehaviourPunCallbacks
 
             //プレイヤーの名前を参照し設定
             Text Playername = GameObject.Find("Playername" + i).GetComponent<Text>();
-            Playername.text = players[i].name;//ReferencePlayername(players[i]);
+            Playername.text = ReferencePlayername(players[i]);
 
             //表示時に使うSBGとトータルスコアを出すテキストボックスを参照し設定
             ScoreBackGround[i] = GameObject.Find("Content" + i).transform;
             total[i] = GameObject.Find("Total" + i).GetComponent<Text>();
 
             //並び替え前のプレイヤーの持ち物を参照
-            OriginalItem[i] = players[i].GetComponent</*I_Player_3D*/MannequinPlayer>().Hub_Items;
+            OriginalItem[i] = players[i].GetComponent<I_Player_3D>().Hub_Items;
 
             //スクロールバーの大きさ調整で必要な参照
             ScrollBar[i] = GameObject.Find("Scroll View" + i);
