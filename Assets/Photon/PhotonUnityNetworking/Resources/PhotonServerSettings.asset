@@ -93,6 +93,10 @@ MonoBehaviour:
   - Output_ItemLifeSpan
   - Output_VideoSetting
   - RPCPlayerAlignment
+  - Day_Animation_RPC_1
+  - Day_Animation_RPC_2
+  - Log_RPC
+  - Log_RPC__Oter
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

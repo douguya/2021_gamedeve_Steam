@@ -34,19 +34,22 @@ public class Camera_Mouse : MonoBehaviour
 
     private void Wheel_Zoom()
     {
-        Mousewheel =Input.GetAxis("Mouse ScrollWheel");//マウスホイール値の保存
-        mouse_set= new Vector2(Input.mousePosition.x-Screen.width/2, Input.mousePosition.y-Screen.height/2);//画面の中心を原点としたマウスのスクリーン座標の取得
-
-        if (Mousewheel!=0)//マウスホイールが行われた場合
+        if (EventSystem.current.IsPointerOverGameObject()==false)
         {
-            Vector3 Zoom_Adjust = new Vector3(mouse_set.x*Adjust_Variable, 0, mouse_set.y*Adjust_Variable);//マウスホイールによる画面の原点修正
-            if (Mousewheel>0)//上向きホイール
+            Mousewheel =Input.GetAxis("Mouse ScrollWheel");//マウスホイール値の保存
+            mouse_set= new Vector2(Input.mousePosition.x-Screen.width/2, Input.mousePosition.y-Screen.height/2);//画面の中心を原点としたマウスのスクリーン座標の取得
+
+            if (Mousewheel!=0)//マウスホイールが行われた場合
             {
-                transform.position+= (transform.forward*Mousewheel*Zoom_Speed)+ Zoom_Adjust;
-            }
-            if (Mousewheel<0)//下向きホイール
-            {
-                transform.position+= (transform.forward*Mousewheel*Zoom_Speed)- Zoom_Adjust;
+                Vector3 Zoom_Adjust = new Vector3(mouse_set.x*Adjust_Variable, 0, mouse_set.y*Adjust_Variable);//マウスホイールによる画面の原点修正
+                if (Mousewheel>0)//上向きホイール
+                {
+                    transform.position+= (transform.forward*Mousewheel*Zoom_Speed)+ Zoom_Adjust;
+                }
+                if (Mousewheel<0)//下向きホイール
+                {
+                    transform.position+= (transform.forward*Mousewheel*Zoom_Speed)- Zoom_Adjust;
+                }
             }
         }
     }

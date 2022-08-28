@@ -41,10 +41,10 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     private bool GameStart=false;
     public GameObject GameStartButton;
     public GameObject SceneManager;
-
+    public GameObject Log;
 
     //  ここまで=========================================================================================//
-   
+
     void Start()
     {
         Day_Animation = GetComponent<I_Day_Animation>();
@@ -55,8 +55,9 @@ public class I_game_manager : MonoBehaviourPunCallbacks
    public void Gamestart()
     {
         Goal_Decision();
-        
-      //  PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);//変更したカスタムプロパティの更新
+        string Log = "ゲームスタート！！";
+        Log_connection(Log);
+        //  PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);//変更したカスタムプロパティの更新
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PlayerTurn_change();
         GameStartButton.SetActive(false);
@@ -238,13 +239,13 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     public void ItemList_setting(GameObject List,int num)
     {
 
-
+        var scale = List.GetComponent<RectTransform>().localScale.y;
         var ListTransform = List.GetComponent<RectTransform>().position;
 
         var ListSize = List.GetComponent<RectTransform>().sizeDelta;//リストのサイズを取得　（戻り値のため）
 
-        ListTransform.x = (ListSize.x/2)+(ListSize.x*num);//マジックナンバーはUIの初期座標
-        ListTransform.y =-ListSize.y/2;
+        ListTransform.x = (ListSize.x/2*scale)+(ListSize.x*num*scale);//マジックナンバーはUIの初期座標
+        ListTransform.y =-ListSize.y/2*scale;
 
     
         List.GetComponent<RectTransform>().anchoredPosition=ListTransform;
@@ -337,6 +338,11 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     {
         XGoal = day; YGoal = week;
         Week[week].Day[day].GetComponent<I_Mass_3D>().Goal_setting();
+
+
+        string　Day=　Week[week].Day[day].GetComponent<I_Mass_3D>().Day;
+        string Log = "ゴールが"+Day+"に設置されました。";
+        Log_Mine(Log);
     }
 
 
@@ -359,6 +365,9 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     public int Output_DiceStop()
     {
         Dice.GetComponent<newRotate>().newDiceStop();
+        string Log = "出目は・・・" +Dice.GetComponent<newRotate>().DiceNum+"です。";
+        Log_connection(Log);
+       
         return Dice.GetComponent<newRotate>().DiceNum;
     }
 
@@ -368,9 +377,9 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     //プレイヤーターンを切り替える
     public void PlayerTurn_change()
     {
-        
 
 
+        Debug.Log("タ―――――――――――――――――――――――――――――――――ーン");
         if (Goal_check == true)//誰かがゴールしていたら
         {
             Goal_Again();//ゴールの再設置
@@ -429,7 +438,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     [PunRPC]
     private void Output_Dice_ready()    //プレイヤーのターンを追加して出力
     {
- 
+        
         if (Player[Player_Turn].GetComponent<PhotonView>().IsMine)
         {
             Player[Player_Turn].GetComponent<I_Player_3D>().Dice_ready();
@@ -767,6 +776,36 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         this.Player[Player].GetComponent<Transform>().position = new Vector3(SameMass.x + Xslide, SameMass.y, SameMass.z + Zslide);
        
     }
+
+   
+
+    public void Log_connection(string LogText)//全体にログを送る
+    {
+        photonView.RPC(nameof(Log_RPC), RpcTarget.AllViaServer, LogText);
+    }
+    [PunRPC]public void Log_RPC(string LogText)//全体にログを送る
+    {
+        Log.GetComponent<Text_Log>().textadd(LogText);
+    }
+
+
+
+    public void Log_connection_Oter(string LogText)//自分以外にログを送る
+    {
+        photonView.RPC(nameof(Log_RPC__Oter), RpcTarget.OthersBuffered, LogText);
+    }
+    [PunRPC] public void Log_RPC__Oter(string LogText)//自分以外にログを送る
+    {
+        Log.GetComponent<Text_Log>().textadd(LogText);
+    }
+
+
+    public void Log_Mine(string LogText)//自分にログを送る
+    {
+        Log.GetComponent<Text_Log>().textadd(LogText);
+    }
+
+
 }
 
 
