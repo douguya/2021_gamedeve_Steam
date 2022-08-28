@@ -301,6 +301,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
                             obj.GetComponent<ItemBlock_List_Script>().Player=Player;
                             I_game_Manager_Script.ItemList_setting(obj, loop);//プレイ矢―を所定の位置に移動
 
+
                         }
                     }
 

@@ -308,7 +308,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 519072119}
         m_TargetAssemblyTypeName: Camera_Mouse, Assembly-CSharp
-        m_MethodName: CameraReset
+        m_MethodName: CameraReset2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -519,6 +519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Zoom_Speed: 50
+  Camera_Move: 0
 --- !u!1 &608491224
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,7 @@ public class ItemBlock_List_Script : MonoBehaviour
     public GameObject Mask;
     public GameObject Scroll;
     public GameObject ScrollBar;
+    public GameObject IcobImage;
     public Text PlayerName;
     public float FarstBlock_Transform;
     public bool Rist_View=false;
