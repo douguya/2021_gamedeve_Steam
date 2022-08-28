@@ -87,6 +87,14 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     //ダイスを回す準備
     public void Dice_ready()
     {
+        if (Manager.Player_Turn==PlayerNumber)
+        {
+            string Log = "貴方のターンです。";
+
+            Manager.Log_Mine(Log);
+            Log =PhotonNetwork.NickName+"のターンです。";
+            Manager.Log_connection_Oter(Log);
+        }
         DiceButton.GetComponent<Button>().interactable = true;
         ButtonText.GetComponent<Text>().text = "ダイスを回す";
     }
@@ -95,6 +103,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     private void Dice_Stop()
     {
         Move_Point = Manager.Output_DiceStop();
+ 
         MoveSelect();
     }
 
@@ -485,6 +494,10 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         photonView.RPC(nameof(Output_GoalCount), RpcTarget.All); //ゴール数を加算
         Manager.Goal_Add();//ゲーム全体のゴール数に加算
         Player_DayEffect();//日付の効果
+        var loop = ItemMaster.Anniversary_Items.Count-1;//最後の位置を取得
+        photonView.RPC(nameof(ItemAdd), RpcTarget.All, loop); //アイテム加算
+        string Log = PhotonNetwork.NickName+"が"+ItemMaster.Anniversary_Items[loop].ItemName+"を入手しました。";
+        Manager.Log_connection(Log);
     }
 
     //ゴールした時のゴール数を出力
@@ -507,16 +520,22 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     {
         Debug.Log("WWWWWWWWWWWWWWWWWWWWWWWWWWWWW"+day);
         int loop = 0;
-          foreach (var Item in ItemMaster.Anniversary_Items)//プレイヤーリストの内容を順番に格納
+        int Itemunum = 0;
+          foreach (var Item in ItemMaster.Anniversary_Items)//アイテムリストの内容を順番に格納
           {
             if (Item.Day==day)
             {
                
-                photonView.RPC(nameof(ItemAdd), RpcTarget.All,loop); //ゴール数を加算
+                photonView.RPC(nameof(ItemAdd), RpcTarget.All,loop); //アイテム加算
+                Itemunum=loop;
             }
             loop++;
           }
-        
+
+        string Log = PhotonNetwork.NickName+"が"+ItemMaster.Anniversary_Items[Itemunum].ItemName+"を入手しました。";
+        Manager.Log_connection(Log);
+
+
     }
 
 
@@ -528,8 +547,8 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
 
 
-        //開いたマスを非表示にして出力
-        [PunRPC] private void Output_hideCoverClear(int week, int day)
+    //開いたマスを非表示にして出力
+    [PunRPC] private void Output_hideCoverClear(int week, int day)
     {
         Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().hideCover_Clear();//マスを開いた表示にする
     }
@@ -543,6 +562,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         photonView.RPC(nameof(Day_Animation_RPC_1), RpcTarget.AllViaServer, day);//コルーチン回避用
         yield return new WaitForSeconds(8);     //8秒待つ
         photonView.RPC(nameof(Day_Animation_RPC_2), RpcTarget.AllViaServer);//コルーチン回避用
+        Manager.PlayerTurn_change();         //ターンを変える
     }
 
 
@@ -562,7 +582,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     {
 
         Manager.Output_VideoFinish();     //ビデオの非表示
-        Manager.PlayerTurn_change();         //ターンを変える
+       
     }
 
 

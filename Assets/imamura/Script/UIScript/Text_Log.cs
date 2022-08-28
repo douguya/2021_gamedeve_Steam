@@ -11,7 +11,8 @@ public class Text_Log : MonoBehaviour
     public GameObject TextObj;//テキストのオブジェクト
     public GameObject TextBoard;//テキストのオブジェクト
     public GameObject TextMask;//テキストのオブジェクト
-   public float Scloll;//スクロールの移動量
+    public GameObject PullImage;
+    public float Scloll;//スクロールの移動量
     public float Scloll_Coefficient;//スクロールの係数(フォントサイズの増大に比例して大きくなる　計算しきれなかったため入力)
     private int SclollCount=0;//スクロール回数のカウント
     private bool Text_View = false;
@@ -90,7 +91,8 @@ public class Text_Log : MonoBehaviour
     }
     public void TextBoard_View()
     {
-        Text_View=!Text_View;
+        PullImage.GetComponent<RectTransform>().Rotate(0, 0,180f);
+        Text_View =!Text_View;
         TextBoard.SetActive(Text_View);
         TextMask.GetComponent<Mask>().enabled=!Text_View;
         //===========位置を初期値へ戻す
@@ -99,5 +101,14 @@ public class Text_Log : MonoBehaviour
         TextObj.GetComponent<RectTransform>().anchoredPosition= BlockTransform;
         SclollCount=0;
         //===========================
+    }
+
+    public void textadd(string LogText)//日本語50文字
+    {
+
+        Text texts = TextObj.GetComponent<Text>();//ログのテキストを参照で取得
+
+
+        texts.text=texts.text+"\n"+LogText;//ログのテキスト内容に追加
     }
 }

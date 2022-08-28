@@ -120,8 +120,9 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         ReadyButton_Script.JoinedRoom_Jointed();
   
         Player.GetComponent<I_Player_3D>().DiceButton.GetComponent<Button>().onClick.AddListener(Player.GetComponent<I_Player_3D>().DicePush);
-        
-
+        string Log= "プレイヤー："+PhotonNetwork.NickName+"が入出しました。";
+        I_game_Manager_Script.Log_connection(Log);
+      
 
 
         yield return new WaitForSeconds(0.4f);
@@ -216,6 +217,8 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player player)//プレイヤーが抜けたときの処理
     {
         StartCoroutine(OnPlayerLeftRoom_Coroutine());
+        string Log = "プレイヤー："+ player.NickName+"が退出しました。";
+        I_game_Manager_Script.Log_connection(Log);
     }
 
     public IEnumerator OnPlayerLeftRoom_Coroutine()//プレイヤーが抜けたときの処理 コルーチン
@@ -223,7 +226,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         ReadyButton_Script.PlayerLeftRoom_Jointed();
         yield return new WaitForSeconds(0.4f);
         Playerlist_Update();//プレイヤーのオブジェクト格納用/初期位置への移動も含む
-
+       
 
         yield break;
     }
