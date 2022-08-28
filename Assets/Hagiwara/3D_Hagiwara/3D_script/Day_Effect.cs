@@ -14,10 +14,17 @@ public class Day_Effect : MonoBehaviour
     private int Origin_XMass;
     private int Origin_YMass;
 
+    private bool DiceChange = false;
+    private bool[] DiceNumber = new bool[6];
+
     private bool PlayerTurn_change = true;
 
     void Start()
     {
+        for (int Dice = 0; Dice < DiceNumber.Length; Dice++)
+        {
+            DiceNumber[Dice] = false;
+        }
         game_Manager = GameObject.Find("game_manager").GetComponent<game_manager>();
         DayImage = GameObject.Find("game_manager").GetComponent<game_manager>().HopUp.GetComponent<Image>();
     }
@@ -62,7 +69,7 @@ public class Day_Effect : MonoBehaviour
         DaySquare_Search(Day);
         Effect_Move();
         //Effect_BGM();
-        //Effect_Dice();
+        Effect_Dice();
         //Effect_Instance();
         if (PlayerTurn_change)
         {
@@ -83,7 +90,7 @@ public class Day_Effect : MonoBehaviour
                 char[] Char_Move = daySquare_Move.ToCharArray(); //Moveの内容をchar型に変換
                 if (daySquare_Move.StartsWith("ワープ"))
                 {
-                    if (daySquare_Move.Substring(3, 2) == "選択")
+                    if (daySquare_Move.Remove(0, 2) == "選択プレイヤー")
                     {
                         Debug.Log("指定したプレイヤーにワープ");
                         //選択したプレイヤーの元に飛ぶ
@@ -124,7 +131,7 @@ public class Day_Effect : MonoBehaviour
                 {
                     Debug.Log("選択");
                     //複数あるマスから選択してワープ
-                    if (daySquare_Move.Substring(1, 5) == "ワープマス")
+                    if (daySquare_Move.Remove(0, 2) == "ワープマス")
                     {
                         for (int week = 0; week < game_Manager.Week.Length; week++)
                         {
@@ -153,6 +160,17 @@ public class Day_Effect : MonoBehaviour
                                         game_Manager.Week[week].Day[day].GetComponent<Mass_3D>().select_display();
                                     }
                                 }
+                            }
+                        }
+                    }
+                    if (daySquare_Move.Remove(0, 2) == "全マス")
+                    {
+                        for (int week = 0; week < game_Manager.Week.Length; week++)
+                        {
+                            for (int day = 0; day < game_Manager.Week[0].Day.Length; day++)
+                            {
+                                gameObject.GetComponent<Player_3D>().Effect = true;
+                                game_Manager.Week[week].Day[day].GetComponent<Mass_3D>().select_display();
                             }
                         }
                     }
@@ -222,17 +240,105 @@ public class Day_Effect : MonoBehaviour
         }
     }
 
+
+
+
     private void Effect_Dice()
     {
-        char[] Char_NextDice = Day_Square_Master.Day_Squares[DayNumber].NextDice.ToCharArray();
-        if (Day_Square_Master.Day_Squares[DayNumber].NextDice != "Noon")
+        string daySquare_NextDice = Day_Square_Master.Day_Squares[DayNumber].NextDice;
+        char[] Char_NextDice = daySquare_NextDice.ToCharArray();
+        if (daySquare_NextDice != "Noon")
         {
-            if (Day_Square_Master.Day_Squares[DayNumber].NextDice != "none")
+            if (daySquare_NextDice != "none")
             {
-                PlayerTurn_change = false;
+                //ダイスの出目に増減
+                if (daySquare_NextDice.StartsWith("+"))
+                {
+                    gameObject.GetComponent<Player_3D>().DiceAdd += Toint(Char_NextDice[1]);
+
+                }
+                if (daySquare_NextDice.StartsWith("*"))
+                {
+                    gameObject.GetComponent<Player_3D>().DiceMultiply += Toint(Char_NextDice[1]);
+
+                }
+                //ダイスの出目に増減(全員)
+                if (daySquare_NextDice.StartsWith("全員"))
+                {
+                    if (daySquare_NextDice.Substring(2, 1) == "+")
+                    {
+                        for (int Player = 0; Player < game_Manager.joining_Player; Player++)
+                        {
+                            game_Manager.Player[Player].GetComponent<Player_3D>().DiceAdd += Toint(Char_NextDice[1]);
+                        }
+                    }
+                    if (daySquare_NextDice.Substring(2, 1) == "*")
+                    {
+                        for (int Player = 0; Player < game_Manager.joining_Player; Player++)
+                        {
+                            game_Manager.Player[Player].GetComponent<Player_3D>().DiceMultiply += Toint(Char_NextDice[1]);
+                        }
+                    }
+                }
+                if (daySquare_NextDice.StartsWith("もう一度"))
+                {
+                    gameObject.GetComponent<Player_3D>().OneMore_Dice = true;
+                }
+                //ダイスの出目の変化
+                if (daySquare_NextDice.StartsWith("出目"))
+                {
+                    DiceChange = true;
+                    if (daySquare_NextDice.Contains("1"))
+                    {
+                        DiceNumber[0] = true;
+                    }
+                    if (daySquare_NextDice.Contains("2"))
+                    {
+                        DiceNumber[1] = true;
+                    }
+                    if (daySquare_NextDice.Contains("3"))
+                    {
+                        DiceNumber[2] = true;
+                    }
+                    if (daySquare_NextDice.Contains("4"))
+                    {
+                        DiceNumber[3] = true;
+                    }
+                    if (daySquare_NextDice.Contains("5"))
+                    {
+                        DiceNumber[4] = true;
+                    }
+                    if (daySquare_NextDice.Contains("6"))
+                    {
+                        DiceNumber[5] = true;
+                    }
+                }
             }
         }
     }
+
+    public void DiceSetting()
+    {
+        if (DiceChange)
+        {
+            game_Manager.Dice.GetComponent<newRotate>().InDiceNum.Clear();
+            for (int Dice = 0; Dice < DiceNumber.Length; Dice++)
+            {
+                if (DiceNumber[Dice] == true)
+                {
+                    game_Manager.Dice.GetComponent<newRotate>().InDiceNum.Add(Dice + 1);
+                }
+                DiceNumber[Dice] = false;
+            }
+            DiceChange = false;
+        }
+        else
+        {
+            game_Manager.Dice.GetComponent<newRotate>().resetDice();
+        }
+    }
+
+
 
     private void Effect_Instance()
     {

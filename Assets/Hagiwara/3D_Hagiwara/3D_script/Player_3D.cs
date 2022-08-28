@@ -34,6 +34,10 @@ public class Player_3D : MonoBehaviour
     public bool Exchange;                         //場所交換するかどうか
     public bool Turn_change;                      //ターンを変えるかどうか
 
+    public bool OneMore_Dice;
+    public int DiceAdd = 0;
+    public int DiceMultiply = 0;
+
     void Start()
     {
 
@@ -75,8 +79,24 @@ public class Player_3D : MonoBehaviour
     //ダイスを止めて値を受け取る
     private void Dice_Stop()
     {
-        Move_Point = Manager.Output_DiceStop();
-        MoveSelect();
+        if (OneMore_Dice)
+        {
+            Move_Point = Manager.Output_DiceStop() + DiceAdd;
+            if (DiceMultiply != 0)
+            {
+                Move_Point *= DiceMultiply;
+            }
+            DiceAdd = 0;
+            DiceMultiply = 0;
+            //Debug.Log("歩数：" + Move_Point);
+            MoveSelect();
+        }
+        else
+        {
+            OneMore_Dice = false;
+            DiceAdd = Manager.Output_DiceStop();
+            Dice_ready();
+        }
     }
 
     public void DicePush()
@@ -85,6 +105,7 @@ public class Player_3D : MonoBehaviour
         {
             if (DiceStrat)
             {
+                gameObject.GetComponent<Day_Effect>().DiceSetting();
                 //ここでダイスを回す処理
                 Manager.Output_DiceStart();
                 ButtonText.GetComponent<Text>().text = "ダイスを止める";
