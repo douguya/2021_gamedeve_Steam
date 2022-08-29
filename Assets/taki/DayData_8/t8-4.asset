@@ -16,7 +16,7 @@ MonoBehaviour:
   Day: 8/4
   Staging: {fileID: 32900000, guid: c35255d56da939c478313678b4c77d29, type: 3}
   HopUp: {fileID: 21300000, guid: 6d7904310a58aeb4688d536c459c08d7, type: 3}
-  Commentary: "\u4FEE\u6B63\uFF08\u6D74\u8863\u3092\u7740\u308B\u3068\u304B\uFF09"
+  Commentary: "\u30D7\u30EC\u30A4\u30E4\u30FC\u306F\u6D74\u8863\u3092\u7740\u308B\u30004\u30DD\u30A4\u30F3\u30C8\n\n\u5175\u5EAB\u770C\u57CE\u5D0E\u753A\u306E\u57CE\u5D0E\u6E29\u6CC9\u89B3\u5149\u5354\u4F1A\u304CPR\u306E\u305F\u3081\u306B\u5236\u5B9A\u3055\u308C\u305F\u8A18\u5FF5\u65E5\u3067\u3042\u308B\u3002\n8\u67084\u65E5\u306B\u5236\u5B9A\u3055\u308C\u305F\u7406\u7531\u306F\u300C\u57CE\u5D0E\u3075\u308B\u3055\u3068\u796D\u308A\u300D\u304C\u958B\u50AC\u3055\u308C\u308B\u65E5\u4ED8\u306B\u3061\u306A\u3093\u3067\u3044\u308B\u3002"
   Anniversary_Item: {fileID: 11400000, guid: ba804433cb1b8014996befb01c6e178e, type: 2}
   Move: none
   BGM: none
@@ -25,4 +25,4 @@ MonoBehaviour:
   NextDice: none
   NextMove: none
   ItemLost: none
-  ConditionalPoint: "1~6(\u30C0\u30A4\u30B9\u306E\u6570)"
+  ConditionalPoint: none
