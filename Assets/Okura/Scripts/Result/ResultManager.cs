@@ -11,7 +11,9 @@ public class ResultManager : MonoBehaviourPunCallbacks
     [SerializeField]
     int playersnum;         //プレイヤーの人数
     [SerializeField]
-    Text textUI;           //コピー元のテキスト
+    Text textItems;           //コピー元のテキスト
+    [SerializeField]
+    Text textPoints;           //コピー元のテキスト
     [SerializeField]
     Text[] total;           //トータルスコア
     [SerializeField]
@@ -22,6 +24,8 @@ public class ResultManager : MonoBehaviourPunCallbacks
     GameObject[] PlayerBackGround;    //プレイヤーの情報を出す場所(以下PBG)
     [SerializeField]
     Button display;
+    [SerializeField]
+    GameObject[] ScrollBar;
     [SerializeField]
     float interval = -30.0f;        //PBGで生成されるテキストボックスの間隔
     [SerializeField]
@@ -39,7 +43,7 @@ public class ResultManager : MonoBehaviourPunCallbacks
     private void Awake()
     {
 
-      
+
 
         //ワールド変数を代入
         playersnum = PhotonNetwork.PlayerList.Length;
@@ -49,6 +53,7 @@ public class ResultManager : MonoBehaviourPunCallbacks
         OriginalItem = new List<Anniversary_Item>[playersnum];
         Items = new List<Dictionary<string, int>> {{ Item0 },{ Item1 },{ Item2 },{ Item3 }};
         players = GameObject.FindGameObjectsWithTag("Player");
+        ScrollBar = new GameObject[playersnum];
 
 
         //ここからプレハブを生成するための下準備
@@ -76,6 +81,9 @@ public class ResultManager : MonoBehaviourPunCallbacks
 
             //並び替え前のプレイヤーの持ち物を参照
             OriginalItem[i] = players[i].GetComponent<I_Player_3D>().Hub_Items;
+
+            //スクロールバーの大きさ調整で必要な参照
+            ScrollBar[i] = GameObject.Find("Scroll View" + i);
         }
 
         DisplayItems();
@@ -100,8 +108,10 @@ public class ResultManager : MonoBehaviourPunCallbacks
     //アイテムの表示
     public void DisplayItems()
     {
-        textUI = GameObject.Find("Items").GetComponent<Text>();//コピー元を参照
-        float[] initpos = new float[2] { textUI.transform.localPosition.x, textUI.transform.localPosition.y };//テキストの初期位置
+        textItems = GameObject.Find("Items").GetComponent<Text>();//コピー元を参照
+        textPoints = GameObject.Find("Points").GetComponent<Text>();//コピー元を参照
+        float[] initpos = new float[4] { textItems.transform.localPosition.x, textItems.transform.localPosition.y ,
+                                         textPoints.transform.localPosition.x, textPoints.transform.localPosition.y };//テキストの初期位置,[0][1]はアイテム,[2][3]はポイント
         int[] totalpoint = new int[playersnum];//トータルスコア格納用
         int count = 0;//ループ回数
 
@@ -109,16 +119,18 @@ public class ResultManager : MonoBehaviourPunCallbacks
 
         foreach(Transform i in ScoreBackGround)
         {
+            BordSizeAdjust(Items[count], i, ScrollBar[count]);
             int dupcount = 0;//アイテムの表示回数
+
             foreach (string j in Items[count].Keys)
             {
                 //最初は獲得したものを左揃えで表示
-                Text Copytext = Instantiate(textUI, new Vector3(initpos[0], initpos[1] + (dupcount * interval), 0.0f), Quaternion.identity);
+                Text Copytext = Instantiate(textItems, new Vector3(initpos[0], initpos[1] + (dupcount * interval), 0.0f), Quaternion.identity);
                 Copytext.transform.SetParent(i, false);
                 Copytext.text = j;
 
                 //次に獲得したもののポイントを右揃えで表示
-                Text point = Instantiate(textUI, new Vector3(initpos[0], initpos[1], 0.0f), Quaternion.identity);
+                Text point = Instantiate(textPoints, new Vector3(initpos[2], initpos[3], 0.0f), Quaternion.identity);
                 point.transform.SetParent(Copytext.transform, false);
                 point.alignment = TextAnchor.MiddleRight;
                 point.text = Items[count][j] + "P";
@@ -185,5 +197,34 @@ public class ResultManager : MonoBehaviourPunCallbacks
                 }
             }
         }
+    }
+
+
+
+    //ボードのサイズ調整
+    public void BordSizeAdjust(Dictionary<string, int> PlayerItems, Transform SBG, GameObject Bar)
+    {
+        int BlockQuantity;
+
+        if (PlayerItems.Keys.Count <= 3)
+        {
+
+            BlockQuantity = 3;
+            Bar.GetComponent<ScrollRect>().vertical = false;
+
+        }
+        else
+        {
+
+            BlockQuantity = PlayerItems.Keys.Count;//アイテムの数
+            Bar.GetComponent<ScrollRect>().vertical = true;
+
+        }
+
+
+        var BordSize_x = (textItems.GetComponent<RectTransform>().sizeDelta.x) + (textPoints.GetComponent<RectTransform>().sizeDelta.x);//ボードのサイズを取得　（戻り値のため）
+        var BordSize_y = ((textItems.GetComponent<RectTransform>().sizeDelta.y) + (textPoints.GetComponent<RectTransform>().sizeDelta.y)) * BlockQuantity;//ボードのサイズを取得　（戻り値のため）
+
+        SBG.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, BordSize_y);
     }
 }

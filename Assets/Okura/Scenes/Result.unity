@@ -166,13 +166,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c9e638612565fb44ba2d7de53f35bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playersnum: 1
-  textUI: {fileID: 0}
+  playersnum: 4
+  textItems: {fileID: 0}
+  textPoints: {fileID: 0}
   total: []
   Canvas: {fileID: 0}
   ScoreBackGround: []
   PlayerBackGround: []
   display: {fileID: 0}
+  ScrollBar: []
   interval: -30
   players: []
 --- !u!1 &330368170
