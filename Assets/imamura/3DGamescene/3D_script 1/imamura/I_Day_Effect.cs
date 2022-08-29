@@ -48,6 +48,7 @@ public class I_Day_Effect : MonoBehaviour
     //Day_Square_Masterから特定の日付を持つものを探す
     private void DaySquare_Search(string Day)
     {
+ 
         for (int num = 0; num < Day_Square_Master.Day_Squares.Count; num++)
         {
             if (Day_Square_Master.Day_Squares[num].Day == Day)
@@ -60,22 +61,21 @@ public class I_Day_Effect : MonoBehaviour
 
     public void Day_EffectReaction(string Day)
     {
-        PlayerTurn_change = true;
+
+        
         DaySquare_Search(Day);
         Effect_Move();
         //Effect_BGM();
         //Effect_Dice();
         //Effect_Instance();
-        if (PlayerTurn_change)
-        {
-            game_Manager.PlayerTurn_change();
-        }
+       
     }
 
 
 
     private void Effect_Move()
     {
+        Debug.Log("MOOOOOOOOOOOOOOOOOOOOOOOOOOB");
         string daySquare_Move = Day_Square_Master.Day_Squares[DayNumber].Move;
         if (daySquare_Move != "Noon")
         {
@@ -87,23 +87,23 @@ public class I_Day_Effect : MonoBehaviour
                 {
                     if (daySquare_Move.Substring(3, 2) == "選択")
                     {
-                        Debug.Log("指定したプレイヤーにワープ");
+                      //  Debug.Log("指定したプレイヤーにワープ");
                         //選択したプレイヤーの元に飛ぶ
                         for (int Player = 0; Player < game_Manager.joining_Player; Player++)
                         {
                             if (game_Manager.Player_Turn != Player)
                             {
-                                int XMass = game_Manager.Player[Player].GetComponent<Player_3D>().XPlayer_position;
-                                int YMass = game_Manager.Player[Player].GetComponent<Player_3D>().YPlayer_position;
+                                int XMass = game_Manager.Player[Player].GetComponent<I_Player_3D>().XPlayer_position;
+                                int YMass = game_Manager.Player[Player].GetComponent<I_Player_3D>().YPlayer_position;
                                 gameObject.GetComponent<I_Player_3D>().Effect = true;
-                                game_Manager.Week[YMass].Day[XMass].GetComponent<Mass_3D>().select_display();
+                                game_Manager.Week[YMass].Day[XMass].GetComponent<I_Mass_3D>().select_display();
                             }
                         }
 
                     }
                     else
                     {
-                        Debug.Log("指定マスワープ");
+                       // Debug.Log("指定マスワープ");
                         //指定マスへのワープ
                         gameObject.GetComponent<I_Player_3D>().Player_WarpMove("ワープ", daySquare_Move.Remove(0, 3));
                     }
@@ -111,7 +111,7 @@ public class I_Day_Effect : MonoBehaviour
                 }
                 if (daySquare_Move.StartsWith("集合"))
                 {
-                    Debug.Log("集合");
+                  //  Debug.Log("集合");
                     for (int Player = 0; Player < game_Manager.joining_Player; Player++)
                     {
                         if (game_Manager.Player_Turn != Player)
@@ -120,11 +120,12 @@ public class I_Day_Effect : MonoBehaviour
                             game_Manager.Player[Player].GetComponent<I_Player_3D>().Turn_change = true;
                         }
                     }
-                    game_Manager.PlayerTurn_change();
+                    
+                 //  Debug.Log("PlayerTurn_change:3");
                 }
                 if (daySquare_Move.StartsWith("選択"))
                 {
-                    Debug.Log("選択");
+                  //  Debug.Log("選択");
                     //複数あるマスから選択してワープ
                     if (daySquare_Move.Substring(1, 5) == "ワープマス")
                     {
@@ -161,7 +162,7 @@ public class I_Day_Effect : MonoBehaviour
                 }
                 if (daySquare_Move.StartsWith("交換"))
                 {
-                    Debug.Log("交換");
+                   // Debug.Log("交換");
                     //選択したプレイヤーとマスを交換する
                     Origin_XMass = gameObject.GetComponent<I_Player_3D>().XPlayer_position;
                     Origin_YMass = gameObject.GetComponent<I_Player_3D>().YPlayer_position;
@@ -173,22 +174,23 @@ public class I_Day_Effect : MonoBehaviour
                             int YMass = game_Manager.Player[Player].GetComponent<I_Player_3D>().YPlayer_position;
                             gameObject.GetComponent<I_Player_3D>().Effect = true;
                             gameObject.GetComponent<I_Player_3D>().Exchange = true;
-                            game_Manager.Week[YMass].Day[XMass].GetComponent<Mass_3D>().select_display();
+                            game_Manager.Week[YMass].Day[XMass].GetComponent<I_Mass_3D>().select_display();
                         }
                     }
                 }
                 if (daySquare_Move.StartsWith("上") || daySquare_Move.StartsWith("下") || daySquare_Move.StartsWith("右") || daySquare_Move.StartsWith("左"))
                 {
-                    Debug.Log("上下左右");
+                  //  Debug.Log("上下左右");
                     //上下左右、何マスの移動
                     //Debug.Log("日付効果でのスライド移動" + Char_Move[0] + ":" + Toint(Char_Move[1]));
-                    gameObject.GetComponent<Player_3D>().Player_wayMove(daySquare_Move.Substring(0, 1), Toint(Char_Move[1]));
+                    gameObject.GetComponent<I_Player_3D>().Player_wayMove(daySquare_Move.Substring(0, 1), Toint(Char_Move[1]));
                 }
             }
         }
     }
     public void Exchange_Position()//交換処理
     {
+        
         for (int Player = 0; Player < game_Manager.joining_Player; Player++)
         {
             if (game_Manager.Player[Player].GetComponent<I_Player_3D>().XPlayer_position == gameObject.GetComponent<I_Player_3D>().XPlayer_position && game_Manager.Player[Player].GetComponent<I_Player_3D>().YPlayer_position == gameObject.GetComponent<I_Player_3D>().YPlayer_position)
@@ -197,7 +199,7 @@ public class I_Day_Effect : MonoBehaviour
                 {
                     string day = game_Manager.Week[Origin_YMass].Day[Origin_XMass].GetComponent<I_Mass_3D>().Day;
                     game_Manager.Player[Player].GetComponent<I_Player_3D>().Player_WarpMove("ワープ", day);
-                    Debug.Log(day);
+                //    Debug.Log(day);
                     game_Manager.Player[Player].GetComponent<I_Player_3D>().Turn_change = true;
                 }
             }

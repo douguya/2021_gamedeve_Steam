@@ -219,7 +219,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                         if (Manager.Week[Ycenter].Day[Xcenter].GetComponent<I_Mass_3D>().warp == true && Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().warp == true)
                         {
                             Player_warpMove[Move_Point - select_Point] = true;              //ワープのモーションをするようにする
-                            Debug.Log("モーション");
+                         //   Debug.Log("モーション");
                         }
                         //Debug.Log("行動基準:"+ (Move_Point - select_Point));
                         Ycenter = week; Xcenter = day;                                      //選択の中心マスをクリックされたマスに移す
@@ -237,7 +237,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             }
             else
             {
-                Debug.Log("行動終了");
+               // Debug.Log("行動終了");
                 StartCoroutine(PlayerMove_Coroutine(Move_Point, true));//プレイヤーの移動開始
             }
         }
@@ -339,6 +339,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             }
             XPlayer_position = XPlayer_Loot[Move];  //プレイヤーの現在の縦・横位置を設定
             YPlayer_position = YPlayer_Loot[Move];
+            photonView.RPC(nameof(Output_Playerloot), RpcTarget.OthersBuffered, YPlayer_position,XPlayer_position);
             yield return new WaitForSeconds(1);     //1秒待つ
 
             photonView.RPC(nameof(Output_AnimationStop), RpcTarget.AllViaServer);  //全てのアニメーションを止める 
@@ -355,22 +356,25 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         
             }
         }
+       
         if (Effect == true)
         {
+           
             StopI_Day_Effect(); //止まったマスの処理
+         
         }
+      
         if (Exchange)
 
         {
 
             Exchange = false;
-
+           
             gameObject.GetComponent<I_Day_Effect>().Exchange_Position();
+         
 
         }
-
         Manager.Player_Same();
-
         if (Turn_change == false)
 
         {
@@ -378,24 +382,34 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             if (Effect == true)
 
             {
-
-                StopDay_Effect(); //止まったマスの処理 
-
+               
+                StopI_Day_Effect(); //止まったマスの処理 
+                
             }
 
             else
 
             {
 
-                Manager.PlayerTurn_change();
+               
+               
 
             }
 
         }
-
+        Debug.Log("WWWWWWWWWWWWWWWWWWWWWWWWWWWWW"+1);
+        Manager.PlayerTurn_change();
         Turn_change = false;
     }
-        
+    [PunRPC]
+    private void Output_Playerloot(int Y, int X)
+    {
+        XPlayer_position = X;  //プレイヤーの現在の縦・横位置を設定
+        YPlayer_position =Y;
+      
+
+    }
+
 
 
 
@@ -404,7 +418,8 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     {
         transform.position = Manager.Week[YPlayer_Loot_Move].Day[XPlayer_Loot_Move].GetComponent<I_Mass_3D>().transform.position;//プレイヤーの移動
     }
-
+    
+   
 
 
 
@@ -478,7 +493,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     {
         YPlayer_Loot[0] = YPlayer_position;                  //プレイヤーの現在のマスを記憶する
         XPlayer_Loot[0] = XPlayer_position;
-        Debug.Log(0 + " : " + YPlayer_Loot[0] + ":" + XPlayer_Loot[0]);
+      //  Debug.Log(0 + " : " + YPlayer_Loot[0] + ":" + XPlayer_Loot[0]);
         for (int Move = 1; Move < step + 1; Move++)
         {
             switch (way)
@@ -503,7 +518,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                     XPlayer_Loot[Move] = XPlayer_Loot[Move - 1] - 1;
                     break;
             }
-            Debug.Log(Move + " : " + YPlayer_Loot[Move] + ":" + XPlayer_Loot[Move]);
+       //     Debug.Log(Move + " : " + YPlayer_Loot[Move] + ":" + XPlayer_Loot[Move]);
             if (YPlayer_Loot[Move] < 0 || Manager.Week.Length < YPlayer_Loot[Move])
             {
                 YPlayer_Loot[Move] = YPlayer_Loot[Move - 1];
@@ -512,7 +527,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             {
                 XPlayer_Loot[Move] = XPlayer_Loot[Move - 1];
             }
-            Debug.Log(Move + " : " + YPlayer_Loot[Move] + ":" + XPlayer_Loot[Move]);
+       //     Debug.Log(Move + " : " + YPlayer_Loot[Move] + ":" + XPlayer_Loot[Move]);
         }
         StartCoroutine(PlayerMove_Coroutine(step, false));//プレイヤーの移動開始
     }
@@ -550,26 +565,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
 
     //止まったマスの処理
-    private void StopI_Day_Effect()
-    {
-        if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Goal == true)
-        {
-            Player_Goal();//ゴールしたときの処理
-        }
-        else
-        {
-            if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Open == false)//まだ開いてないマスなら
-            {
-               
-                photonView.RPC(nameof(Output_hideCoverClear), RpcTarget.All, YPlayer_position, XPlayer_position); //マスを開いた表示にする
-                Player_DayEffect();//日付の効果
-            }
-            else
-            {
-                Manager.PlayerTurn_change();         //ターンを変える
-            }
-        }
-    }
+    
 
 
 
@@ -596,17 +592,18 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     //日付の効果発動
     public void Player_DayEffect()
     {
+       
         string day = Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Day;//発動する日付を取得
         StartCoroutine(Day_Animation(day));     //ビデオの再生とホップアップの表示
         gameObject.GetComponent<I_Day_Effect>().Day_EffectReaction(day);
         Item_Get(day);                               //ここに日付の効果入れる
-       
+        
         //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     }
 
     public void Item_Get(string day)
     {
-        Debug.Log("WWWWWWWWWWWWWWWWWWWWWWWWWWWWW"+day);
+      //  Debug.Log("WWWWWWWWWWWWWWWWWWWWWWWWWWWWW"+day);
         int loop = 0;
         int Itemunum = 0;
           foreach (var Item in ItemMaster.Anniversary_Items)//アイテムリストの内容を順番に格納
@@ -619,7 +616,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             }
             loop++;
           }
-        Debug.Log("あいてむううううううううううううううううううう");
+     //   Debug.Log("あいてむううううううううううううううううううう");
         string Log = PhotonNetwork.NickName+"が"+ItemMaster.Anniversary_Items[Itemunum].ItemName+"を入手しました。";
         Manager.Log_connection(Log);
 
@@ -647,27 +644,27 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     //ビデオの再生とホップアップの表示
     IEnumerator Day_Animation(string day)
     {
+        
         photonView.RPC(nameof(Day_Animation_RPC_1), RpcTarget.AllViaServer, day);//コルーチン回避用
         yield return new WaitForSeconds(8);     //8秒待つ
         photonView.RPC(nameof(Day_Animation_RPC_2), RpcTarget.AllViaServer, day);//コルーチン回避用
-        Manager.PlayerTurn_change();         //ターンを変える
+                                                        
     }
 
 
     [PunRPC]public void Day_Animation_RPC_1(string day)//コルーチン回避用
     {
-
-        Debug.Log("ムービーーーーーーーーーーーーーーーーーーーー");
+        
+        //   Debug.Log("ムービーーーーーーーーーーーーーーーーーーーー");
         Manager.Output_VideoSetting();  //ビデオを表示 
-
         Manager.Video_obj.GetComponent<VideoPlayer>().clip = gameObject.GetComponent<I_Day_Effect>().Output_VideoClip(day); //ビデオをオブジェクトVideoに入れる 
-
         Manager.Output_VideoStart();     //ビデオの再生 
     }
 
     [PunRPC]
     public void Day_Animation_RPC_2(string day)//コルーチン回避用
     {
+        
         if (Manager.Video_obj.activeInHierarchy == true)
 
         {
@@ -761,30 +758,32 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
         Manager.Output_HopUp();         //ホップアップを表示する 
 
-        gameObject.GetComponent<Day_Effect>().Output_HopUp_Setting(day);        //ホップアップを日付のものに変更する 
+        gameObject.GetComponent<I_Day_Effect>().Output_HopUp_Setting(day);        //ホップアップを日付のものに変更する 
 
     }
-    private void StopDay_Effect()
+  
+
+    private void StopI_Day_Effect()//止まったマスの処理
     {
-        if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<Mass_3D>().Goal == true)
+    
+        if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Goal == true)
         {
             Player_Goal();//ゴールしたときの処理
         }
         else
         {
-            if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<Mass_3D>().Open == false)//まだ開いてないマスなら
+            if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Open == false)//まだ開いてないマスなら
             {
-                Output_hideCoverClear(YPlayer_position, XPlayer_position);//マスを開いた表示にする
+
+                photonView.RPC(nameof(Output_hideCoverClear), RpcTarget.All, YPlayer_position, XPlayer_position); //マスを開いた表示にする
                 Player_DayEffect();//日付の効果
             }
             else
             {
-                Manager.PlayerTurn_change();         //ターンを変える
+               
             }
         }
     }
-
-
 
 
 

@@ -15,6 +15,10 @@ public class Camera_Mouse : MonoBehaviour
     private Vector3 OriginPoint;
     private Vector3 velocity = Vector3.zero;
     public bool Camera_Move = false;
+
+    private Vector3 Max_Position=new Vector3(84f, 82f, 56f);
+    private Vector3 Mini_Position = new Vector3(-69f, 6f, -69);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,20 +53,110 @@ public class Camera_Mouse : MonoBehaviour
             Mousewheel =Input.GetAxis("Mouse ScrollWheel");//マウスホイール値の保存
             mouse_set= new Vector2(Input.mousePosition.x-Screen.width/2, Input.mousePosition.y-Screen.height/2);//画面の中心を原点としたマウスのスクリーン座標の取得
 
-            if (Mousewheel!=0)//マウスホイールが行われた場合
-            {
-                Vector3 Zoom_Adjust = new Vector3(mouse_set.x*Adjust_Variable, 0, mouse_set.y*Adjust_Variable);//マウスホイールによる画面の原点修正
-                if (Mousewheel>0)//上向きホイール
+            
+                if (Mousewheel!=0)//マウスホイールが行われた場合
                 {
-                    transform.position+= (transform.forward*Mousewheel*Zoom_Speed)+ Zoom_Adjust;
+                    Vector3 Zoom_Adjust = new Vector3(mouse_set.x*Adjust_Variable, 0, mouse_set.y*Adjust_Variable);//マウスホイールによる画面の原点修正
+                    if (Mousewheel>0)//上向きホイール ズームイン
+                    {
+                       var position= transform.position+ (transform.forward*Mousewheel*Zoom_Speed)+ Zoom_Adjust;
+
+                       if (Zoonjudge2(position)) 
+                       {
+                        transform.position= Zoonconvert( position,transform.position);
+                       }
+
+                    }
+                    if (Mousewheel<0)//下向きホイール　ズームアウト
+                    {
+                      
+                       var position = transform.position+ (transform.forward*Mousewheel*Zoom_Speed)- Zoom_Adjust; ;
+
+                       if (Zoonjudge2(position))
+                       {
+                        transform.position= Zoonconvert(position, transform.position);
+                    }
+
                 }
-                if (Mousewheel<0)//下向きホイール
-                {
-                    transform.position+= (transform.forward*Mousewheel*Zoom_Speed)- Zoom_Adjust;
-                }
+                
+
+
             }
+
         }
     }
+
+
+    private bool Zoonjudge2(Vector3 position)
+    {
+        Debug.Log(position);
+        bool juje = false; 
+        if ( position.y< Max_Position.y&&position.y> Mini_Position.y)
+        {
+            
+             juje=true;
+            
+        }
+
+
+
+        return juje;
+
+    }
+    private Vector3 Zoonconvert(Vector3 position,Vector3 FalsePosition)
+    {
+        Debug.Log(position);
+        Vector3 NewPosition = position;
+        if (position.x> Max_Position.x|| position.x< Mini_Position.x)
+        {
+            NewPosition.x=FalsePosition.x;
+        }
+        if (position.z> Max_Position.z||position.z<Mini_Position.z)
+        {
+            NewPosition.z=FalsePosition.z;
+        }
+
+
+
+        return NewPosition;
+
+    }
+
+
+
+
+    private bool Zoonjudge(Vector3 position)
+    {
+        Debug.Log(position);
+        bool juje=false;
+       if(position.x< Max_Position.x&& position.y< Max_Position.y&&position.z< Max_Position.z)
+       {
+            if (position.x> Mini_Position.x&& position.y> Mini_Position.y&&position.z>Mini_Position.z)
+            {
+                juje=true;
+            }
+       }
+
+
+
+
+
+
+
+
+
+        return juje;
+
+    }
+
+
+
+
+
+
+
+
+
 
     public float Map(float value, float R_min, float R_max, float V_min, float V_max)
     {

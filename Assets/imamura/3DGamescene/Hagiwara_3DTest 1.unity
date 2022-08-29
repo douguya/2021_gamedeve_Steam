@@ -8546,6 +8546,7 @@ MonoBehaviour:
   GameStartButton: {fileID: 763056919}
   SceneManager: {fileID: 1925810204}
   Log: {fileID: 3226580703538071619}
+  ReadyButton: {fileID: 184777439}
   IconSprits: {fileID: 11400000, guid: 9870be048094f3b4dbf08ba27eb8ceee, type: 2}
 --- !u!114 &1265593757
 MonoBehaviour:
