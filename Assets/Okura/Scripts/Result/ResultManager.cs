@@ -134,9 +134,15 @@ public class ResultManager : MonoBehaviourPunCallbacks
                 var CopyLineAdjust = Copytext.GetComponent<TextLineAdjust>();
                 CopyLineAdjust.LineAdjust();
 
+                var linenum = CopyLineAdjust.LineNum;
                 if (dupcount >= 1) {
+
                     var CopyTextPosition = Copytext.GetComponent<RectTransform>().anchoredPosition;
-                    CopyTextPosition.y = (LastCopy.GetComponent<RectTransform>().anchoredPosition.y + (-(LastCopyLineAdjust.Rectheight / 2 - (LastCopyLineAdjust.Rectheight - 12) / 2))) + interval;
+
+                    
+
+                    var dump = (linenum - 1)* Copytext.fontSize;
+                    CopyTextPosition.y = (LastCopy.GetComponent<RectTransform>().anchoredPosition.y + -(LastCopyLineAdjust.Rectheight / 2 )- dump) + interval;
                     Copytext.GetComponent<RectTransform>().anchoredPosition = CopyTextPosition;
                     Debug.Log(LastCopy.GetComponent<RectTransform>().anchoredPosition.y - Copytext.GetComponent<RectTransform>().anchoredPosition.y);
                 }
@@ -146,11 +152,20 @@ public class ResultManager : MonoBehaviourPunCallbacks
 
                 //次に獲得したもののポイントを右揃えで表示
                 Text point = Instantiate(textPoints, new Vector2(initpos[2], initpos[3]), Quaternion.identity);
-                    point.transform.SetParent(Copytext.transform, false);
-                    point.alignment = TextAnchor.MiddleRight;
-                    point.text = Items[count][j] + "P";
+                    
+                point.transform.SetParent(Copytext.transform, false);
+                point.alignment = TextAnchor.MiddleRight;
+                point.text = Items[count][j] + "P";
+                var pointRect = point.GetComponent<RectTransform>();
 
-                    totalpoint[count] += Items[count][j];
+                var PointHight= Copytext.GetComponent<RectTransform>().sizeDelta.y;
+                pointRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, PointHight);
+
+                var point_spot = pointRect.anchoredPosition;
+                point_spot.y= -linenum*(CopyLineAdjust.ItemNameTextBox.fontSize)/2;
+                pointRect.anchoredPosition=point_spot;
+
+                totalpoint[count] += Items[count][j];
                     dupcount++;
             }
 

@@ -947,6 +947,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemNameTextBox: {fileID: 0}
+  Rectheight: 0
+  LineNum: 0
 --- !u!1 &5415329883389583886
 GameObject:
   m_ObjectHideFlags: 0

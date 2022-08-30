@@ -6,9 +6,10 @@ using UnityEngine.UI;
 public class TextLineAdjust : MonoBehaviour
 {
     [SerializeField]
-    Text ItemNameTextBox;
+    public Text ItemNameTextBox;
     [SerializeField]
     public float Rectheight;
+    public int LineNum;
 
     public void LineAdjust()
     {
@@ -22,5 +23,7 @@ public class TextLineAdjust : MonoBehaviour
         TextBoxRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, TotalLength * LineQuantity);
         Debug.Log(ItemNameTextBox.text);
         Debug.Log(LineQuantity);
+
+        LineNum= (int)LineQuantity;
     }
 }
