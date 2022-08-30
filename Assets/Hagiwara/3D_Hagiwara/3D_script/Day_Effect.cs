@@ -17,7 +17,6 @@ public class Day_Effect : MonoBehaviour
     private bool DiceChange = false;
     private bool[] DiceNumber = new bool[6];
 
-    private bool PlayerTurn_change = true;
 
     void Start()
     {
@@ -65,16 +64,12 @@ public class Day_Effect : MonoBehaviour
 
     public void Day_EffectReaction(string Day)
     {
-        PlayerTurn_change = true;
         DaySquare_Search(Day);
         Effect_Move();
         //Effect_BGM();
         Effect_Dice();
+        Effect_NextMove();
         //Effect_Instance();
-        if (PlayerTurn_change)
-        {
-            game_Manager.PlayerTurn_change();
-        }
     }
 
 
@@ -86,17 +81,22 @@ public class Day_Effect : MonoBehaviour
         {
             if (daySquare_Move != "none")
             {
-                PlayerTurn_change = false;
+                int turn = game_Manager.Player_Turn - 1;
+                if (turn < 0)
+                {
+                    turn = game_Manager.joining_Player - 1;
+                }
                 char[] Char_Move = daySquare_Move.ToCharArray(); //Moveの内容をchar型に変換
                 if (daySquare_Move.StartsWith("ワープ"))
                 {
-                    if (daySquare_Move.Remove(0, 2) == "選択プレイヤー")
+                    if (daySquare_Move.Remove(0, 3) == "選択プレイヤー")
                     {
                         Debug.Log("指定したプレイヤーにワープ");
                         //選択したプレイヤーの元に飛ぶ
+                        Output_TurnChange(turn);
                         for (int Player = 0; Player < game_Manager.joining_Player; Player++)
                         {
-                            if (game_Manager.Player_Turn != Player)
+                            if (turn != Player)
                             {
                                 int XMass = game_Manager.Player[Player].GetComponent<Player_3D>().XPlayer_position;
                                 int YMass = game_Manager.Player[Player].GetComponent<Player_3D>().YPlayer_position;
@@ -110,6 +110,7 @@ public class Day_Effect : MonoBehaviour
                     {
                         Debug.Log("指定マスワープ");
                         //指定マスへのワープ
+                        Output_TurnChange(turn);
                         gameObject.GetComponent<Player_3D>().Player_WarpMove("ワープ", daySquare_Move.Remove(0, 3));
                     }
 
@@ -119,18 +120,18 @@ public class Day_Effect : MonoBehaviour
                     Debug.Log("集合");
                     for (int Player = 0; Player < game_Manager.joining_Player; Player++)
                     {
-                        if (game_Manager.Player_Turn != Player)
+                        if (turn != Player)
                         {
+                            Output_TurnChange(Player);
                             game_Manager.Player[Player].GetComponent<Player_3D>().Player_WarpMove("ワープ", daySquare_Move.Remove(0, 2));
-                            game_Manager.Player[Player].GetComponent<Player_3D>().Turn_change = true;
                         }
                     }
-                    game_Manager.PlayerTurn_change();
                 }
                 if (daySquare_Move.StartsWith("選択"))
                 {
                     Debug.Log("選択");
                     //複数あるマスから選択してワープ
+                    Output_TurnChange(turn);
                     if (daySquare_Move.Remove(0, 2) == "ワープマス")
                     {
                         for (int week = 0; week < game_Manager.Week.Length; week++)
@@ -179,11 +180,12 @@ public class Day_Effect : MonoBehaviour
                 {
                     Debug.Log("交換");
                     //選択したプレイヤーとマスを交換する
+                    Output_TurnChange(turn);
                     Origin_XMass = gameObject.GetComponent<Player_3D>().XPlayer_position;
                     Origin_YMass = gameObject.GetComponent<Player_3D>().YPlayer_position;
                     for (int Player = 0; Player < game_Manager.joining_Player; Player++)
                     {
-                        if (game_Manager.Player_Turn != Player)
+                        if (turn != Player)
                         {
                             int XMass = game_Manager.Player[Player].GetComponent<Player_3D>().XPlayer_position;
                             int YMass = game_Manager.Player[Player].GetComponent<Player_3D>().YPlayer_position;
@@ -197,6 +199,7 @@ public class Day_Effect : MonoBehaviour
                 {
                     Debug.Log("上下左右");
                     //上下左右、何マスの移動
+                    Output_TurnChange(turn);
                     //Debug.Log("日付効果でのスライド移動" + Char_Move[0] + ":" + Toint(Char_Move[1]));
                     gameObject.GetComponent<Player_3D>().Player_wayMove(daySquare_Move.Substring(0, 1), Toint(Char_Move[1]));
                 }
@@ -206,19 +209,29 @@ public class Day_Effect : MonoBehaviour
 
     public void Exchange_Position()//交換処理
     {
+        int turn = game_Manager.Player_Turn - 1;
+        if (turn < 0)
+        {
+            turn = game_Manager.joining_Player - 1;
+        }
         for (int Player = 0; Player < game_Manager.joining_Player; Player++)
         {
             if (game_Manager.Player[Player].GetComponent<Player_3D>().XPlayer_position == gameObject.GetComponent<Player_3D>().XPlayer_position && game_Manager.Player[Player].GetComponent<Player_3D>().YPlayer_position == gameObject.GetComponent<Player_3D>().YPlayer_position)
             {
-                if (game_Manager.Player_Turn != Player)
+                if (turn != Player)
                 {
                     string day = game_Manager.Week[Origin_YMass].Day[Origin_XMass].GetComponent<Mass_3D>().Day;
+                    Output_TurnChange(Player);
                     game_Manager.Player[Player].GetComponent<Player_3D>().Player_WarpMove("ワープ", day);
                     Debug.Log(day);
-                    game_Manager.Player[Player].GetComponent<Player_3D>().Turn_change = true;
                 }
             }
         }
+    }
+
+    public void Output_TurnChange(int Player)
+    {
+        game_Manager.Player[Player].GetComponent<Player_3D>().Turn_change = true;
     }
 
 
@@ -234,7 +247,6 @@ public class Day_Effect : MonoBehaviour
         {
             if (Day_Square_Master.Day_Squares[DayNumber].BGM != "none")
             {
-                PlayerTurn_change = false;
             }
 
         }
@@ -269,20 +281,16 @@ public class Day_Effect : MonoBehaviour
                     {
                         for (int Player = 0; Player < game_Manager.joining_Player; Player++)
                         {
-                            game_Manager.Player[Player].GetComponent<Player_3D>().DiceAdd += Toint(Char_NextDice[1]);
+                            Output_DiceAdd(Player, Char_NextDice[1]);
                         }
                     }
                     if (daySquare_NextDice.Substring(2, 1) == "*")
                     {
                         for (int Player = 0; Player < game_Manager.joining_Player; Player++)
                         {
-                            game_Manager.Player[Player].GetComponent<Player_3D>().DiceMultiply += Toint(Char_NextDice[1]);
+                            Output_DiceMultiply(Player, Char_NextDice[1]);
                         }
                     }
-                }
-                if (daySquare_NextDice.StartsWith("もう一度"))
-                {
-                    gameObject.GetComponent<Player_3D>().OneMore_Dice = true;
                 }
                 //ダイスの出目の変化
                 if (daySquare_NextDice.StartsWith("出目"))
@@ -338,6 +346,60 @@ public class Day_Effect : MonoBehaviour
         }
     }
 
+    private void Output_DiceAdd(int Player, char add)
+    {
+        game_Manager.Player[Player].GetComponent<Player_3D>().DiceAdd += Toint(add);
+    }
+
+    private void Output_DiceMultiply(int Player, char Multiply)
+    {
+        game_Manager.Player[Player].GetComponent<Player_3D>().DiceAdd += Toint(Multiply);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private void Effect_NextMove()
+    {
+        string daySquare_NextMove = Day_Square_Master.Day_Squares[DayNumber].NextMove;
+        char[] Char_NextMove = daySquare_NextMove.ToCharArray();
+        if (daySquare_NextMove != "Noon")
+        {
+            if (daySquare_NextMove != "none")
+            {
+                if (daySquare_NextMove.StartsWith("2回"))
+                {
+                    gameObject.GetComponent<Player_3D>().OneMore_Dice = true;
+                }
+
+                if (daySquare_NextMove.StartsWith("ダイス"))
+                {
+                    Debug.Log("何マスかまで進んでいい");
+                    if (daySquare_NextMove.Substring(3, 1) == "+")
+                    {
+                        gameObject.GetComponent<Player_3D>().MoveAdd_point += Toint(Char_NextMove[4]);
+                    }
+                }
+
+                if (daySquare_NextMove.StartsWith("選択"))
+                {
+                    gameObject.GetComponent<Player_3D>().selectwark = true;
+                    gameObject.GetComponent<Player_3D>().MoveAdd_point += Toint(Char_NextMove[2]);
+                }
+
+            }
+        }
+    }
+
 
 
     private void Effect_Instance()
@@ -347,7 +409,7 @@ public class Day_Effect : MonoBehaviour
         {
             if (Day_Square_Master.Day_Squares[DayNumber].Instance != "none")
             {
-                PlayerTurn_change = false;
+
             }
         }
     }
