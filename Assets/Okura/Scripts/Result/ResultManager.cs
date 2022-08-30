@@ -114,6 +114,7 @@ public class ResultManager : MonoBehaviourPunCallbacks
                                          textPoints.transform.localPosition.x, textPoints.transform.localPosition.y };//テキストの初期位置,[0][1]はアイテム,[2][3]はポイント
         int[] totalpoint = new int[playersnum];//トータルスコア格納用
         int count = 0;//ループ回数
+        
 
         DuplicateItem();
 
@@ -121,22 +122,36 @@ public class ResultManager : MonoBehaviourPunCallbacks
         {
             BordSizeAdjust(Items[count], i, ScrollBar[count]);
             int dupcount = 0;//アイテムの表示回数
+            Text LastCopy = null;
+            TextLineAdjust LastCopyLineAdjust = null;
 
             foreach (string j in Items[count].Keys)
             {
                 //最初は獲得したものを左揃えで表示
-                Text Copytext = Instantiate(textItems, new Vector3(initpos[0], initpos[1] + (dupcount * interval), 0.0f), Quaternion.identity);
+                Text Copytext = Instantiate(textItems, new Vector2(initpos[0], initpos[1]), Quaternion.identity);
                 Copytext.transform.SetParent(i, false);
                 Copytext.text = j;
+                var CopyLineAdjust = Copytext.GetComponent<TextLineAdjust>();
+                CopyLineAdjust.LineAdjust();
+
+                if (dupcount >= 1) {
+                    var CopyTextPosition = Copytext.GetComponent<RectTransform>().anchoredPosition;
+                    CopyTextPosition.y = (LastCopy.GetComponent<RectTransform>().anchoredPosition.y + (-(LastCopyLineAdjust.Rectheight / 2 - (LastCopyLineAdjust.Rectheight - 12) / 2))) + interval;
+                    Copytext.GetComponent<RectTransform>().anchoredPosition = CopyTextPosition;
+                    Debug.Log(LastCopy.GetComponent<RectTransform>().anchoredPosition.y - Copytext.GetComponent<RectTransform>().anchoredPosition.y);
+                }
+
+                LastCopy = Copytext;
+                LastCopyLineAdjust = LastCopy.GetComponent<TextLineAdjust>();
 
                 //次に獲得したもののポイントを右揃えで表示
-                Text point = Instantiate(textPoints, new Vector3(initpos[2], initpos[3], 0.0f), Quaternion.identity);
-                point.transform.SetParent(Copytext.transform, false);
-                point.alignment = TextAnchor.MiddleRight;
-                point.text = Items[count][j] + "P";
+                Text point = Instantiate(textPoints, new Vector2(initpos[2], initpos[3]), Quaternion.identity);
+                    point.transform.SetParent(Copytext.transform, false);
+                    point.alignment = TextAnchor.MiddleRight;
+                    point.text = Items[count][j] + "P";
 
-                totalpoint[count] += Items[count][j];
-                dupcount++;
+                    totalpoint[count] += Items[count][j];
+                    dupcount++;
             }
 
             total[count].text = totalpoint[count].ToString() + "P";//トータルスコアの表示
@@ -222,7 +237,6 @@ public class ResultManager : MonoBehaviourPunCallbacks
         }
 
 
-        var BordSize_x = (textItems.GetComponent<RectTransform>().sizeDelta.x) + (textPoints.GetComponent<RectTransform>().sizeDelta.x);//ボードのサイズを取得　（戻り値のため）
         var BordSize_y = (textItems.GetComponent<RectTransform>().sizeDelta.y) * BlockQuantity;//ボードのサイズを取得　（戻り値のため）
 
         SBG.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, BordSize_y);
