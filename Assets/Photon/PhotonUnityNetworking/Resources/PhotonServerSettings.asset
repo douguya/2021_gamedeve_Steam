@@ -97,6 +97,7 @@ MonoBehaviour:
   - Day_Animation_RPC_2
   - Log_RPC
   - Log_RPC__Oter
+  - Output_Playerloot
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

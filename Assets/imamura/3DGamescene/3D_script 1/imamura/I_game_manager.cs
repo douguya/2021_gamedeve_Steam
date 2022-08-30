@@ -43,6 +43,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     public GameObject GameStartButton;
     public GameObject SceneManager;
     public GameObject Log;
+    public GameObject ReadyButton;
     public Icon_Sprite_Manager IconSprits;
 
     //  ここまで=========================================================================================//
@@ -63,6 +64,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PlayerTurn_change();
         GameStartButton.SetActive(false);
+        ReadyButton.SetActive(false);
     }
 
 
@@ -252,8 +254,8 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     
         List.GetComponent<RectTransform>().anchoredPosition=ListTransform;
 
-        Debug.Log("まさかーーーーーーー"+num);
-        List.GetComponent<ItemBlock_List_Script>().IcobImage.GetComponent<Image>().sprite=IconSprits.Icons[num];
+        //Debug.Log("まさかーーーーーーー"+num);
+     
 
 
 
@@ -383,7 +385,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     {
 
 
-        Debug.Log("タ―――――――――――――――――――――――――――――――――ーン");
+      //  Debug.Log("タ―――――――――――――――――――――――――――――――――ーン");
         if (Goal_check == true)//誰かがゴールしていたら
         {
             Goal_Again();//ゴールの再設置
@@ -503,7 +505,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     {
 
         SceneManager.GetComponent<SceneManagaer>().TransitionToResult();
-        Debug.Log("ゲーム終了");
+      //  Debug.Log("ゲーム終了");
     }
 
 
@@ -572,6 +574,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     //ここまで=============================================================================================================================
     public void Player_Same()
     {
+        Debug.Log("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"+8);
         int[] Alignment = { 4, 4, 4, 4 };
         int Count = 0;
         bool differNum_1 = true;

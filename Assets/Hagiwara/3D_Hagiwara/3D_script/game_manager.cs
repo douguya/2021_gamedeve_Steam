@@ -498,13 +498,13 @@ public class game_manager : MonoBehaviour
 
     public void Output_DiceStart()
     {
-        //Dice.GetComponent<newRotate>().RotateStart();
+        Dice.GetComponent<newRotate>().RotateStart();
     }
 
     public int Output_DiceStop()
     {
-        //Dice.GetComponent<newRotate>().newDiceStop();
-        return 1;//Dice.GetComponent<newRotate>().DiceNum;
+        Dice.GetComponent<newRotate>().newDiceStop();
+        return Dice.GetComponent<newRotate>().DiceNum;
     }
 
 
@@ -553,7 +553,19 @@ public class game_manager : MonoBehaviour
     public void Player_select()
     {
         //Debug.Log("クリックしたやつマネージャーに飛んだ");
-        Player[Player_Turn].GetComponent<Player_3D>().MoveSelect_Clicked();
+        int turn = Player_Turn - 1;
+        if (turn < 0)
+        {
+            turn = joining_Player - 1;
+        }
+        if (Player[turn].GetComponent<Player_3D>().Turn_change == true)
+        {
+            Player[turn].GetComponent<Player_3D>().MoveSelect_Clicked();
+        }
+        else
+        {
+            Player[Player_Turn].GetComponent<Player_3D>().MoveSelect_Clicked();
+        }
     }
 
 
@@ -619,11 +631,16 @@ public class game_manager : MonoBehaviour
     //日付のビデオを非表示にする出力
     public void Output_ClickVideoFinish()
     {
+        int turn = Player_Turn - 1;
         Video_obj.SetActive(false);
         HopUp.SetActive(true);
-        int XMass = Player[Player_Turn].GetComponent<Player_3D>().XPlayer_position;
-        int YMass = Player[Player_Turn].GetComponent<Player_3D>().YPlayer_position;
-        Player[Player_Turn].GetComponent<Player_3D>().HopUp_Setting(Week[YMass].Day[XMass].GetComponent<Mass_3D>().Day);
+        if (turn < 0)
+        {
+            turn = joining_Player - 1;
+        }
+        int XMass = Player[turn].GetComponent<Player_3D>().XPlayer_position;
+        int YMass = Player[turn].GetComponent<Player_3D>().YPlayer_position;
+        Player[turn].GetComponent<Player_3D>().HopUp_Setting(Week[YMass].Day[XMass].GetComponent<Mass_3D>().Day);
     }
 
 
@@ -637,6 +654,12 @@ public class game_manager : MonoBehaviour
     //ホップアップの非表示
     public void HopUp_hid()
     {
+        int turn = Player_Turn - 1;
         HopUp.SetActive(false);
+        if (turn < 0)
+        {
+            turn = joining_Player - 1;
+        }
+        Player[turn].GetComponent<Player_3D>().StertDayEffect();
     }
 }
