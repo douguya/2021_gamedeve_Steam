@@ -15,12 +15,12 @@ public class Player_3D : MonoBehaviour
 
     public int Move_Point = 0;                    //プレイヤーの移動できる歩数 
     private int select_Point = 0;                 //マスを選択できる数
-    private bool[] Player_warpMove = new bool[11];//プレイヤーの移動方法
+    private bool[] Player_warpMove = new bool[40];//プレイヤーの移動方法
 
     public int Goalcount = 0;
 
-    private int[] XPlayer_Loot = new int[11];     //選択したマスを記憶する
-    private int[] YPlayer_Loot = new int[11];
+    private int[] XPlayer_Loot = new int[40];     //選択したマスを記憶する
+    private int[] YPlayer_Loot = new int[40];
 
 
     public GameObject GameManager;                //GameManagerオブジェクトの取得
@@ -37,6 +37,14 @@ public class Player_3D : MonoBehaviour
     public bool OneMore_Dice;
     public int DiceAdd = 0;
     public int DiceMultiply = 0;
+
+    private bool Effect_ready;
+
+    private bool MoveStop_Push;
+    public int MoveAdd_point = 0;
+    public int MoveStop_point = 0;
+    private int MovePoint_Count = 0;
+    public bool selectwark;
 
     void Start()
     {
@@ -74,6 +82,10 @@ public class Player_3D : MonoBehaviour
     {
         DiceButton.GetComponent<Button>().interactable = true;
         ButtonText.GetComponent<Text>().text = "ダイスを回す";
+        if (selectwark)
+        {
+            ButtonText.GetComponent<Text>().text = "進む";
+        }
     }
 
     //ダイスを止めて値を受け取る
@@ -81,21 +93,25 @@ public class Player_3D : MonoBehaviour
     {
         if (OneMore_Dice)
         {
+            OneMore_Dice = false;
+            DiceAdd = Manager.Output_DiceStop();
+            Dice_ready();
+        }
+        else
+        {
             Move_Point = Manager.Output_DiceStop() + DiceAdd;
             if (DiceMultiply != 0)
             {
                 Move_Point *= DiceMultiply;
             }
+            MoveStop_point = Move_Point;
+            Move_Point += MoveAdd_point;
+            MovePoint_Count = 0;
+            MoveAdd_point = 0;
             DiceAdd = 0;
             DiceMultiply = 0;
             //Debug.Log("歩数：" + Move_Point);
             MoveSelect();
-        }
-        else
-        {
-            OneMore_Dice = false;
-            DiceAdd = Manager.Output_DiceStop();
-            Dice_ready();
         }
     }
 
@@ -103,20 +119,54 @@ public class Player_3D : MonoBehaviour
     {
         if (PlayerNumber == Manager.Player_Turn)
         {
-            if (DiceStrat)
+            if (selectwark)
             {
-                gameObject.GetComponent<Day_Effect>().DiceSetting();
-                //ここでダイスを回す処理
-                Manager.Output_DiceStart();
-                ButtonText.GetComponent<Text>().text = "ダイスを止める";
-                DiceStrat = false;
+                selectwark = false;
+                DiceButton.GetComponent<Button>().interactable = false;
+                ButtonText.GetComponent<Text>().text = "移動を選択";
+                Move_Point = MoveAdd_point;
+                MovePoint_Count = 0;
+                MoveAdd_point = 0;
+                DiceAdd = 0;
+                DiceMultiply = 0;
+                //Debug.Log("歩数：" + Move_Point);
+                MoveSelect();
             }
             else
             {
-                Dice_Stop();//ダイスを止めて値を受け取る
-                DiceButton.GetComponent<Button>().interactable = false;
-                ButtonText.GetComponent<Text>().text = "移動を選択";
-                DiceStrat = true;
+                if (MoveStop_Push)
+                {
+                    MoveStop_Push = false;
+                    select_Point = 0;
+                    DiceButton.GetComponent<Button>().interactable = false;
+                    ButtonText.GetComponent<Text>().text = "移動を選択";
+                    for (int week = 0; week < Manager.Week.Length; week++)
+                    {
+                        for (int day = 0; day < Manager.Week[0].Day.Length; day++)
+                        {
+                            Output_SelectClear(week, day);
+                        }
+                    }
+                    StartCoroutine(PlayerMove_Coroutine(MovePoint_Count, true));//プレイヤーの移動開始
+                }
+                else
+                {
+                    if (DiceStrat)
+                    {
+                        gameObject.GetComponent<Day_Effect>().DiceSetting();
+                        //ここでダイスを回す処理
+                        Manager.Output_DiceStart();
+                        ButtonText.GetComponent<Text>().text = "ダイスを止める";
+                        DiceStrat = false;
+                    }
+                    else
+                    {
+                        Dice_Stop();//ダイスを止めて値を受け取る
+                        DiceButton.GetComponent<Button>().interactable = false;
+                        ButtonText.GetComponent<Text>().text = "移動を選択";
+                        DiceStrat = true;
+                    }
+                }
             }
         }
     }
@@ -200,6 +250,8 @@ public class Player_3D : MonoBehaviour
                     {
                         //Debug.Log("決定したマス！");
                         select_Point--;                                                      //プレイヤーの移動できる歩数を1つ減らす
+                        MoveStop_point--;
+                        MovePoint_Count++;
                         Manager.Week[week].Day[day].GetComponent<Mass_3D>().On_Click = false;//クリックされた反応を消す
                         YPlayer_Loot[Move_Point - select_Point] = week;                      //移動決定したマスを記憶する
                         XPlayer_Loot[Move_Point - select_Point] = day;
@@ -218,13 +270,21 @@ public class Player_3D : MonoBehaviour
                     }
                 }
             }
-
+            if (MoveStop_point <= 0)
+            {
+                MoveStop_Push = true;
+                DiceButton.GetComponent<Button>().interactable = true;
+                ButtonText.GetComponent<Text>().text = "ここで止まる";
+            }
             if (select_Point > 0)         //まだ移動できる歩数があるなら
             {
                 MoveSelect_Display();     //選択できるマスの表示
             }
             else
             {
+                MoveStop_Push = false;
+                DiceButton.GetComponent<Button>().interactable = false;
+                ButtonText.GetComponent<Text>().text = "移動";
                 Debug.Log("行動終了");
                 StartCoroutine(PlayerMove_Coroutine(Move_Point, true));//プレイヤーの移動開始
             }
@@ -272,7 +332,7 @@ public class Player_3D : MonoBehaviour
                 {
                     Output_AnimationUp();//上移動のアニメーション
                 }
-                else if (YPlayer_Loot[Move - 1] == 5)
+                else if (YPlayer_Loot[Move] < YPlayer_Loot[Move - 1] && YPlayer_Loot[Move - 1] == 5)
                 {
                     Output_AnimationUpMonth();//上移動で月を跨ぐアニメーション
                 }
@@ -280,7 +340,7 @@ public class Player_3D : MonoBehaviour
                 {
                     Output_AnimationDown();//下移動のアニメーション
                 }
-                else if (YPlayer_Loot[Move - 1] == 4)
+                else if (YPlayer_Loot[Move] > YPlayer_Loot[Move - 1] && YPlayer_Loot[Move - 1] == 4)
                 {
                     Output_AnimationDownMonth();//下移動で月を跨ぐアニメーション
                 }
@@ -288,7 +348,7 @@ public class Player_3D : MonoBehaviour
                 {
                     Output_AnimationRight();//右移動のアニメーション
                 }
-                else if (XPlayer_Loot[Move - 1] == 6)
+                else if (XPlayer_Loot[Move] > XPlayer_Loot[Move - 1] && XPlayer_Loot[Move - 1] == 6)
                 {
                     Output_AnimationRightMonth();//右移動で月を跨ぐアニメーション
                 }
@@ -296,7 +356,7 @@ public class Player_3D : MonoBehaviour
                 {
                     Output_AnimationLeft();//左移動のアニメーション
                 }
-                else if (XPlayer_Loot[Move - 1] == 7)
+                else if (XPlayer_Loot[Move] < XPlayer_Loot[Move - 1] && XPlayer_Loot[Move - 1] == 7)
                 {
                     Output_AnimationLeftMonth();//左移動で月を跨ぐアニメーション
                 }
@@ -322,16 +382,14 @@ public class Player_3D : MonoBehaviour
             gameObject.GetComponent<Day_Effect>().Exchange_Position();
         }
         Manager.Player_Same();
+        Debug.Log(Turn_change);
         if (Turn_change == false)
         {
             if (Effect == true)
             {
                 StopDay_Effect(); //止まったマスの処理
             }
-            else
-            {
-                Manager.PlayerTurn_change();
-            }
+            Manager.PlayerTurn_change();
         }
         Turn_change = false;
     }
@@ -460,7 +518,6 @@ public class Player_3D : MonoBehaviour
                     XPlayer_Loot[Move] = XPlayer_Loot[Move - 1] - 1;
                     break;
             }
-            Debug.Log(Move + " : " + YPlayer_Loot[Move] + ":" + XPlayer_Loot[Move]);
             if (YPlayer_Loot[Move] < 0 || Manager.Week.Length < YPlayer_Loot[Move])
             {
                 YPlayer_Loot[Move] = YPlayer_Loot[Move - 1];
@@ -469,7 +526,7 @@ public class Player_3D : MonoBehaviour
             {
                 XPlayer_Loot[Move] = XPlayer_Loot[Move - 1];
             }
-            Debug.Log(Move + " : " + YPlayer_Loot[Move] + ":" + XPlayer_Loot[Move]);
+            //Debug.Log(Move + " : " + YPlayer_Loot[Move] + ":" + XPlayer_Loot[Move]);
         }
         StartCoroutine(PlayerMove_Coroutine(step, false));//プレイヤーの移動開始
     }
@@ -520,10 +577,6 @@ public class Player_3D : MonoBehaviour
                 Output_hideCoverClear(YPlayer_position, XPlayer_position);//マスを開いた表示にする
                 Player_DayEffect();//日付の効果
             }
-            else
-            {
-                Manager.PlayerTurn_change();         //ターンを変える
-            }
         }
     }
 
@@ -550,9 +603,8 @@ public class Player_3D : MonoBehaviour
     {
         string day = Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<Mass_3D>().Day;//発動する日付を取得
         StartCoroutine(Day_Animation(day));     //ビデオの再生とホップアップの表示
-        gameObject.GetComponent<Day_Effect>().Day_EffectReaction(day);
+        Effect_ready = true;
         //ここに日付の効果入れる
-
     }
 
     //開いたマスを非表示にして出力
@@ -581,5 +633,16 @@ public class Player_3D : MonoBehaviour
     {
         Manager.Output_HopUp();         //ホップアップを表示する
         gameObject.GetComponent<Day_Effect>().Output_HopUp_Setting(day);        //ホップアップを日付のものに変更する
+    }
+
+
+    public void StertDayEffect()
+    {
+        if (Effect_ready)
+        {
+            Effect_ready = false;
+            string day = Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<Mass_3D>().Day;//発動する日付を取得
+            gameObject.GetComponent<Day_Effect>().Day_EffectReaction(day);
+        }
     }
 }
