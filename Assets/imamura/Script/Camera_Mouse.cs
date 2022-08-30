@@ -19,6 +19,7 @@ public class Camera_Mouse : MonoBehaviour
     private Vector3 Max_Position=new Vector3(84f, 82f, 56f);
     private Vector3 Mini_Position = new Vector3(-69f, 6f, -69);
 
+    public bool Permission_Zoom = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,7 +49,7 @@ public class Camera_Mouse : MonoBehaviour
 
     private void Wheel_Zoom()
     {
-        if (EventSystem.current.IsPointerOverGameObject()==false)
+        if (Permission_Zoom)
         {
             Mousewheel =Input.GetAxis("Mouse ScrollWheel");//マウスホイール値の保存
             mouse_set= new Vector2(Input.mousePosition.x-Screen.width/2, Input.mousePosition.y-Screen.height/2);//画面の中心を原点としたマウスのスクリーン座標の取得
