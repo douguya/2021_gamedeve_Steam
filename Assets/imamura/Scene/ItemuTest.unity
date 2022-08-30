@@ -2197,10 +2197,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemBlock_List
       objectReference: {fileID: 0}
+    - target: {fileID: 5603847152458705017, guid: 0743066c9ca450940b8ee8572113a842, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 143.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 5603847152458705017, guid: 0743066c9ca450940b8ee8572113a842, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -21.525
+      objectReference: {fileID: 0}
     - target: {fileID: 7785458026641337111, guid: 0743066c9ca450940b8ee8572113a842, type: 3}
       propertyPath: sceneViewId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8078982878815651510, guid: 0743066c9ca450940b8ee8572113a842, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: f56362f3f09a1e74b94484c56df5eeb5, type: 3}
     - target: {fileID: 8405789758794973208, guid: 0743066c9ca450940b8ee8572113a842, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

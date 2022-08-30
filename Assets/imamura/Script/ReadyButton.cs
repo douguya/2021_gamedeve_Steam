@@ -60,7 +60,7 @@ public class ReadyButton : MonoBehaviourPunCallbacks
             if ((string)prop.Key=="ReadyPlayerNum")//変更されたプレイヤープロパティがマテリアルに関するものだった場合
             {
 
-                Debug.Log("CCCCCCCCCCCCCCCCCCC");
+    
               
                     int loop = 0;
 
@@ -87,8 +87,11 @@ public class ReadyButton : MonoBehaviourPunCallbacks
                     if (PhotonNetwork.PlayerList.Length == loop) //準備完了人数と プレイヤー全体の人数が同じとき
                     {
                         if (PhotonNetwork.LocalPlayer.IsMasterClient)//そのうえでプレイヤーがマスタークライアントである場合
-                        {
+                    {
+                          if (PhotonNetwork.CurrentRoom.IsOpen == true)//ゲーム中でないなら
+                          {
                             GameStart.SetActive(true);//ゲームスタートボタンの出現
+                          }
                         }
                     }
                     else
@@ -100,10 +103,10 @@ public class ReadyButton : MonoBehaviourPunCallbacks
 
             }
 
-            Debug.Log("----------------"+ player.ActorNumber);
+          
 
         }
-        Debug.Log("HHHHHHHHHHHHHHHHH");
+     
        
         
 

@@ -114,19 +114,23 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     {
 
         MaterialChange();
+     
         var position = new Vector3(0.28f, -3.37f, -0.73f);
         GameObject Player = PhotonNetwork.Instantiate("Player3D", position, Quaternion.identity);//プレイヤーの生成
         GameObject ItemList_UGI = PhotonNetwork.Instantiate("ItemBlock_List", position, Quaternion.identity);//プレイヤーのアイテムリストの作成
         ReadyButton_Script.JoinedRoom_Jointed();
-  
+
+        IconChange();
+
         Player.GetComponent<I_Player_3D>().DiceButton.GetComponent<Button>().onClick.AddListener(Player.GetComponent<I_Player_3D>().DicePush);
         string Log= "プレイヤー："+PhotonNetwork.NickName+"が入出しました。";
         I_game_Manager_Script.Log_connection(Log);
-      
 
+        
 
         yield return new WaitForSeconds(0.4f);
         Playerlist_Update();
+        
         LoadImage.SetActive(false);
         yield break;
 
@@ -150,14 +154,50 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
             if (juje == false)
             {
-                Debug.Log("TTTTTTTTTTTTTTTTTTTTTTT"+System.Array.IndexOf(MaterialsList, Materials));
+              
                 hashtable["PlayerNumMaterial"]=System. Array.IndexOf(MaterialsList, Materials);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);//変更したカスタムプロパティの更新
                 break;
             }
+
+
+           
         }
+
     }
 
+    public void IconChange()//プレイヤーのアイコンのプロパティを変更する
+    {
+
+
+
+        for (int loop=0;loop<4;loop++) {
+            bool juje = false;
+            foreach (var PList in PhotonNetwork.PlayerList)//プレイヤーリストの内容を順番に格納
+            {
+                if (PList.CustomProperties.ContainsValue(PList.CustomProperties["iconNum"]))//そのマテリアルをプロパティに持つプレイヤーがいた場合
+                {
+                    if ((int)PList.CustomProperties["iconNum"]==loop) {
+                        juje=true;
+
+                    }
+                }
+            }
+
+            if (juje == false)
+            {
+
+                hashtable["iconNum"]=loop;
+                PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);//変更したカスタムプロパティの更新
+
+                break;
+            }
+
+
+
+        }
+
+    }
 
 
 
@@ -245,9 +285,10 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
 
 
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.6f);
         Playerlist_Update();//プレイヤーのオブジェクト格納用/初期位置への移動も含む
         Playerlist_Material_Update();
+        Icon_Update();
         yield break;
     }
 
@@ -297,22 +338,17 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
                         if (Player.GetComponent<PhotonView>().CreatorActorNr==obj.GetComponent<PhotonView>().CreatorActorNr) //リストのプレイヤーのIDとオブジェクトの作成者のADを比較
                         {
                             Player.GetComponent<I_Player_3D>().ItemBlock=obj;//ブロックリストを格納
-                            Debug.Log("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
+                 
                             obj.GetComponent<ItemBlock_List_Script>().Player=Player;
                             I_game_Manager_Script.ItemList_setting(obj, loop);//プレイ矢―を所定の位置に移動
 
+                           
 
                         }
                     }
 
-
-
-
-
-
                 }
-
-               
+              
             }
             loop++;
             I_game_Manager_Script.joining_Player = PhotonNetwork.PlayerList.Length;
@@ -321,14 +357,14 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
                 Debug.LogError("問題発生。部屋を入りなおして下さい");
             }
         }
-
+       
 
 
     }
 
 
 
-    public string Playername(GameObject Player)
+    public string Playername(GameObject Player)//プレイヤ―の名前をとる
     {
         string name="";
         foreach (var PList in PhotonNetwork.PlayerList)//プレイヤーリストの内容を順番に格納
@@ -353,10 +389,14 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
                 Playerlist_Material_Update();
 
+            }
+            if ((string)prop.Key=="iconNum")//変更されたプレイヤープロパティがマテリアルに関するものだった場合
+            {
+
+               Icon_Update();
 
             }
-
-            Debug.Log("----------------"+ player.ActorNumber);
+         
 
         }
     }
@@ -383,6 +423,29 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
                         ob.GetComponent<Renderer>().material=MaterialsList[(int)PList.CustomProperties["PlayerNumMaterial"]];
                     }
 
+                   
+                }
+            }
+        }
+    }
+    public void Icon_Update()
+    {
+        GameObject[] ItemListSpot = GameObject.FindGameObjectsWithTag("ItemList_UGI");//プレイヤーオブジェクトの一時保存場所　タグで軒並みとる
+      
+        foreach (var PList in PhotonNetwork.PlayerList)//プレイヤーリストの内容を順番に格納
+        {
+
+
+            foreach (GameObject obj in ItemListSpot)//プレイヤーリストの中身と、一時保存したプレイヤーオブジェクトを突き合わせる
+            {
+
+                if (PList.ActorNumber==obj.GetComponent<PhotonView>().CreatorActorNr) //リストのプレイヤーのIDとオブジェクトの作成者のADを比較
+                {
+
+                    var Image = obj.GetComponent<ItemBlock_List_Script>().IcobImage.GetComponent<Image>();
+                    int num = (int)PList.CustomProperties["iconNum"];
+                    Image.sprite= I_game_Manager_Script.IconSprits.Icons[num];//マテリアルと同じ手順でアイテムリストの画像を変更
+                    Debug.Log("AAAAAAAAAAAA"+num);
                 }
             }
         }
