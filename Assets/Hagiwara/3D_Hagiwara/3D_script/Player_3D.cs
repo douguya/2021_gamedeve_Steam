@@ -483,8 +483,11 @@ public class Player_3D : MonoBehaviour
                     }
                 }
             }
-            Player_warpMove[1] = true;
-            StartCoroutine(PlayerMove_Coroutine(1, false));//プレイヤーの移動開始
+            if (Manager.Week[YPlayer_Loot[1]].Day[XPlayer_Loot[1]].activeInHierarchy == true)
+            {
+                Player_warpMove[1] = true;
+                StartCoroutine(PlayerMove_Coroutine(1, false));//プレイヤーの移動開始
+            }
         }
     }
 
@@ -493,6 +496,7 @@ public class Player_3D : MonoBehaviour
     {
         YPlayer_Loot[0] = YPlayer_position;                  //プレイヤーの現在のマスを記憶する
         XPlayer_Loot[0] = XPlayer_position;
+        int Step_Count = step;
         Debug.Log(0 + " : " + YPlayer_Loot[0] + ":" + XPlayer_Loot[0]);
         for (int Move = 1; Move < step + 1; Move++)
         {
@@ -520,15 +524,23 @@ public class Player_3D : MonoBehaviour
             }
             if (YPlayer_Loot[Move] < 0 || Manager.Week.Length < YPlayer_Loot[Move])
             {
+                Step_Count--;
                 YPlayer_Loot[Move] = YPlayer_Loot[Move - 1];
             }
             if (XPlayer_Loot[Move] < 0 || Manager.Week[0].Day.Length < XPlayer_Loot[Move])
             {
+                Step_Count--;
+                XPlayer_Loot[Move] = XPlayer_Loot[Move - 1];
+            }
+            if (Manager.Week[YPlayer_Loot[Move]].Day[XPlayer_Loot[Move]].activeInHierarchy == false)
+            {
+                Step_Count--;
+                YPlayer_Loot[Move] = YPlayer_Loot[Move - 1];
                 XPlayer_Loot[Move] = XPlayer_Loot[Move - 1];
             }
             //Debug.Log(Move + " : " + YPlayer_Loot[Move] + ":" + XPlayer_Loot[Move]);
         }
-        StartCoroutine(PlayerMove_Coroutine(step, false));//プレイヤーの移動開始
+        StartCoroutine(PlayerMove_Coroutine(Step_Count, false));//プレイヤーの移動開始
     }
 
 
