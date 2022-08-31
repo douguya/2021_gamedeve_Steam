@@ -455,7 +455,7 @@ public class game_manager : MonoBehaviour
         {
             week = Random.Range(0, Week.Length);                    //横の列のランダム
             day = Random.Range(0, Week[0].Day.Length);              //縦の列のランダム
-        } while (Week[week].Day[day].GetComponent<Mass_3D>().Day == "null" && MonthCount(day, week) == true);//選んだマスに日付があるか＆同じ月じゃないものを見つけるまで繰り返す
+        } while (Week[week].Day[day].GetComponent<Mass_3D>().Day == "null" && MonthCount(day, week) == true && Week[week].Day[day].activeInHierarchy == true);//選んだマスに日付があるか＆同じ月じゃないものを見つけるまで繰り返す
 
         Output_GoalSetting(week, day);
     }
