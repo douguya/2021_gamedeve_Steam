@@ -429,7 +429,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
             if (NowPlayerItemus[loop].ItemLifespan!="null")
             {
                 NowPlayerItemus[loop].ItemLifespan=(int.Parse(NowPlayerItemus[loop].ItemLifespan)-1).ToString();
-                if (int.Parse(NowPlayerItemus[loop].ItemLifespan)<=0) { NowPlayerItemus.Remove(NowPlayerItemus[loop]); }
+                if (int.Parse(NowPlayerItemus[loop].ItemLifespan)<=0) { NowPlayerItemus.Remove(NowPlayerItemus[loop]); }//------------------------------------------------------------------------
             }
         }
 
