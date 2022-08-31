@@ -17,6 +17,7 @@ MonoBehaviour:
   Anniversary: "\u516C\u8846\u96FB\u8A71\u306E\u65E5"
   Day: 9/11
   ItemSprite: {fileID: 21300000, guid: 3cc5b63f846bf5e42b7dfba9ea316a6a, type: 3}
+  classification: "\u91D1\u5C5E"
   ItemLifespan: null
   Commentary: 
   ItemEffect: 0
