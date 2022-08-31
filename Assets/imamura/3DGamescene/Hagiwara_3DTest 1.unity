@@ -4190,6 +4190,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: kitchen_table_2
       objectReference: {fileID: 0}
+    - target: {fileID: 5595952652454102385, guid: d0176f8f3ea0a1444a4f7bbce479e54a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1dedba743b4129145adda83e5f46cefd, type: 2}
+    - target: {fileID: 5595952652454102387, guid: d0176f8f3ea0a1444a4f7bbce479e54a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1dedba743b4129145adda83e5f46cefd, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0176f8f3ea0a1444a4f7bbce479e54a, type: 3}
 --- !u!1001 &536380909
