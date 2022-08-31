@@ -120,8 +120,8 @@ public class ResultManager : MonoBehaviourPunCallbacks
 
         foreach(Transform i in ScoreBackGround)
         {
-            BordSizeAdjust(Items[count], i, ScrollBar[count]);
             int dupcount = 0;//アイテムの表示回数
+            float TotalBordSize = 0.0f;
             Text LastCopy = null;
             TextLineAdjust LastCopyLineAdjust = null;
 
@@ -144,6 +144,7 @@ public class ResultManager : MonoBehaviourPunCallbacks
                     var dump = (linenum - 1)* Copytext.fontSize;
                     CopyTextPosition.y = (LastCopy.GetComponent<RectTransform>().anchoredPosition.y + -(LastCopyLineAdjust.Rectheight / 2 )- dump) + interval;
                     Copytext.GetComponent<RectTransform>().anchoredPosition = CopyTextPosition;
+                    TotalBordSize = -((CopyTextPosition.y + -(CopyLineAdjust.Rectheight / 2) - dump) + interval);
                     Debug.Log(LastCopy.GetComponent<RectTransform>().anchoredPosition.y - Copytext.GetComponent<RectTransform>().anchoredPosition.y);
                 }
 
@@ -169,6 +170,7 @@ public class ResultManager : MonoBehaviourPunCallbacks
                     dupcount++;
             }
 
+            BordSizeAdjust(Items[count], i, ScrollBar[count], TotalBordSize);
             total[count].text = totalpoint[count].ToString() + "P";//トータルスコアの表示
             count++;
         }
@@ -232,7 +234,7 @@ public class ResultManager : MonoBehaviourPunCallbacks
 
 
     //ボードのサイズ調整
-    public void BordSizeAdjust(Dictionary<string, int> PlayerItems, Transform SBG, GameObject Bar)
+    public void BordSizeAdjust(Dictionary<string, int> PlayerItems, Transform SBG, GameObject Bar, float TotalBordY)
     {
         int BlockQuantity;
 
@@ -252,7 +254,7 @@ public class ResultManager : MonoBehaviourPunCallbacks
         }
 
 
-        var BordSize_y = (textItems.GetComponent<RectTransform>().sizeDelta.y) * BlockQuantity;//ボードのサイズを取得　（戻り値のため）
+        var BordSize_y = TotalBordY;//ボードのサイズを取得　（戻り値のため）
 
         SBG.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, BordSize_y);
     }
