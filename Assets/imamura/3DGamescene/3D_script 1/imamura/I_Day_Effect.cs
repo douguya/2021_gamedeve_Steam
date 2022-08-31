@@ -430,6 +430,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                 case "蒸し料理の日":
 
                     var e = "持ってる食料アイテムを失う";
+                    SerchClassification("食べ物");
 
                     break;
 
@@ -437,13 +438,13 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                 case "鉄スクラップの日":
 
                     var ew = "鉄スクラップの日持ってる金属製アイテムが一つスクラップになるスクラップ：ポイント＋１";
-
+                    SerchClassification("金属");
                     break;
 
 
 
                 case "質屋の日":
-
+                    Conversion();
 
 
                     break;
@@ -456,8 +457,11 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                     break;
 
                 case "セプテンバーバレンタイン":
+                    var itemus = Player.GetComponent<I_Player_3D>().Hub_Items;
+                    int loop = itemus.Count;
 
-
+                    int rnd = Random.Range(0, loop);
+                    Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(rnd);
 
                     break;
 
@@ -477,6 +481,69 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
 
         }
     }
+
+
+
+
+
+    public void SerchClassification(string Category)
+    {
+        var itemus = Player.GetComponent<I_Player_3D>().Hub_Items;
+        int loop = itemus.Count;
+      
+        int rnd = Random.Range(1, loop);
+
+        loop=0;
+        var count=0;
+        foreach (var item in itemus)
+        {
+            
+            if (item.classification==Category)
+            {
+               
+                if (count==rnd)
+                {
+                    Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(loop);
+                }
+                loop++;
+            }
+            count++;
+
+        }
+
+    }
+
+
+
+
+    public void Conversion()//質屋　ランダムなアイテムをランダムなアイテムに変換する
+    {
+        var itemus = Player.GetComponent<I_Player_3D>().Hub_Items;
+        int loop = 0;
+        foreach (var item in itemus)
+        {
+         
+            if (itemus[loop].ItemName=="ランダムなアイテム")
+            {
+                Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(loop);
+            }
+            loop++;//3
+
+        }
+        int rnd = Random.Range(0, itemus.Count);
+
+
+
+        Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(rnd);
+
+
+
+    }
+
+
+
+
+
 
 }
 

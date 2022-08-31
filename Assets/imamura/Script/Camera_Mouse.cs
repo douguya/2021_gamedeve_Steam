@@ -208,6 +208,10 @@ public class Camera_Mouse : MonoBehaviour
     }
 
 
+
+
+
+
     public float Map(float value, float R_min, float R_max, float V_min, float V_max)
     {
         /*
@@ -224,5 +228,7 @@ public class Camera_Mouse : MonoBehaviour
         return V_min+ (V_max-V_min)/((R_max-R_min)/(value-R_min));//value‚ğV_min‚©‚çV_Max‚Ì”ÍˆÍ‚©‚çR_min‚©‚çR_max‚Ì”ÍˆÍ‚É‚·‚é
 
     }
+
+
 
 }

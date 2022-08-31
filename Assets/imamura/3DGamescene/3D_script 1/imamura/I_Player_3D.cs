@@ -812,6 +812,24 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
 
     }
+
+
+    public void ItemAdd_ToConnect(int HubItemNum)//ItemNum＝マスター登録順の番号
+    {
+
+        photonView.RPC(nameof(ItemAdd), RpcTarget.All, HubItemNum); //アイテム加算
+
+
+    }
+    public void ItemLost_ToConnect(int HubItemNum)//HubItemNum＝所持アイテム登録順の番号
+    {
+       
+        photonView.RPC(nameof(ItemLost), RpcTarget.All, HubItemNum); //アイテム加算
+
+    }
+
+
+
     // =====================================================================
 
 
