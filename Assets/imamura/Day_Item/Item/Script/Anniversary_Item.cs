@@ -22,6 +22,8 @@ public class Anniversary_Item : ScriptableObject
     public string Day;
     [Tooltip("アイテムの画像")]
     public Sprite ItemSprite;
+    [Tooltip("アイテムの分類")]
+    public string classification;
     [Tooltip("アイテムの寿命　ない場合はnull")]
     public string ItemLifespan;
      

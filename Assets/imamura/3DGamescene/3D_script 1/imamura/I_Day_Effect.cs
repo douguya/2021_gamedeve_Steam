@@ -71,7 +71,8 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         //Effect_BGM();
         Effect_Dice();
         Effect_NextMove();
-        // Effect_IconChange();
+        Effect_IconChange();
+        Effect_ItemLost();
         //Effect_Instance();
 
     }
@@ -403,7 +404,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         if (Day_Square_Master.Day_Squares[DayNumber].Icon!=null)//アイコンがあるなら
         {
              photonView.RPC(nameof(RPC_Effect_IconChange), RpcTarget.AllViaServer, DayNumber);
-            PlayerTurn_change = false;
+             PlayerTurn_change = false;
         }
        
 
@@ -417,7 +418,65 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         Player.GetComponent<I_Player_3D>().ItemBlock.GetComponent<ItemBlock_List_Script>().IcobImage.GetComponent<Image>().sprite=Day_Square_Master.Day_Squares[DayNumber_to].Icon;//たどりたどってアイコンを変更
 
     }
+    public void Effect_ItemLost()
+    {
+        var ItemuLost = Day_Square_Master.Day_Squares[DayNumber].ItemLost;
+        if (ItemuLost!="Noon")
+        {
 
+            switch (ItemuLost) 
+            {
+
+                case "蒸し料理の日":
+
+                    var e = "持ってる食料アイテムを失う";
+
+                    break;
+
+
+                case "鉄スクラップの日":
+
+                    var ew = "鉄スクラップの日持ってる金属製アイテムが一つスクラップになるスクラップ：ポイント＋１";
+
+                    break;
+
+
+
+                case "質屋の日":
+
+
+
+                    break;
+
+
+                case "かき氷の日":
+
+
+
+                    break;
+
+                case "セプテンバーバレンタイン":
+
+
+
+                    break;
+
+
+
+
+                   
+
+            }
+
+
+
+
+
+
+
+
+        }
+    }
 
 }
 

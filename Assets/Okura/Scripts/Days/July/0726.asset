@@ -21,8 +21,10 @@ MonoBehaviour:
   Move: Noon
   BGM: Noon
   Instance: "\u5E7D\u970A\u306E\u65E5"
+  Icon: {fileID: 0}
   particle: Noon
   NextDice: Noon
   NextMove: Noon
   ItemLost: Noon
   ConditionalPoint: Noon
+  OtherEffects: Noon

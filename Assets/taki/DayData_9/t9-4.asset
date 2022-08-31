@@ -27,4 +27,4 @@ MonoBehaviour:
   NextMove: none
   ItemLost: none
   ConditionalPoint: "\u6700\u5F8C\u306B\u7372\u5F97\u3055\u308C\u305F\u30DD\u30A4\u30F3\u30C8\xF72"
-  OtherEffects: 
+  OtherEffects: Noon
