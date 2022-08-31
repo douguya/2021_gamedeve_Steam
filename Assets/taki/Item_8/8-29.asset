@@ -17,6 +17,7 @@ MonoBehaviour:
   Anniversary: "\u713C\u8089\u306E\u65E5"
   Day: 8/29
   ItemSprite: {fileID: 21300000, guid: 936345f7fc3934efa8119a8700d904c7, type: 3}
+  classification: "\u98DF\u3079\u7269"
   ItemLifespan: null
   Commentary: "\u713C\u3044\u305F\u3082\u306E\u3067\u306F\u306A\u304F\u4F55\u6545\u304B\u751F\u8089"
   ItemEffect: 0
