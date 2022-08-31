@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72cb44665d5bf2041bd1d13c85cedc7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Open: 0
+  Open: 1
   Goal: 0
   warp: 0
   decision: 0
