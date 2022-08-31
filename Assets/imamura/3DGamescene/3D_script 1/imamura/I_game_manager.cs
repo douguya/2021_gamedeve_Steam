@@ -459,8 +459,19 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     //マスクリックしたらplayerに飛ばす
     public void Player_select()
     {
-        //Debug.Log("クリックしたやつマネージャーに飛んだ");
-        Player[Player_Turn].GetComponent<I_Player_3D>().MoveSelect_Clicked();
+        int turn = Player_Turn - 1;
+        if (turn < 0)
+        {
+            turn = joining_Player - 1;
+        }
+        if (Player[turn].GetComponent<I_Player_3D>().Turn_change == true)
+        {
+            Player[turn].GetComponent<I_Player_3D>().MoveSelect_Clicked();
+        }
+        else
+        {
+            Player[Player_Turn].GetComponent<I_Player_3D>().MoveSelect_Clicked();
+        }
     }
 
 
@@ -551,7 +562,13 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     //ホップアップの非表示
     public void HopUp_hid()
     {
+        int turn = Player_Turn - 1;
         HopUp.SetActive(false);
+        if (turn < 0)
+        {
+            turn = joining_Player - 1;
+        }
+        Player[turn].GetComponent<I_Player_3D>().StertDayEffect();
     }
 
     //以下今村=============================================================================================================================
@@ -813,19 +830,18 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     }
 
     public void Output_ClickVideoFinish()
-
     {
-
+        int turn = Player_Turn - 1;
         Video_obj.SetActive(false);
-
         HopUp.SetActive(true);
-
+        if (turn < 0)
+        {
+            turn = joining_Player - 1;
+        }
         int XMass = Player[Player_Turn].GetComponent<I_Player_3D>().XPlayer_position;
 
         int YMass = Player[Player_Turn].GetComponent<I_Player_3D>().YPlayer_position;
-
-        Player[Player_Turn].GetComponent<I_Player_3D>().HopUp_Setting(Week[YMass].Day[XMass].GetComponent<Mass_3D>().Day);
-
+        Player[turn].GetComponent<I_Player_3D>().HopUp_Setting(Week[YMass].Day[XMass].GetComponent<I_Mass_3D>().Day);
     }
 }
 
