@@ -7,7 +7,8 @@ public class MannequinPlayer : MonoBehaviour
 {
     public int PlayerNumber;
     // Start is called before the first frame update
-   
+
+    public Day_Square_Master DayMaster;
     public Anniversary_Item_Master ItemMaster;
     public List<Anniversary_Item> Hub_Items = new List<Anniversary_Item>();
     public GameObject blocs;
@@ -69,6 +70,21 @@ public class MannequinPlayer : MonoBehaviour
         texts.text=texts.text+"\n"+LogText;//ログのテキスト内容に追加
     }
 
- 
+   public void Dayicon(int num)
+    {
+        Debug.Log("QQQQQQQQQQQQQQQQQQQ"+DayMaster.Day_Squares[num].Icon);
+        Debug.Log("QQQQQQQQQQQQQQQQQQQ"+DayMaster.Day_Squares[num+1].Icon);
+
+        if (DayMaster.Day_Squares[num+1].Icon!=null)
+        {
+            Debug.Log("MMMMMMMMMMMMMMMMMMM"+DayMaster.Day_Squares[num+1].Icon);
+        }
+        else
+        {
+            Debug.Log("TTTTTTTTTTTTTTTTTTTTT"+DayMaster.Day_Squares[num+1].Icon);
+        }
+
+
+    }
 
 }
