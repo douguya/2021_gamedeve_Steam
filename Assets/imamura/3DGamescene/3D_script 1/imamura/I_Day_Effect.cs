@@ -174,15 +174,34 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                             }
                         }
                     }
-                }
-                if (daySquare_Move.Remove(0, 2) == "全マス")
-                {
-                    for (int week = 0; week < game_Manager.Week.Length; week++)
+                    if (daySquare_Move.Remove(0, 2) == "全マス")
                     {
-                        for (int day = 0; day < game_Manager.Week[0].Day.Length; day++)
+                        for (int week = 0; week < game_Manager.Week.Length; week++)
                         {
+                            for (int day = 0; day < game_Manager.Week[0].Day.Length; day++)
+                            {
+                                gameObject.GetComponent<I_Player_3D>().Effect = true;
+                                game_Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().select_display();
+                            }
+                        }
+                    }
+                }
+                if (daySquare_Move.StartsWith("交換"))
+                {
+                    Debug.Log("交換");
+                    //選択したプレイヤーとマスを交換する
+                    Output_TurnChange(turn);
+                    Origin_XMass = gameObject.GetComponent<I_Player_3D>().XPlayer_position;
+                    Origin_YMass = gameObject.GetComponent<I_Player_3D>().YPlayer_position;
+                    for (int Player = 0; Player < game_Manager.joining_Player; Player++)
+                    {
+                        if (turn != Player)
+                        {
+                            int XMass = game_Manager.Player[Player].GetComponent<I_Player_3D>().XPlayer_position;
+                            int YMass = game_Manager.Player[Player].GetComponent<I_Player_3D>().YPlayer_position;
                             gameObject.GetComponent<I_Player_3D>().Effect = true;
-                            game_Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().select_display();
+                            gameObject.GetComponent<I_Player_3D>().Exchange = true;
+                            game_Manager.Week[YMass].Day[XMass].GetComponent<I_Mass_3D>().select_display();
                         }
                     }
                 }

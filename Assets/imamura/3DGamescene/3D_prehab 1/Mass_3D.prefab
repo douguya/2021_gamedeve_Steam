@@ -275,11 +275,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b859994e661e645bb6ed7638038569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Open: 0
   Goal: 0
   warp: 0
   decision: 0
   On_Click: 0
   Day: null
+  DayText: {fileID: 0}
   goal_flag: {fileID: 978223586736994328}
   warp_point: {fileID: 6895166484002361752}
   hideCover: {fileID: 4710278831961188508}
