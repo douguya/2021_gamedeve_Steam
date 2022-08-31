@@ -21,8 +21,10 @@ MonoBehaviour:
   Move: none
   BGM: none
   Instance: none
+  Icon: {fileID: 0}
   particle: none
   NextDice: "1~5(\u81EA\u7531)"
   NextMove: none
   ItemLost: none
   ConditionalPoint: none
+  OtherEffects: Noon

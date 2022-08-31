@@ -25,6 +25,6 @@ MonoBehaviour:
   particle: none
   NextDice: none
   NextMove: none
-  ItemLost: "1\u3064\u5931\u3046"
+  ItemLost: "\u30BB\u30D7\u30C6\u30F3\u30D0\u30FC\u30D0\u30EC\u30F3\u30BF\u30A4\u30F3"
   ConditionalPoint: none
-  OtherEffects: 
+  OtherEffects: Noon

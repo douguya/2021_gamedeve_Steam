@@ -21,8 +21,10 @@ MonoBehaviour:
   Move: none
   BGM: none
   Instance: none
+  Icon: {fileID: 0}
   particle: none
   NextDice: none
   NextMove: none
   ItemLost: none
   ConditionalPoint: "3(8/24\u304C\u958B\u5C01\u6E08\u307F\u30675)"
+  OtherEffects: Noon

@@ -16,7 +16,7 @@ public class Day_Square : ScriptableObject
     [Tooltip("記念日の名前")]
     public string Anniversary;
     [Tooltip("記念日の日付")]
-    public string Day;        
+    public string Day;
     [Tooltip("演出アニメーション")]
     public VideoClip Staging;    
     [Tooltip("ホップアップ画像")]
