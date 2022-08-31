@@ -99,6 +99,10 @@ MonoBehaviour:
   - Log_RPC__Oter
   - Output_Playerloot
   - Output_Postion
+  - Output_DiceAdd
+  - Output_DiceMultiply
+  - Output_TurnChange
+  - RPC_Effect_IconChange
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

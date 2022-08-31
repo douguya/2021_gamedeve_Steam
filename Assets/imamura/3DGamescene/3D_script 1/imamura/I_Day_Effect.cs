@@ -9,6 +9,7 @@ using Photon.Realtime;
 public class I_Day_Effect : MonoBehaviourPunCallbacks
 {
     private I_game_manager game_Manager;
+    private GameObject Player;
     private Image DayImage;
     public Day_Square_Master Day_Square_Master;
 
@@ -24,8 +25,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
     {
         game_Manager = GameObject.Find("I_game_manager").GetComponent<I_game_manager>();
         DayImage = GameObject.Find("I_game_manager").GetComponent<I_game_manager>().HopUp.GetComponent<Image>();
-
-
+        Player=this.gameObject;
     }
 
     // Update is called once per frame
@@ -71,6 +71,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         //Effect_BGM();
         Effect_Dice();
         Effect_NextMove();
+        // Effect_IconChange();
         //Effect_Instance();
 
     }
@@ -90,7 +91,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                 {
                     turn = game_Manager.joining_Player - 1;
                 }
-      
+
                 char[] Char_Move = daySquare_Move.ToCharArray(); //Moveの内容をchar型に変換
                 if (daySquare_Move.StartsWith("ワープ"))
                 {
@@ -129,7 +130,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                         {
                             Output_TurnChange(Player);
                             game_Manager.Player[Player].GetComponent<I_Player_3D>().Player_WarpMove("ワープ", daySquare_Move.Remove(0, 2));
-                          
+
                         }
                     }
 
@@ -263,7 +264,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                     {
                         for (int Player = 0; Player < game_Manager.joining_Player; Player++)
                         {
-                            
+
                             photonView.RPC(nameof(Output_DiceAdd), RpcTarget.All, Player, Char_NextDice[1]);
                         }
                     }
@@ -271,7 +272,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                     {
                         for (int Player = 0; Player < game_Manager.joining_Player; Player++)
                         {
-                            
+
                             photonView.RPC(nameof(Output_DiceMultiply), RpcTarget.All, Player, Char_NextDice[1]);
                         }
                     }
@@ -342,7 +343,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         }
     }
 
-   
+
 
 
 
@@ -394,6 +395,29 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
             }
         }
     }
-}
 
+    public void Effect_IconChange()
+    {
+
+
+        if (Day_Square_Master.Day_Squares[DayNumber].Icon!=null)//アイコンがあるなら
+        {
+             photonView.RPC(nameof(RPC_Effect_IconChange), RpcTarget.AllViaServer, DayNumber);
+            PlayerTurn_change = false;
+        }
+       
+
+    }
+
+
+    [PunRPC]
+    public void RPC_Effect_IconChange(int DayNumber_to )
+    {
+
+        Player.GetComponent<I_Player_3D>().ItemBlock.GetComponent<ItemBlock_List_Script>().IcobImage.GetComponent<Image>().sprite=Day_Square_Master.Day_Squares[DayNumber_to].Icon;//たどりたどってアイコンを変更
+
+    }
+
+
+}
 
