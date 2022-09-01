@@ -12,7 +12,9 @@ public class musiclist : MonoBehaviour
 
     //SE
     public AudioClip DecisionSE;
+    public AudioClip MoveOn;
     public AudioClip BackSE;
+    public AudioClip SceneSwitching;
 
     //IngameSE
     public AudioClip GameStartSE;

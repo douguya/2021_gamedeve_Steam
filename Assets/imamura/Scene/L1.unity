@@ -299,14 +299,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 455748954}
         m_TargetAssemblyTypeName: SEManager, Assembly-CSharp
-        m_MethodName: DecisionSE
-        m_Mode: 1
+        m_MethodName: SEsetandplay
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: DecisionSE
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &157665865
@@ -711,6 +711,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1822875113192126292, guid: e905590568b51ad41bb513b8c08f6b16, type: 3}
       propertyPath: m_Name
+      value: SE
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822875113192126292, guid: e905590568b51ad41bb513b8c08f6b16, type: 3}
+      propertyPath: m_TagString
       value: SE
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2850,14 +2854,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 455748954}
         m_TargetAssemblyTypeName: SEManager, Assembly-CSharp
-        m_MethodName: DecisionSE
-        m_Mode: 1
+        m_MethodName: SEsetandplay
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: DecisionSE
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1523414702
@@ -2995,14 +2999,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 455748954}
         m_TargetAssemblyTypeName: SEManager, Assembly-CSharp
-        m_MethodName: DecisionSE
-        m_Mode: 1
+        m_MethodName: SEsetandplay
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: DecisionSE
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1629456895
@@ -3176,14 +3180,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 455748954}
         m_TargetAssemblyTypeName: SEManager, Assembly-CSharp
-        m_MethodName: DecisionSE
-        m_Mode: 1
+        m_MethodName: SEsetandplay
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: DecisionSE
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1677350246
@@ -3400,14 +3404,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 455748954}
         m_TargetAssemblyTypeName: SEManager, Assembly-CSharp
-        m_MethodName: DecisionSE
-        m_Mode: 1
+        m_MethodName: SEsetandplay
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: DecisionSE
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1814059475
