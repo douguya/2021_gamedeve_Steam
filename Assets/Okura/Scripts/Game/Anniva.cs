@@ -7,7 +7,9 @@ public class Anniva : MonoBehaviour
     [SerializeField]
     string Itemname;
     [SerializeField]
-    int InstantiateTimes;
+    GameObject Instance;
+    [SerializeField]
+    float InstanceyValue;
     [SerializeField]
     BGMManager BGM;
 
@@ -17,7 +19,6 @@ public class Anniva : MonoBehaviour
     {
         Playerstatus = GetComponent<PlayerStatasIMamura>();
         BGM = GameObject.Find("BGM").GetComponent<BGMManager>();
-        InstantiateTimes = 0;
     }
 
     //基本となる、アイテムのみを獲得するタイプの記念日
@@ -26,11 +27,9 @@ public class Anniva : MonoBehaviour
     }
 
     //Instanceが出てくるやつ
-    public void AppearInstances(){
-        GameObject Instance = (GameObject)Resources.Load(Itemname);
-
-        Instantiate(Instance, new Vector3(200 * InstantiateTimes,0,650), Quaternion.identity);
-        InstantiateTimes++;
+    public void AppearInstances()
+    {
+        StartCoroutine(Instance.GetComponent<AnimationController>().StartAnimation(InstanceyValue));
     }
 
     //BGMが変わるやつ

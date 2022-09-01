@@ -21,6 +21,8 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
     private bool[] DiceNumber = new bool[6];
     private bool PlayerTurn_change = true;
 
+
+
     void Start()
     {
         game_Manager = GameObject.Find("I_game_manager").GetComponent<I_game_manager>();
@@ -73,7 +75,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         Effect_NextMove();
         Effect_IconChange();
         Effect_ItemLost();
-        //Effect_Instance();
+        Effect_Instance();
 
     }
 
@@ -376,6 +378,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
             if (Day_Square_Master.Day_Squares[DayNumber].Instance != "none")
             {
                 PlayerTurn_change = false;
+                AppearInstances();
             }
         }
     }
@@ -562,7 +565,23 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
 
 
 
+    //--------------------------ëÂë†--------------------------------
+    //InstanceÇ™èoÇƒÇ≠ÇÈÇ‚Ç¬
+    public void AppearInstances()
+    {
+        AnimationController InstAnimController;
+        Camera_Mouse MainCameraMouse = game_Manager.Camera.GetComponent<Camera_Mouse>();
 
-
+        foreach (GameObject j in game_Manager.Instance) 
+        {
+            InstAnimController = j.GetComponent<AnimationController>();
+            if (InstAnimController.InstanceDay == Day_Square_Master.Day_Squares[DayNumber]) 
+            {
+                MainCameraMouse.Camera_highlight_imi(InstAnimController.CameraPos, InstAnimController.CameraRot);
+                StartCoroutine(InstAnimController.StartAnimation(InstAnimController.InstanceY));
+            }
+        }
+    }
+    //------------------------Ç±Ç±Ç‹Ç≈------------------------------
 }
 

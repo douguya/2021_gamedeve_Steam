@@ -48,6 +48,11 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
     //  ‚±‚±‚Ü‚Å=========================================================================================//
 
+    //--------------------------‘å‘ --------------------------------
+    public GameObject[] Instance;
+    //------------------------‚±‚±‚Ü‚Å------------------------------
+
+
     void Start()
     {
         Day_Animation = GetComponent<I_Day_Animation>();
