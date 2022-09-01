@@ -114,6 +114,9 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             Manager.Log_Mine(Log);
             Log =PhotonNetwork.NickName+"のターンです。";
             Manager.Log_connection_Oter(Log);
+            
+            photonView.RPC(nameof(ApartmentEffect), RpcTarget.All);
+
         }
         DiceButton.GetComponent<Button>().interactable = true;
         ButtonText.GetComponent<Text>().text = "ダイスを回す";
@@ -126,6 +129,22 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         }
     }
 
+
+
+
+    public void ApartmentEffect()
+    {
+        foreach (var Item in Hub_Items)
+        {
+           if(Item.ItemName=="マンション")
+            {
+                Item.ItemPoint++;
+
+            }
+
+        }
+
+    }
     //ダイスを止めて値を受け取る
     private void Dice_Stop()
     {
