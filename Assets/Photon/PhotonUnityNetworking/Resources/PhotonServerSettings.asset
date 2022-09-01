@@ -103,6 +103,7 @@ MonoBehaviour:
   - Output_DiceMultiply
   - Output_TurnChange
   - RPC_Effect_IconChange
+  - ApartmentEffect
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
