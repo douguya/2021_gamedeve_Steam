@@ -468,6 +468,8 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             XPlayer_position = XPlayer_Loot[Move];  //プレイヤーの現在の縦・横位置を設定
             YPlayer_position = YPlayer_Loot[Move];
             photonView.RPC(nameof(Output_Playerloot), RpcTarget.OthersBuffered, YPlayer_position, XPlayer_position);
+
+            Manager.SE.GetComponent<SEManager>().SEsetandplay("WalkSE");
             yield return new WaitForSeconds(1);     //1秒待つ
 
             photonView.RPC(nameof(Output_AnimationStop), RpcTarget.AllViaServer);  //全てのアニメーションを止める 
