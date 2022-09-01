@@ -50,6 +50,8 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
     //--------------------------‘å‘ --------------------------------
     public GameObject[] Instance;
+    public GameObject BGM;
+    public GameObject SE;
     //------------------------‚±‚±‚Ü‚Å------------------------------
 
 
@@ -57,8 +59,11 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     {
         Day_Animation = GetComponent<I_Day_Animation>();
         Month_Setting();
-       
+
         //Goal_Again();
+
+        BGM = GameObject.FindGameObjectWithTag("BGM");
+        SE = GameObject.FindGameObjectWithTag("SE");
     }
    public void Gamestart()
     {

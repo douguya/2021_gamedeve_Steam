@@ -8,6 +8,8 @@ TagManager:
   - Dice
   - ItemList_UGI
   - ItemProperty
+  - BGM
+  - SE
   layers:
   - Default
   - TransparentFX
