@@ -36,6 +36,8 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
     public Hashtable hashtable = new Hashtable();//カスタムプロパティのリスト
 
+    public VideoClip transparent;
+
     //　以下今村========================================================================================//
 
     private bool GameStart=false;
@@ -556,7 +558,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     [PunRPC]//日付のビデオを非表示にする出力
     public void Output_VideoFinish()
     {
-        Video_obj.SetActive(false);
+        StartCoroutine(Video_transparent());
     }
 
 
@@ -843,7 +845,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     public void Output_ClickVideoFinish()
     {
         int turn = Player_Turn - 1;
-        Video_obj.SetActive(false);
+        StartCoroutine(Video_transparent());        
         HopUp.SetActive(true);
         if (turn < 0)
         {
@@ -853,6 +855,16 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
         int YMass = Player[Player_Turn].GetComponent<I_Player_3D>().YPlayer_position;
         Player[turn].GetComponent<I_Player_3D>().HopUp_Setting(Week[YMass].Day[XMass].GetComponent<I_Mass_3D>().Day);
+    }
+
+
+    IEnumerator Video_transparent()
+    {
+        //Video_obj.SetActive(true);
+        Video_obj.GetComponent<VideoPlayer>().clip = transparent;
+        Video_obj.GetComponent<VideoPlayer>().Play();   //ビデオの再生
+        yield return new WaitForSeconds(0.5f);     //8秒待つ
+        Video_obj.SetActive(false);
     }
 }
 

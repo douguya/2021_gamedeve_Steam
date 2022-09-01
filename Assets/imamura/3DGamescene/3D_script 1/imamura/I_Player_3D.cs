@@ -420,7 +420,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             {
                 Player_warpMove[Move] = false;
                 photonView.RPC(nameof(Output_AnimationWarpUp), RpcTarget.AllViaServer);  //ワープのアニメーション
-                yield return new WaitForSeconds(1);     //1秒待つ
+                yield return new WaitForSeconds(0.4f);     //1秒待つ
                 photonView.RPC(nameof(Output_AnimationStop), RpcTarget.AllViaServer);     //ビデオの再生 
 
                 photonView.RPC(nameof(Output_PlayerMove), RpcTarget.AllViaServer, YPlayer_Loot[Move], XPlayer_Loot[Move]);//ワープのアニメーションと移動 
@@ -470,7 +470,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             photonView.RPC(nameof(Output_Playerloot), RpcTarget.OthersBuffered, YPlayer_position, XPlayer_position);
 
             Manager.SE.GetComponent<SEManager>().SEsetandplay("WalkSE");
-            yield return new WaitForSeconds(1);     //1秒待つ
+            yield return new WaitForSeconds(0.4f);     //1秒待つ
 
             photonView.RPC(nameof(Output_AnimationStop), RpcTarget.AllViaServer);  //全てのアニメーションを止める 
 
@@ -518,6 +518,10 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             }
 
             Manager.PlayerTurn_change();
+        }
+        if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Goal == true)
+        {
+            Player_Goal();//ゴールしたときの処理
         }
         Debug.Log("WWWWWWWWWWWWWWWWWWWWWWWWWWWWW"+1);
        
@@ -706,7 +710,6 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     {
         photonView.RPC(nameof(Output_GoalCount), RpcTarget.All); //ゴール数を加算
         Manager.Goal_Add();//ゲーム全体のゴール数に加算
-        Player_DayEffect();//日付の効果
         var loop = ItemMaster.Anniversary_Items.Count-1;//最後の位置を取得
         photonView.RPC(nameof(ItemAdd), RpcTarget.All, loop); //アイテム加算
         string Log = PhotonNetwork.NickName+"が"+ItemMaster.Anniversary_Items[loop].ItemName+"を入手しました。";
@@ -914,23 +917,12 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     private void StopI_Day_Effect()//止まったマスの処理
     {
     
-        if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Goal == true)
-        {
-            Player_Goal();//ゴールしたときの処理
-        }
-        else
-        {
             if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Open == false)//まだ開いてないマスなら
             {
 
                 photonView.RPC(nameof(Output_hideCoverClear), RpcTarget.All, YPlayer_position, XPlayer_position); //マスを開いた表示にする
                 Player_DayEffect();//日付の効果
             }
-            else
-            {
-               
-            }
-        }
     }
 
 

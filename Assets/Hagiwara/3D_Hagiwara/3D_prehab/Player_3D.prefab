@@ -153,6 +153,15 @@ MonoBehaviour:
   GameManager: {fileID: 0}
   DiceButton: {fileID: 0}
   ButtonText: {fileID: 0}
+  Effect: 0
+  Exchange: 0
+  Turn_change: 0
+  OneMore_Dice: 0
+  DiceAdd: 0
+  DiceMultiply: 0
+  MoveAdd_point: 0
+  MoveStop_point: 0
+  selectwark: 0
   ItemMaster: {fileID: 11400000, guid: 249da88aa34ce6442b26e5553f66c0e1, type: 2}
   ItemBlock: {fileID: 0}
 --- !u!114 &932187485661129587
@@ -167,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a37f8c35e704d94892d809b319cb390, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Day_Square_Master: []
+  Day_Square_Master: {fileID: 0}
 --- !u!95 &2419249759203937776
 Animator:
   serializedVersion: 3
