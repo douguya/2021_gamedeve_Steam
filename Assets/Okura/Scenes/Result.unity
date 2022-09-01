@@ -380,6 +380,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerNumber: 0
+  DayMaster: {fileID: 0}
   ItemMaster: {fileID: 0}
   Hub_Items:
   - {fileID: 11400000, guid: 092918694dde1804ab2c432e24a5c486, type: 2}
@@ -943,6 +944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerNumber: 0
+  DayMaster: {fileID: 0}
   ItemMaster: {fileID: 0}
   Hub_Items:
   - {fileID: 11400000, guid: 092918694dde1804ab2c432e24a5c486, type: 2}
@@ -1106,6 +1108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerNumber: 0
+  DayMaster: {fileID: 0}
   ItemMaster: {fileID: 0}
   Hub_Items:
   - {fileID: 11400000, guid: 092918694dde1804ab2c432e24a5c486, type: 2}
@@ -1287,7 +1290,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3852b8d98af0c85438c067cadd1ee213, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9dd0df60895282e4db0aeee9d83e8b0f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1335,6 +1338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerNumber: 0
+  DayMaster: {fileID: 0}
   ItemMaster: {fileID: 0}
   Hub_Items:
   - {fileID: 11400000, guid: 092918694dde1804ab2c432e24a5c486, type: 2}
