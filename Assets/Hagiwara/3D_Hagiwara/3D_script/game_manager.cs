@@ -27,6 +27,8 @@ public class game_manager : MonoBehaviour
 
     public GameObject Dice;                                 //サイコロのオブジェクト取得
 
+    public VideoClip transparent;
+
 
     void Start()
     {
@@ -626,12 +628,14 @@ public class game_manager : MonoBehaviour
     //日付のビデオを非表示にする出力
     public void Output_VideoFinish()
     {
+        gameObject.GetComponent<VideoPlayer>().clip = transparent;
         Video_obj.SetActive(false);
     }
     //日付のビデオを非表示にする出力
     public void Output_ClickVideoFinish()
     {
         int turn = Player_Turn - 1;
+        gameObject.GetComponent<VideoPlayer>().clip = transparent;
         Video_obj.SetActive(false);
         HopUp.SetActive(true);
         if (turn < 0)

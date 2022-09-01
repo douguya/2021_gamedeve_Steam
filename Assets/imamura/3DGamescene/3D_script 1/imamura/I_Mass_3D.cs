@@ -10,6 +10,7 @@ public class I_Mass_3D : MonoBehaviour
     public bool decision;//マスは移動決定されてるか
     public bool On_Click;
     public string Day = "null";//マスは何日か
+    public bool Present_Item;
 
 
     public GameObject goal_flag;//ゴールの丸表示用
@@ -18,6 +19,7 @@ public class I_Mass_3D : MonoBehaviour
     public GameObject select;//移動できるマスの表示用
     public GameObject decision_Mass;//決定したマスの表示用
     public GameObject DayText;//マスの日付用
+    public GameObject Present;
 
     void Start()
     {
@@ -95,6 +97,18 @@ public class I_Mass_3D : MonoBehaviour
     public void DayText_setting(int day)
     {
         DayText.GetComponent<TextMesh>().text = "" + day;
+    }
+
+    public void Present_setting()
+    {
+        Present.SetActive(true);
+        Present_Item = true;
+    }
+
+    public void Present_hid()
+    {
+        Present.SetActive(false);
+        Present_Item = false;
     }
 }
 

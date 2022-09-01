@@ -9662,6 +9662,7 @@ MonoBehaviour:
   Video_obj: {fileID: 1323734739}
   HopUp: {fileID: 1611215861}
   Dice: {fileID: 1818983301}
+  transparent: {fileID: 32900000, guid: c89475ed464459147ad842299ff8451d, type: 3}
   Camera: {fileID: 145621940}
   GameStartButton: {fileID: 763056919}
   SceneManager: {fileID: 1925810204}
@@ -9677,6 +9678,8 @@ MonoBehaviour:
   - {fileID: 270435412}
   - {fileID: 919132149103769893}
   - {fileID: 1346574719}
+  BGM: {fileID: 0}
+  SE: {fileID: 0}
 --- !u!114 &1265593757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11602,15 +11605,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1442915943107002733, guid: 0d580e1fe976fa946b366be4b8ae8889, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1000
+      value: 1150
       objectReference: {fileID: 0}
     - target: {fileID: 1442915943107002733, guid: 0d580e1fe976fa946b366be4b8ae8889, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 666
+      value: 655
+      objectReference: {fileID: 0}
+    - target: {fileID: 1442915943107002733, guid: 0d580e1fe976fa946b366be4b8ae8889, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1442915943907797233, guid: 0d580e1fe976fa946b366be4b8ae8889, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1442915943907797234, guid: 0d580e1fe976fa946b366be4b8ae8889, type: 3}
+      propertyPath: m_VideoClip
+      value: 
+      objectReference: {fileID: 32900000, guid: c89475ed464459147ad842299ff8451d, type: 3}
+    - target: {fileID: 1442915943907797235, guid: 0d580e1fe976fa946b366be4b8ae8889, type: 3}
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1442915943907797237, guid: 0d580e1fe976fa946b366be4b8ae8889, type: 3}
       propertyPath: m_SizeDelta.x
