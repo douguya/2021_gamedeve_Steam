@@ -433,8 +433,9 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
             if (NowPlayerItemus[loop].ItemLifespan!="null")
             {
+                var NowPlayer = Player[NowTurn].GetComponent<I_Player_3D>();
                 NowPlayerItemus[loop].ItemLifespan=(int.Parse(NowPlayerItemus[loop].ItemLifespan)-1).ToString();
-                if (int.Parse(NowPlayerItemus[loop].ItemLifespan)<=0) { NowPlayerItemus.Remove(NowPlayerItemus[loop]); }//------------------------------------------------------------------------
+                if (int.Parse(NowPlayerItemus[loop].ItemLifespan)<=0) { NowPlayer.ItemLost_ToConnect((loop)); }//------------------------------------------------------------------------
             }
         }
 
