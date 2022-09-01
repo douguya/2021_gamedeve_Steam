@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8078504043960491307
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8887656007457703825}
+  - component: {fileID: 5546349626848512052}
+  - component: {fileID: 7718150309595184382}
+  - component: {fileID: 7102660465989588479}
+  m_Layer: 0
+  m_Name: School building
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8887656007457703825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8078504043960491307}
+  m_LocalRotation: {x: 0, y: 0.7072302, z: 0.7069834, w: 0}
+  m_LocalPosition: {x: -0, y: 0.31, z: -19.99}
+  m_LocalScale: {x: 75, y: 75, z: 75}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -89.98, y: 180, z: 0}
+--- !u!33 &5546349626848512052
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8078504043960491307}
+  m_Mesh: {fileID: 3283528721366948380, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+--- !u!23 &7718150309595184382
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8078504043960491307}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -7286871873410120564, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  - {fileID: 5217506533373412187, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  - {fileID: 3958526334696121415, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  - {fileID: 4008380719264468217, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  - {fileID: 1665358237111738217, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  - {fileID: -7036030734479634720, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  - {fileID: -7996762331316549510, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  - {fileID: 7020059502302170969, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  - {fileID: 223288890595056854, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  - {fileID: -2063438499110334204, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  - {fileID: 7555185752953191562, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  - {fileID: -6205024957097937269, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  - {fileID: -1418106222229866039, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  - {fileID: -551597020860776487, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  - {fileID: -2711108391740059384, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  - {fileID: 2140464564214264539, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  - {fileID: 3798239092383942238, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  - {fileID: 8556262120643298411, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  - {fileID: -154358126606504882, guid: 07b6d75be5c9a5843a633766e039af02, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7102660465989588479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8078504043960491307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83fc5e9f08790ff46bbbb89a21a47dc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Anim: {fileID: 0}
+  AnimCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
