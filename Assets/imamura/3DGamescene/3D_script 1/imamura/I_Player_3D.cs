@@ -132,7 +132,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
 
 
-    public void ApartmentEffect()
+  [PunRPC] public void ApartmentEffect()
     {
         foreach (var Item in Hub_Items)
         {
