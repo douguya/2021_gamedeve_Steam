@@ -13,10 +13,12 @@ public class Camera_Mouse : MonoBehaviour
     private Vector2 mouse_set;//マウスの座標
     private float Adjust_Variable= 0.009f;//原点修正用の値　Zoom_Speed＝50専用　用改修
     private Vector3 OriginPoint;//カメラの初期位置
+    private Vector3 OriginRect;//カメラの初期位置
 
 
     private Vector3 velocity = Vector3.zero;
     public bool Camera_Move_initials= false;//初期位置用
+    public bool Camera_Move_initials2 = false;//初期位置用
     public bool Camera_Move_highlight = false;
 
     private Vector3 Max_Position=new Vector3(84f, 82f, 56f);//カメラの限界位置
@@ -25,11 +27,15 @@ public class Camera_Mouse : MonoBehaviour
     public Vector3 Position_highlight = new Vector3(0f, 0f, 0f);//ハイライト時のカメラの目的地
     public Vector3 Rotate_highlight = new Vector3(0f, 0f, 0f);//ハイライト時のカメラの目的角度
     public bool Permission_Zoom = true;
+    
+    float xVelocity = 0.0f;
     float yVelocity = 0.0f;
+    float zVelocity = 0.0f;
     // Start is called before the first frame update
     void Start()
     {
         OriginPoint=transform.position;
+        OriginRect = transform.eulerAngles;
     }
 
     // Update is called once per frame
@@ -52,7 +58,9 @@ public class Camera_Mouse : MonoBehaviour
             var rote = transform.eulerAngles;
 
 
-            rote.x =   Mathf.SmoothDampAngle(rote.x, Rotate_highlight.x, ref yVelocity, 0.4f);
+            rote.x =   Mathf.SmoothDampAngle(rote.x, Rotate_highlight.x, ref xVelocity, 0.4f);
+            rote.y =   Mathf.SmoothDampAngle(rote.y, Rotate_highlight.y, ref yVelocity, 0.4f);
+            rote.z =   Mathf.SmoothDampAngle(rote.z, Rotate_highlight.z, ref zVelocity, 0.4f);
 
 
             transform.eulerAngles=rote;
@@ -63,9 +71,29 @@ public class Camera_Mouse : MonoBehaviour
         if (Vector3.Distance(transform.position, Position_highlight)<1)
         {
 
+
             Camera_Move_highlight=false;
           
 
+        }
+
+        if (Camera_Move_initials2)//カメラを初期位置に動かす
+        {
+            transform.position = Vector3.SmoothDamp(transform.position, OriginPoint, ref velocity, 0.4f);
+
+            var rote = transform.eulerAngles;
+
+
+            rote.x = Mathf.SmoothDampAngle(rote.x, OriginRect.x, ref xVelocity, 0.4f);
+            rote.y = Mathf.SmoothDampAngle(rote.y, OriginRect.y, ref yVelocity, 0.4f);
+            rote.z = Mathf.SmoothDampAngle(rote.z, OriginRect.z, ref zVelocity, 0.4f);
+
+
+            transform.eulerAngles = rote;
+        }
+        if (Vector3.Distance(transform.position, OriginPoint) < 1)
+        {
+            Camera_Move_initials2 = false;
         }
     }
 
