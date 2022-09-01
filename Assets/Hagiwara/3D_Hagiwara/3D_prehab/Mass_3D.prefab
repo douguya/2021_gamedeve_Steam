@@ -200,7 +200,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1505260667395057678}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: goal_flag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 4131750471100183526}
   - component: {fileID: 706602949510124026}
   - component: {fileID: 322810219980700869}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5385,7 +5385,7 @@ GameObject:
   - component: {fileID: 1587155337709089191}
   - component: {fileID: 5104189766084188885}
   - component: {fileID: 3615864910445342929}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5862,7 +5862,7 @@ GameObject:
   - component: {fileID: 5423885634629122257}
   - component: {fileID: 4259900589797048961}
   - component: {fileID: 6804836711406188227}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5955,7 +5955,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7672155379584445171}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Present
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6185,7 +6185,7 @@ GameObject:
   - component: {fileID: 473925276840521991}
   - component: {fileID: 7547799927178324443}
   - component: {fileID: 3234209302810051819}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6280,7 +6280,7 @@ GameObject:
   - component: {fileID: 6386075004314634439}
   - component: {fileID: 9082916978071068146}
   - component: {fileID: 7338910501066807995}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
