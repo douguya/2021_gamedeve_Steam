@@ -41,7 +41,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
     public GameObject[] myArray;
     public Material[] MaterialsList = new Material[4];
-
+    public Material[] CursorColor_List = new Material[4];
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -119,7 +119,10 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         GameObject Player = PhotonNetwork.Instantiate("Player3D", position, Quaternion.identity);//プレイヤーの生成
         GameObject ItemList_UGI = PhotonNetwork.Instantiate("ItemBlock_List", position, Quaternion.identity);//プレイヤーのアイテムリストの作成
         ReadyButton_Script.JoinedRoom_Jointed();
+        GameObject PlayerCarsol = PhotonNetwork.Instantiate("Cursor", position, Quaternion.identity);//プレイヤーの生成
 
+
+       
         IconChange();
 
         Player.GetComponent<I_Player_3D>().DiceButton.GetComponent<Button>().onClick.AddListener(Player.GetComponent<I_Player_3D>().DicePush);
@@ -216,6 +219,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     {
         ItemList_Moment.transform.parent=ItemListBox.transform;
     }
+
 
 
     [PunRPC]
@@ -357,7 +361,14 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
                 Debug.LogError("問題発生。部屋を入りなおして下さい");
             }
         }
+
+        GameObject[] Cursors = GameObject.FindGameObjectsWithTag("cursor");
        
+        foreach (GameObject Cursor in Cursors)//対応するプレイヤーにプレイヤーリストを突っ込む
+        {
+            Cursor.transform.parent=I_game_Manager_Script.cursors.transform;
+
+        }
 
 
     }
@@ -405,6 +416,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     {
        
         GameObject[] Players_spot = GameObject.FindGameObjectsWithTag("Player");//プレイヤーオブジェクトの一時保存場所　タグで軒並みとる
+        GameObject[] Cursors = GameObject.FindGameObjectsWithTag("cursor");
         foreach (var PList in PhotonNetwork.PlayerList)//プレイヤーリストの内容を順番に格納
         {
            
@@ -426,6 +438,32 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
                    
                 }
             }
+
+
+            foreach (GameObject obj in Cursors)//プレイヤーリストの中身と、一時保存したプレイヤーオブジェクトを突き合わせる
+            {
+
+                if (PList.ActorNumber==obj.GetComponent<PhotonView>().CreatorActorNr) //リストのプレイヤーのIDとオブジェクトの作成者のADを比較
+                {
+
+                  
+                        obj.GetComponent<Image>().material=CursorColor_List[(int)PList.CustomProperties["PlayerNumMaterial"]];
+                    
+
+
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
         }
     }
     public void Icon_Update()
