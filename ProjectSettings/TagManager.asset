@@ -10,6 +10,7 @@ TagManager:
   - ItemProperty
   - BGM
   - SE
+  - cursor
   layers:
   - Default
   - TransparentFX

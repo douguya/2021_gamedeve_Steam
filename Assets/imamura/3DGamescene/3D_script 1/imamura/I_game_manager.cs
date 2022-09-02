@@ -42,6 +42,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
     private bool GameStart=false;
     public GameObject Camera;
+    public GameObject cursors;
     public GameObject GameStartButton;
     public GameObject SceneManager;
     public GameObject Log;
