@@ -1157,7 +1157,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1357293564}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1843,7 +1843,7 @@ RectTransform:
   m_Children:
   - {fileID: 1149242592}
   m_Father: {fileID: 1357293564}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5999,7 +5999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6361100109485908764, guid: e6f635bb67ce2b340bd12141d028a4d0, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6361100109485908764, guid: e6f635bb67ce2b340bd12141d028a4d0, type: 3}
       propertyPath: m_AnchorMax.x
@@ -8826,7 +8826,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8301628118768076633, guid: e99b70b86c052054dbf953569b9a07ea, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8301628118768076633, guid: e99b70b86c052054dbf953569b9a07ea, type: 3}
       propertyPath: m_AnchorMax.x
@@ -10823,11 +10823,11 @@ RectTransform:
   - {fileID: 1579098886}
   - {fileID: 1652382789}
   - {fileID: 103498159}
-  - {fileID: 1219536116}
   - {fileID: 184777440}
   - {fileID: 763056918}
   - {fileID: 117126053}
   - {fileID: 134310696}
+  - {fileID: 1219536116}
   - {fileID: 1492499750}
   - {fileID: 382627576}
   m_Father: {fileID: 0}
@@ -15949,7 +15949,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 540752232473977708, guid: 89953e195eeda4f4a8a00d37555c02f2, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 540752232473977708, guid: 89953e195eeda4f4a8a00d37555c02f2, type: 3}
       propertyPath: m_AnchorMax.x

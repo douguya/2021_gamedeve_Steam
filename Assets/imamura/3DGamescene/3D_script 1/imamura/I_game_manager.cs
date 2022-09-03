@@ -78,9 +78,18 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         //  PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);//変更したカスタムプロパティの更新
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PlayerTurn_change();
+        photonView.RPC(nameof(ReadyButton_hide), RpcTarget.AllViaServer);
         GameStartButton.SetActive(false);
+       
+    }
+
+    [PunRPC]public void ReadyButton_hide()
+    {
         ReadyButton.SetActive(false);
     }
+
+
+
 
 
     void Update()

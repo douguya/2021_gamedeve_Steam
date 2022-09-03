@@ -10,7 +10,14 @@ public class Mouse_Cursor : MonoBehaviourPunCallbacks
     public float b = 0;
     void Start()
     {
-       
+
+        var rote = GetComponent<RectTransform>().rotation;
+
+        var nextrote = 28.689f- rote.z;
+
+
+        GetComponent<RectTransform>().Rotate(0, 0, nextrote);
+
     }
 
     // Update is called once per frame
@@ -43,8 +50,10 @@ public class Mouse_Cursor : MonoBehaviourPunCallbacks
             Cursor.visible = true;
         }
 
+    }
 
 
-
+    public void RotateChange()
+    {
     }
 }

@@ -122,7 +122,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         GameObject PlayerCarsol = PhotonNetwork.Instantiate("Cursor", position, Quaternion.identity);//ÉvÉåÉCÉÑÅ[ÇÃê∂ê¨
 
 
-       
+        
         IconChange();
 
         Player.GetComponent<I_Player_3D>().DiceButton.GetComponent<Button>().onClick.AddListener(Player.GetComponent<I_Player_3D>().DicePush);
@@ -368,6 +368,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         {
             Cursor.transform.parent=I_game_Manager_Script.cursors.transform;
 
+            Cursor.GetComponent<Mouse_Cursor>().RotateChange();
         }
 
 

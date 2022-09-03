@@ -105,6 +105,7 @@ MonoBehaviour:
   - RPC_Effect_IconChange
   - ApartmentEffect
   - connection1
+  - ReadyButton_hide
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
