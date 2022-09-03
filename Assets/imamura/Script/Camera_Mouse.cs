@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class Camera_Mouse : MonoBehaviour
+public class Camera_Mouse : MonoBehaviourPunCallbacks
 {
+    public I_game_manager I_game_manager;
     private float Mousewheel;//マウスホイールの値
     public int Zoom_Speed;//ズームのスピード
     private Vector2 mouse_set;//マウスの座標
@@ -41,8 +42,9 @@ public class Camera_Mouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Wheel_Zoom();//マウスホイールによるズーム]
-
+        if (I_game_manager.HowMyTurn) {
+            Wheel_Zoom();//マウスホイールによるズーム]
+        }
         if (Camera_Move_initials)//カメラを初期位置に動かす
         {
             transform.position = Vector3.SmoothDamp(transform.position, OriginPoint, ref velocity, 0.4f);
@@ -258,5 +260,8 @@ public class Camera_Mouse : MonoBehaviour
     }
 
 
-
+    public void CameraOwnership()
+    {
+        photonView.RequestOwnership();
+    }
 }

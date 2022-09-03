@@ -68,7 +68,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         DiceButton=GameObject.FindWithTag("Dice");
         ButtonText=DiceButton.transform.GetChild(0).gameObject;
         Manager = GameManager.GetComponent<I_game_manager>();
-
+        
         DontDestroyOnLoad(this.gameObject);
 
 
@@ -103,20 +103,28 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     }
 
 
+    public void Turn_your()
+    {
+        string Log = "貴方のターンです。";
+       
+        Manager.Log_Mine(Log);
+        Log =PhotonNetwork.NickName+"のターンです。";
+        Manager.Log_connection_Oter(Log);
+
+        Manager.HowMyTurn=true;
+        Manager.Camera.GetComponent<Camera_Mouse>().CameraOwnership();
+        photonView.RPC(nameof(ApartmentEffect), RpcTarget.All);
+        Dice_ready();
+    }
 
     //ダイスを回す準備
     public void Dice_ready()
     {
         if (Manager.Player_Turn==PlayerNumber)
         {
-            string Log = "貴方のターンです。";
+        
             Manager.Camera.GetComponent<Camera_Mouse>().CameraReset();
-            Manager.Log_Mine(Log);
-            Log =PhotonNetwork.NickName+"のターンです。";
-            Manager.Log_connection_Oter(Log);
-            
-            photonView.RPC(nameof(ApartmentEffect), RpcTarget.All);
-
+      
         }
         DiceButton.GetComponent<Button>().interactable = true;
         ButtonText.GetComponent<Text>().text = "ダイスを回す";
