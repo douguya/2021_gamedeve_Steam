@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class AnimationController : MonoBehaviour
+public class AnimationController : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     AnimationCurve AnimCurve;
@@ -41,4 +42,16 @@ public class AnimationController : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         CameraControll.Camera_Move_initials2 = true;
     }
+
+
+    [PunRPC] public void connection1()
+    {
+
+
+
+
+    }
+
+
+
 }

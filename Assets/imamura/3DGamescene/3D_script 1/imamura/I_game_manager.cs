@@ -48,6 +48,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     public GameObject Log;
     public GameObject ReadyButton;
     public Icon_Sprite_Manager IconSprits;
+    public bool HowMyTurn=false;
 
     //  ここまで=========================================================================================//
 
@@ -55,6 +56,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     public GameObject[] Instance;
     public GameObject BGM;
     public GameObject SE;
+
     //------------------------ここまで------------------------------
 
 
@@ -458,10 +460,11 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     [PunRPC]
     private void Output_Dice_ready()    //プレイヤーのターンを追加して出力
     {
-        
+
+        HowMyTurn=false;
         if (Player[Player_Turn].GetComponent<PhotonView>().IsMine)
         {
-            Player[Player_Turn].GetComponent<I_Player_3D>().Dice_ready();
+            Player[Player_Turn].GetComponent<I_Player_3D>().Turn_your();
         }
           
     }

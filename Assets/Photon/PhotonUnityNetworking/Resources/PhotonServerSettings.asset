@@ -104,6 +104,7 @@ MonoBehaviour:
   - Output_TurnChange
   - RPC_Effect_IconChange
   - ApartmentEffect
+  - connection1
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
