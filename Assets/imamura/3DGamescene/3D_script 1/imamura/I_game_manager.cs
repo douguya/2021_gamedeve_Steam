@@ -588,13 +588,11 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     //ホップアップの非表示
     public void HopUp_hid()
     {
-        int turn = Player_Turn - 1;
+       
         HopUp.SetActive(false);
-        if (turn < 0)
-        {
-            turn = joining_Player - 1;
-        }
-        Player[turn].GetComponent<I_Player_3D>().StertDayEffect();
+       
+        Player[Player_Turn].GetComponent<I_Player_3D>().StertDayEffect();
+        Debug.Log("ホップアップの非表示");
     }
 
     //以下今村=============================================================================================================================

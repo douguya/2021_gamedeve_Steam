@@ -525,7 +525,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
             }
 
-            Manager.PlayerTurn_change();
+           
         }
         if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Goal == true)
         {
@@ -534,6 +534,12 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         Debug.Log("WWWWWWWWWWWWWWWWWWWWWWWWWWWWW"+1);
        
         Turn_change = false;
+
+
+
+        //=================================================================================================
+
+
     }
     [PunRPC]
     private void Output_Playerloot(int Y, int X)
