@@ -48,7 +48,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
        if(Effect_ON==true)
         {
             EndCounts();
-            Debug.Log("カウントの調査　"+EndCount+"  :　　"+EffectCount);
+          
             if (EndCount==EffectCount)
             {
                 Debug.Log("プレイヤーのターンチェンジ");
@@ -157,12 +157,8 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         {
             if (daySquare_Move != "none")
             {
-                int turn = game_Manager.Player_Turn - 1;
-                if (turn < 0)
-                {
-                    turn = game_Manager.joining_Player - 1;
-                }
-
+                int turn = game_Manager.Player_Turn ;
+                
                 char[] Char_Move = daySquare_Move.ToCharArray(); //Moveの内容をchar型に変換
                 if (daySquare_Move.StartsWith("ワープ"))
                 {
@@ -284,7 +280,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                     gameObject.GetComponent<I_Player_3D>().Player_wayMove(daySquare_Move.Substring(0, 1), Toint(Char_Move[1]));
                 }
             }
-            Move_end=true;
+           
         }
     }
     public void Exchange_Position()//交換処理
@@ -588,10 +584,25 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         var itemus = Player.GetComponent<I_Player_3D>().Hub_Items;
         int loop = itemus.Count;
       
-        int rnd = Random.Range(1, loop);
+      
 
         loop=0;
-        var count=0;
+      
+
+
+        foreach (var item in itemus)
+        {
+
+            if (item.classification==Category)
+            {
+                loop++;
+            }
+        }
+
+
+        int rnd = Random.Range(0, loop);
+
+        var count = 0;
         foreach (var item in itemus)
         {
             
@@ -600,11 +611,20 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                
                 if (count==rnd)
                 {
-                    Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(loop);
+                    if (item.name!="蒸し料理"&&item.name!="鉄スクラップ")
+                    {
+                        Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(loop);
+                    }
+                    else
+                    {
+                        rnd++;
+                    }
                 }
-                loop++;
+                
+                count++;
+
             }
-            count++;
+            
 
         }
 
