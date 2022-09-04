@@ -18,13 +18,13 @@ MonoBehaviour:
   HopUp: {fileID: 21300000, guid: 6d7904310a58aeb4688d536c459c08d7, type: 3}
   Commentary: "\n\n1993\u5E748\u670826\u65E5\u306B\u3001\u30EC\u30A4\u30F3\u30DC\u30FC\u30D6\u30EA\u30C3\u30B8\u304C\u958B\u901A\u3057\u307E\u3057\u305F\u3002\n\u306A\u304A\u3001\u300C\u30EC\u30A4\u30F3\u30DC\u30FC\u30D6\u30EA\u30C3\u30B8\u300D\u306F\u4E00\u822C\u516C\u52DF\u306B\u3088\u308A\u6C7A\u3081\u3089\u308C\u305F\u611B\u79F0\u3067\u3042\u308A\u3001\u6B63\u5F0F\u540D\u79F0\u306F\u300C\u6771\u4EAC\u6E2F\u9023\u7D61\u6A4B\u300D\u3067\u3059\u3002"
   Anniversary_Item: {fileID: 11400000, guid: 40a57b6e8af635142b8ee3a0a42ec9e7, type: 2}
-  Move: none
-  BGM: none
-  Instance: none
+  Move: Noon
+  BGM: Noon
+  Instance: Noon
   Icon: {fileID: 0}
-  particle: none
-  NextDice: none
-  NextMove: none
-  ItemLost: none
-  ConditionalPoint: 1
+  particle: Noon
+  NextDice: Noon
+  NextMove: Noon
+  ItemLost: Noon
+  ConditionalPoint: Noon
   OtherEffects: Noon

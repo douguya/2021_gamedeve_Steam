@@ -16,15 +16,15 @@ MonoBehaviour:
   Day: 8/3
   Staging: {fileID: 32900000, guid: c35255d56da939c478313678b4c77d29, type: 3}
   HopUp: {fileID: 21300000, guid: 6d7904310a58aeb4688d536c459c08d7, type: 3}
-  Commentary: "\u30AB\u30EC\u30F3\u30C0\u30FC\u3092\u5207\u308A\u53D6\u308A\u30016\u6708\u304B\u30899\u6708\u306E\u9806\u756A\u3092\u53CD\u5BFE\u306B\u3059\u308B\u3002\n\n\u30CF\u30B5\u30DF\u306E\u65E5\u306F\u30011977\u5E74\u306B\u56FD\u969B\u7F8E\u5BB9\u5354\u4F1A\u4F1A\u9577\u306E\u5C71\u91CE\u611B\u5B50\u6C0F\u306B\u3088\u3063\u3066\u5236\u5B9A\u3055\u308C\u307E\u3057\u305F\u3002\n\u300C\u306F\u3055\u3080\u300D\u306E\u8A9E\u5442\u5408\u308F\u305B\u304B\u30898\u67083\u65E5\u306B\u5236\u5B9A\u3055\u308C\u307E\u3057\u305F\u3002"
+  Commentary: "\u30FB\u306F\u3055\u307F(4pt)\u3092\u5165\u624B\r\u3059\u308B\u3002\n\n\u30CF\u30B5\u30DF\u306E\u65E5\u306F\u30011977\u5E74\u306B\u56FD\u969B\u7F8E\u5BB9\u5354\u4F1A\u4F1A\u9577\u306E\u5C71\u91CE\u611B\u5B50\u6C0F\u306B\u3088\u3063\u3066\u5236\u5B9A\u3055\u308C\u307E\u3057\u305F\u3002\n\u300C\u306F\u3055\u3080\u300D\u306E\u8A9E\u5442\u5408\u308F\u305B\u304B\u30898\u67083\u65E5\u306B\u5236\u5B9A\u3055\u308C\u307E\u3057\u305F\u3002"
   Anniversary_Item: {fileID: 11400000, guid: 9c50c072368d70b4e9c485d41022fda5, type: 2}
-  Move: none
-  BGM: none
-  Instance: none
+  Move: Noon
+  BGM: Noon
+  Instance: Noon
   Icon: {fileID: 0}
-  particle: none
-  NextDice: none
-  NextMove: none
-  ItemLost: none
-  ConditionalPoint: none
+  particle: Noon
+  NextDice: Noon
+  NextMove: Noon
+  ItemLost: Noon
+  ConditionalPoint: Noon
   OtherEffects: Noon
