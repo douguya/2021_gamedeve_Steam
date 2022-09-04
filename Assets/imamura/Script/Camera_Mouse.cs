@@ -93,10 +93,13 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
 
             transform.eulerAngles = rote;
         }
-        if (Vector3.Distance(transform.position, OriginPoint) <2)
+        if (Vector3.Distance(transform.position, OriginPoint) <1&&Camera_Move_initials2)
         {@@
             Camera_Move_initials2 = false;
             InstanceEnd();
+
+            transform.eulerAngles= OriginRect;
+
         }
     }
 
