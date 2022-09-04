@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e070eb0ab68448c4ab1ec019c3956a76, type: 3}
   m_Name: 0718
   m_EditorClassIdentifier: 
-  ItemName: "\u5149\u5316\u5B66\u30B9\u30E2\u30C3\u30B0\u767A\u751F\u88C5\u7F6E"
+  ItemName: "\u5149\u5316\u5B66\u30B9\u30E2\u30C3\u30B0\u306E\u5165\u3063\u305F\u74F6"
   ItemPoint: 1
   Anniversary: "\u5149\u5316\u5B66\u30B9\u30E2\u30C3\u30B0\u306E\u65E5"
   Day: 7/18

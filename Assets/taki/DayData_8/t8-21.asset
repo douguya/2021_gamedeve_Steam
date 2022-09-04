@@ -18,13 +18,13 @@ MonoBehaviour:
   HopUp: {fileID: 21300000, guid: 6d7904310a58aeb4688d536c459c08d7, type: 3}
   Commentary: "\u5674\u6C34\u304C\u8A2D\u7F6E\u3055\u308C\u308B\n\n1877\u5E748\u670821\u65E5\u306B\u3001\u4E0A\u91CE\u516C\u5712\u3067\u958B\u50AC\u3055\u308C\u305F\u7B2C1\u56DE\u5185\u56FD\u52E7\u696D\u535A\u89A7\u4F1A\u3067\u3001\u65E5\u672C\u521D\u306E\u897F\u6D0B\u5F0F\u5674\u6C34\u304C\u8A2D\u7F6E\u3055\u308C\u305F\u3053\u3068\u304B\u3089\u30018\u670821\u65E5\u306F\u5674\u6C34\u306E\u65E5\u306B\u5236\u5B9A\u3055\u308C\u307E\u3057\u305F\u3002\n\u3061\u306A\u307F\u306B\u3001\u4E16\u754C\u4E00\u306E\u9AD8\u3055\u3092\u8A87\u308B\u30B5\u30A6\u30B8\u30A2\u30E9\u30D3\u30A2\u306E\u30AD\u30F3\u30B0\u30FB\u30D5\u30A1\u30CF\u30C9\u306E\u5674\u6C34\u306F260m\u306E\u9AD8\u3055\u304C\u3042\u308A\u307E\u3059\u3002"
   Anniversary_Item: {fileID: 11400000, guid: 2f1e6c2a34e4eaf4dbb0a88107676af2, type: 2}
-  Move: none
-  BGM: none
-  Instance: none
+  Move: Noon
+  BGM: Noon
+  Instance: Noon
   Icon: {fileID: 0}
-  particle: none
-  NextDice: none
-  NextMove: none
-  ItemLost: none
-  ConditionalPoint: none
+  particle: Noon
+  NextDice: Noon
+  NextMove: Noon
+  ItemLost: Noon
+  ConditionalPoint: Noon
   OtherEffects: Noon
