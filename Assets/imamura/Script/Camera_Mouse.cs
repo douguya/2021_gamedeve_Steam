@@ -54,7 +54,7 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
             Camera_Move_initials=false;
         }
 
-        if (Camera_Move_highlight)
+        if (Camera_Move_highlight)//カメラを指定の位置に動かす
         {
             transform.position = Vector3.SmoothDamp(transform.position, Position_highlight, ref velocity, 0.4f);
             var rote = transform.eulerAngles;
@@ -79,7 +79,7 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
 
         }
 
-        if (Camera_Move_initials2)//カメラを初期位置に動かす
+        if (Camera_Move_initials2)//カメラを初期位置に動かす(角度含めて)
         {
             transform.position = Vector3.SmoothDamp(transform.position, OriginPoint, ref velocity, 0.4f);
 
@@ -93,14 +93,31 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
 
             transform.eulerAngles = rote;
         }
-        if (Vector3.Distance(transform.position, OriginPoint) < 1)
-        {
+        if (Vector3.Distance(transform.position, OriginPoint) <2)
+        {　　
             Camera_Move_initials2 = false;
+            InstanceEnd();
         }
     }
 
-  
+    public void InstanceEnd()
+    {
+        GameObject[] Players_spot = GameObject.FindGameObjectsWithTag("Player");//プレイヤーオブジェクトの一時保存場所　タグで軒並みとる
 
+        foreach (GameObject obj in Players_spot)//プレイヤーリストの中身と、一時保存したプレイヤーオブジェクトを突き合わせる
+        {
+            if (obj.GetComponent<PhotonView>().IsMine)
+            {
+                if (obj.GetComponent<I_Day_Effect>().InsTance_ON==true)
+                {
+                    Debug.Log("################################################");
+                    obj.GetComponent<I_Day_Effect>().Instance_end=true;
+                    obj.GetComponent<I_Day_Effect>().InsTance_ON=false;
+                }
+            }
+        }
+        
+    }
 
 
     private void Wheel_Zoom()

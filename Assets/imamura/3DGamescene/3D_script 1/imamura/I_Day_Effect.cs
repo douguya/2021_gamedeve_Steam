@@ -22,7 +22,19 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
     private bool PlayerTurn_change = true;
 
 
+    public int  EffectCount=0;
+    public int  EndCount = 0;
+    //終了判定用bool====================================
+    public bool Effect_ON=false;
+    public bool InsTance_ON = false;
+    public bool Move_end = false;
+    public bool Dice_end = false;
+    public bool NextMove_end = false;
+    public bool IconChange_end = false;
+    public bool ItemLost_end = false;
+    public bool Instance_end = false;
 
+    //====================================
     void Start()
     {
         game_Manager = GameObject.Find("I_game_manager").GetComponent<I_game_manager>();
@@ -33,7 +45,15 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-
+       if(Effect_ON==true)
+        {
+            EndCounts();
+            if (EndCount==EffectCount)
+            {
+                Effect_ON=false;
+                game_Manager.PlayerTurn_change();//プレイヤーターンチェンジ
+            }
+        }
     }
 
 
@@ -63,12 +83,59 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         }
 
     }
+    private void EffectCounts()
+    {
+        var Effect = Day_Square_Master.Day_Squares[DayNumber];
+        if (Effect.Move!="Noon"){ EffectCount++; }
+        if (Effect.BGM !="Noon"){ EffectCount++; }
+        if (Effect.NextDice!="Noon"){ EffectCount++; }
+        if (Effect.NextMove!="Noon"){ EffectCount++; }
+        if (Effect.Icon!=null){ EffectCount++; }
+        if (Effect.ItemLost!="Noon"){ EffectCount++; }
+        if (Effect.Instance!="Noon") { EffectCount++; }
+
+        Debug.Log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+EffectCount);
+    }
+    private void EndCounts()
+    {
+        EndCount=0;
+    
+        if (Move_end==true) { EndCount++; }
+        //BGMの場所
+        if (Dice_end==true) { EndCount++; }
+        if (NextMove_end ==true) { EndCount++; }
+        if (IconChange_end==true) { EndCount++; }
+        if (ItemLost_end==true) { EndCount++; }
+        if (Instance_end==true) { EndCount++; }
+        if (Move_end==true) { EndCount++; }
+
+
+
+    }
+
+    private void CountReset()
+    {
+        EffectCount=0;
+        EndCount=0;
+        Move_end = false;
+        Dice_end = false;
+        NextMove_end = false;
+        IconChange_end = false;
+        ItemLost_end = false;
+        Instance_end = false;
+    }
+
+
+
 
     public void Day_EffectReaction(string Day)
     {
-
-
+        
         DaySquare_Search(Day);
+        CountReset();
+
+        EffectCounts();
+        Effect_ON=true;
         Effect_Move();
         //Effect_BGM();
         Effect_Dice();
@@ -78,8 +145,6 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         Effect_Instance();
 
     }
-
-
 
     private void Effect_Move()
     {
@@ -329,7 +394,9 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                     }
                 }
             }
+            Dice_end=true;
         }
+       
     }
     [PunRPC]
     private void Output_DiceAdd(int Player, char add)
@@ -416,7 +483,9 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                 }
 
             }
+            NextMove_end=true;
         }
+       
     }
 
     public void Effect_IconChange()
@@ -427,8 +496,9 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         {
              photonView.RPC(nameof(RPC_Effect_IconChange), RpcTarget.AllViaServer, DayNumber);
              PlayerTurn_change = false;
+            IconChange_end=true;
+
         }
-       
 
     }
 
@@ -500,8 +570,9 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
 
 
 
-
+            ItemLost_end=true;
         }
+       
     }
 
 
@@ -581,6 +652,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                 StartCoroutine(InstAnimController.StartAnimation(InstAnimController.InstanceY));
             }
         }
+        InsTance_ON=true;
     }
     //------------------------ここまで------------------------------
 }
