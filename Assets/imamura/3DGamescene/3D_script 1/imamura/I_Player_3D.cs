@@ -112,7 +112,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         Manager.Log_connection_Oter(Log);
 
         Manager.HowMyTurn=true;
-       // Manager.Camera.GetComponent<Camera_Mouse>().CameraOwnership();
+        Manager.Camera.GetComponent<Camera_Mouse>().CameraOwnership();
         photonView.RPC(nameof(ApartmentEffect), RpcTarget.All);
         Dice_ready();
     }
