@@ -48,8 +48,10 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
        if(Effect_ON==true)
         {
             EndCounts();
+          
             if (EndCount==EffectCount)
             {
+                Debug.Log("プレイヤーのターンチェンジ");
                 Effect_ON=false;
                 game_Manager.PlayerTurn_change();//プレイヤーターンチェンジ
             }
@@ -94,20 +96,20 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         if (Effect.ItemLost!="Noon"){ EffectCount++; }
         if (Effect.Instance!="Noon") { EffectCount++; }
 
-        Debug.Log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+EffectCount);
+    
     }
     private void EndCounts()
     {
         EndCount=0;
     
-        if (Move_end==true) { EndCount++; }
+        if (Move_end==true) { EndCount++; Debug.Log("Move_end　"+Move_end); }
         //BGMの場所
-        if (Dice_end==true) { EndCount++; }
-        if (NextMove_end ==true) { EndCount++; }
-        if (IconChange_end==true) { EndCount++; }
-        if (ItemLost_end==true) { EndCount++; }
-        if (Instance_end==true) { EndCount++; }
-        if (Move_end==true) { EndCount++; }
+        if (Dice_end==true) { EndCount++; Debug.Log("Dice_end　"+Dice_end); }
+        if (NextMove_end ==true) { EndCount++; Debug.Log("NextMove_end　"+NextMove_end); }
+        if (IconChange_end==true) { EndCount++; Debug.Log("IconChange_end　"+IconChange_end); }
+        if (ItemLost_end==true) { EndCount++; Debug.Log("ItemLost_end　"+ItemLost_end); }
+        if (Instance_end==true) { EndCount++; Debug.Log("Instance_end　"+Instance_end); }
+       
 
 
 
@@ -136,6 +138,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
 
         EffectCounts();
         Effect_ON=true;
+        Debug.Log("日付効果の発動");
         Effect_Move();
         //Effect_BGM();
         Effect_Dice();
@@ -154,12 +157,8 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         {
             if (daySquare_Move != "none")
             {
-                int turn = game_Manager.Player_Turn - 1;
-                if (turn < 0)
-                {
-                    turn = game_Manager.joining_Player - 1;
-                }
-
+                int turn = game_Manager.Player_Turn ;
+                
                 char[] Char_Move = daySquare_Move.ToCharArray(); //Moveの内容をchar型に変換
                 if (daySquare_Move.StartsWith("ワープ"))
                 {
@@ -281,6 +280,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                     gameObject.GetComponent<I_Player_3D>().Player_wayMove(daySquare_Move.Substring(0, 1), Toint(Char_Move[1]));
                 }
             }
+           
         }
     }
     public void Exchange_Position()//交換処理
@@ -584,10 +584,25 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         var itemus = Player.GetComponent<I_Player_3D>().Hub_Items;
         int loop = itemus.Count;
       
-        int rnd = Random.Range(1, loop);
+      
 
         loop=0;
-        var count=0;
+      
+
+
+        foreach (var item in itemus)
+        {
+
+            if (item.classification==Category)
+            {
+                loop++;
+            }
+        }
+
+
+        int rnd = Random.Range(0, loop);
+
+        var count = 0;
         foreach (var item in itemus)
         {
             
@@ -596,11 +611,20 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                
                 if (count==rnd)
                 {
-                    Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(loop);
+                    if (item.name!="蒸し料理"&&item.name!="鉄スクラップ")
+                    {
+                        Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(loop);
+                    }
+                    else
+                    {
+                        rnd++;
+                    }
                 }
-                loop++;
+                
+                count++;
+
             }
-            count++;
+            
 
         }
 

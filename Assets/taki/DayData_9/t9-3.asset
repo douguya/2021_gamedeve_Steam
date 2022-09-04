@@ -20,13 +20,13 @@ MonoBehaviour:
     \u30B8\u30E7\u30A4\u30AB\u30FC\u30C8\u30E9\u30A4\u30C8\u306B\u3088\u3063\u3066\u6700\u521D\u306E\u30EB\u30FC\n\u30EB\u304C\u4F5C\u3089\u308C\u3001\u521D\u3081\u3066\u7AF6\u6280\u3068\u306A\u308A\u307E\u3057\u305F\u3002
     (2)\r\n\r\n\u30FB\u30DB\u30FC\u30E0\u30E9\u30F3\u30DC\u30FC\u30EB(3pt)\u3092\u5165\u624B\r\n"
   Anniversary_Item: {fileID: 11400000, guid: 6445f0feb46008d4eb8de871aecbdcd1, type: 2}
-  Move: none
-  BGM: none
-  Instance: none
+  Move: Noon
+  BGM: Noon
+  Instance: Noon
   Icon: {fileID: 0}
-  particle: none
-  NextDice: none
-  NextMove: none
-  ItemLost: none
-  ConditionalPoint: none
+  particle: Noon
+  NextDice: Noon
+  NextMove: Noon
+  ItemLost: Noon
+  ConditionalPoint: Noon
   OtherEffects: Noon

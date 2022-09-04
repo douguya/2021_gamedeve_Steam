@@ -20,13 +20,13 @@ MonoBehaviour:
     largest published crossword\uFF09\u3068\u3057\u3066\n\u767B\u9332\u3055\u308C\u307E\u3057\u305F\u3002
     (1)(\u5E45\u7D041m\u3001\u9577\u305513m)\r\n\r\n\u30FB\u30AF\u30ED\u30B9\u30EF\u30FC\u30C9(3pt)\u3092\u5165\u624B\r\n"
   Anniversary_Item: {fileID: 11400000, guid: 35106a41978d2884a8f26d3beb9e2b0e, type: 2}
-  Move: none
-  BGM: none
-  Instance: none
+  Move: Noon
+  BGM: Noon
+  Instance: Noon
   Icon: {fileID: 0}
-  particle: none
-  NextDice: none
-  NextMove: none
-  ItemLost: none
-  ConditionalPoint: none
+  particle: Noon
+  NextDice: Noon
+  NextMove: Noon
+  ItemLost: Noon
+  ConditionalPoint: Noon
   OtherEffects: Noon

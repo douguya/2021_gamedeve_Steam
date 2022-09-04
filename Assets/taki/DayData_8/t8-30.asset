@@ -19,13 +19,13 @@ MonoBehaviour:
   Commentary: "\u300C\u30CF\u30C3\u30D4\u30FC(8)\u30FB\u30B5\u30F3\u30B7\u30E3\u30A4\u30F3(30)\u300D\r\n\u3068\u3044\u3046\u65E5\u4ED8\u306E\u8A9E\u5442\u5408\u308F\u305B\u304C\u7531\u6765\r\n\r\n\u3061\u306A\u307F\u306B\u3001\u7B11\u3046\u3053\u3068\u3067\u3001\u526F\u4EA4\u611F\u795E\u7D4C\u3078\u306E\u30B9\n\u30A4\u30C3\u30C1\u304C\u5207\u308A\u66FF\u308F\u308A\u3001\u5B89\u5FC3\u611F\u3084\u5B89\u3089\u304E\u3092\n\u611F\u3058\u3089\u308C\u3001\u30B9\u30C8\u30EC\u30B9\u304C\u89E3\u6D88\u3055\u308C\u308B\u3068\u3044\u308F\n\u308C\u3066\u3044\u307E\u3059\u3002
     (1)\r\n\n\u30FB\u7B11\u9854\u306B\u306A\u308B\u672C(2pt)\u3092\u5165\u624B\r\n\n"
   Anniversary_Item: {fileID: 11400000, guid: de494144dd277d84dbaa113c84f87406, type: 2}
-  Move: none
-  BGM: none
-  Instance: none
+  Move: Noon
+  BGM: Noon
+  Instance: Noon
   Icon: {fileID: 0}
-  particle: none
-  NextDice: none
-  NextMove: none
-  ItemLost: none
-  ConditionalPoint: 5
+  particle: Noon
+  NextDice: Noon
+  NextMove: Noon
+  ItemLost: Noon
+  ConditionalPoint: Noon
   OtherEffects: Noon

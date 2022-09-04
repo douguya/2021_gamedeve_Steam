@@ -18,13 +18,13 @@ MonoBehaviour:
   HopUp: {fileID: 21300000, guid: 6d7904310a58aeb4688d536c459c08d7, type: 3}
   Commentary: "\u76C6\u63D0\u706F\u3092\u5165\u624B\uFF083\u30DD\u30A4\u30F3\u30C8\uFF09\u30008\u670816\u65E5\u304C\u958B\u3044\u3066\u3044\u305F\u30898\u670816\u65E5\u306E\u30A2\u30A4\u30C6\u30E0\u3082\u3082\u3089\u3048\u308B\n\n\u8FCE\u3048\u706B\u306F\u3001\u5BA2\u4EBA\u3084\u795E\u970A\u3092\u3080\u304B\u3048\u308B\u305F\u3081\u306B\u305F\u304F\u706B\u306E\u3053\u3068\u3067\u3059\u3002\n\u5730\u57DF\u306B\u3088\u3063\u3066\u63D0\u706F\u3092\u4F7F\u3046\u5834\u5408\u3082\u3042\u308A\u307E\u3059\u3002\n\u4E00\u822C\u7684\u306A\u76C6\u306F\u3001\u6708\u9045\u308C\u76C6\uFF088\u670813\u65E5\uFF5E15\u65E5\u30FB16\u65E5\uFF09\u3067\u884C\u308F\u308C\u308B\u3053\u3068\u304C\u591A\u3044\u305F\u3081\u3001\u59CB\u307E\u308A\u306E8\u670813\u65E5\u306B\u706B\u3092\u711A\u304D\u307E\u3059\u3002\n\n\uFF081\uFF09\u8FCE\u3048\u706B\u30FB\u9001\u308A\u706B\uFF5C\u8FCE\u3048\u706B\u3001\u9001\u308A\u706B\u306E\u4ED5\u65B9\u3092\u7D39\u4ECB\nhttps://www.bonchochin.jp/bonchochin3-2.html"
   Anniversary_Item: {fileID: 11400000, guid: 610e44c598cf00f41b7a1a828a327dbc, type: 2}
-  Move: none
-  BGM: none
-  Instance: none
+  Move: Noon
+  BGM: Noon
+  Instance: Noon
   Icon: {fileID: 0}
-  particle: none
-  NextDice: none
-  NextMove: none
-  ItemLost: none
-  ConditionalPoint: none
+  particle: Noon
+  NextDice: Noon
+  NextMove: Noon
+  ItemLost: Noon
+  ConditionalPoint: Noon
   OtherEffects: Noon

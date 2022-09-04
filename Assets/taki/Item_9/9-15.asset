@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e070eb0ab68448c4ab1ec019c3956a76, type: 3}
   m_Name: 9-15
   m_EditorClassIdentifier: 
-  ItemName: "\u30A4\u30C1\u30B4"
-  ItemPoint: 1
-  Anniversary: "\u30A4\u30C1\u30B4\u306E\u65E5"
+  ItemName: "\u6295\u7968\u6240\u5165\u5834\u5238"
+  ItemPoint: 6
+  Anniversary: "\u56FD\u969B\u6C11\u4E3B\u4E3B\u7FA9\u30C7\u30FC"
   Day: 9/15
   ItemSprite: {fileID: 21300000, guid: 3cc5b63f846bf5e42b7dfba9ea316a6a, type: 3}
-  classification: "\u98DF\u3079\u7269"
+  classification: 
   ItemLifespan: null
   Commentary: 
   ItemEffect: 0
