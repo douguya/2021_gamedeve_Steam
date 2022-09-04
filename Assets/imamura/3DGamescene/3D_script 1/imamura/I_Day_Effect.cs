@@ -48,8 +48,10 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
        if(Effect_ON==true)
         {
             EndCounts();
+            Debug.Log("カウントの調査　"+EndCount+"  :　　"+EffectCount);
             if (EndCount==EffectCount)
             {
+                Debug.Log("プレイヤーのターンチェンジ");
                 Effect_ON=false;
                 game_Manager.PlayerTurn_change();//プレイヤーターンチェンジ
             }
@@ -94,20 +96,20 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         if (Effect.ItemLost!="Noon"){ EffectCount++; }
         if (Effect.Instance!="Noon") { EffectCount++; }
 
-        Debug.Log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+EffectCount);
+    
     }
     private void EndCounts()
     {
         EndCount=0;
     
-        if (Move_end==true) { EndCount++; }
+        if (Move_end==true) { EndCount++; Debug.Log("Move_end　"+Move_end); }
         //BGMの場所
-        if (Dice_end==true) { EndCount++; }
-        if (NextMove_end ==true) { EndCount++; }
-        if (IconChange_end==true) { EndCount++; }
-        if (ItemLost_end==true) { EndCount++; }
-        if (Instance_end==true) { EndCount++; }
-        if (Move_end==true) { EndCount++; }
+        if (Dice_end==true) { EndCount++; Debug.Log("Dice_end　"+Dice_end); }
+        if (NextMove_end ==true) { EndCount++; Debug.Log("NextMove_end　"+NextMove_end); }
+        if (IconChange_end==true) { EndCount++; Debug.Log("IconChange_end　"+IconChange_end); }
+        if (ItemLost_end==true) { EndCount++; Debug.Log("ItemLost_end　"+ItemLost_end); }
+        if (Instance_end==true) { EndCount++; Debug.Log("Instance_end　"+Instance_end); }
+       
 
 
 
@@ -136,6 +138,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
 
         EffectCounts();
         Effect_ON=true;
+        Debug.Log("日付効果の発動");
         Effect_Move();
         //Effect_BGM();
         Effect_Dice();
@@ -281,6 +284,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                     gameObject.GetComponent<I_Player_3D>().Player_wayMove(daySquare_Move.Substring(0, 1), Toint(Char_Move[1]));
                 }
             }
+            Move_end=true;
         }
     }
     public void Exchange_Position()//交換処理

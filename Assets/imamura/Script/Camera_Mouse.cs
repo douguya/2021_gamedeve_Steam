@@ -163,7 +163,7 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
 
     private bool Zoonjudge2(Vector3 position)
     {
-        Debug.Log(position);
+        
         bool juje = false; 
         if ( position.y< Max_Position.y&&position.y> Mini_Position.y)
         {
@@ -179,7 +179,7 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
     }
     private Vector3 Zoonconvert(Vector3 position,Vector3 FalsePosition)
     {
-        Debug.Log(position);
+        
         Vector3 NewPosition = position;
         if (position.x> Max_Position.x|| position.x< Mini_Position.x)
         {
