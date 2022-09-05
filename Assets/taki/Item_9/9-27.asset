@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 9-27
   m_EditorClassIdentifier: 
   ItemName: "\u98DB\u884C\u6A5F"
-  ItemPoint: 1
-  Anniversary: "\u4E16\u754C\u89B3\u5149\u306E\u65E5"
+  ItemPoint: 5
+  Anniversary: "\u4E16\u754C\u89B3\u5149\u30C7\u30FC"
   Day: 9/27
   ItemSprite: {fileID: 21300000, guid: 3cc5b63f846bf5e42b7dfba9ea316a6a, type: 3}
   classification: "\u91D1\u5C5E"

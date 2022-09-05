@@ -22,7 +22,19 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
     private bool PlayerTurn_change = true;
 
 
+    public int  EffectCount=0;
+    public int  EndCount = 0;
+    //終了判定用bool====================================
+    public bool Effect_ON=false;
+    public bool InsTance_ON = false;
+    public bool Move_end = false;
+    public bool Dice_end = false;
+    public bool NextMove_end = false;
+    public bool IconChange_end = false;
+    public bool ItemLost_end = false;
+    public bool Instance_end = false;
 
+    //====================================
     void Start()
     {
         game_Manager = GameObject.Find("I_game_manager").GetComponent<I_game_manager>();
@@ -33,7 +45,17 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-
+       if(Effect_ON==true)
+        {
+            EndCounts();
+          
+            if (EndCount==EffectCount)
+            {
+                Debug.Log("プレイヤーのターンチェンジ");
+                Effect_ON=false;
+                game_Manager.PlayerTurn_change();//プレイヤーターンチェンジ
+            }
+        }
     }
 
 
@@ -63,12 +85,60 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         }
 
     }
+    private void EffectCounts()
+    {
+        var Effect = Day_Square_Master.Day_Squares[DayNumber];
+        if (Effect.Move!="Noon"){ EffectCount++; }
+        if (Effect.BGM !="Noon"){ EffectCount++; }
+        if (Effect.NextDice!="Noon"){ EffectCount++; }
+        if (Effect.NextMove!="Noon"){ EffectCount++; }
+        if (Effect.Icon!=null){ EffectCount++; }
+        if (Effect.ItemLost!="Noon"){ EffectCount++; }
+        if (Effect.Instance!="Noon") { EffectCount++; }
+
+    
+    }
+    private void EndCounts()
+    {
+        EndCount=0;
+    
+        if (Move_end==true) { EndCount++; Debug.Log("Move_end　"+Move_end); }
+        //BGMの場所
+        if (Dice_end==true) { EndCount++; Debug.Log("Dice_end　"+Dice_end); }
+        if (NextMove_end ==true) { EndCount++; Debug.Log("NextMove_end　"+NextMove_end); }
+        if (IconChange_end==true) { EndCount++; Debug.Log("IconChange_end　"+IconChange_end); }
+        if (ItemLost_end==true) { EndCount++; Debug.Log("ItemLost_end　"+ItemLost_end); }
+        if (Instance_end==true) { EndCount++; Debug.Log("Instance_end　"+Instance_end); }
+       
+
+
+
+    }
+
+    private void CountReset()
+    {
+        EffectCount=0;
+        EndCount=0;
+        Move_end = false;
+        Dice_end = false;
+        NextMove_end = false;
+        IconChange_end = false;
+        ItemLost_end = false;
+        Instance_end = false;
+    }
+
+
+
 
     public void Day_EffectReaction(string Day)
     {
-
-
+        
         DaySquare_Search(Day);
+        CountReset();
+
+        EffectCounts();
+        Effect_ON=true;
+        Debug.Log("日付効果の発動");
         Effect_Move();
         //Effect_BGM();
         Effect_Dice();
@@ -79,8 +149,6 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
 
     }
 
-
-
     private void Effect_Move()
     {
         Debug.Log("MOOOOOOOOOOOOOOOOOOOOOOOOOOB");
@@ -89,12 +157,8 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         {
             if (daySquare_Move != "none")
             {
-                int turn = game_Manager.Player_Turn - 1;
-                if (turn < 0)
-                {
-                    turn = game_Manager.joining_Player - 1;
-                }
-
+                int turn = game_Manager.Player_Turn ;
+                
                 char[] Char_Move = daySquare_Move.ToCharArray(); //Moveの内容をchar型に変換
                 if (daySquare_Move.StartsWith("ワープ"))
                 {
@@ -216,6 +280,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                     gameObject.GetComponent<I_Player_3D>().Player_wayMove(daySquare_Move.Substring(0, 1), Toint(Char_Move[1]));
                 }
             }
+           
         }
     }
     public void Exchange_Position()//交換処理
@@ -329,7 +394,9 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                     }
                 }
             }
+            Dice_end=true;
         }
+       
     }
     [PunRPC]
     private void Output_DiceAdd(int Player, char add)
@@ -416,7 +483,9 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                 }
 
             }
+            NextMove_end=true;
         }
+       
     }
 
     public void Effect_IconChange()
@@ -427,8 +496,9 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         {
              photonView.RPC(nameof(RPC_Effect_IconChange), RpcTarget.AllViaServer, DayNumber);
              PlayerTurn_change = false;
+            IconChange_end=true;
+
         }
-       
 
     }
 
@@ -500,8 +570,9 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
 
 
 
-
+            ItemLost_end=true;
         }
+       
     }
 
 
@@ -513,10 +584,25 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         var itemus = Player.GetComponent<I_Player_3D>().Hub_Items;
         int loop = itemus.Count;
       
-        int rnd = Random.Range(1, loop);
+      
 
         loop=0;
-        var count=0;
+      
+
+
+        foreach (var item in itemus)
+        {
+
+            if (item.classification==Category)
+            {
+                loop++;
+            }
+        }
+
+
+        int rnd = Random.Range(0, loop);
+
+        var count = 0;
         foreach (var item in itemus)
         {
             
@@ -525,11 +611,20 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                
                 if (count==rnd)
                 {
-                    Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(loop);
+                    if (item.name!="蒸し料理"&&item.name!="鉄スクラップ")
+                    {
+                        Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(loop);
+                    }
+                    else
+                    {
+                        rnd++;
+                    }
                 }
-                loop++;
+                
+                count++;
+
             }
-            count++;
+            
 
         }
 
@@ -581,6 +676,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                 StartCoroutine(InstAnimController.StartAnimation(InstAnimController.InstanceY));
             }
         }
+        InsTance_ON=true;
     }
     //------------------------ここまで------------------------------
 }

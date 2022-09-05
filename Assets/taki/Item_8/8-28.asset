@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e070eb0ab68448c4ab1ec019c3956a76, type: 3}
   m_Name: 8-28
   m_EditorClassIdentifier: 
-  ItemName: "\u30F4\u30A7\u30FC\u30C8\u30FC\u30D9\u30F3\u306E\u305A\u3089"
-  ItemPoint: 1
+  ItemName: "\u30F4\u30A1\u30A4\u30AA\u30EA\u30F3"
+  ItemPoint: 3
   Anniversary: "\u30F4\u30A1\u30A4\u30AA\u30EA\u30F3\u306E\u65E5"
   Day: 8/28
   ItemSprite: {fileID: 21300000, guid: 936345f7fc3934efa8119a8700d904c7, type: 3}

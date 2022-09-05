@@ -230,7 +230,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                     {
                         for (int day = 0; day < Manager.Week[0].Day.Length; day++)
                         {
-                            Output_SelectClear(week, day);
+                            photonView.RPC(nameof(Output_SelectClear), RpcTarget.All, week, day);
                         }
                     }
                     StartCoroutine(PlayerMove_Coroutine(MovePoint_Count, true));//プレイヤーの移動開始 
@@ -283,15 +283,16 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     {
         int[] Select = new int[4];                                              //選択の中心となるマスの四方を設定する
 
-        Output_SelectClear(Ycenter, Xcenter);                                   //選択の中心となるマスの選択マス(黄色やつ)非表示
-
+                            
+        photonView.RPC(nameof(Output_SelectClear), RpcTarget.All, Ycenter, Xcenter);//選択の中心となるマスの選択マス(黄色やつ)非表示
         Select[0] = Xcenter - 1; Select[1] = Xcenter + 1;                       //選択の中心となるマスの左右を入れる
         for (int way = 0; way < 2; way++)
         {
             //選択の中心となるマスの左右が存在し移動決定されたマスでない時
             if (0 <= Select[way] && Select[way] < Manager.Week[0].Day.Length && Manager.Week[Ycenter].Day[Select[way]].GetComponent<I_Mass_3D>().decision == false)
             {
-                Output_SelectSetting(Ycenter, Select[way]);                      //移動決定したマスを表示
+                Manager.Week[Ycenter].Day[Select[way]].layer = LayerMask.NameToLayer("Default");
+                photonView.RPC(nameof(Output_SelectSetting), RpcTarget.All, Ycenter, Select[way]);
             }
         }
 
@@ -301,7 +302,8 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             //選択の中心となるマスの上下が存在し移動決定されたマスでない時
             if (0 <= Select[way] && Select[way] < Manager.Week.Length && Manager.Week[Select[way]].Day[Xcenter].GetComponent<I_Mass_3D>().decision == false)
             {
-                Output_SelectSetting(Select[way], Xcenter);                     //移動決定したマスを表示
+                Manager.Week[Select[way]].Day[Xcenter].layer = LayerMask.NameToLayer("Default");                     //移動決定したマスを表示
+                photonView.RPC(nameof(Output_SelectSetting), RpcTarget.All, Select[way], Xcenter);
             }
         }
 
@@ -313,7 +315,9 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                 {
                     if (Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().warp == true)
                     {
-                        Output_SelectSetting(week, day);                        //選択できるマスを表示
+                        Manager.Week[week].Day[day].layer = LayerMask.NameToLayer("Default");
+                                           //選択できるマスを表示
+                        photonView.RPC(nameof(Output_SelectSetting), RpcTarget.All, week, day);
                     }
                 }
             }
@@ -331,10 +335,12 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                 for (int day = 0; day < Manager.Week[0].Day.Length; day++)
                 {
 
-                    Output_SelectClear(week, day);                                           //全ての選択マス(黄色やつ)非表示
+                    photonView.RPC(nameof(Output_SelectClear), RpcTarget.All, week, day);                                          //全ての選択マス(黄色やつ)非表示
                     if (Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().On_Click)        //マスがクリックされたものか
                     {
                         //Debug.Log("決定したマス！");
+                      
+                        photonView.RPC(nameof(Output_decisionSetting), RpcTarget.AllViaServer, week, day);
                         select_Point--;                                                      //プレイヤーの移動できる歩数を1つ減らす
                         MoveStop_point--;
                         MovePoint_Count++;
@@ -389,7 +395,8 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
                 {
 
-                    Output_SelectClear(week, day);
+                 
+                    photonView.RPC(nameof(Output_SelectClear), RpcTarget.All, week, day);
 
                     if (Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().On_Click)        //マスがクリックされたものか 
 
@@ -495,12 +502,6 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             }
         }
 
-        if (Effect == true)
-        {
-
-            StopI_Day_Effect(); //止まったマスの処理
-
-        }
 
         if (Exchange)
 
@@ -518,22 +519,31 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         {
 
             if (Effect == true)
-
             {
 
                 StopI_Day_Effect(); //止まったマスの処理 
 
             }
 
-            Manager.PlayerTurn_change();
+            if (GetComponent<I_Day_Effect>().Effect_ON)
+            {
+                GetComponent<I_Day_Effect>().Move_end=true;
+            }
+           
         }
         if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Goal == true)
         {
             Player_Goal();//ゴールしたときの処理
         }
-        Debug.Log("WWWWWWWWWWWWWWWWWWWWWWWWWWWWW"+1);
+       
        
         Turn_change = false;
+
+
+
+        //=================================================================================================
+
+
     }
     [PunRPC]
     private void Output_Playerloot(int Y, int X)
@@ -925,12 +935,18 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     private void StopI_Day_Effect()//止まったマスの処理
     {
     
-            if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Open == false)//まだ開いてないマスなら
-            {
-
-                photonView.RPC(nameof(Output_hideCoverClear), RpcTarget.All, YPlayer_position, XPlayer_position); //マスを開いた表示にする
-                Player_DayEffect();//日付の効果
-            }
+        if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Open == false)//まだ開いてないマスなら
+        {
+             photonView.RPC(nameof(Output_hideCoverClear), RpcTarget.All, YPlayer_position, XPlayer_position); //マスを開いた表示にする
+             Player_DayEffect();//日付の効果
+        }
+        else
+        {
+          
+          Manager.PlayerTurn_change();
+          Debug.Log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"+1);
+           
+        }
     }
 
 

@@ -106,6 +106,12 @@ MonoBehaviour:
   - ApartmentEffect
   - connection1
   - ReadyButton_hide
+  - decision_display_RPC
+  - select_display_RPC
+  - HopUp_hid_RPC
+  - HopUp_Setting_RPC
+  - Video_transparent_RPC_1
+  - Video_transparent_RPC_2
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
