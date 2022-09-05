@@ -25,7 +25,7 @@ MonoBehaviour:
   Icon: {fileID: 0}
   particle: Noon
   NextDice: Noon
-  NextMove: Noon
+  NextMove: "3\u56DE"
   ItemLost: Noon
   ConditionalPoint: Noon
   OtherEffects: Noon

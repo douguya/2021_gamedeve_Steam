@@ -26,5 +26,5 @@ MonoBehaviour:
   NextDice: Noon
   NextMove: Noon
   ItemLost: Noon
-  ConditionalPoint: Noon
+  ConditionalPoint: "\u6708\u9045\u308C\u30DC\u76C6\u8FCE\u3048\u706B"
   OtherEffects: Noon
