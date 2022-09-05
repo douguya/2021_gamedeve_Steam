@@ -20,13 +20,13 @@ MonoBehaviour:
     \u65E5 \u672C \u611B \u74E2 \u4F1A \u306E \u7D39 \u4ECB TOP\nhttps://aihyou.jp/?page_id=47&page=6\n\uFF082\uFF09\u3072\u3087\u3046\u305F\u3093\u306E\u65E5
     | E-ZUKA Event Entrance\nhttps://eee.world-p.co.jp/whatsday_0808_c/"
   Anniversary_Item: {fileID: 11400000, guid: e64ccf094fd097349aa9e76c5926ecba, type: 2}
-  Move: none
-  BGM: none
-  Instance: none
+  Move: Noon
+  BGM: Noon
+  Instance: Noon
   Icon: {fileID: 0}
-  particle: none
-  NextDice: none
+  particle: Noon
+  NextDice: Noon
   NextMove: "\u30C0\u30A4\u30B9+8"
-  ItemLost: none
-  ConditionalPoint: none
+  ItemLost: Noon
+  ConditionalPoint: Noon
   OtherEffects: Noon

@@ -20,13 +20,13 @@ MonoBehaviour:
     - \u6539\u3081\u3066\u708A\u98EF\u5668\u306B\u3064\u3044\u3066\u8003\u3048\u305F\u3044
     | \u30DE\u30A4\u30CA\u30D3\u30CB\u30E5\u30FC\u30B9\nhttps://news.mynavi.jp/article/20150818-a442/"
   Anniversary_Item: {fileID: 11400000, guid: 592e70a873356034bbc87d12dbdbf1b8, type: 2}
-  Move: none
-  BGM: none
-  Instance: none
+  Move: Noon
+  BGM: Noon
+  Instance: Noon
   Icon: {fileID: 0}
-  particle: none
-  NextDice: none
-  NextMove: none
-  ItemLost: none
-  ConditionalPoint: none
+  particle: Noon
+  NextDice: Noon
+  NextMove: Noon
+  ItemLost: Noon
+  ConditionalPoint: Noon
   OtherEffects: Noon
