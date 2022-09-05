@@ -27,5 +27,5 @@ MonoBehaviour:
   NextDice: none
   NextMove: none
   ItemLost: none
-  ConditionalPoint: none
+  ConditionalPoint: "\u9001\u308A\u76C6"
   OtherEffects: Noon

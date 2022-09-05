@@ -17,8 +17,9 @@ MonoBehaviour:
   Anniversary: "\u30F4\u30A1\u30A4\u30AA\u30EA\u30F3\u306E\u65E5"
   Day: 8/28
   ItemSprite: {fileID: 21300000, guid: 936345f7fc3934efa8119a8700d904c7, type: 3}
+  classification: 
   ItemLifespan: null
-  Commentary: "\u30F4\u30A1\u30A4\u30AA\u30EA\u30F3\u3058\u3083\u30C0\u30E1\uFF1F"
+  Commentary: 
   ItemEffect: 0
   Move: Noon
   BGM: Noon

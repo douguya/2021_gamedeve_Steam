@@ -24,8 +24,8 @@ MonoBehaviour:
   Instance: none
   Icon: {fileID: 0}
   particle: none
-  NextDice: "1~5(\u81EA\u7531)"
-  NextMove: none
+  NextDice: none
+  NextMove: 5
   ItemLost: none
   ConditionalPoint: none
   OtherEffects: Noon

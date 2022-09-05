@@ -19,7 +19,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 936345f7fc3934efa8119a8700d904c7, type: 3}
   classification: "\u98DF\u3079\u7269"
   ItemLifespan: null
-  Commentary: "\u7DD1\u9EC4\u8272\u91CE\u83DC\u306B\u9650\u5B9A\u3057\u3066\u3044\u308B\u7406\u7531"
+  Commentary: 
   ItemEffect: 0
   Move: Noon
   BGM: Noon

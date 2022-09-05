@@ -26,7 +26,7 @@ MonoBehaviour:
   Icon: {fileID: 0}
   particle: none
   NextDice: none
-  NextMove: none
+  NextMove: "\u30C0\u30A4\u30B9+8"
   ItemLost: none
   ConditionalPoint: none
   OtherEffects: Noon
