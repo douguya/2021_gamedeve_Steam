@@ -588,12 +588,24 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     //ホップアップの非表示
     public void HopUp_hid()
     {
-       
-        HopUp.SetActive(false);
-       
-        Player[Player_Turn].GetComponent<I_Player_3D>().StertDayEffect();
-        Debug.Log("ホップアップの非表示");
+        if (HowMyTurn)
+        {
+            photonView.RPC(nameof(HopUp_hid_RPC), RpcTarget.AllViaServer);
+        }
     }
+    [PunRPC] //ホップアップの表示の出力
+    public void HopUp_hid_RPC()
+    {
+       
+            HopUp.SetActive(false);
+
+            Player[Player_Turn].GetComponent<I_Player_3D>().StertDayEffect();
+            Debug.Log("ホップアップの非表示");
+        
+    }
+
+
+
 
     //以下今村=============================================================================================================================
 
@@ -855,28 +867,56 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
     public void Output_ClickVideoFinish()
     {
-        int turn = Player_Turn - 1;
-        StartCoroutine(Video_transparent());        
-        HopUp.SetActive(true);
-        if (turn < 0)
-        {
-            turn = joining_Player - 1;
-        }
-        int XMass = Player[Player_Turn].GetComponent<I_Player_3D>().XPlayer_position;
+        if (HowMyTurn) {
+            int turn = Player_Turn;
+            StartCoroutine(Video_transparent());
+            HopUp.SetActive(true);
 
-        int YMass = Player[Player_Turn].GetComponent<I_Player_3D>().YPlayer_position;
-        Player[turn].GetComponent<I_Player_3D>().HopUp_Setting(Week[YMass].Day[XMass].GetComponent<I_Mass_3D>().Day);
+            int XMass = Player[Player_Turn].GetComponent<I_Player_3D>().XPlayer_position;
+
+            int YMass = Player[Player_Turn].GetComponent<I_Player_3D>().YPlayer_position;
+            photonView.RPC(nameof(HopUp_Setting_RPC), RpcTarget.AllViaServer, turn, XMass, YMass);
+        }
     }
+
+
+
+
+    [PunRPC]
+    public void HopUp_Setting_RPC(int turn,int x,int y)//自分以外にログを送る
+    {
+        Player[turn].GetComponent<I_Player_3D>().HopUp_Setting(Week[y].Day[x].GetComponent<I_Mass_3D>().Day);
+        
+    }
+
+
+
+
+
 
 
     IEnumerator Video_transparent()
     {
+
         //Video_obj.SetActive(true);
+        photonView.RPC(nameof(Video_transparent_RPC_1), RpcTarget.AllViaServer);
+        yield return new WaitForSeconds(0.5f);     //8秒待つ
+        photonView.RPC(nameof(Video_transparent_RPC_2), RpcTarget.AllViaServer);
+    }
+    [PunRPC]
+    public void Video_transparent_RPC_1()//自分以外にログを送る
+    {
         Video_obj.GetComponent<VideoPlayer>().clip = transparent;
         Video_obj.GetComponent<VideoPlayer>().Play();   //ビデオの再生
-        yield return new WaitForSeconds(0.5f);     //8秒待つ
-        Video_obj.SetActive(false);
     }
+
+    [PunRPC]
+    public void Video_transparent_RPC_2()//自分以外にログを送る
+    {
+       Video_obj.SetActive(false);
+    }
+
+
 }
 
 
