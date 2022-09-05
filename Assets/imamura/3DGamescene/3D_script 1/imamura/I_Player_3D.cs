@@ -525,12 +525,14 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
             }
 
-            if (GetComponent<I_Day_Effect>().Effect_ON)
-            {
-                GetComponent<I_Day_Effect>().Move_end=true;
-            }
-           
         }
+
+
+        if (GetComponent<I_Day_Effect>().Effect_ON)
+        {
+            GetComponent<I_Day_Effect>().Move_end=true;
+        }
+
         if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Goal == true)
         {
             Player_Goal();//ƒS[ƒ‹‚µ‚½‚Æ‚«‚Ìˆ—
