@@ -112,6 +112,8 @@ MonoBehaviour:
   - HopUp_Setting_RPC
   - Video_transparent_RPC_1
   - Video_transparent_RPC_2
+  - Direct_Log_RPC
+  - Direct_Log_RPC__InputField
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
