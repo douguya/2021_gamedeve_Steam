@@ -4,14 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Linq;
+using Photon.Pun;
 
-
-public class Text_Log : MonoBehaviour
+public class Text_Log : MonoBehaviourPunCallbacks
 {
     public GameObject TextObj;//テキストのオブジェクト
     public GameObject TextBoard;//テキストのオブジェクト
     public GameObject TextMask;//テキストのオブジェクト
     public GameObject PullImage;
+    public InputField InputField;     //名前入力欄
+    
     public float Scloll;//スクロールの移動量
     public float Scloll_Coefficient;//スクロールの係数(フォントサイズの増大に比例して大きくなる　計算しきれなかったため入力)
     private int SclollCount=0;//スクロール回数のカウント
@@ -23,6 +25,7 @@ public class Text_Log : MonoBehaviour
         var Text = TextObj.GetComponent<Text>();
         Scloll=Text.fontSize*Text.lineSpacing* Scloll_Coefficient;//スクロール量の算出
         InitialY_Value=TextObj.GetComponent<RectTransform>().anchoredPosition.y;//初期位置を出す
+        
 
     }
 
@@ -111,4 +114,67 @@ public class Text_Log : MonoBehaviour
 
         texts.text=texts.text+"\n"+LogText;//ログのテキスト内容に追加
     }
+
+    public void Direct_Log_InputField()//全体にログを送る
+    {
+        if (Input.GetKey(KeyCode.Return))
+        {
+
+
+            
+            var name=PlayerColouradd(PhotonNetwork.NickName );
+            string Chat = name+":" +InputField.GetComponent<InputField>().text;
+
+            if (Chat!="")
+            {
+
+                Debug.Log(name);
+
+                //入力フォームのテキストを空にする
+               // textadd(Chat);
+                 photonView.RPC(nameof(Direct_Log_RPC__InputField), RpcTarget.AllViaServer, Chat);
+                InputField.text = "";
+            }
+        }
+    
+    }
+    public string PlayerColouradd(string Chat)
+    {
+        var ColourNum = PhotonNetwork.LocalPlayer.CustomProperties["PlayerNumMaterial"];
+        var Text = Chat;
+        switch (ColourNum) {
+
+            case 0   :
+                Text="<color=red>"+Text+"</color>";
+
+                break;
+            case 1:
+                Text="<color=blue>"+Text+"</color>";
+
+                break;
+            case 2:
+                Text="<color=yellow>"+Text+"</color>";
+
+                break;
+            case 3:
+                Text="<color=lime>"+Text+"</color>";
+
+                break;
+
+        }
+        return Text;
+    }
+
+
+
+
+
+
+    [PunRPC]
+    public void Direct_Log_RPC__InputField(string LogText)//全体にログを送る
+    {
+        textadd(LogText);
+    }
+
+
 }

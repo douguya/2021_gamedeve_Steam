@@ -42,6 +42,10 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     public GameObject[] myArray;
     public Material[] MaterialsList = new Material[4];
     public Material[] CursorColor_List = new Material[4];
+
+
+    public 
+
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();

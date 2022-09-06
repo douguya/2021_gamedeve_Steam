@@ -272,7 +272,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
         var ListSize = List.GetComponent<RectTransform>().sizeDelta;//リストのサイズを取得　（戻り値のため）
 
-        ListTransform.x = (ListSize.x/2*scale)+(ListSize.x*num*scale);//マジックナンバーはUIの初期座標
+        ListTransform.x = (ListSize.x/2*scale)+287.0751f+(ListSize.x*num*scale);//マジックナンバーはUIの初期座標
         ListTransform.y =-ListSize.y/2*scale;
 
     
@@ -865,19 +865,6 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         Log.GetComponent<Text_Log>().textadd(LogText);
     }
 
-    public void Output_ClickVideoFinish()
-    {
-        if (HowMyTurn) {
-            int turn = Player_Turn;
-            StartCoroutine(Video_transparent());
-            HopUp.SetActive(true);
-
-            int XMass = Player[Player_Turn].GetComponent<I_Player_3D>().XPlayer_position;
-
-            int YMass = Player[Player_Turn].GetComponent<I_Player_3D>().YPlayer_position;
-            photonView.RPC(nameof(HopUp_Setting_RPC), RpcTarget.AllViaServer, turn, XMass, YMass);
-        }
-    }
 
 
 
@@ -887,6 +874,20 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     {
         Player[turn].GetComponent<I_Player_3D>().HopUp_Setting(Week[y].Day[x].GetComponent<I_Mass_3D>().Day);
         
+    }
+    public void Output_ClickVideoFinish()
+    {
+        if (HowMyTurn)
+        {
+            int turn = Player_Turn;
+            StartCoroutine(Video_transparent());
+            HopUp.SetActive(true);
+
+            int XMass = Player[Player_Turn].GetComponent<I_Player_3D>().XPlayer_position;
+
+            int YMass = Player[Player_Turn].GetComponent<I_Player_3D>().YPlayer_position;
+            photonView.RPC(nameof(HopUp_Setting_RPC), RpcTarget.AllViaServer, turn, XMass, YMass);
+        }
     }
 
 
