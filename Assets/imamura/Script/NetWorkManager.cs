@@ -130,7 +130,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         IconChange();
 
         Player.GetComponent<I_Player_3D>().DiceButton.GetComponent<Button>().onClick.AddListener(Player.GetComponent<I_Player_3D>().DicePush);
-        string Log= "プレイヤー："+PhotonNetwork.NickName+"が入出しました。";
+        string Log= "プレイヤー："+PhotonNetwork.NickName+"が入室しました。";
         I_game_Manager_Script.Log_connection(Log);
 
         
@@ -266,7 +266,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     {
         StartCoroutine(OnPlayerLeftRoom_Coroutine());
         string Log = "プレイヤー："+ player.NickName+"が退出しました。";
-        I_game_Manager_Script.Log_connection(Log);
+        I_game_Manager_Script.Log_Mine(Log);
     }
 
     public IEnumerator OnPlayerLeftRoom_Coroutine()//プレイヤーが抜けたときの処理 コルーチン
