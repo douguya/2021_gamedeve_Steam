@@ -18,7 +18,7 @@ public class UICountact : MonoBehaviour
     }
     public void UIEnter()
     {
-        Debug.Log("Enter");
+        
         Canera.Permission_Zoom=false;
     }
     public void UIExit()

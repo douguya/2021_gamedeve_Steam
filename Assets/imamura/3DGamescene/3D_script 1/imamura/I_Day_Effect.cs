@@ -89,7 +89,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
     {
         var Effect = Day_Square_Master.Day_Squares[DayNumber];
         if (Effect.Move!="Noon"){ EffectCount++; }
-        if (Effect.BGM !="Noon"){ EffectCount++; }
+       // if (Effect.BGM !="Noon"){ EffectCount++; }
         if (Effect.NextDice!="Noon"){ EffectCount++; }
         if (Effect.NextMove!="Noon"){ EffectCount++; }
         if (Effect.Icon!=null){ EffectCount++; }
@@ -151,7 +151,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
 
     private void Effect_Move()
     {
-        Debug.Log("MOOOOOOOOOOOOOOOOOOOOOOOOOOB");
+  
         string daySquare_Move = Day_Square_Master.Day_Squares[DayNumber].Move;
         if (daySquare_Move != "Noon")
         {
@@ -547,7 +547,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
 
 
                     break;
-
+                    /*
                 case "セプテンバーバレンタイン":
                     var itemus = Player.GetComponent<I_Player_3D>().Hub_Items;
                     int loop = itemus.Count;
@@ -557,7 +557,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
 
                     break;
 
-
+                    */
 
 
                    
@@ -635,26 +635,21 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
 
     public void Conversion()//質屋　ランダムなアイテムをランダムなアイテムに変換する
     {
+        Debug.Log("質屋発動");
         var itemus = Player.GetComponent<I_Player_3D>().Hub_Items;
         int loop = 0;
-        foreach (var item in itemus)
-        {
-         
-            if (itemus[loop].ItemName=="ランダムなアイテム")
-            {
-                Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(loop);
-            }
-            loop++;//3
-
-        }
+       
         int rnd = Random.Range(0, itemus.Count);
-
-
-
+        Debug.Log("なくすアイテム"+itemus[rnd].ItemName);
         Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(rnd);
-
-
-
+        string Log = PhotonNetwork.NickName+"が質屋の日の効果により"+itemus[rnd].ItemName+"を紛失しました。";
+        game_Manager.Log_connection(Log);
+      
+        rnd = Random.Range(0, itemus.Count);
+        Debug.Log("なくすアイテム"+itemus[rnd].ItemName);
+        Player.GetComponent<I_Player_3D>().ItemAdd_ToConnect(rnd);
+        Log = PhotonNetwork.NickName+"が質屋の日の効果により"+itemus[rnd].ItemName+"を入手しました。";
+        game_Manager.Log_connection(Log);
     }
 
 
