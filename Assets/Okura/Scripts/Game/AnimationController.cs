@@ -26,6 +26,7 @@ public class AnimationController : MonoBehaviourPunCallbacks
     }
 
     public IEnumerator StartAnimation(float MaxValue) {
+        photonView.RequestOwnership();
         var Position = this.transform.position;
         float time = 0;
 
