@@ -134,7 +134,7 @@ public class Text_Log : MonoBehaviourPunCallbacks
         nowText.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, BordSize.y);
 
         var nowPosi = nowText.GetComponent<RectTransform>().anchoredPosition;
-        Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+nowPosi);
+
         nowPosi.y= FastBorad+(9.73f*(SizeCount-1));
         nowText.GetComponent<RectTransform>().anchoredPosition= nowPosi;
 

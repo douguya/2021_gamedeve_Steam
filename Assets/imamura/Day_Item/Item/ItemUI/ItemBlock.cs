@@ -14,7 +14,7 @@ public class ItemBlock : MonoBehaviour
     public Text ItemName;
     public GameObject ItemProperty;
     public Text PropertyText;
-
+    public GameObject player;
     public bool Rist_View = false;
     public List<GameObject> OtherList;
     //public GameObject ItemDetail;
@@ -45,9 +45,38 @@ public class ItemBlock : MonoBehaviour
     public void Detail_Switch ()
     {
         var ItemInfo = Item_Master.Anniversary_Items[ItemNumber];
-        ItemImage.sprite= ItemInfo.ItemSprite;
-        ItemName.text= ItemInfo.ItemName;
-        PropertyText.text=ItemInfo.Day+" "+ItemInfo.Anniversary+"\n"+ItemInfo.ItemPoint+"ポイント";
+        var Items = player.GetComponent<I_Player_3D>().Hub_Items;
+
+        foreach (var Item in Items)
+        {
+            if (Item.ItemName==ItemInfo.ItemName)
+            {
+
+                ItemImage.sprite= ItemInfo.ItemSprite;
+                ItemName.text= ItemInfo.ItemName;
+
+                PropertyText.text=ItemInfo.Day+" "+ItemInfo.Anniversary+"\n"+Item.ItemPoint+"ポイント";
+                Debug.Log("<color=red>"+Item.ItemName+"</color>"+Item.ItemPoint);
+            }
+        }
+    }
+    public void Detail_Switch_PointUpdate()
+    {
+        var ItemInfo = Item_Master.Anniversary_Items[ItemNumber];
+        var Items=player.GetComponent<I_Player_3D>().Hub_Items;
+
+        foreach (var Item in Items)
+        {
+            if (Item.ItemName==ItemInfo.ItemName){
+
+                ItemImage.sprite= ItemInfo.ItemSprite;
+                ItemName.text= ItemInfo.ItemName;
+
+                PropertyText.text=ItemInfo.Day+" "+ItemInfo.Anniversary+"\n"+Item.ItemPoint+"ポイント";
+                Debug.Log("<color=red>"+Item.ItemName+"</color>"+Item.ItemPoint);
+            }
+        }
+
     }
     public void ItemProperty_View()
     {
@@ -62,10 +91,6 @@ public class ItemBlock : MonoBehaviour
     {
         Rist_View=false;
         ItemProperty.SetActive(Rist_View);
-
-
-       
-
 
     }
 

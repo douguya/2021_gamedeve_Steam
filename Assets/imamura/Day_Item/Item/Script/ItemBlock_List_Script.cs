@@ -45,8 +45,10 @@ public class ItemBlock_List_Script : MonoBehaviour
 
         Block.transform.SetParent(BlockBox.transform, false);//アイテムリストの親子関係の調整
         Block.GetComponent<ItemBlock>().ItemNumber=ItemNum;
+        Block.GetComponent<ItemBlock>().player=Player;
         Block.GetComponent<ItemBlock>().Detail_Switch();
-
+        
+       
         MaskSize();
         BordSize();//ボードのサイズ調整
        
@@ -135,48 +137,17 @@ public class ItemBlock_List_Script : MonoBehaviour
 
 
 
-    public void BlockUpdate2()//ブロック更新時
+    public void PuintUpdate()//ブロック更新時
     {
-
-        int loop = 0;
-        foreach (var Hub_Item in Player.GetComponent<MannequinPlayer>().Hub_Items)//プレイヤーのアイテムリスト
+        
+        foreach (var bloc in Block_List)
         {
-           
-            foreach (var ItemMastercElement in Player.GetComponent<MannequinPlayer>().ItemMaster.Anniversary_Items)//元本のアイテムリスト
-            {
-                var Itemunum = ItemMastercElement.ItemName;//元本のアイテムの名前
-                var name= Hub_Item.ItemName;//アイテムリストの要素の名前
+
             
-               
-                if (Itemunum==name)
-                {
-                    var num = Player.GetComponent<MannequinPlayer>().ItemMaster.Anniversary_Items.IndexOf(ItemMastercElement);
-                   
-                    if (num!=Block_List[loop].GetComponent<ItemBlock>().ItemNumber)//ブロックリストの中身と入れようとしてるアイテムが違う場合
-                    {
-                        if (Block_List.Count<num+1)
-                        {
-                            Block_List[loop].GetComponent<ItemBlock>().ItemNumber=num;
-                            Block_List[loop].GetComponent<ItemBlock>().Detail_Switch();
-                        }
-                        else
-                        {
-                            AddItem(num);
-                            break;
-                        }
-                    }
-                    
-
-
-                }
-            
-            }
-
-            loop++;
-
+            bloc.GetComponent<ItemBlock>().Detail_Switch();
+          
         }
-        BordSize();//ボードのサイズ調整
-        BlockUpdate();//ブロックの場所を調整
+        
     }
     public void BlockUpdate()//ブロックの場所を調整
     {

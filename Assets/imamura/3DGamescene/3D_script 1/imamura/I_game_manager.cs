@@ -627,7 +627,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     //‚±‚±‚Ü‚Å=============================================================================================================================
     public void Player_Same()
     {
-        Debug.Log("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"+8);
+    
         int[] Alignment = { 4, 4, 4, 4 };
         int Count = 0;
         bool differNum_1 = true;

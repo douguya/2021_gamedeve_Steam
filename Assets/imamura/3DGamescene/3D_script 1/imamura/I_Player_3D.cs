@@ -147,7 +147,9 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
            if(Item.ItemName=="マンション")
             {
                 Item.ItemPoint++;
-
+                Debug.Log("<color=red>マンション発動</color>");
+                ItemBlock.GetComponent<ItemBlock_List_Script>().PuintUpdate();
+               
             }
 
         }
@@ -732,6 +734,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         Manager.Goal_Add();//ゲーム全体のゴール数に加算
         var loop = ItemMaster.Anniversary_Items.Count-1;//最後の位置を取得
         photonView.RPC(nameof(ItemAdd), RpcTarget.All, loop); //アイテム加算
+        
         string Log = PhotonNetwork.NickName+"が"+ItemMaster.Anniversary_Items[loop].ItemName+"を入手しました。";
         Manager.Log_connection(Log);
     }
@@ -763,15 +766,24 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
           {
             if (Item.Day==day)
             {
-               
-                photonView.RPC(nameof(ItemAdd), RpcTarget.All,loop); //アイテム加算
-                Itemunum=loop;
+                if (Item.ItemName!="ランダムなアイテム") {
+                    photonView.RPC(nameof(ItemAdd), RpcTarget.All, loop); //アイテム加算
+                    Itemunum=loop;
+                  
+                }
+          
             }
             loop++;
           }
-     //   Debug.Log("あいてむううううううううううううううううううう");
-        string Log = PhotonNetwork.NickName+"が"+ItemMaster.Anniversary_Items[Itemunum].ItemName+"を入手しました。";
-        Manager.Log_connection(Log);
+        //   Debug.Log("あいてむううううううううううううううううううう");
+        if (ItemMaster.Anniversary_Items[Itemunum].ItemName!="ランダムなアイテム")
+        {
+            
+
+            string Log = PhotonNetwork.NickName+"が"+ItemMaster.Anniversary_Items[Itemunum].ItemName+"を入手しました。";
+            Manager.Log_connection(Log);
+        }
+
 
 
     }
@@ -946,7 +958,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         {
           
           Manager.PlayerTurn_change();
-          Debug.Log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"+1);
+    
            
         }
     }
