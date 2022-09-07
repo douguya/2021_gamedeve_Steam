@@ -266,8 +266,8 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     //アイテムリストの初期位置設定
     public void ItemList_setting(GameObject List,int num)
     {
-
-        var scale = List.GetComponent<RectTransform>().localScale.y;
+        List.transform.SetAsFirstSibling();
+        var scale = List.GetComponent<RectTransform>().localScale.y; 
         var ListTransform = List.GetComponent<RectTransform>().position;
 
         var ListSize = List.GetComponent<RectTransform>().sizeDelta;//リストのサイズを取得　（戻り値のため）
