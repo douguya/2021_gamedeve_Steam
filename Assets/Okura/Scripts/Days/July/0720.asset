@@ -15,7 +15,7 @@ MonoBehaviour:
   Anniversary: "T\u30B7\u30E3\u30C4\u306E\u65E5"
   Day: 7/20
   Staging: {fileID: 32900000, guid: c35255d56da939c478313678b4c77d29, type: 3}
-  HopUp: {fileID: 21300000, guid: 7188671e3aaa9844d9205735e8a2a6d6, type: 3}
+  HopUp: {fileID: 21300000, guid: 3b53fb2ef4c8a564d9473bef5cc9aa5c, type: 3}
   Commentary: "\u30FB\u771F\u3063\u767D\u306AT\u30B7\u30E3\u30C4(1pt)\u3092\u5165\u624B\r\n\u30FB\u30A2\u30A4\u30B3\u30F3\u304CT\u30B7\u30E3\u30C4\u306B\u306A\u308B\r\n"
   Anniversary_Item: {fileID: 11400000, guid: b3ca5056df274304cb18d2c699f1d5c8, type: 2}
   Move: Noon
