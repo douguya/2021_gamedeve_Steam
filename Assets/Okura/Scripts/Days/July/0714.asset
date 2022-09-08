@@ -20,7 +20,7 @@ MonoBehaviour:
   Anniversary_Item: {fileID: 11400000, guid: e025f772ed721174ca579fcf06616a0d, type: 2}
   Move: Noon
   BGM: Noon
-  Instance: "\u30D1\u30EA\u796D\u308A"
+  Instance: Noon
   Icon: {fileID: 0}
   particle: Noon
   NextDice: Noon
