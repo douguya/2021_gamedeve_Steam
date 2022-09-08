@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058df27e0b5527648bdc699cd6d531d5, type: 3}
   m_Name: 0607
   m_EditorClassIdentifier: 
-  Anniversary: "\u6BCD\u89AA\u5927\u4F1A\u8A18\u5FF5\u65E5"
+  Anniversary: "\u4E16\u754C\u98DF\u54C1\u5B89\u5168\u306E\u65E5 "
   Day: 6/7
   Staging: {fileID: 32900000, guid: 1ac2f528befe77444af1cf2016bb24fe, type: 3}
   HopUp: {fileID: 21300000, guid: 5f5b115eae114c04581d37c5a6fdbc41, type: 3}
@@ -24,7 +24,7 @@ MonoBehaviour:
   Icon: {fileID: 0}
   particle: Noon
   NextDice: Noon
-  NextMove: "\u30C0\u30A4\u30B9+3"
+  NextMove: Noon
   ItemLost: Noon
   ConditionalPoint: Noon
   OtherEffects: Noon
