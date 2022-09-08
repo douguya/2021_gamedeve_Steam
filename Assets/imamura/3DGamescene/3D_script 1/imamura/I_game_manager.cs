@@ -38,6 +38,8 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
     public VideoClip transparent;
 
+    public GameObject GoalAnimation;
+
     //Å@à»â∫ç°ë∫========================================================================================//
 
     private bool GameStart=false;

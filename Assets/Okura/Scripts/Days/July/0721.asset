@@ -15,7 +15,7 @@ MonoBehaviour:
   Anniversary: "\u81EA\u7136\u516C\u5712\u306E\u65E5"
   Day: 7/21
   Staging: {fileID: 32900000, guid: c35255d56da939c478313678b4c77d29, type: 3}
-  HopUp: {fileID: 21300000, guid: 7188671e3aaa9844d9205735e8a2a6d6, type: 3}
+  HopUp: {fileID: 21300000, guid: 14f202d6145b4eb4583b1c63238a44b9, type: 3}
   Commentary: "\u30FB\u3044\u3044\u611F\u3058\u306E\u6728\u306E\u68D2(1pt)\u3092\u5165\u624B\r\n\u30FB\u6B21\u306E\u30BF\u30FC\u30F3\u30013\u30DE\u30B9\u8FFD\u52A0\u3067\u52D5\u304F\r\n"
   Anniversary_Item: {fileID: 11400000, guid: 94659fd9d304deb45816ab45039fc04c, type: 2}
   Move: Noon
@@ -23,7 +23,7 @@ MonoBehaviour:
   Instance: Noon
   Icon: {fileID: 0}
   particle: Noon
-  NextDice: "\u30C0\u30A4\u30B9+3"
+  NextDice: +3
   NextMove: Noon
   ItemLost: Noon
   ConditionalPoint: Noon

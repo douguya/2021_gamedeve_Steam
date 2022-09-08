@@ -39,7 +39,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
     public bool Exchange;                         //場所交換するかどうか 
     public bool Turn_change;                      //ターンを変えるかどうか 
-    public bool OneMore_Dice;
+    public int OneMore_Dice;
 
     public int DiceAdd = 0;
 
@@ -50,11 +50,12 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     public bool selectwark;
     private bool Effect_ready;
 
-
+    private bool Effect_start = true;
 
     private bool MoveStop_Push;
 
-    
+    public bool Guide_on = true;
+    private bool Guide_one = true;
 
     // 以下MannequinPlayer空の引用=====================================================================
     public Anniversary_Item_Master ItemMaster;
@@ -126,6 +127,11 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             Manager.Camera.GetComponent<Camera_Mouse>().CameraReset();
       
         }
+        if (Guide_on == true && Guide_one == true)
+        {
+            GameManager.GetComponent<Guide>().Dice_BottonStart();
+            GameManager.GetComponent<Guide>().chat_Start();
+        }
         DiceButton.GetComponent<Button>().interactable = true;
         ButtonText.GetComponent<Text>().text = "ダイスを回す";
         if (selectwark)
@@ -158,13 +164,13 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     //ダイスを止めて値を受け取る
     private void Dice_Stop()
     {
-        if (OneMore_Dice)
+        if (OneMore_Dice >= 2)
 
         {
 
-            OneMore_Dice = false;
+            OneMore_Dice--;
 
-            DiceAdd = Manager.Output_DiceStop();
+            DiceAdd += Manager.Output_DiceStop();
 
             Dice_ready();
 
@@ -173,7 +179,11 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         else
 
         {
-
+            if (Guide_on == true && Guide_one == true)
+            {
+                GameManager.GetComponent<Guide>().Dice_BottonFinish();
+                GameManager.GetComponent<Guide>().chat_Finish();
+            }
             Move_Point = Manager.Output_DiceStop() + DiceAdd;
 
             if (DiceMultiply != 0)
@@ -197,7 +207,6 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             DiceMultiply = 0;
 
             //Debug.Log("歩数：" + Move_Point); 
-
             MoveSelect();
 
         }
@@ -241,6 +250,10 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                 {
                     if (DiceStrat)
                     {
+                        if (Guide_on == true && Guide_one == true)
+                        {
+                            GameManager.GetComponent<Guide>().Dice_Text.GetComponent<Text>().text = "もう一度押してダイスを止める";
+                        }
                         gameObject.GetComponent<I_Day_Effect>().DiceSetting();
                         //ここでダイスを回す処理 
                         Manager.Output_DiceStart();
@@ -248,10 +261,18 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                         DiceStrat = false;
                     }
                     else
-                    {
-                        Dice_Stop();//ダイスを止めて値を受け取る 
-                        DiceButton.GetComponent<Button>().interactable = false;
+                    {                        
                         ButtonText.GetComponent<Text>().text = "移動を選択";
+                        if (OneMore_Dice <= 1)
+                        {
+                            DiceButton.GetComponent<Button>().interactable = false;
+                        }
+                        else
+                        {
+                            ButtonText.GetComponent<Text>().text = "ダイスを回す";
+                        }
+                        Dice_Stop();//ダイスを止めて値を受け取る 
+
                         DiceStrat = true;
                     }
                 }
@@ -271,6 +292,11 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     //選択できるマスの表示の初期設定
     public void MoveSelect()
     {
+        if (Guide_on == true && Guide_one == true)
+        {
+            GameManager.GetComponent<Guide>().MassSelecet_Start();
+        }
+        Effect_start = true;
         Xcenter = XPlayer_position;                 //選択の中心となるマスを設定
         Ycenter = YPlayer_position;
         YPlayer_Loot[0] = Ycenter;                  //プレイヤーの現在のマスを記憶する
@@ -329,6 +355,11 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     //選択できるマスから移動決定する
     public void MoveSelect_Clicked()
     {
+        if (Guide_on == true && Guide_one == true)
+        {
+            Guide_one = false;
+            GameManager.GetComponent<Guide>().MassSelecet_Finish();
+        }
         if (Effect == false)
 
         {
@@ -516,30 +547,38 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
         }
         Manager.Player_Same();
-        if (Turn_change == false)
 
+        if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Present_Item == true)
         {
-
-            if (Effect == true)
-            {
-
-                StopI_Day_Effect(); //止まったマスの処理 
-
-            }
-
-        }
-
-
-        if (GetComponent<I_Day_Effect>().Effect_ON)
-        {
-            GetComponent<I_Day_Effect>().Move_end=true;
+            //ここにオリエンテーションの高得点アイテムの取得処理入れる
+            Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Present_hid();
         }
 
         if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Goal == true)
         {
             Player_Goal();//ゴールしたときの処理
         }
-       
+        else
+        {
+            if (Turn_change == false)
+
+            {
+
+                if (Effect == true)
+                {
+                    Effect_start = false;
+                    StopI_Day_Effect(); //止まったマスの処理 
+
+                }
+
+            }
+        }
+        
+        if (GetComponent<I_Day_Effect>().Effect_ON)
+        {
+            GetComponent<I_Day_Effect>().Move_end=true;
+        }
+              
        
         Turn_change = false;
 
@@ -641,6 +680,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     {
         YPlayer_Loot[0] = YPlayer_position;                  //プレイヤーの現在のマスを記憶する
         XPlayer_Loot[0] = XPlayer_position;
+        int Step_Count = step;
         //  Debug.Log(0 + " : " + YPlayer_Loot[0] + ":" + XPlayer_Loot[0]);
         for (int Move = 1; Move < step + 1; Move++)
         {
@@ -669,15 +709,23 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             //     Debug.Log(Move + " : " + YPlayer_Loot[Move] + ":" + XPlayer_Loot[Move]);
             if (YPlayer_Loot[Move] < 0 || Manager.Week.Length < YPlayer_Loot[Move])
             {
+                Step_Count--;
                 YPlayer_Loot[Move] = YPlayer_Loot[Move - 1];
             }
             if (XPlayer_Loot[Move] < 0 || Manager.Week[0].Day.Length < XPlayer_Loot[Move])
             {
+                Step_Count--;
+                XPlayer_Loot[Move] = XPlayer_Loot[Move - 1];
+            }
+            if (Manager.Week[YPlayer_Loot[Move]].Day[XPlayer_Loot[Move]].activeInHierarchy == false)
+            {
+                Step_Count--;
+                YPlayer_Loot[Move] = YPlayer_Loot[Move - 1];
                 XPlayer_Loot[Move] = XPlayer_Loot[Move - 1];
             }
             //     Debug.Log(Move + " : " + YPlayer_Loot[Move] + ":" + XPlayer_Loot[Move]);
         }
-        StartCoroutine(PlayerMove_Coroutine(step, false));//プレイヤーの移動開始
+        StartCoroutine(PlayerMove_Coroutine(Step_Count, false));//プレイヤーの移動開始
     }
 
 
@@ -730,6 +778,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     //ゴールした時の処理
     public void Player_Goal()
     {
+        Output_GoalAnimation();
         photonView.RPC(nameof(Output_GoalCount), RpcTarget.All); //ゴール数を加算
         Manager.Goal_Add();//ゲーム全体のゴール数に加算
         var loop = ItemMaster.Anniversary_Items.Count-1;//最後の位置を取得
@@ -744,6 +793,29 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     {
         Goalcount++;
     }
+
+    //ゴールのアニメーションの共有お願いします
+    private void Output_GoalAnimation()
+    {
+        Manager.GoalAnimation.GetComponent<Animator>().SetBool("GoalAnimation", true);
+    }
+
+    public void GoalAnimation_After()
+    {
+        //Debug.Log(PlayerNumber + "GoalAnimation_After()");
+        if (Turn_change == false)
+        {
+            if (Effect_start == true)
+            {
+                //Debug.Log("StopDay_Effect()");
+                StopI_Day_Effect(); //止まったマスの処理
+            }
+            //Manager.PlayerTurn_change();
+        }
+        Turn_change = false;
+        Effect_start = true;
+    }
+
 
     //日付の効果発動
     public void Player_DayEffect()
@@ -833,6 +905,10 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         if (Manager.Video_obj.activeInHierarchy == true)
 
         {
+            if (Guide_on == true)
+            {
+                GameManager.GetComponent<Guide>().Hopup_Start();
+            }
 
             Manager.Output_HopUp();         //ホップアップを表示する 
 
@@ -926,9 +1002,14 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
             }
 
-            Player_warpMove[1] = true;
+            if (Manager.Week[YPlayer_Loot[1]].Day[XPlayer_Loot[1]].activeInHierarchy == true)
+            {
 
-            StartCoroutine(PlayerMove_Coroutine(1, false));//プレイヤーの移動開始 
+                Player_warpMove[1] = true;
+
+                StartCoroutine(PlayerMove_Coroutine(1, false));//プレイヤーの移動開始
+
+            }
 
         }
 
@@ -938,6 +1019,10 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     public void HopUp_Setting(string day)
 
     {
+        if (Guide_on == true)
+        {
+            GameManager.GetComponent<Guide>().Hopup_Start();
+        }
 
         Manager.Output_HopUp();         //ホップアップを表示する 
 
@@ -967,6 +1052,12 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     public void StertDayEffect()
 
     {
+        if (Guide_on == true)
+        {
+            GameManager.GetComponent<Guide>().Hopup_Finish();
+            Guide_on = false;
+            GameManager.GetComponent<Guide>().Item_Cstart();
+        }
 
         if (Effect_ready)
 
