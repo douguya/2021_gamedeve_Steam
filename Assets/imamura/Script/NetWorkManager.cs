@@ -121,6 +121,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
      
         var position = new Vector3(0.28f, -3.37f, -0.73f);
         GameObject Player = PhotonNetwork.Instantiate("Player3D", position, Quaternion.identity);//プレイヤーの生成
+
         GameObject ItemList_UGI = PhotonNetwork.Instantiate("ItemBlock_List", position, Quaternion.identity);//プレイヤーのアイテムリストの作成
         ReadyButton_Script.JoinedRoom_Jointed();
         GameObject PlayerCarsol = PhotonNetwork.Instantiate("Cursor", position, Quaternion.identity);//プレイヤーの生成
@@ -133,9 +134,12 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         string Log= "プレイヤー："+PhotonNetwork.NickName+"が入室しました。";
         I_game_Manager_Script.Log_connection(Log);
 
-        
+
+        hashtable["PlayerSetUP"]=true;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);//変更したカスタムプロパティの更新
 
         yield return new WaitForSeconds(0.4f);
+      
         Playerlist_Update();
         
         LoadImage.SetActive(false);
@@ -294,9 +298,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
 
         yield return new WaitForSeconds(0.6f);
-        Playerlist_Update();//プレイヤーのオブジェクト格納用/初期位置への移動も含む
-        Playerlist_Material_Update();
-        Icon_Update();
+     
         yield break;
     }
 
@@ -412,7 +414,12 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
                Icon_Update();
 
             }
-         
+            if ((string) prop.Key=="PlayerSetUP")
+            {
+                Playerlist_Update();//プレイヤーのオブジェクト格納用/初期位置への移動も含む
+                Playerlist_Material_Update();
+                Icon_Update();
+            }
 
         }
     }
