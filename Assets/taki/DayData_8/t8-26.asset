@@ -20,7 +20,7 @@ MonoBehaviour:
     (1)\r\n\n\u30FB\u4ED6\u30D7\u30EC\u30A4\u30E4\u30FC\u306E\u5143\u306B\u79FB\u52D5\r\n\n"
   Anniversary_Item: {fileID: 11400000, guid: 40a57b6e8af635142b8ee3a0a42ec9e7, type: 2}
   Move: "\u30EF\u30FC\u30D7\u9078\u629E\u30D7\u30EC\u30A4\u30E4\u30FC"
-  BGM: none
+  BGM: Noon
   Instance: "\u30EC\u30A4\u30F3\u30DC\u30FC\u30D6\u30EA\u30C3\u30B8\u958B\u901A\u8A18\u5FF5\u65E5"
   Icon: {fileID: 0}
   particle: Noon

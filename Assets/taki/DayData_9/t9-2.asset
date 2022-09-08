@@ -22,9 +22,9 @@ MonoBehaviour:
   BGM: Noon
   Instance: Noon
   Icon: {fileID: 0}
-  particle: none
+  particle: Noon
   NextDice: "\u51FA\u76EE126"
-  NextMove: none
-  ItemLost: none
-  ConditionalPoint: none
+  NextMove: Noon
+  ItemLost: Noon
+  ConditionalPoint: Noon
   OtherEffects: Noon
