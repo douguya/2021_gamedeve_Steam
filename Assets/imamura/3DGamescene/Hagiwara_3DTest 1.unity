@@ -1484,7 +1484,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1822875113192126288, guid: e905590568b51ad41bb513b8c08f6b16, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1822875113192126288, guid: e905590568b51ad41bb513b8c08f6b16, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8903,8 +8903,9 @@ GameObject:
   - component: {fileID: 1150914013}
   - component: {fileID: 1150914015}
   - component: {fileID: 1150914014}
+  - component: {fileID: 1150914016}
   m_Layer: 0
-  m_Name: Image
+  m_Name: TextBoard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8967,6 +8968,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1150914012}
   m_CullTransparentMesh: 1
+--- !u!114 &1150914016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1150914012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 7
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 540752231570966645}
+          m_TargetAssemblyTypeName: Text_Log, Assembly-CSharp
+          m_MethodName: OnScroll
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &1161957324
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14324,7 +14354,7 @@ Transform:
   - {fileID: 523317649}
   - {fileID: 1107826979}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1818983307
 MonoBehaviour:
@@ -14387,7 +14417,7 @@ GameObject:
   - component: {fileID: 1826783438}
   - component: {fileID: 1826783437}
   m_Layer: 5
-  m_Name: Image
+  m_Name: NowText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14447,7 +14477,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 70.454, y: 28.17}
+  m_AnchoredPosition: {x: 70.454, y: 28}
   m_SizeDelta: {x: 286.43, y: 25.460503}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1838858166
@@ -16729,7 +16759,6 @@ GameObject:
   m_Component:
   - component: {fileID: 540752231570966643}
   - component: {fileID: 540752231570966645}
-  - component: {fileID: 540752231570966642}
   - component: {fileID: 540752231570966641}
   m_Layer: 5
   m_Name: Log_UI
@@ -16760,51 +16789,6 @@ MonoBehaviour:
   sceneViewId: 15
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &540752231570966642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 540752231570966640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 7
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 540752231570966645}
-          m_TargetAssemblyTypeName: Text_Log, Assembly-CSharp
-          m_MethodName: OnScroll
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 540752231570966645}
-          m_TargetAssemblyTypeName: Text_Log, Assembly-CSharp
-          m_MethodName: TextBoard_View
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!224 &540752231570966643
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16839,14 +16823,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TextObj: {fileID: 540752232529429698}
-  TextBoard: {fileID: 0}
+  TextBoard: {fileID: 1150914012}
   nowText: {fileID: 1826783436}
-  TextMask: {fileID: 0}
-  PullImage: {fileID: 0}
   InputField: {fileID: 94973968}
   TestText: {fileID: 8224429943185417885, guid: 6df024ee033cfac4a8e97b0918410355, type: 3}
   Scloll: 0
   Scloll_Coefficient: 1
+  textVar: 0
+  Large_Sclol: 0
 --- !u!1 &540752232529429698 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8224429943185417883, guid: 6df024ee033cfac4a8e97b0918410355, type: 3}
@@ -17112,7 +17096,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8224429943185417884, guid: 6df024ee033cfac4a8e97b0918410355, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -70.376
+      value: -70
       objectReference: {fileID: 0}
     - target: {fileID: 8224429943185417884, guid: 6df024ee033cfac4a8e97b0918410355, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -17125,6 +17109,86 @@ PrefabInstance:
     - target: {fileID: 8224429943185417884, guid: 6df024ee033cfac4a8e97b0918410355, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8224429943185417885, guid: 6df024ee033cfac4a8e97b0918410355, type: 3}
+      propertyPath: m_Text
+      value: '1
+
+        2
+
+        3
+
+        4
+
+        5
+
+        6
+
+        7
+
+        8
+
+        9
+
+        10
+
+        11
+
+        12
+
+        13
+
+        14
+
+        15
+
+        16
+
+        17
+
+        18
+
+        19
+
+        20
+
+        21
+
+        22
+
+        23
+
+        24
+
+        25
+
+        26
+
+        27
+
+        28
+
+        29
+
+        30
+
+        31
+
+        32
+
+        33
+
+        34
+
+        35
+
+        36
+
+        37
+
+        38
+
+        39'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6df024ee033cfac4a8e97b0918410355, type: 3}
