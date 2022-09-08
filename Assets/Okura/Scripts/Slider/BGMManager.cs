@@ -61,6 +61,10 @@ public class BGMManager : MonoBehaviour
             case "LobbyBGM": audiosource.clip = Music.LobbyBGM; break;
             case "IngameBGM": audiosource.clip = Music.IngameBGM; break;
             case "ResultBGM": audiosource.clip = Music.ResultBGM; break;
+            case "環境の日": audiosource.clip = Music.EnvironmentBGM; break;
+            case "国際熱帯デー": audiosource.clip = Music.JangleBGM; break;
+            case "ピアノの日": audiosource.clip = Music.PianoBGM; break;
+            case "オカルト記念日": audiosource.clip = Music.HorrorBGM; break;
             case "DecisionSE": audiosource.clip = Music.DecisionSE; break;
             case "BackSE": audiosource.clip = Music.BackSE; break;
             case "GameStartSE": audiosource.clip = Music.GameStartSE; break;

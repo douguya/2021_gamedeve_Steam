@@ -23,9 +23,9 @@ MonoBehaviour:
   BGM: Noon
   Instance: Noon
   Icon: {fileID: 0}
-  particle: none
-  NextDice: none
-  NextMove: none
+  particle: Noon
+  NextDice: Noon
+  NextMove: Noon
   ItemLost: "\u30AA\u30FC\u30AF\u30B7\u30E7\u30F3\u306E\u65E5"
-  ConditionalPoint: none
+  ConditionalPoint: Noon
   OtherEffects: Noon

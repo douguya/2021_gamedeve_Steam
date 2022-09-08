@@ -12,6 +12,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
     private GameObject Player;
     private Image DayImage;
     public Day_Square_Master Day_Square_Master;
+    public GameObject BGMObject;
 
     private int DayNumber;
     private int Origin_XMass;
@@ -33,6 +34,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
     public bool IconChange_end = false;
     public bool ItemLost_end = false;
     public bool Instance_end = false;
+    public bool BGM_end = false;
 
     //====================================
     void Start()
@@ -40,6 +42,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         game_Manager = GameObject.Find("I_game_manager").GetComponent<I_game_manager>();
         DayImage = GameObject.Find("I_game_manager").GetComponent<I_game_manager>().HopUp.GetComponent<Image>();
         Player=this.gameObject;
+        BGMObject = GameObject.FindGameObjectWithTag("BGM");
     }
 
     // Update is called once per frame
@@ -89,7 +92,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
     {
         var Effect = Day_Square_Master.Day_Squares[DayNumber];
         if (Effect.Move!="Noon"){ EffectCount++; }
-       // if (Effect.BGM !="Noon"){ EffectCount++; }
+        if (Effect.BGM !="Noon"){ EffectCount++; }
         if (Effect.NextDice!="Noon"){ EffectCount++; }
         if (Effect.NextMove!="Noon"){ EffectCount++; }
         if (Effect.Icon!=null){ EffectCount++; }
@@ -101,7 +104,8 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
     private void EndCounts()
     {
         EndCount=0;
-    
+
+        if (BGM_end == true) { EndCount++; Debug.Log("BGM_end　" + BGM_end); }
         if (Move_end==true) { EndCount++; Debug.Log("Move_end　"+Move_end); }
         //BGMの場所
         if (Dice_end==true) { EndCount++; Debug.Log("Dice_end　"+Dice_end); }
@@ -119,6 +123,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
     {
         EffectCount=0;
         EndCount=0;
+        BGM_end = false;
         Move_end = false;
         Dice_end = false;
         NextMove_end = false;
@@ -140,7 +145,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         Effect_ON=true;
         Debug.Log("日付効果の発動");
         Effect_Move();
-        //Effect_BGM();
+        Effect_BGM();
         Effect_Dice();
         Effect_NextMove();
         Effect_IconChange();
@@ -316,6 +321,9 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
             if (Day_Square_Master.Day_Squares[DayNumber].BGM != "none")
             {
                 PlayerTurn_change = false;
+
+                BGMObject.GetComponent<BGMManager>().BGMsetandplay(Day_Square_Master.Day_Squares[DayNumber].Anniversary);
+                BGM_end = true;
             }
 
         }
