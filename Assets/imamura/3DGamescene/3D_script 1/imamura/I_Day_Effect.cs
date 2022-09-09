@@ -322,12 +322,25 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
             {
                 PlayerTurn_change = false;
 
-                BGMObject.GetComponent<BGMManager>().BGMsetandplay(Day_Square_Master.Day_Squares[DayNumber].Anniversary);
+                photonView.RPC(nameof(EffectBGM_RPC), RpcTarget.All, Day_Square_Master.Day_Squares[DayNumber].Anniversary);
                 BGM_end = true;
             }
 
         }
     }
+    [PunRPC]
+    public void EffectBGM_RPC(string BGM)
+    {
+        BGMObject.GetComponent<BGMManager>().BGMsetandplay(BGM);
+    }
+
+
+
+
+
+
+
+
 
     private void Effect_Dice()
     {

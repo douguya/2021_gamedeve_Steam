@@ -131,15 +131,15 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         IconChange();
 
         Player.GetComponent<I_Player_3D>().DiceButton.GetComponent<Button>().onClick.AddListener(Player.GetComponent<I_Player_3D>().DicePush);
-        string Log= "プレイヤー："+PhotonNetwork.NickName+"が入室しました。";
-        I_game_Manager_Script.Log_connection(Log);
-
+ 
 
         hashtable["PlayerSetUP"]=true;
         PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);//変更したカスタムプロパティの更新
 
         yield return new WaitForSeconds(0.4f);
-      
+        string Log = I_game_Manager_Script.PlayerColouradd(PhotonNetwork.NickName)+"が入室しました。";
+        I_game_Manager_Script.Log_connection(Log);
+
         Playerlist_Update();
         
         LoadImage.SetActive(false);
@@ -147,7 +147,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
     }
 
-
+    
 
     public void MaterialChange()//プレイヤーのマテリアルを変更する
     {
