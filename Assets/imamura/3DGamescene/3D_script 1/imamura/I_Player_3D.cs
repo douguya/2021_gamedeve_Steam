@@ -57,6 +57,8 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     public bool Guide_on = true;
     private bool Guide_one = true;
 
+    private bool OneMore;
+
     // 以下MannequinPlayer空の引用=====================================================================
     public Anniversary_Item_Master ItemMaster;
     public GameObject ItemBlock;//アイテムリストのUGI
@@ -123,6 +125,8 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     //ダイスを回す準備
     public void Dice_ready()
     {
+        string Text_Announce;
+
         if (Manager.Player_Turn==PlayerNumber)
         {
         
@@ -136,14 +140,38 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         }
         DiceButton.GetComponent<Button>().interactable = true;
         ButtonText.GetComponent<Text>().text = "ダイスを回す";
+        gameObject.GetComponent<I_Day_Effect>().DiceSetting();
         if (selectwark)
 
         {
 
             ButtonText.GetComponent<Text>().text = "進む";
 
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "は" + MoveAdd_point + "マスまで進んでもいい";
+            Manager.Log_connection(Text_Announce);
         }
         Turn_change = false;
+        if(MoveAdd_point != 0 && selectwark == false)
+        {
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "はダイスに+" + MoveAdd_point + "マスまで進んでもいい";
+            Manager.Log_connection(Text_Announce);
+        }
+        if (OneMore_Dice > 1 && OneMore == false)
+        {
+            OneMore = true;
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "はダイスを" + OneMore_Dice + "回振れる";
+            Manager.Log_connection(Text_Announce);
+        }
+        if (DiceAdd != 0)
+        {
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "のダイスの出目に+" + DiceAdd;
+            Manager.Log_connection(Text_Announce);
+        }
+        if (DiceMultiply != 0)
+        {
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "のダイスの出目が×" + DiceMultiply;
+            Manager.Log_connection(Text_Announce);
+        }
     }
 
 
@@ -188,13 +216,19 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                 GameManager.GetComponent<Guide>().chat_Finish();
             }
             Move_Point = Manager.Output_DiceStop() + DiceAdd;
-
+            
             if (DiceMultiply != 0)
 
             {
 
                 Move_Point *= DiceMultiply;
 
+            }
+
+            if (DiceAdd != 0 || DiceMultiply != 0)
+            {
+                string Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "の移動出来る合計は..." + Move_Point;
+                Manager.Log_connection(Text_Announce);
             }
 
             MoveStop_point = Move_Point;
@@ -208,6 +242,8 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             DiceAdd = 0;
 
             DiceMultiply = 0;
+
+            OneMore = false;
 
             //Debug.Log("歩数：" + Move_Point); 
             MoveSelect();
@@ -250,21 +286,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                     StartCoroutine(PlayerMove_Coroutine(MovePoint_Count, true));//プレイヤーの移動開始 
                 }
                 else
-                {
-                    if (DiceStrat)
-                    {
-                        if (Guide_on == true && Guide_one == true)
-                        {
-                            GameManager.GetComponent<Guide>().Dice_Text.GetComponent<Text>().text = "もう一度押してダイスを止める";
-                        }
-                        gameObject.GetComponent<I_Day_Effect>().DiceSetting();
-                        //ここでダイスを回す処理 
-                        Manager.Output_DiceStart();
-                        ButtonText.GetComponent<Text>().text = "ダイスを止める";
-                        DiceStrat = false;
-                    }
-                    else
-                    {                        
+                {          
                         ButtonText.GetComponent<Text>().text = "移動を選択";
                         if (OneMore_Dice <= 1)
                         {
@@ -277,7 +299,6 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                         Dice_Stop();//ダイスを止めて値を受け取る 
 
                         DiceStrat = true;
-                    }
                 }
             }
         }
@@ -553,7 +574,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
         if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Present_Item == true)
         {
-            //ここにオリエンテーションの高得点アイテムの取得処理入れる
+            //ここにオリエンテーリングの高得点アイテムの取得処理入れる
             Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Present_hid();
         }
 

@@ -389,10 +389,10 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
 
 
-    public void Output_DiceStart()
-    {
-        Dice.GetComponent<newRotate>().RotateStart();
-    }
+    //public void Output_DiceStart()
+    //{
+    //    Dice.GetComponent<newRotate>().RotateStart();
+    //}
 
     public int Output_DiceStop()
     {

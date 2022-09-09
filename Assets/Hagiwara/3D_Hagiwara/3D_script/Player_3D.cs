@@ -155,7 +155,7 @@ public class Player_3D : MonoBehaviour
                     {
                         gameObject.GetComponent<Day_Effect>().DiceSetting();
                         //ここでダイスを回す処理
-                        Manager.Output_DiceStart();
+                        //Manager.Output_DiceStart();
                         ButtonText.GetComponent<Text>().text = "ダイスを止める";
                         DiceStrat = false;
                     }

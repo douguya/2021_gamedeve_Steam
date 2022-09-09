@@ -163,6 +163,8 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         {
             if (daySquare_Move != "none")
             {
+                string Text_Announce;
+
                 int turn = game_Manager.Player_Turn ;
                 
                 char[] Char_Move = daySquare_Move.ToCharArray(); //Moveの内容をchar型に変換
@@ -172,6 +174,10 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                     {
                         //  Debug.Log("指定したプレイヤーにワープ");
                         //選択したプレイヤーの元に飛ぶ
+
+                        Text_Announce = game_Manager.PlayerColouradd(PhotonNetwork.NickName) + "が選択したプレイヤーの元にワープ";
+                        game_Manager.Log_connection(Text_Announce);
+
                         Output_TurnChange(turn);
                         for (int Player = 0; Player < game_Manager.joining_Player; Player++)
                         {
@@ -191,6 +197,9 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                         //指定マスへのワープ
                         Output_TurnChange(turn);
                         gameObject.GetComponent<I_Player_3D>().Player_WarpMove("ワープ", daySquare_Move.Remove(0, 3));
+
+                        Text_Announce = game_Manager.PlayerColouradd(PhotonNetwork.NickName) + "が" + daySquare_Move + "にワープ";
+                        game_Manager.Log_connection(Text_Announce);
                     }
 
                 }
@@ -204,7 +213,8 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                             game_Manager.Player[Player].GetComponent<I_Player_3D>().Player_WarpMove("ワープ", daySquare_Move.Remove(0, 2));
                         
                     }
-
+                    Text_Announce = game_Manager.PlayerColouradd(PhotonNetwork.NickName) + "のいるマスに集合";
+                    game_Manager.Log_connection(Text_Announce);
                     //  Debug.Log("PlayerTurn_change:3");
                 }
                 if (daySquare_Move.StartsWith("選択"))
@@ -214,6 +224,9 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                     Output_TurnChange(turn);
                     if (daySquare_Move.Remove(0, 2) == "ワープマス")
                     {
+                        Text_Announce = game_Manager.PlayerColouradd(PhotonNetwork.NickName) + "が選択したワープマスにワープ";
+                        game_Manager.Log_connection(Text_Announce);
+
                         for (int week = 0; week < game_Manager.Week.Length; week++)
                         {
                             for (int day = 0; day < game_Manager.Week[0].Day.Length; day++)
@@ -243,6 +256,9 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                                 }
                             }
                         }
+
+                        Text_Announce = game_Manager.PlayerColouradd(PhotonNetwork.NickName) + "が選択した" + daySquare_Move + "日にワープ";
+                        game_Manager.Log_connection(Text_Announce);
                     }
                     if (daySquare_Move.Remove(0, 2) == "全マス")
                     {
@@ -254,11 +270,14 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                                 game_Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().select_display();
                             }
                         }
+
+                        Text_Announce = game_Manager.PlayerColouradd(PhotonNetwork.NickName) + "が選択した好きな日にワープ";
+                        game_Manager.Log_connection(Text_Announce);
                     }
                 }
                 if (daySquare_Move.StartsWith("交換"))
                 {
-                    Debug.Log("交換");
+                    //Debug.Log("交換");
                     //選択したプレイヤーとマスを交換する
                     Output_TurnChange(turn);
                     Origin_XMass = gameObject.GetComponent<I_Player_3D>().XPlayer_position;
@@ -274,6 +293,9 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                             game_Manager.Week[YMass].Day[XMass].GetComponent<I_Mass_3D>().select_display();
                         }
                     }
+
+                    Text_Announce = game_Manager.PlayerColouradd(PhotonNetwork.NickName) + "が選択したプレイヤーと場所を交換";
+                    game_Manager.Log_connection(Text_Announce);
                 }
                 if (daySquare_Move.StartsWith("上") || daySquare_Move.StartsWith("下") || daySquare_Move.StartsWith("右") || daySquare_Move.StartsWith("左"))
                 {
@@ -282,6 +304,9 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                     Output_TurnChange(turn);
                     //Debug.Log("日付効果でのスライド移動" + Char_Move[0] + ":" + Toint(Char_Move[1]));
                     gameObject.GetComponent<I_Player_3D>().Player_wayMove(daySquare_Move.Substring(0, 1), Toint(Char_Move[1]));
+
+                    Text_Announce = game_Manager.PlayerColouradd(PhotonNetwork.NickName) + "が" + daySquare_Move + "に" + Toint(Char_Move[1]) + "マス移動";
+                    game_Manager.Log_connection(Text_Announce);
                 }
             }
            
@@ -350,15 +375,23 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         {
             if (daySquare_NextDice != "none")
             {
+                string Text_Announce;
+
                 //ダイスの出目に増減
                 if (daySquare_NextDice.StartsWith("+"))
                 {
                     gameObject.GetComponent<I_Player_3D>().DiceAdd += Toint(Char_NextDice[1]);
 
+                    Text_Announce = game_Manager.PlayerColouradd(PhotonNetwork.NickName) + "の次のダイスの出目が+" + Toint(Char_NextDice[1]);
+                    game_Manager.Log_connection(Text_Announce);
+
                 }
                 if (daySquare_NextDice.StartsWith("*"))
                 {
                     gameObject.GetComponent<I_Player_3D>().DiceMultiply += Toint(Char_NextDice[1]);
+
+                    Text_Announce = game_Manager.PlayerColouradd(PhotonNetwork.NickName) + "の次のダイスの出目が×" + Toint(Char_NextDice[1]);
+                    game_Manager.Log_connection(Text_Announce);
 
                 }
                 //ダイスの出目に増減(全員)
@@ -409,6 +442,9 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                     {
                         DiceNumber[5] = true;
                     }
+
+                    Text_Announce = game_Manager.PlayerColouradd(PhotonNetwork.NickName) + "の次のダイスの出目が変化";
+                    game_Manager.Log_connection(Text_Announce);
                 }
             }
             Dice_end=true;
@@ -473,6 +509,8 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
     }
     private void Effect_NextMove()
     {
+        string Text_Announce;
+
         string daySquare_NextMove = Day_Square_Master.Day_Squares[DayNumber].NextMove;
         char[] Char_NextMove = daySquare_NextMove.ToCharArray();
         if (daySquare_NextMove != "Noon")
@@ -482,14 +520,20 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                 if (daySquare_NextMove.Contains("回"))
                 {
                     gameObject.GetComponent<I_Player_3D>().OneMore_Dice = Toint(Char_NextMove[0]);
+
+                    Text_Announce = game_Manager.PlayerColouradd(PhotonNetwork.NickName) + "は次のターン、ダイスを" + Toint(Char_NextMove[0]) + "回振れる";
+                    game_Manager.Log_connection(Text_Announce);
                 }
 
                 if (daySquare_NextMove.StartsWith("ダイス"))
                 {
                     Debug.Log("何マスかまで進んでいい");
-                    if (daySquare_NextMove.Substring(3, 1) == "+")
+                    if (daySquare_NextMove.Contains("+"))
                     {
                         gameObject.GetComponent<I_Player_3D>().MoveAdd_point += Toint(Char_NextMove[4]);
+
+                        Text_Announce = game_Manager.PlayerColouradd(PhotonNetwork.NickName) + "は次のターン、ダイスに+" + Toint(Char_NextMove[4]) + "動いてもいい";
+                        game_Manager.Log_connection(Text_Announce);
                     }
                 }
 
@@ -497,6 +541,9 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                 {
                     gameObject.GetComponent<I_Player_3D>().selectwark = true;
                     gameObject.GetComponent<I_Player_3D>().MoveAdd_point += Toint(Char_NextMove[2]);
+
+                    Text_Announce = game_Manager.PlayerColouradd(PhotonNetwork.NickName) + "は次のターン、" + Toint(Char_NextMove[2]) + "マスまで進んでもいい";
+                    game_Manager.Log_connection(Text_Announce);
                 }
 
             }
@@ -701,70 +748,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
             {
                 switch (daySquare_Other)
                 {
-                    case "ノストラダムスの大予言":
-                        for (int week = 0; week < game_Manager.Week.Length; week++)
-                        {
-                            for (int day = 0; day < game_Manager.Week[0].Day.Length; day++)
-                            {
-                                string[] Day_part = game_Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().Day.Split('/');
-                                if (Day_part[0] == "7")
-                                {
-
-                                    for (int Player = 0; Player < game_Manager.joining_Player; Player++)
-                                    {
-                                        if (game_Manager.Player[Player].GetComponent<I_Player_3D>().YPlayer_position == week)
-                                        {
-                                            if (game_Manager.Player[Player].GetComponent<I_Player_3D>().XPlayer_position == day)
-                                            {
-                                                int rnd = 0;
-                                                string warpDay;
-                                                do
-                                                {
-                                                    rnd = Random.Range(0, 3);
-                                                    warpDay = game_Manager.month[rnd] + "/27";
-                                                } while (game_Manager.month[rnd] == 7);
-                                                Output_TurnChange(Player);
-                                                game_Manager.Player[Player].GetComponent<I_Player_3D>().Player_WarpMove("ワープ", warpDay);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        for (int block = 0; block < game_Manager.month.Length; block++)
-                        {
-                            int slideX = 0;
-                            int slideY = 0;
-                            if (game_Manager.month[block] == 7)
-                            {
-                                switch (block)
-                                {
-                                    case 1:
-                                        slideX = game_Manager.Week[0].Day.Length / 2;
-                                        break;
-                                    case 2:
-                                        slideY = game_Manager.Week.Length / 2;
-                                        break;
-                                    case 3:
-                                        slideX = game_Manager.Week[0].Day.Length / 2;
-                                        slideY = game_Manager.Week.Length / 2;
-                                        break;
-                                }
-                                for (int slide_week = slideY; slide_week < game_Manager.Week.Length - (game_Manager.Week.Length / 2 - slideY); slide_week++)
-                                {
-                                    for (int slide_day = slideX; slide_day < game_Manager.Week[0].Day.Length - (game_Manager.Week[0].Day.Length / 2 - slideX); slide_day++)
-                                    {
-                                        Output_MassDelete(slide_week, slide_day);
-                                        if (game_Manager.Week[slide_week].Day[slide_day].GetComponent<I_Mass_3D>().Goal == true)
-                                        {
-                                            game_Manager.Goal_Again();
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        Output_JulyDelete();
-                        break;
+                    
 
                     case "オリエンテーリングの日"://高得点アイテムの出現
                         int XMass = 0;
@@ -775,22 +759,18 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                             YMass = Random.Range(0, game_Manager.Week.Length);
                         } while (game_Manager.Week[YMass].Day[XMass].activeInHierarchy == false );
 
-                        game_Manager.Week[YMass].Day[XMass].GetComponent<I_Mass_3D>().Present_setting();
+                        OutPut_PresentSetting(YMass, XMass);
 
                         break;
                 }
             }
         }
     }
-    //マスの消去の出力共有お願いします。
-    private void Output_MassDelete(int week, int day)
-    {
-        game_Manager.Week[week].Day[day].SetActive(false);
-    }
 
-    private void Output_JulyDelete()
+    //ここの共有お願いします
+    private void OutPut_PresentSetting(int YMass, int XMass)
     {
-        GameObject.Find("July").SetActive(false);
+        game_Manager.Week[YMass].Day[XMass].GetComponent<I_Mass_3D>().Present_setting();
     }
 
 }
