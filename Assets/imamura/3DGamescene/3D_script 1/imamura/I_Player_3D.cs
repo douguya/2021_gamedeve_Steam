@@ -21,12 +21,12 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
     public int Move_Point = 0;                    //プレイヤーの移動できる歩数 
     private int select_Point = 0;                 //マスを選択できる数
-    private bool[] Player_warpMove = new bool[11];//プレイヤーの移動方法
+    private bool[] Player_warpMove = new bool[51];//プレイヤーの移動方法
 
     public int Goalcount = 0;
 
-    private int[] XPlayer_Loot = new int[11];     //選択したマスを記憶する
-    private int[] YPlayer_Loot = new int[11];
+    private int[] XPlayer_Loot = new int[51];     //選択したマスを記憶する
+    private int[] YPlayer_Loot = new int[51];
 
 
     public GameObject GameManager;                //GameManagerオブジェクトの取得
@@ -143,6 +143,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             ButtonText.GetComponent<Text>().text = "進む";
 
         }
+        Turn_change = false;
     }
 
 
@@ -810,18 +811,21 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
     public void GoalAnimation_After()
     {
-        //Debug.Log(PlayerNumber + "GoalAnimation_After()");
-        if (Turn_change == false)
+        if (Manager.Player_Turn == PlayerNumber)
         {
-            if (Effect_start == true)
+            //Debug.Log(PlayerNumber + "GoalAnimation_After()");
+            if (Turn_change == false)
             {
-                //Debug.Log("StopDay_Effect()");
-                StopI_Day_Effect(); //止まったマスの処理
+                if (Effect_start == true)
+                {
+                    //Debug.Log("StopDay_Effect()");
+                    StopI_Day_Effect(); //止まったマスの処理
+                }
+                //Manager.PlayerTurn_change();
             }
-            //Manager.PlayerTurn_change();
+            Turn_change = false;
+            Effect_start = true;
         }
-        Turn_change = false;
-        Effect_start = true;
     }
 
 
@@ -1060,7 +1064,11 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         {
             GameManager.GetComponent<Guide>().Hopup_Finish();
             Guide_on = false;
-            GameManager.GetComponent<Guide>().Item_Cstart();
+            if(Manager.Player_Turn == PlayerNumber)
+            {
+                GameManager.GetComponent<Guide>().Item_Cstart();
+            }
+            
         }
 
         if (Effect_ready)
