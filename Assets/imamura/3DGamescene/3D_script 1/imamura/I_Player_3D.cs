@@ -106,10 +106,10 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
     public void Turn_your()
     {
-        string Log = "貴方のターンです。";
+        string Log = Manager.PlayerColouradd("貴方")+"のターンです。";
        
         Manager.Log_Mine(Log);
-        Log =PhotonNetwork.NickName+"のターンです。";
+        Log =Manager.PlayerColouradd(PhotonNetwork.NickName)+"のターンです。";
         Manager.Log_connection_Oter(Log);
 
         Manager.HowMyTurn=true;
@@ -117,6 +117,8 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         photonView.RPC(nameof(ApartmentEffect), RpcTarget.All);
         Dice_ready();
     }
+
+
 
     //ダイスを回す準備
     public void Dice_ready()
@@ -517,7 +519,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             YPlayer_position = YPlayer_Loot[Move];
             photonView.RPC(nameof(Output_Playerloot), RpcTarget.OthersBuffered, YPlayer_position, XPlayer_position);
 
-            Manager.SE.GetComponent<SEManager>().SEsetandplay("WalkSE");
+            photonView.RPC(nameof(Output_BGM), RpcTarget.AllViaServer);
             yield return new WaitForSeconds(0.4f);     //1秒待つ
 
             photonView.RPC(nameof(Output_AnimationStop), RpcTarget.AllViaServer);  //全てのアニメーションを止める 
@@ -594,10 +596,14 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         XPlayer_position = X;  //プレイヤーの現在の縦・横位置を設定
         YPlayer_position =Y;
 
-
     }
 
+    [PunRPC]
+    private void Output_BGM()
+    {
+        Manager.SE.GetComponent<SEManager>().SEsetandplay("WalkSE");
 
+    }
 
 
     [PunRPC]  //移動の際の座標移動を出力
@@ -784,9 +790,11 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         var loop = ItemMaster.Anniversary_Items.Count-1;//最後の位置を取得
         photonView.RPC(nameof(ItemAdd), RpcTarget.All, loop); //アイテム加算
         
-        string Log = PhotonNetwork.NickName+"が"+ItemMaster.Anniversary_Items[loop].ItemName+"を入手しました。";
+        string Log = Manager.PlayerColouradd(PhotonNetwork.NickName)+"が"+ItemMaster.Anniversary_Items[loop].ItemName+"を入手しました。";
         Manager.Log_connection(Log);
     }
+
+   
 
     //ゴールした時のゴール数を出力
      [PunRPC]private void Output_GoalCount()
@@ -852,7 +860,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         {
             
 
-            string Log = PhotonNetwork.NickName+"が"+ItemMaster.Anniversary_Items[Itemunum].ItemName+"を入手しました。";
+            string Log = Manager.PlayerColouradd(PhotonNetwork.NickName)+"が"+ItemMaster.Anniversary_Items[Itemunum].ItemName+"を入手しました。";
             Manager.Log_connection(Log);
         }
 
@@ -865,12 +873,8 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
 
 
-
-
-
-
-    //開いたマスを非表示にして出力
-    [PunRPC] private void Output_hideCoverClear(int week, int day)
+   //開いたマスを非表示にして出力
+   [PunRPC] private void Output_hideCoverClear(int week, int day)
     {
         Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().hideCover_Clear();//マスを開いた表示にする
     }
