@@ -215,7 +215,7 @@ public class Text_Log : MonoBehaviourPunCallbacks
     [PunRPC]
     public void Direct_Log_RPC__InputField(string LogText)//‘S‘Ì‚ÉƒƒO‚ğ‘—‚é
     {
-
+        Game_Manager.SE.GetComponent<SEManager>().SEsetandplay("TextSE");
         textadd(LogText);
     }
     public string SistemrColouradd()

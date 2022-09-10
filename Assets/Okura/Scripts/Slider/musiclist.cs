@@ -19,6 +19,7 @@ public class musiclist : MonoBehaviour
     public AudioClip MoveOn;
     public AudioClip BackSE;
     public AudioClip SceneSwitching;
+    public AudioClip LogSE;
 
     //IngameSE
     public AudioClip GameStartSE;
@@ -29,6 +30,7 @@ public class musiclist : MonoBehaviour
     public AudioClip GetSE;
     public AudioClip GoalSE;
     public AudioClip GameEndSE;
+    public AudioClip TextSE;
 
     //ResultSE
     public AudioClip resultSE;

@@ -158,7 +158,7 @@ MonoBehaviour:
   LobbyBGM: {fileID: 0}
   IngameBGM: {fileID: 0}
   ResultBGM: {fileID: 0}
-  EnvironmentBGM: {fileID: 8300000, guid: 9e76a7295c7c9bf4fa88e0d08f564cad, type: 3}
+  EnvironmentBGM: {fileID: 8300000, guid: 2ef1dd7a390780642a692ac4b37799b2, type: 3}
   JangleBGM: {fileID: 8300000, guid: 7e4443f1417b79b4a89807c5b6417437, type: 3}
   PianoBGM: {fileID: 8300000, guid: 1ed5220f340bc5a468837c5755bb95c8, type: 3}
   HorrorBGM: {fileID: 8300000, guid: 2fe51c3eb1ef12b44b96062d7f7455b4, type: 3}
@@ -166,6 +166,7 @@ MonoBehaviour:
   MoveOn: {fileID: 8300000, guid: 7c8cd912bffba6f48a7b257af255b2f1, type: 3}
   BackSE: {fileID: 8300000, guid: 30bf430d5b462d2468392fb78ee120ec, type: 3}
   SceneSwitching: {fileID: 8300000, guid: 325406a161a9d5341b38ae053ba8feb1, type: 3}
+  LogSE: {fileID: 8300000, guid: cd03e1561883e034b999c36414fa7f75, type: 3}
   GameStartSE: {fileID: 0}
   DiceSE: {fileID: 0}
   WalkSE: {fileID: 8300000, guid: 1f8ee777a76004740bc9aa188d856b06, type: 3}
@@ -174,6 +175,7 @@ MonoBehaviour:
   GetSE: {fileID: 0}
   GoalSE: {fileID: 0}
   GameEndSE: {fileID: 0}
+  TextSE: {fileID: 8300000, guid: 5f249150310fa8646a00f5f53481c62f, type: 3}
   resultSE: {fileID: 0}
   HandClapJingle: {fileID: 0}
   ResultJingle: {fileID: 0}

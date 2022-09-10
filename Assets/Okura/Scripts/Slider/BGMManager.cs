@@ -65,8 +65,13 @@ public class BGMManager : MonoBehaviour
             case "国際熱帯デー": audiosource.clip = Music.JangleBGM; break;
             case "ピアノの日": audiosource.clip = Music.PianoBGM; break;
             case "オカルト記念日": audiosource.clip = Music.HorrorBGM; break;
+
             case "DecisionSE": audiosource.clip = Music.DecisionSE; break;
+            case "MoveOn": audiosource.clip = Music.MoveOn; break;
             case "BackSE": audiosource.clip = Music.BackSE; break;
+            case "SceneSwitching": audiosource.clip = Music.SceneSwitching; break;
+            case "LogSE": audiosource.clip = Music.LogSE; break;
+
             case "GameStartSE": audiosource.clip = Music.GameStartSE; break;
             case "DiceSE": audiosource.clip = Music.DiceSE; break;
             case "WalkSE": audiosource.clip = Music.WalkSE; break;
@@ -75,7 +80,10 @@ public class BGMManager : MonoBehaviour
             case "GetSE": audiosource.clip = Music.GetSE; break;
             case "GoalSE": audiosource.clip = Music.GoalSE; break;
             case "GameEndSE": audiosource.clip = Music.GameEndSE; break;
+            case "TextSE": audiosource.clip = Music.TextSE; break;
+
             case "resultSE": audiosource.clip = Music.resultSE; break;
+
             case "HandClapJingle": audiosource.clip = Music.HandClapJingle; break;
             case "ResultJingle": audiosource.clip = Music.resultSE; break;
             case "FinalResultJingle": audiosource.clip = Music.FinalResultJingle; break;
