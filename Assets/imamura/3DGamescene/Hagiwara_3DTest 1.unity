@@ -1665,7 +1665,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   I_game_manager: {fileID: 1265593756}
   Zoom_Speed: 50
-  Camera_Move_initials: 0
+  OriginRect: {x: 0, y: 0, z: 0}
   Camera_Move_initials2: 0
   Camera_Move_highlight: 0
   Position_highlight: {x: 0, y: 0, z: 0}
@@ -5722,6 +5722,7 @@ GameObject:
   - component: {fileID: 618275805}
   - component: {fileID: 618275804}
   - component: {fileID: 618275803}
+  - component: {fileID: 618275806}
   m_Layer: 5
   m_Name: UIDice
   m_TagString: Untagged
@@ -5807,6 +5808,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 618275801}
   m_CullTransparentMesh: 1
+--- !u!114 &618275806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618275801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 16
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &645652476 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3572927107592911265, guid: 9ce1460160f9b1941b40ad928fa22e72, type: 3}
@@ -11114,6 +11137,12 @@ MonoBehaviour:
   Item: {fileID: 9062163901956220510}
   Item_Image: {fileID: 1067535617410356881}
   HopUp_Image: {fileID: 5197595775682911535}
+  warp: {fileID: 1546371705}
+  warp_Image: {fileID: 1726866418}
+  option: {fileID: 1439927935}
+  option_Image: {fileID: 1736193551}
+  rade: {fileID: 240588760}
+  rade_Image: {fileID: 246315695}
 --- !u!1 &1267047000 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3572927107592911265, guid: 9ce1460160f9b1941b40ad928fa22e72, type: 3}
@@ -12357,7 +12386,7 @@ GameObject:
   - component: {fileID: 1439927938}
   - component: {fileID: 1439927937}
   m_Layer: 5
-  m_Name: GuideItem (1)
+  m_Name: Guideoption
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14307,7 +14336,7 @@ GameObject:
   - component: {fileID: 1736193554}
   - component: {fileID: 1736193553}
   m_Layer: 5
-  m_Name: GuideItem_Image (1)
+  m_Name: Guideoption_Image (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

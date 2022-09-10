@@ -90,7 +90,7 @@ public class newRotate : MonoBehaviourPunCallbacks
             }
         }
         
-        photonView.RPC(nameof(Output_LookDice), RpcTarget.All);
+        photonView.RPC(nameof(Output_LookDice), RpcTarget.All, DiceNum);
         //Ç≥Ç¢Ç±ÇÎÇí‚é~
         //rotate = false;
         //xSpeed = 0;
@@ -126,9 +126,9 @@ public class newRotate : MonoBehaviourPunCallbacks
 
 
     
-  [PunRPC]private void Output_LookDice()
+  [PunRPC]private void Output_LookDice(int Num)
     {
-        gameObject.GetComponent<Image>().sprite = Dise_sprite[DiceNum - 1];
+        gameObject.GetComponent<Image>().sprite = Dise_sprite[Num - 1];
     }
 
     public void OddDice() //äÔêîÉ_ÉCÉXÇ…Ç»ÇÈ

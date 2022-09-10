@@ -35,6 +35,7 @@ public class ReadyButton : MonoBehaviourPunCallbacks
 
     public void RedayChange()//準備状態の変遷用
     {
+        GameObject.Find("I_game_manager").GetComponent<Guide>().rady_BottonFinish();
         if (Ready == false)//準備を完了していないときに起動したら
         {
             hashtable["ReadyPlayerNum"] = true;//準備を完了する:カスタムプロパティ
