@@ -60,6 +60,8 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
     private bool OneMore;
 
+    private bool consecutive_hits;
+
     // 以下MannequinPlayer空の引用=====================================================================
     public Anniversary_Item_Master ItemMaster;
     public GameObject ItemBlock;//アイテムリストのUGI
@@ -125,6 +127,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         Manager.HowMyTurn=true;
         Manager.Camera.GetComponent<Camera_Mouse>().CameraOwnership();
         photonView.RPC(nameof(ApartmentEffect), RpcTarget.All);
+        consecutive_hits = false;
         Dice_ready();
     }
 
@@ -170,7 +173,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "はダイスを" + OneMore_Dice + "回振れます。";
             Manager.Log_connection(Text_Announce);
         }
-        if (DiceAdd != 0)
+        if (DiceAdd != 0 && OneMore_Dice < 1)
         {
             Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "のダイスの出目に+" + DiceAdd + "します。";
             Manager.Log_connection(Text_Announce);
@@ -228,44 +231,46 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         else
 
         {
-            if (Guide_on == true && Guide_one == true)
+            if (consecutive_hits == false)
             {
-                GameManager.GetComponent<Guide>().Dice_BottonFinish();
-                GameManager.GetComponent<Guide>().chat_Finish();
+                if (Guide_on == true && Guide_one == true)
+                {
+                    GameManager.GetComponent<Guide>().Dice_BottonFinish();
+                    GameManager.GetComponent<Guide>().chat_Finish();
+                }
+                Move_Point = Manager.Output_DiceStop() + DiceAdd;
+
+                if (DiceMultiply != 0)
+
+                {
+
+                    Move_Point *= DiceMultiply;
+
+                }
+
+                if (DiceAdd != 0 || DiceMultiply != 0)
+                {
+                    string Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "の移動出来る合計は..." + Move_Point + "です。";
+                    Manager.Log_connection(Text_Announce);
+                }
+
+                MoveStop_point = Move_Point;
+
+                Move_Point += MoveAdd_point;
+
+                MovePoint_Count = 0;
+
+                MoveAdd_point = 0;
+
+                DiceAdd = 0;
+
+                DiceMultiply = 0;
+
+                OneMore = false;
+
+                //Debug.Log("歩数：" + Move_Point); 
+                MoveSelect();
             }
-            Move_Point = Manager.Output_DiceStop() + DiceAdd;
-            
-            if (DiceMultiply != 0)
-
-            {
-
-                Move_Point *= DiceMultiply;
-
-            }
-
-            if (DiceAdd != 0 || DiceMultiply != 0)
-            {
-                string Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "の移動出来る合計は..." + Move_Point + "です。";
-                Manager.Log_connection(Text_Announce);
-            }
-
-            MoveStop_point = Move_Point;
-
-            Move_Point += MoveAdd_point;
-
-            MovePoint_Count = 0;
-
-            MoveAdd_point = 0;
-
-            DiceAdd = 0;
-
-            DiceMultiply = 0;
-
-            OneMore = false;
-
-            //Debug.Log("歩数：" + Move_Point); 
-            MoveSelect();
-
         }
     }
 
@@ -345,6 +350,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     //選択できるマスの表示の初期設定
     public void MoveSelect()
     {
+        consecutive_hits = true;
         if (Guide_on == true && Guide_one == true)
         {
             GameManager.GetComponent<Guide>().MassSelecet_Start();
