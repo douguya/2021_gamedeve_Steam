@@ -114,6 +114,8 @@ MonoBehaviour:
   - Video_transparent_RPC_2
   - Direct_Log_RPC
   - Direct_Log_RPC__InputField
+  - EffectBGM_RPC
+  - Output_BGM
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

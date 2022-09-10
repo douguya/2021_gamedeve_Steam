@@ -158,6 +158,10 @@ MonoBehaviour:
   LobbyBGM: {fileID: 0}
   IngameBGM: {fileID: 0}
   ResultBGM: {fileID: 0}
+  EnvironmentBGM: {fileID: 8300000, guid: 9e76a7295c7c9bf4fa88e0d08f564cad, type: 3}
+  JangleBGM: {fileID: 8300000, guid: 7e4443f1417b79b4a89807c5b6417437, type: 3}
+  PianoBGM: {fileID: 8300000, guid: 1ed5220f340bc5a468837c5755bb95c8, type: 3}
+  HorrorBGM: {fileID: 8300000, guid: 2fe51c3eb1ef12b44b96062d7f7455b4, type: 3}
   DecisionSE: {fileID: 8300000, guid: b654b76860668e440af3046bf2613ca3, type: 3}
   MoveOn: {fileID: 8300000, guid: 7c8cd912bffba6f48a7b257af255b2f1, type: 3}
   BackSE: {fileID: 8300000, guid: 30bf430d5b462d2468392fb78ee120ec, type: 3}

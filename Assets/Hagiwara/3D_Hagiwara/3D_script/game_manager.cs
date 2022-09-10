@@ -498,10 +498,10 @@ public class game_manager : MonoBehaviour
 
 
 
-    public void Output_DiceStart()
-    {
-        Dice.GetComponent<newRotate>().RotateStart();
-    }
+    //public void Output_DiceStart()
+    //{
+    //    Dice.GetComponent<newRotate>().RotateStart();
+    //}
 
     public int Output_DiceStop()
     {

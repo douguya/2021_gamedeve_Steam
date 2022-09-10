@@ -12,7 +12,7 @@ public class Text_Log : MonoBehaviourPunCallbacks
     public GameObject TextObj;//テキストのオブジェクト
     public GameObject TextBoard;//テキストのオブジェクト
     public GameObject nowText;//テキストのオブジェクト
-
+    public I_game_manager Game_Manager;
    
     public InputField InputField;     //名前入力欄
     public Text TestText;
@@ -24,11 +24,14 @@ public class Text_Log : MonoBehaviourPunCallbacks
     private Vector2 Initial_Value;//
     private float FastBorad;
 
-
+    
 
     public int textVar = 0;
 
     public int Large_Sclol = 0;
+    public int FallLineCount = 0;
+
+    public string Password;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,12 +53,12 @@ public class Text_Log : MonoBehaviourPunCallbacks
         var nowPosi = nowText.GetComponent<RectTransform>().anchoredPosition;
         var Mousewheel = Input.GetAxis("Mouse ScrollWheel");//マウスホイール値の保存
         var TextDami = TextObj.GetComponent<Text>().text;
-        var num = TextDami.Count(f => f == '\n')+1;//改行文字コードの数から行数を算出
+        var num = TextDami.Count(f => f == '\n')+1+FallLineCount;//改行文字コードの数から行数を算出
         textVar=num;
       
 
         var TextBordSize = TextBoard.GetComponent<RectTransform>().sizeDelta;
-        int Large_SclollCount = Mathf.CeilToInt((TextBordSize.y-40)/Scloll);
+        int Large_SclollCount =33;
 
         Large_Sclol=Large_SclollCount;
 
@@ -67,7 +70,7 @@ public class Text_Log : MonoBehaviourPunCallbacks
             if (Mousewheel>0)//上向きホイール
             {
                
-                    if (SclollCount< Large_SclollCount-num)
+                    if (SclollCount< textVar-Large_SclollCount)
                     {
                         SclollCount++;
                         BlockTransform.y-=(Scloll);
@@ -126,7 +129,11 @@ public class Text_Log : MonoBehaviourPunCallbacks
         TestText.text=LogText;
         var BordSize = nowText.GetComponent<RectTransform>().sizeDelta;
 
-        float SizeCount = Mathf.CeilToInt(TestText.preferredWidth/BordSize.x);
+       int SizeCount = Mathf.CeilToInt(TestText.preferredWidth/BordSize.x);
+        if (SizeCount>1)
+        {
+            FallLineCount+=(SizeCount-1);
+        }
 
         BordSize.y = Scloll*SizeCount;
 
@@ -146,11 +153,14 @@ public class Text_Log : MonoBehaviourPunCallbacks
 
 
 
-    public void Direct_Log_InputField()//全体にログを送る
+    public void Direct_Log_InputField()//チャットに入力
     {
         if (Input.GetKey(KeyCode.Return))
         {
-
+            if (InputField.GetComponent<InputField>().text==Password)
+            {
+                Game_Manager.ConnectGameFinish();
+            }
 
 
             var name = PlayerColouradd(PhotonNetwork.NickName);
@@ -205,6 +215,17 @@ public class Text_Log : MonoBehaviourPunCallbacks
     [PunRPC]
     public void Direct_Log_RPC__InputField(string LogText)//全体にログを送る
     {
+
         textadd(LogText);
     }
+    public string SistemrColouradd()
+    {
+
+        var system = "<color=purple>"+"システム:"+"</color>";
+
+
+        return system;
+    }
+
+
 }

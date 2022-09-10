@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 
 
 public class I_Player_3D : MonoBehaviourPunCallbacks
@@ -21,12 +22,12 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
     public int Move_Point = 0;                    //プレイヤーの移動できる歩数 
     private int select_Point = 0;                 //マスを選択できる数
-    private bool[] Player_warpMove = new bool[11];//プレイヤーの移動方法
+    private bool[] Player_warpMove = new bool[51];//プレイヤーの移動方法
 
     public int Goalcount = 0;
 
-    private int[] XPlayer_Loot = new int[11];     //選択したマスを記憶する
-    private int[] YPlayer_Loot = new int[11];
+    private int[] XPlayer_Loot = new int[51];     //選択したマスを記憶する
+    private int[] YPlayer_Loot = new int[51];
 
 
     public GameObject GameManager;                //GameManagerオブジェクトの取得
@@ -57,6 +58,8 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     public bool Guide_on = true;
     private bool Guide_one = true;
 
+    private bool OneMore;
+
     // 以下MannequinPlayer空の引用=====================================================================
     public Anniversary_Item_Master ItemMaster;
     public GameObject ItemBlock;//アイテムリストのUGI
@@ -72,7 +75,10 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         
         DontDestroyOnLoad(this.gameObject);
 
-
+        if (SceneManager.GetActiveScene().name=="T1")
+        {
+            Destroy(this.gameObject);
+        }
     }
     void Start()
     {
@@ -106,10 +112,10 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
     public void Turn_your()
     {
-        string Log = "貴方のターンです。";
+        string Log = Manager.PlayerColouradd("貴方")+"のターンです。";
        
         Manager.Log_Mine(Log);
-        Log =PhotonNetwork.NickName+"のターンです。";
+        Log =Manager.PlayerColouradd(PhotonNetwork.NickName)+"のターンです。";
         Manager.Log_connection_Oter(Log);
 
         Manager.HowMyTurn=true;
@@ -118,9 +124,13 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         Dice_ready();
     }
 
+
+
     //ダイスを回す準備
     public void Dice_ready()
     {
+        string Text_Announce;
+
         if (Manager.Player_Turn==PlayerNumber)
         {
         
@@ -134,12 +144,37 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         }
         DiceButton.GetComponent<Button>().interactable = true;
         ButtonText.GetComponent<Text>().text = "ダイスを回す";
+        gameObject.GetComponent<I_Day_Effect>().DiceSetting();
         if (selectwark)
 
         {
 
             ButtonText.GetComponent<Text>().text = "進む";
 
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "は" + MoveAdd_point + "マスまで進んでもいい";
+            Manager.Log_connection(Text_Announce);
+        }
+        Turn_change = false;
+        if(MoveAdd_point != 0 && selectwark == false)
+        {
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "はダイスに+" + MoveAdd_point + "マスまで進んでもいい";
+            Manager.Log_connection(Text_Announce);
+        }
+        if (OneMore_Dice > 1 && OneMore == false)
+        {
+            OneMore = true;
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "はダイスを" + OneMore_Dice + "回振れる";
+            Manager.Log_connection(Text_Announce);
+        }
+        if (DiceAdd != 0)
+        {
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "のダイスの出目に+" + DiceAdd;
+            Manager.Log_connection(Text_Announce);
+        }
+        if (DiceMultiply != 0)
+        {
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "のダイスの出目が×" + DiceMultiply;
+            Manager.Log_connection(Text_Announce);
         }
     }
 
@@ -155,7 +190,17 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                 Item.ItemPoint++;
                 Debug.Log("<color=red>マンション発動</color>");
                 ItemBlock.GetComponent<ItemBlock_List_Script>().PuintUpdate();
-               
+                var Log =Manager.PlayerColouradd(PhotonNetwork.NickName)+"マンションの資産価値が上がり、1ポイント増加しました。";
+                Manager.Log_connection_Oter(Log);
+
+            }
+            if (Item.ItemName=="かいわれ大根")
+            {
+                Item.ItemPoint++;
+                Debug.Log("<color=red>カイワレ大根</color>");
+                ItemBlock.GetComponent<ItemBlock_List_Script>().PuintUpdate();
+                var Log = Manager.PlayerColouradd(PhotonNetwork.NickName)+"かいわれ大根が成長し、1ポイント増加しました。";
+                Manager.Log_connection_Oter(Log);
             }
 
         }
@@ -185,13 +230,19 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                 GameManager.GetComponent<Guide>().chat_Finish();
             }
             Move_Point = Manager.Output_DiceStop() + DiceAdd;
-
+            
             if (DiceMultiply != 0)
 
             {
 
                 Move_Point *= DiceMultiply;
 
+            }
+
+            if (DiceAdd != 0 || DiceMultiply != 0)
+            {
+                string Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "の移動出来る合計は..." + Move_Point;
+                Manager.Log_connection(Text_Announce);
             }
 
             MoveStop_point = Move_Point;
@@ -205,6 +256,8 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             DiceAdd = 0;
 
             DiceMultiply = 0;
+
+            OneMore = false;
 
             //Debug.Log("歩数：" + Move_Point); 
             MoveSelect();
@@ -247,21 +300,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                     StartCoroutine(PlayerMove_Coroutine(MovePoint_Count, true));//プレイヤーの移動開始 
                 }
                 else
-                {
-                    if (DiceStrat)
-                    {
-                        if (Guide_on == true && Guide_one == true)
-                        {
-                            GameManager.GetComponent<Guide>().Dice_Text.GetComponent<Text>().text = "もう一度押してダイスを止める";
-                        }
-                        gameObject.GetComponent<I_Day_Effect>().DiceSetting();
-                        //ここでダイスを回す処理 
-                        Manager.Output_DiceStart();
-                        ButtonText.GetComponent<Text>().text = "ダイスを止める";
-                        DiceStrat = false;
-                    }
-                    else
-                    {                        
+                {          
                         ButtonText.GetComponent<Text>().text = "移動を選択";
                         if (OneMore_Dice <= 1)
                         {
@@ -274,7 +313,6 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                         Dice_Stop();//ダイスを止めて値を受け取る 
 
                         DiceStrat = true;
-                    }
                 }
             }
         }
@@ -517,7 +555,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             YPlayer_position = YPlayer_Loot[Move];
             photonView.RPC(nameof(Output_Playerloot), RpcTarget.OthersBuffered, YPlayer_position, XPlayer_position);
 
-            Manager.SE.GetComponent<SEManager>().SEsetandplay("WalkSE");
+            photonView.RPC(nameof(Output_BGM), RpcTarget.AllViaServer);
             yield return new WaitForSeconds(0.4f);     //1秒待つ
 
             photonView.RPC(nameof(Output_AnimationStop), RpcTarget.AllViaServer);  //全てのアニメーションを止める 
@@ -550,7 +588,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
         if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Present_Item == true)
         {
-            //ここにオリエンテーションの高得点アイテムの取得処理入れる
+            //ここにオリエンテーリングの高得点アイテムの取得処理入れる
             Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Present_hid();
         }
 
@@ -594,10 +632,14 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         XPlayer_position = X;  //プレイヤーの現在の縦・横位置を設定
         YPlayer_position =Y;
 
-
     }
 
+    [PunRPC]
+    private void Output_BGM()
+    {
+        Manager.SE.GetComponent<SEManager>().SEsetandplay("WalkSE");
 
+    }
 
 
     [PunRPC]  //移動の際の座標移動を出力
@@ -784,9 +826,11 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         var loop = ItemMaster.Anniversary_Items.Count-1;//最後の位置を取得
         photonView.RPC(nameof(ItemAdd), RpcTarget.All, loop); //アイテム加算
         
-        string Log = PhotonNetwork.NickName+"が"+ItemMaster.Anniversary_Items[loop].ItemName+"を入手しました。";
+        string Log = Manager.PlayerColouradd(PhotonNetwork.NickName)+"が"+ItemMaster.Anniversary_Items[loop].ItemName+"を入手しました。";
         Manager.Log_connection(Log);
     }
+
+   
 
     //ゴールした時のゴール数を出力
      [PunRPC]private void Output_GoalCount()
@@ -802,18 +846,21 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
     public void GoalAnimation_After()
     {
-        //Debug.Log(PlayerNumber + "GoalAnimation_After()");
-        if (Turn_change == false)
+        if (Manager.Player_Turn == PlayerNumber)
         {
-            if (Effect_start == true)
+            //Debug.Log(PlayerNumber + "GoalAnimation_After()");
+            if (Turn_change == false)
             {
-                //Debug.Log("StopDay_Effect()");
-                StopI_Day_Effect(); //止まったマスの処理
+                if (Effect_start == true)
+                {
+                    //Debug.Log("StopDay_Effect()");
+                    StopI_Day_Effect(); //止まったマスの処理
+                }
+                //Manager.PlayerTurn_change();
             }
-            //Manager.PlayerTurn_change();
+            Turn_change = false;
+            Effect_start = true;
         }
-        Turn_change = false;
-        Effect_start = true;
     }
 
 
@@ -841,7 +888,8 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                 if (Item.ItemName!="ランダムなアイテム") {
                     photonView.RPC(nameof(ItemAdd), RpcTarget.All, loop); //アイテム加算
                     Itemunum=loop;
-                  
+                    string Log = Manager.PlayerColouradd(PhotonNetwork.NickName)+"が"+Item.ItemName+"を入手しました。";
+                    Manager.Log_connection(Log);
                 }
           
             }
@@ -852,8 +900,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         {
             
 
-            string Log = PhotonNetwork.NickName+"が"+ItemMaster.Anniversary_Items[Itemunum].ItemName+"を入手しました。";
-            Manager.Log_connection(Log);
+           
         }
 
 
@@ -865,12 +912,8 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
 
 
-
-
-
-
-    //開いたマスを非表示にして出力
-    [PunRPC] private void Output_hideCoverClear(int week, int day)
+   //開いたマスを非表示にして出力
+   [PunRPC] private void Output_hideCoverClear(int week, int day)
     {
         Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().hideCover_Clear();//マスを開いた表示にする
     }
@@ -1056,7 +1099,11 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         {
             GameManager.GetComponent<Guide>().Hopup_Finish();
             Guide_on = false;
-            GameManager.GetComponent<Guide>().Item_Cstart();
+            if(Manager.Player_Turn == PlayerNumber)
+            {
+                GameManager.GetComponent<Guide>().Item_Cstart();
+            }
+            
         }
 
         if (Effect_ready)

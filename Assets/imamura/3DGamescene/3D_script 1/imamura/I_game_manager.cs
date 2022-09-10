@@ -389,10 +389,10 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
 
 
-    public void Output_DiceStart()
-    {
-        Dice.GetComponent<newRotate>().RotateStart();
-    }
+    //public void Output_DiceStart()
+    //{
+    //    Dice.GetComponent<newRotate>().RotateStart();
+    //}
 
     public int Output_DiceStop()
     {
@@ -528,6 +528,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         Goal_check = true;                      //ゴールの再設置をするようにする
         if (Goal_AddCount >= 4)                  //全体で4回ゴールしたら
         {
+            
             Output_GameFinish();                //ゲーム終了の処理
             photonView.RPC(nameof(Output_GameFinish), RpcTarget.AllViaServer);
         }
@@ -539,10 +540,15 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         Goal_AddCount++;
     }
 
+
+    public void ConnectGameFinish()
+    {
+        
+        photonView.RPC(nameof(Output_GameFinish), RpcTarget.AllViaServer);
+    }
     [PunRPC]//ゲーム終了の処理を出力
     private void Output_GameFinish()
     {
-
         SceneManager.GetComponent<SceneManagaer>().TransitionToResult();
       //  Debug.Log("ゲーム終了");
     }
@@ -847,6 +853,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     }
     [PunRPC]public void Log_RPC(string LogText)//全体にログを送る
     {
+        LogText= Log.GetComponent<Text_Log>() .SistemrColouradd()+LogText;
         Log.GetComponent<Text_Log>().textadd(LogText);
     }
 
@@ -858,21 +865,49 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     }
     [PunRPC] public void Log_RPC__Oter(string LogText)//自分以外にログを送る
     {
+        LogText=  Log.GetComponent<Text_Log>().SistemrColouradd()+LogText;
         Log.GetComponent<Text_Log>().textadd(LogText);
     }
 
 
     public void Log_Mine(string LogText)//自分にログを送る
     {
+        LogText=  Log.GetComponent<Text_Log>().SistemrColouradd()+LogText;
         Log.GetComponent<Text_Log>().textadd(LogText);
     }
 
 
 
+    public string PlayerColouradd(string Chat)
+    {
+        var ColourNum = PhotonNetwork.LocalPlayer.CustomProperties["PlayerNumMaterial"];
+        var Text = Chat;
+        switch (ColourNum)
+        {
 
+            case 0:
+                Text="<color=red>"+Text+"</color>";
+
+                break;
+            case 1:
+                Text="<color=blue>"+Text+"</color>";
+
+                break;
+            case 2:
+                Text="<color=orange>"+Text+"</color>";
+
+                break;
+            case 3:
+                Text="<color=lime>"+Text+"</color>";
+
+                break;
+
+        }
+        return Text;
+    }
 
     [PunRPC]
-    public void HopUp_Setting_RPC(int turn,int x,int y)//自分以外にログを送る
+    public void HopUp_Setting_RPC(int turn,int x,int y)
     {
         Player[turn].GetComponent<I_Player_3D>().HopUp_Setting(Week[y].Day[x].GetComponent<I_Mass_3D>().Day);
         
@@ -907,14 +942,14 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         photonView.RPC(nameof(Video_transparent_RPC_2), RpcTarget.AllViaServer);
     }
     [PunRPC]
-    public void Video_transparent_RPC_1()//自分以外にログを送る
+    public void Video_transparent_RPC_1()
     {
         Video_obj.GetComponent<VideoPlayer>().clip = transparent;
         Video_obj.GetComponent<VideoPlayer>().Play();   //ビデオの再生
     }
 
     [PunRPC]
-    public void Video_transparent_RPC_2()//自分以外にログを送る
+    public void Video_transparent_RPC_2()
     {
        Video_obj.SetActive(false);
     }

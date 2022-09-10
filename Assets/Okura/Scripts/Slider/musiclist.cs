@@ -9,6 +9,10 @@ public class musiclist : MonoBehaviour
     public AudioClip LobbyBGM;
     public AudioClip IngameBGM;
     public AudioClip ResultBGM;
+    public AudioClip EnvironmentBGM;
+    public AudioClip JangleBGM;
+    public AudioClip PianoBGM;
+    public AudioClip HorrorBGM;
 
     //SE
     public AudioClip DecisionSE;
