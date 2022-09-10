@@ -151,29 +151,29 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
             ButtonText.GetComponent<Text>().text = "進む";
 
-            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "は" + MoveAdd_point + "マスまで進んでもいい";
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "は" + MoveAdd_point + "マスまで進んでもいいです。";
             Manager.Log_connection(Text_Announce);
         }
         Turn_change = false;
         if(MoveAdd_point != 0 && selectwark == false)
         {
-            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "はダイスに+" + MoveAdd_point + "マスまで進んでもいい";
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "はダイスに+" + MoveAdd_point + "マスまで進んでもいいです。";
             Manager.Log_connection(Text_Announce);
         }
         if (OneMore_Dice > 1 && OneMore == false)
         {
             OneMore = true;
-            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "はダイスを" + OneMore_Dice + "回振れる";
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "はダイスを" + OneMore_Dice + "回振れます。";
             Manager.Log_connection(Text_Announce);
         }
         if (DiceAdd != 0)
         {
-            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "のダイスの出目に+" + DiceAdd;
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "のダイスの出目に+" + DiceAdd + "します。";
             Manager.Log_connection(Text_Announce);
         }
         if (DiceMultiply != 0)
         {
-            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "のダイスの出目が×" + DiceMultiply;
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "のダイスの出目が×" + DiceMultiply + "します。";
             Manager.Log_connection(Text_Announce);
         }
     }
@@ -241,7 +241,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
             if (DiceAdd != 0 || DiceMultiply != 0)
             {
-                string Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "の移動出来る合計は..." + Move_Point;
+                string Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "の移動出来る合計は..." + Move_Point + "です。";
                 Manager.Log_connection(Text_Announce);
             }
 
@@ -310,12 +310,23 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                         {
                             ButtonText.GetComponent<Text>().text = "ダイスを回す";
                         }
-                        Dice_Stop();//ダイスを止めて値を受け取る 
+
+                        StartCoroutine(Dice_Coroutine());
 
                         DiceStrat = true;
                 }
             }
         }
+    }
+
+
+    IEnumerator Dice_Coroutine()
+    {
+        Manager.Dice.GetComponent<newRotate>().Dice_shuffle();
+
+        yield return new WaitForSeconds(0.5f);     //1秒待つ
+
+        Dice_Stop();//ダイスを止めて値を受け取る 
     }
 
     public void another_turn()
