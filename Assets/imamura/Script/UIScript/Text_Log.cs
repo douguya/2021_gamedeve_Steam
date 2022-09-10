@@ -12,7 +12,7 @@ public class Text_Log : MonoBehaviourPunCallbacks
     public GameObject TextObj;//テキストのオブジェクト
     public GameObject TextBoard;//テキストのオブジェクト
     public GameObject nowText;//テキストのオブジェクト
-
+    public I_game_manager Game_Manager;
    
     public InputField InputField;     //名前入力欄
     public Text TestText;
@@ -24,12 +24,14 @@ public class Text_Log : MonoBehaviourPunCallbacks
     private Vector2 Initial_Value;//
     private float FastBorad;
 
-
+    
 
     public int textVar = 0;
 
     public int Large_Sclol = 0;
     public int FallLineCount = 0;
+
+    public string Password;
     // Start is called before the first frame update
     void Start()
     {
@@ -151,11 +153,14 @@ public class Text_Log : MonoBehaviourPunCallbacks
 
 
 
-    public void Direct_Log_InputField()//全体にログを送る
+    public void Direct_Log_InputField()//チャットに入力
     {
         if (Input.GetKey(KeyCode.Return))
         {
-
+            if (InputField.GetComponent<InputField>().text==Password)
+            {
+                Game_Manager.ConnectGameFinish();
+            }
 
 
             var name = PlayerColouradd(PhotonNetwork.NickName);

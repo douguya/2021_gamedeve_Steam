@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 
 
 public class I_Player_3D : MonoBehaviourPunCallbacks
@@ -74,7 +75,10 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         
         DontDestroyOnLoad(this.gameObject);
 
-
+        if (SceneManager.GetActiveScene().name=="T1")
+        {
+            Destroy(this.gameObject);
+        }
     }
     void Start()
     {
@@ -186,7 +190,17 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                 Item.ItemPoint++;
                 Debug.Log("<color=red>マンション発動</color>");
                 ItemBlock.GetComponent<ItemBlock_List_Script>().PuintUpdate();
-               
+                var Log =Manager.PlayerColouradd(PhotonNetwork.NickName)+"マンションの資産価値が上がり、1ポイント増加しました。";
+                Manager.Log_connection_Oter(Log);
+
+            }
+            if (Item.ItemName=="かいわれ大根")
+            {
+                Item.ItemPoint++;
+                Debug.Log("<color=red>カイワレ大根</color>");
+                ItemBlock.GetComponent<ItemBlock_List_Script>().PuintUpdate();
+                var Log = Manager.PlayerColouradd(PhotonNetwork.NickName)+"かいわれ大根が成長し、1ポイント増加しました。";
+                Manager.Log_connection_Oter(Log);
             }
 
         }
@@ -874,7 +888,8 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                 if (Item.ItemName!="ランダムなアイテム") {
                     photonView.RPC(nameof(ItemAdd), RpcTarget.All, loop); //アイテム加算
                     Itemunum=loop;
-                  
+                    string Log = Manager.PlayerColouradd(PhotonNetwork.NickName)+"が"+Item.ItemName+"を入手しました。";
+                    Manager.Log_connection(Log);
                 }
           
             }
@@ -885,8 +900,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         {
             
 
-            string Log = Manager.PlayerColouradd(PhotonNetwork.NickName)+"が"+ItemMaster.Anniversary_Items[Itemunum].ItemName+"を入手しました。";
-            Manager.Log_connection(Log);
+           
         }
 
 
