@@ -116,6 +116,11 @@ MonoBehaviour:
   - Direct_Log_RPC__InputField
   - EffectBGM_RPC
   - Output_BGM
+  - OutPut_DiceShuffle
+  - OutPut_DiceShuffle_Stop
+  - Output_GoalAnimation_RPC
+  - Output_LookDice
+  - OutPut_PresentSetting
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

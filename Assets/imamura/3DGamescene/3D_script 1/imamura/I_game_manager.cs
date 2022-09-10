@@ -543,12 +543,13 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
     public void ConnectGameFinish()
     {
-        
+       
         photonView.RPC(nameof(Output_GameFinish), RpcTarget.AllViaServer);
     }
     [PunRPC]//ゲーム終了の処理を出力
     private void Output_GameFinish()
     {
+        Cursor.visible = true;
         SceneManager.GetComponent<SceneManagaer>().TransitionToResult();
       //  Debug.Log("ゲーム終了");
     }

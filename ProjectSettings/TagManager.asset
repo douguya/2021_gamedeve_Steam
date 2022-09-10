@@ -11,6 +11,8 @@ TagManager:
   - BGM
   - SE
   - cursor
+  - Canvas
+  - MouseMazer
   layers:
   - Default
   - TransparentFX

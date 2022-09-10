@@ -11,14 +11,32 @@ public class Mouse_Cursor : MonoBehaviourPunCallbacks
     public float b = 0;
     void Start()
     {
-
+        DontDestroyOnLoad(this.gameObject);
         var rote = GetComponent<RectTransform>().rotation;
 
         var nextrote = 28.689f- rote.z;
 
 
         GetComponent<RectTransform>().Rotate(0, 0, nextrote);
+       
 
+        if (SceneManager.GetActiveScene().name=="T1")
+        {
+            Destroy(this.gameObject);
+        }
+
+        if (SceneManager.GetActiveScene().name=="Result")
+        {
+            var maz = GameObject.FindWithTag("MouseMazer");
+            GameObject[] Cursors = GameObject.FindGameObjectsWithTag("cursor");
+
+            foreach (GameObject Cursor in Cursors)//対応するプレイヤーにプレイヤーリストを突っ込む
+            {
+                Cursor.transform.parent=maz.transform;
+
+                Cursor.GetComponent<Mouse_Cursor>().RotateChange();
+            }
+        }
     }
 
     // Update is called once per frame
