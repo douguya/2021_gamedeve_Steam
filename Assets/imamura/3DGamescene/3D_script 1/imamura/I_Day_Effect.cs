@@ -603,7 +603,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                 case "オークションの日":
 
 
-
+                    Auction();
                     break;
                     /*
                 case "セプテンバーバレンタイン":
