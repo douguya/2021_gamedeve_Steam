@@ -349,7 +349,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2142989095}
         m_TargetAssemblyTypeName: NetWorkManager, Assembly-CSharp
-        m_MethodName: Leave_the_room
+        m_MethodName: VoidRoom
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

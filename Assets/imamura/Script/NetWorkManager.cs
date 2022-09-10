@@ -500,4 +500,34 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
             }
         }
     }
+    public void Voidlobby()
+    {
+        PhotonNetwork.Disconnect();
+        PhotonNetwork.LeaveLobby();
+        OnLeftLobby();
+    }
+
+    public override  void OnLeftLobby()
+    {
+      
+        SceneManagerObj.GetComponent<SceneManagaer>().TransitionToMain();
+    }
+
+
+
+
+    public void VoidRoom()
+    {
+        PhotonNetwork.Disconnect();
+        PhotonNetwork.LeaveLobby();
+        PhotonNetwork.LeaveRoom();
+        
+    }
+
+
+    public override void OnLeftRoom()
+    {
+        Cursor.visible = true;
+        SceneManagerObj.GetComponent<SceneManagaer>().TransitionToMain();
+    }
 }

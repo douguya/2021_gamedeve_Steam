@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 public class Mouse_Cursor : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
@@ -33,7 +34,12 @@ public class Mouse_Cursor : MonoBehaviourPunCallbacks
 
             MouseInScreen(MousePosition);
         }
+        DontDestroyOnLoad(this.gameObject);
 
+        if (SceneManager.GetActiveScene().name=="T1")
+        {
+            Destroy(this.gameObject);
+        }
 
     }
 

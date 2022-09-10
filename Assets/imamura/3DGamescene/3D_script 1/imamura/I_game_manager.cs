@@ -528,6 +528,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         Goal_check = true;                      //ゴールの再設置をするようにする
         if (Goal_AddCount >= 4)                  //全体で4回ゴールしたら
         {
+            
             Output_GameFinish();                //ゲーム終了の処理
             photonView.RPC(nameof(Output_GameFinish), RpcTarget.AllViaServer);
         }
@@ -539,10 +540,15 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         Goal_AddCount++;
     }
 
+
+    public void ConnectGameFinish()
+    {
+        
+        photonView.RPC(nameof(Output_GameFinish), RpcTarget.AllViaServer);
+    }
     [PunRPC]//ゲーム終了の処理を出力
     private void Output_GameFinish()
     {
-
         SceneManager.GetComponent<SceneManagaer>().TransitionToResult();
       //  Debug.Log("ゲーム終了");
     }

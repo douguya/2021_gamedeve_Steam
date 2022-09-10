@@ -35,7 +35,8 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
     public bool ItemLost_end = false;
     public bool Instance_end = false;
     public bool BGM_end = false;
-
+    public bool Conditional_End = false;
+    public bool OtherEffects_End = false;
     //====================================
     void Start()
     {
@@ -95,11 +96,12 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         if (Effect.BGM !="Noon"){ EffectCount++; }
         if (Effect.NextDice!="Noon"){ EffectCount++; }
         if (Effect.NextMove!="Noon"){ EffectCount++; }
-        if (Effect.Icon!=null){ EffectCount++; }
+      //  if (Effect.Icon!=null){ EffectCount++; }
         if (Effect.ItemLost!="Noon"){ EffectCount++; }
         if (Effect.Instance!="Noon") { EffectCount++; }
-
-    
+        
+        if (Effect.ConditionalPoint!="Noon") { EffectCount++; }
+        if (Effect.OtherEffects!="Noon") { EffectCount++; }
     }
     private void EndCounts()
     {
@@ -110,10 +112,11 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         //BGMの場所
         if (Dice_end==true) { EndCount++; Debug.Log("Dice_end　"+Dice_end); }
         if (NextMove_end ==true) { EndCount++; Debug.Log("NextMove_end　"+NextMove_end); }
-        if (IconChange_end==true) { EndCount++; Debug.Log("IconChange_end　"+IconChange_end); }
+      //  if (IconChange_end==true) { EndCount++; Debug.Log("IconChange_end　"+IconChange_end); }
         if (ItemLost_end==true) { EndCount++; Debug.Log("ItemLost_end　"+ItemLost_end); }
         if (Instance_end==true) { EndCount++; Debug.Log("Instance_end　"+Instance_end); }
-       
+        if (Conditional_End==true) { EndCount++; Debug.Log("Instance_end　"+Instance_end); }
+        if (OtherEffects_End==true) { EndCount++; Debug.Log("Instance_end　"+Instance_end); }
 
 
 
@@ -127,9 +130,11 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         Move_end = false;
         Dice_end = false;
         NextMove_end = false;
-        IconChange_end = false;
+      //  IconChange_end = false;
         ItemLost_end = false;
         Instance_end = false;
+        Conditional_End=false;
+        OtherEffects_End =false;
     }
 
 
@@ -148,10 +153,11 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         Effect_BGM();
         Effect_Dice();
         Effect_NextMove();
-        Effect_IconChange();
+        //Effect_IconChange();
         Effect_ItemLost();
         Effect_Instance();
-        //Effcet_OtherEffects();//ノストラダムスの大予言
+        Effect_Couditional();
+        Effcet_OtherEffects();//ノストラダムスの大予言
 
     }
 
@@ -701,19 +707,26 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
     {
         Debug.Log("質屋発動");
         var itemus = Player.GetComponent<I_Player_3D>().Hub_Items;
-        int loop = 0;
-       
-        int rnd = Random.Range(0, itemus.Count);
-        Debug.Log("なくすアイテム"+itemus[rnd].ItemName);
-        Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(rnd);
-        string Log = PhotonNetwork.NickName+"が質屋の日の効果により"+itemus[rnd].ItemName+"を紛失しました。";
-        game_Manager.Log_connection(Log);
-      
-        rnd = Random.Range(0, itemus.Count);
-        Debug.Log("なくすアイテム"+itemus[rnd].ItemName);
-        Player.GetComponent<I_Player_3D>().ItemAdd_ToConnect(rnd);
-        Log = PhotonNetwork.NickName+"が質屋の日の効果により"+itemus[rnd].ItemName+"を入手しました。";
-        game_Manager.Log_connection(Log);
+        
+        if (itemus.Count!=0) {
+            int loop = 0;
+            int rnd = Random.Range(0, itemus.Count);
+            Debug.Log("なくすアイテム"+itemus[rnd].ItemName);
+            Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(rnd);
+            string Log = PhotonNetwork.NickName+"が質屋の日の効果により"+itemus[rnd].ItemName+"を紛失しました。";
+            game_Manager.Log_connection(Log);
+
+            rnd = Random.Range(0, itemus.Count);
+            Debug.Log("なくすアイテム"+itemus[rnd].ItemName);
+            Player.GetComponent<I_Player_3D>().ItemAdd_ToConnect(rnd);
+            Log = PhotonNetwork.NickName+"が質屋の日の効果により"+itemus[rnd].ItemName+"を入手しました。";
+            game_Manager.Log_connection(Log);
+        }
+        else
+        {
+            string Log = PhotonNetwork.NickName+"がアイテムを持っていなかったため、質屋を利用できませんでした。";
+            game_Manager.Log_connection(Log);
+        }
     }
 
 
@@ -760,8 +773,63 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                         } while (game_Manager.Week[YMass].Day[XMass].activeInHierarchy == false );
 
                         OutPut_PresentSetting(YMass, XMass);
-
+                        OtherEffects_End=true;
                         break;
+
+
+
+
+
+
+
+                }
+            }
+        }
+    }
+    public void Effect_Couditional()
+    {
+        var daySquare_Condi = Day_Square_Master.Day_Squares[DayNumber].ConditionalPoint;
+        Debug.Log("<color=red>Con</color>");
+        if (daySquare_Condi != "Noon")
+        {
+            if (daySquare_Condi != "none")
+            {
+                switch (daySquare_Condi)
+                {
+                    case "米騒動の日":
+
+                        var itemus = Player.GetComponent<I_Player_3D>().Hub_Items;
+
+
+
+
+                        foreach (var item in itemus)
+                        {
+
+                            if (item.classification=="食べ物")
+                            {
+                                item.ItemPoint++;
+                                Debug.Log("<color=red>米騒動</color>");
+                                Player.GetComponent<I_Player_3D>().ItemBlock.GetComponent<ItemBlock_List_Script>().PuintUpdate();
+
+                            }
+
+
+                        }
+                        string Log ="米騒動の日の効果で、"+ PhotonNetwork.NickName+"の食べ物系アイテムのポイントが１増加しました。。";
+                        game_Manager.Log_connection(Log);
+                        Conditional_End=true;
+                        break;
+
+                    case "住宅デー":
+
+                        Conditional_End=true;
+                        break;
+
+
+
+
+
                 }
             }
         }
