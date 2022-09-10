@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 
 public class newRotate : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class newRotate : MonoBehaviour
 
     public List<int> InDiceNum = new List<int> { 1, 2, 3, 4, 5, 6 }; //指定された数がさいころから出る
 
+    //public int DiseSpeed = 2;       //サイコロの切り替えスピード
+    private float seconds;
 
     // Start is called before the first frame update
     void Start()
@@ -41,10 +44,10 @@ public class newRotate : MonoBehaviour
         //    ySpeed = yKeep;
         //    zSpeed = zKeep;
         //}
-
-        if(shuffle == true)
+        seconds += Time.deltaTime;
+        if (shuffle == true && seconds >= 0.1)
         {
-
+            seconds = 0;
             gameObject.GetComponent<Image>().sprite = Dise_sprite[Random.Range(0, 6)];
         }
 

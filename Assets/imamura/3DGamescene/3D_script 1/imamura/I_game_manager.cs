@@ -853,7 +853,6 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     }
     [PunRPC]public void Log_RPC(string LogText)//全体にログを送る
     {
-        SE.GetComponent<SEManager>().SEsetandplay("LogSE");
         LogText = Log.GetComponent<Text_Log>() .SistemrColouradd()+LogText;
         Log.GetComponent<Text_Log>().textadd(LogText);
     }
@@ -866,7 +865,6 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     }
     [PunRPC] public void Log_RPC__Oter(string LogText)//自分以外にログを送る
     {
-        SE.GetComponent<SEManager>().SEsetandplay("LogSE");
         LogText =  Log.GetComponent<Text_Log>().SistemrColouradd()+LogText;
         Log.GetComponent<Text_Log>().textadd(LogText);
     }
@@ -874,7 +872,6 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
     public void Log_Mine(string LogText)//自分にログを送る
     {
-        SE.GetComponent<SEManager>().SEsetandplay("LogSE");
         LogText =  Log.GetComponent<Text_Log>().SistemrColouradd()+LogText;
         Log.GetComponent<Text_Log>().textadd(LogText);
     }

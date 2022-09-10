@@ -20,16 +20,24 @@ public class Guide : MonoBehaviour
 
     public GameObject HopUp_Image;
 
+    public GameObject warp;
+    public GameObject warp_Image;
+
+    public GameObject option;
+    public GameObject option_Image;
+
+    public GameObject rade;
+    public GameObject rade_Image;
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void Dice_BottonStart()
@@ -108,5 +116,47 @@ public class Guide : MonoBehaviour
     public void Hopup_Finish()
     {
         HopUp_Image.SetActive(false);
+    }
+
+    public void warp_BottonStart()
+    {
+        warp.SetActive(true);
+        warp_Image.SetActive(true);
+        warp.GetComponent<Animator>().SetBool("Guidewarp", true);
+    }
+
+    public void warp_BottonFinish()
+    {
+        warp.GetComponent<Animator>().SetBool("Guidewarp", false);
+        Dice_StartBotton.SetActive(false);
+        warp.SetActive(false);
+    }
+
+    public void rady_BottonStart()
+    {
+        warp.SetActive(true);
+        warp_Image.SetActive(true);
+        warp.GetComponent<Animator>().SetBool("Guiderady", true);
+    }
+
+    public void rady_BottonFinish()
+    {
+        warp.GetComponent<Animator>().SetBool("Guiderady", false);
+        Dice_StartBotton.SetActive(false);
+        warp.SetActive(false);
+    }
+
+    public void option_BottonStart()
+    {
+        warp.SetActive(true);
+        warp_Image.SetActive(true);
+        warp.GetComponent<Animator>().SetBool("Guideoption", true);
+    }
+
+    public void option_BottonFinish()
+    {
+        warp.GetComponent<Animator>().SetBool("Guideoption", false);
+        Dice_StartBotton.SetActive(false);
+        warp.SetActive(false);
     }
 }
