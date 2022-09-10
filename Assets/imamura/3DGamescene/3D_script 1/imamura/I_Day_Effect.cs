@@ -722,21 +722,34 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
     public void Auction()//質屋　ランダムなアイテムをランダムなアイテムに変換する
     {
 
-        var itemus = Player.GetComponent<I_Player_3D>().Hub_Items;
+        var items = Player.GetComponent<I_Player_3D>().Hub_Items;
 
-        if (itemus.Count!=0)
+        if (items.Count!=0)
         {
             int loop = 0;
-            int rnd = Random.Range(0, itemus.Count);
-            Debug.Log("なくすアイテム"+itemus[rnd].ItemName);
+            int rnd = Random.Range(0, items.Count-1);
+            Debug.Log("なくすアイテム"+items[rnd].ItemName);
+            var Log = PhotonNetwork.NickName+"が"+items[rnd].ItemName+"を代金に";
             Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(rnd);
 
-            var Log = PhotonNetwork.NickName+"が"+itemus[rnd].ItemName+"を代金に";
-            rnd = Random.Range(0, itemus.Count);
-            Debug.Log("なくすアイテム"+itemus[rnd].ItemName);
-            Player.GetComponent<I_Player_3D>().ItemAdd_ToConnect(rnd);
-            Log= Log+ itemus[rnd].ItemName+"を落札しました。";
-            game_Manager.Log_connection(Log);
+           
+
+            var ItemsMaster = Player.GetComponent<I_Player_3D>().ItemMaster.Anniversary_Items;
+
+            foreach (var MItem in ItemsMaster)
+            {
+                if (MItem.ItemName=="落札品")
+                {
+                    Player.GetComponent<I_Player_3D>().ItemAdd_ToConnect(ItemsMaster.IndexOf(MItem));
+                    Log= Log+ItemsMaster[ItemsMaster.IndexOf(MItem)].ItemName+"を落札しました。";
+                    game_Manager.Log_connection(Log);
+                }
+
+            }
+
+
+
+           
         }
         else
         {
