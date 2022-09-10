@@ -1,54 +1,86 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CreditButton : MonoBehaviour
 {
     [SerializeField]
-    int pagenum;
+    Sprite[] Pages;
     [SerializeField]
-    Transform Canvas;
+    GameObject CreditScreen;
+    [SerializeField]
+    Image Creditpage;
+    [SerializeField]
+    GameObject NextButton;
+    [SerializeField]
+    int nowpage;
+
+    SEManager manager;
 
     private void Start()
     {
-        Canvas = this.gameObject.transform.root;
+        nowpage = 0;
+        manager = SEManager.Instance;
     }
 
     public void OnClick(string objectName)
-    {
-        SEManager manager = SEManager.Instance;
-        //manager.SEsetandplay();
-
-        // オブジェクトの数だけ処理を分岐
+    { // オブジェクトの数だけ処理を分岐
         if ("Credit".Equals(objectName)) this.CreditClick();
         else if ("Back".Equals(objectName)) this.BackClick();
         else if ("Next".Equals(objectName)) this.NextClick();
+        else if ("Cancel".Equals(objectName)) this.CancelClick();
         else throw new System.Exception("Not implemented!!");
     }
 
     public void CreditClick() {
-        this.transform.GetChild(0).gameObject.SetActive(true);
+        Resetall();
+        CreditScreen.SetActive(true);
     }
 
     public void BackClick()
     {
-        pagenum = int.Parse(this.transform.parent.name.Substring(4, 1));
-        if (pagenum == 1)
-        {
-            this.gameObject.transform.parent.gameObject.SetActive(false);
+        manager.SEsetandplay("MoveOn");
+
+        if (nowpage > 0){
+            nowpage--;
+            Creditpage.sprite = Pages[nowpage];
         }
-        else 
-        {
-            this.transform.parent.gameObject.SetActive(false);
-            Canvas.GetChild(Canvas.childCount - 2).transform.GetChild(pagenum - 2).gameObject.SetActive(true);
+        else {
+            CreditScreen.SetActive(false);
+            nowpage = 0;
+        }
+
+        if (nowpage + 1 < Pages.Length) {
+            NextButton.SetActive(true);
         }
     }
 
     public void NextClick() {
-        pagenum = int.Parse(this.transform.parent.name.Substring(4, 1));
+        manager.SEsetandplay("MoveOn");
         
-        this.transform.parent.gameObject.SetActive(false);
-        Canvas.GetChild(Canvas.childCount - 2).transform.GetChild(pagenum).gameObject.SetActive(true);
+        if (nowpage + 2 < Pages.Length)
+        {
+            nowpage++;
+            Creditpage.sprite = Pages[nowpage];
+        }
+        else
+        {
+            nowpage++;
+            Creditpage.sprite = Pages[nowpage];
+            NextButton.SetActive(false);
+        }
     }
 
+    public void CancelClick()
+    {
+        CreditScreen.SetActive(false);
+    }
+
+    public void Resetall()
+    {
+        nowpage = 0;
+        Creditpage.sprite = Pages[0];
+        NextButton.SetActive(true);
+    }
 }
