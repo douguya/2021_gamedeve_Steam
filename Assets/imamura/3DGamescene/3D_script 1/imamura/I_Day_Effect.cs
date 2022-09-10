@@ -558,19 +558,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
        
     }
 
-    public void Effect_IconChange()
-    {
-
-
-        if (Day_Square_Master.Day_Squares[DayNumber].Icon!=null)//アイコンがあるなら
-        {
-             photonView.RPC(nameof(RPC_Effect_IconChange), RpcTarget.AllViaServer, DayNumber);
-             PlayerTurn_change = false;
-            IconChange_end=true;
-
-        }
-
-    }
+  
 
 
     [PunRPC]
@@ -612,7 +600,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                     break;
 
 
-                case "かき氷の日":
+                case "オークションの日":
 
 
 
@@ -731,10 +719,37 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
 
 
 
+    public void Auction()//質屋　ランダムなアイテムをランダムなアイテムに変換する
+    {
 
-    //--------------------------大蔵--------------------------------
-    //Instanceが出てくるやつ
-    public void AppearInstances()
+        var itemus = Player.GetComponent<I_Player_3D>().Hub_Items;
+
+        if (itemus.Count!=0)
+        {
+            int loop = 0;
+            int rnd = Random.Range(0, itemus.Count);
+            Debug.Log("なくすアイテム"+itemus[rnd].ItemName);
+            Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(rnd);
+
+            var Log = PhotonNetwork.NickName+"が"+itemus[rnd].ItemName+"を代金に";
+            rnd = Random.Range(0, itemus.Count);
+            Debug.Log("なくすアイテム"+itemus[rnd].ItemName);
+            Player.GetComponent<I_Player_3D>().ItemAdd_ToConnect(rnd);
+            Log= Log+ itemus[rnd].ItemName+"を落札しました。";
+            game_Manager.Log_connection(Log);
+        }
+        else
+        {
+            string Log = PhotonNetwork.NickName+"がアイテムを持っていなかったため、オークションを利用できませんでした。";
+            game_Manager.Log_connection(Log);
+        }
+    }
+
+
+
+        //--------------------------大蔵--------------------------------
+        //Instanceが出てくるやつ
+        public void AppearInstances()
     {
         AnimationController InstAnimController;
         Camera_Mouse MainCameraMouse = game_Manager.Camera.GetComponent<Camera_Mouse>();
@@ -771,8 +786,8 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                             XMass = Random.Range(0, game_Manager.Week[0].Day.Length);
                             YMass = Random.Range(0, game_Manager.Week.Length);
                         } while (game_Manager.Week[YMass].Day[XMass].activeInHierarchy == false );
-
-                        OutPut_PresentSetting(YMass, XMass);
+                        photonView.RPC(nameof(OutPut_PresentSetting), RpcTarget.All, YMass, XMass);
+                       
                         OtherEffects_End=true;
                         break;
 
@@ -786,6 +801,12 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
             }
         }
     }
+
+
+
+
+
+
     public void Effect_Couditional()
     {
         var daySquare_Condi = Day_Square_Master.Day_Squares[DayNumber].ConditionalPoint;
@@ -836,7 +857,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
     }
 
     //ここの共有お願いします
-    private void OutPut_PresentSetting(int YMass, int XMass)
+    [PunRPC]private void OutPut_PresentSetting(int YMass, int XMass)
     {
         game_Manager.Week[YMass].Day[XMass].GetComponent<I_Mass_3D>().Present_setting();
     }

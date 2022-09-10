@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Threading.Tasks;
-
-public class newRotate : MonoBehaviour
+using Photon.Pun;
+public class newRotate : MonoBehaviourPunCallbacks
 {
     //public float xSpeed, ySpeed, zSpeed;　//各軸の回転速度
     //public bool rotate; //回転を止めるボタン
@@ -60,14 +60,16 @@ public class newRotate : MonoBehaviour
     //}
     public void Dice_shuffle()
     {
-        OutPut_DiceShuffle();
+       
+        photonView.RPC(nameof(OutPut_DiceShuffle), RpcTarget.All);
     }
 
-    public void OutPut_DiceShuffle()
+  [PunRPC]  public void OutPut_DiceShuffle()
     {
         shuffle = true;
     }
 
+    [PunRPC]
     public void OutPut_DiceShuffle_Stop()
     {
         shuffle = false;
@@ -76,8 +78,8 @@ public class newRotate : MonoBehaviour
     //ストップするときの呼び出し用関数
     public void newDiceStop()
     {
-        OutPut_DiceShuffle_Stop();
-
+        
+        photonView.RPC(nameof(OutPut_DiceShuffle_Stop), RpcTarget.All);
         //出た目の数をランダムで生成
         for (; ; )
         {
@@ -87,7 +89,8 @@ public class newRotate : MonoBehaviour
                 break;//数字が許可されていれば通す
             }
         }
-        Output_LookDice();
+        
+        photonView.RPC(nameof(Output_LookDice), RpcTarget.All);
         //さいころを停止
         //rotate = false;
         //xSpeed = 0;
@@ -121,7 +124,9 @@ public class newRotate : MonoBehaviour
         //transform.rotation = Quaternion.Euler(xShow, 0, zShow);
     }
 
-    private void Output_LookDice()
+
+    
+  [PunRPC]private void Output_LookDice()
     {
         gameObject.GetComponent<Image>().sprite = Dise_sprite[DiceNum - 1];
     }

@@ -600,6 +600,19 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Present_Item == true)
         {
             //ここにオリエンテーリングの高得点アイテムの取得処理入れる
+            
+                
+            foreach (var item in ItemMaster.Anniversary_Items)
+            {
+               if(item.ItemName=="プレゼント")
+                {
+                    photonView.RPC(nameof(ItemAdd), RpcTarget.All, ItemMaster.Anniversary_Items.IndexOf(item)); //アイテム加算
+                 
+                    string Log = Manager.PlayerColouradd(PhotonNetwork.NickName)+"がオリエンテーリングの"+item.ItemName+"を入手しました。";
+                    Manager.Log_connection(Log);
+
+                }
+            }
             Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Present_hid();
         }
 
@@ -852,8 +865,17 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     //ゴールのアニメーションの共有お願いします
     private void Output_GoalAnimation()
     {
+        photonView.RPC(nameof(Output_GoalAnimation_RPC), RpcTarget.All);
+    }
+    [PunRPC]
+    private void　Output_GoalAnimation_RPC()
+    {
         Manager.GoalAnimation.GetComponent<Animator>().SetBool("GoalAnimation", true);
     }
+
+
+
+
 
     public void GoalAnimation_After()
     {
@@ -896,7 +918,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
           {
             if (Item.Day==day)
             {
-                if (Item.ItemName!="ランダムなアイテム") {
+                if (Item.ItemName!="ランダムなアイテム"&&Item.ItemName!="落札品") {
                     photonView.RPC(nameof(ItemAdd), RpcTarget.All, loop); //アイテム加算
                     Itemunum=loop;
                     string Log = Manager.PlayerColouradd(PhotonNetwork.NickName)+"が"+Item.ItemName+"を入手しました。";
