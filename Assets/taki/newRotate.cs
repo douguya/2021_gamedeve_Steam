@@ -12,13 +12,12 @@ public class newRotate : MonoBehaviour
 
     //private float xKeep, yKeep, zKeep; //回転速度の保存用
     //private float xShow, zShow; //さいころの目を見せるときの角度
-
-    //廃止　public GameObject[] Dice = new GameObject[6];　//ダイスの各面に張り付けてある空箱
-    //廃止　public GameObject max; //一番上の面の空箱
+    private bool shuffle;
 
     public Sprite[] Dise_sprite = new Sprite[6];
 
     public List<int> InDiceNum = new List<int> { 1, 2, 3, 4, 5, 6 }; //指定された数がさいころから出る
+
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +42,11 @@ public class newRotate : MonoBehaviour
         //    zSpeed = zKeep;
         //}
 
+        if(shuffle == true)
+        {
+
+            gameObject.GetComponent<Image>().sprite = Dise_sprite[Random.Range(0, 6)];
+        }
 
     }
 
@@ -51,10 +55,26 @@ public class newRotate : MonoBehaviour
     //{
     //    rotate = true;
     //}
+    public void Dice_shuffle()
+    {
+        OutPut_DiceShuffle();
+    }
+
+    public void OutPut_DiceShuffle()
+    {
+        shuffle = true;
+    }
+
+    public void OutPut_DiceShuffle_Stop()
+    {
+        shuffle = false;
+    }
 
     //ストップするときの呼び出し用関数
     public void newDiceStop()
     {
+        OutPut_DiceShuffle_Stop();
+
         //出た目の数をランダムで生成
         for (; ; )
         {
