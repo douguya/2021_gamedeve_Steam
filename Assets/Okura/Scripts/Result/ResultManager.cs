@@ -43,7 +43,7 @@ public class ResultManager : MonoBehaviourPunCallbacks
     private void Awake()
     {
 
-
+        Cursor.visible = true;
 
         //ƒ[ƒ‹ƒh•Ï”‚ğ‘ã“ü
         playersnum = PhotonNetwork.PlayerList.Length;
