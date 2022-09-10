@@ -155,6 +155,7 @@ public class Text_Log : MonoBehaviourPunCallbacks
 
     public void Direct_Log_InputField()//ƒ`ƒƒƒbƒg‚É“ü—Í
     {
+        GameObject.Find("I_game_manager").GetComponent<Guide>().chat_Finish();
         if (Input.GetKey(KeyCode.Return))
         {
             if (InputField.GetComponent<InputField>().text==Password)

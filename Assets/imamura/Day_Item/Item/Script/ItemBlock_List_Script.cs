@@ -173,7 +173,8 @@ public class ItemBlock_List_Script : MonoBehaviour
 
     public void ItemRist_View()
     {
-        Rist_View=!Rist_View;
+        GameObject.Find("I_game_manager").GetComponent<Guide>().Item_Finish();
+        Rist_View =!Rist_View;
         Scroll.SetActive(Rist_View);
     }
 

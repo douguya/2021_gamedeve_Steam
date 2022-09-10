@@ -344,6 +344,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         if (Guide_on == true && Guide_one == true)
         {
             GameManager.GetComponent<Guide>().MassSelecet_Start();
+            GameManager.GetComponent<Guide>().warp_BottonStart();
         }
         Effect_start = true;
         Xcenter = XPlayer_position;                 //選択の中心となるマスを設定
@@ -408,6 +409,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         {
             Guide_one = false;
             GameManager.GetComponent<Guide>().MassSelecet_Finish();
+            GameManager.GetComponent<Guide>().warp_BottonFinish();
         }
         if (Effect == false)
 
