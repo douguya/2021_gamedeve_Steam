@@ -166,6 +166,7 @@ MonoBehaviour:
   MoveOn: {fileID: 8300000, guid: 7c8cd912bffba6f48a7b257af255b2f1, type: 3}
   BackSE: {fileID: 8300000, guid: 30bf430d5b462d2468392fb78ee120ec, type: 3}
   SceneSwitching: {fileID: 8300000, guid: 325406a161a9d5341b38ae053ba8feb1, type: 3}
+  LogSE: {fileID: 8300000, guid: cd03e1561883e034b999c36414fa7f75, type: 3}
   GameStartSE: {fileID: 8300000, guid: 8363435a4589e5f4d9bf16d796c9019b, type: 3}
   DiceSE: {fileID: 8300000, guid: 281a35f3ea4b2d3458a904aa3f0b89de, type: 3}
   WalkSE: {fileID: 8300000, guid: 1f8ee777a76004740bc9aa188d856b06, type: 3}
@@ -174,6 +175,7 @@ MonoBehaviour:
   GetSE: {fileID: 0}
   GoalSE: {fileID: 8300000, guid: f5783f5895b6962438e12822cfb4622e, type: 3}
   GameEndSE: {fileID: 0}
+  TextSE: {fileID: 8300000, guid: 5f249150310fa8646a00f5f53481c62f, type: 3}
   resultSE: {fileID: 0}
   HandClapJingle: {fileID: 8300000, guid: 4403e93f361062f438c31047aa41352c, type: 3}
   ResultJingle: {fileID: 8300000, guid: c7e399f68ffe51a449402d7839bf6875, type: 3}
