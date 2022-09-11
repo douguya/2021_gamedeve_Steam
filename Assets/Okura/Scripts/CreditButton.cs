@@ -74,6 +74,7 @@ public class CreditButton : MonoBehaviour
 
     public void CancelClick()
     {
+        manager.SEsetandplay("DecisionSE");
         CreditScreen.SetActive(false);
     }
 
