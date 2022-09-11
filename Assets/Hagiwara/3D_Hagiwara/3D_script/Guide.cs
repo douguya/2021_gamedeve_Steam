@@ -29,6 +29,8 @@ public class Guide : MonoBehaviour
     public GameObject rade;
     public GameObject rade_Image;
 
+    public GameObject scroll_Image;
+
     void Start()
     {
 
@@ -174,5 +176,23 @@ public class Guide : MonoBehaviour
 
         yield return new WaitForSeconds(10);     //1•b‘Ò‚Â
         option_BottonFinish();
+    }
+
+    public void scroll_Start()
+    {
+        scroll_Image.SetActive(true);
+        StartCoroutine(scroll_Coroutine());
+    }
+
+    public void scroll_Finish()
+    {
+        scroll_Image.SetActive(false);
+    }
+
+    IEnumerator scroll_Coroutine()
+    {
+
+        yield return new WaitForSeconds(15);     //1•b‘Ò‚Â
+        scroll_Finish();
     }
 }
