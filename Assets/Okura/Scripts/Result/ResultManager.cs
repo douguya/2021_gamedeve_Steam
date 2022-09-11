@@ -27,7 +27,7 @@ public class ResultManager : MonoBehaviourPunCallbacks
     [SerializeField]
     GameObject[] ScrollBar;
     [SerializeField]
-    float interval = -30.0f;        //PBGで生成されるテキストボックスの間隔
+    float interval = -25.0f;        //PBGで生成されるテキストボックスの間隔
     [SerializeField]
     GameObject[] players;             //I_Player_3Dを持ってるオブジェクト
     [SerializeField]

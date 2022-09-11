@@ -145,8 +145,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 51.84, y: -15}
-  m_SizeDelta: {x: 100.78, y: 30}
+  m_AnchoredPosition: {x: 44.84, y: -15}
+  m_SizeDelta: {x: 86.78, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &598641997606286210
 CanvasRenderer:
@@ -217,6 +217,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemNameTextBox: {fileID: 0}
+  Rectheight: 0
+  LineNum: 0
 --- !u!1 &598641997649486787
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,8 +983,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 109, y: -15}
-  m_SizeDelta: {x: 14, y: 30}
+  m_AnchoredPosition: {x: 102, y: -15}
+  m_SizeDelta: {x: 28, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6405854459803136644
 CanvasRenderer:
