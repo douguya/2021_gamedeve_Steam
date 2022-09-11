@@ -64,6 +64,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        Video_obj.SetActive(false);
         Day_Animation = GetComponent<I_Day_Animation>();
         Month_Setting();
 

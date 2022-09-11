@@ -9891,6 +9891,34 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8301628117634320670, guid: e99b70b86c052054dbf953569b9a07ea, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8301628117634320670, guid: e99b70b86c052054dbf953569b9a07ea, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8301628117634320670, guid: e99b70b86c052054dbf953569b9a07ea, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1442915942664244213}
+    - target: {fileID: 8301628117634320670, guid: e99b70b86c052054dbf953569b9a07ea, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8301628117634320670, guid: e99b70b86c052054dbf953569b9a07ea, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnValueChange
+      objectReference: {fileID: 0}
+    - target: {fileID: 8301628117634320670, guid: e99b70b86c052054dbf953569b9a07ea, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: NewBehaviourScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8301628117634320670, guid: e99b70b86c052054dbf953569b9a07ea, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8301628117774241741, guid: e99b70b86c052054dbf953569b9a07ea, type: 3}
       propertyPath: m_Type
       value: 0
@@ -18470,13 +18498,27 @@ GameObject:
   - component: {fileID: 1442915942664244214}
   - component: {fileID: 1442915942664244215}
   - component: {fileID: 3580829250967600149}
+  - component: {fileID: 1442915942664244213}
   m_Layer: 5
   m_Name: Video
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
+--- !u!114 &1442915942664244213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442915942664244212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902e49d3d6e837249a0662726a0d0c57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  video: {fileID: 0}
 --- !u!114 &1442915942664244214
 MonoBehaviour:
   m_ObjectHideFlags: 0
