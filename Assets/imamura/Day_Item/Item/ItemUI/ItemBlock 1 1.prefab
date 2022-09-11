@@ -327,6 +327,7 @@ MonoBehaviour:
   ItemName: {fileID: 2958553414340770406}
   ItemProperty: {fileID: 5814466070162481351}
   PropertyText: {fileID: 5676132492631038996}
+  player: {fileID: 0}
   Rist_View: 0
   OtherList: []
 --- !u!114 &4283405941264150982
@@ -476,7 +477,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: f56362f3f09a1e74b94484c56df5eeb5, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 3

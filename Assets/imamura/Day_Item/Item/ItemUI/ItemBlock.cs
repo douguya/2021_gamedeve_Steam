@@ -55,7 +55,17 @@ public class ItemBlock : MonoBehaviour
                 ItemImage.sprite= ItemInfo.ItemSprite;
                 ItemName.text= ItemInfo.ItemName;
 
+
                 PropertyText.text=ItemInfo.Day+" "+ItemInfo.Anniversary+"\n"+Item.ItemPoint+"ƒ|ƒCƒ“ƒg";
+                
+               
+             
+
+                
+
+               
+
+
                 Debug.Log("<color=red>"+Item.ItemName+"</color>"+Item.ItemPoint);
             }
         }

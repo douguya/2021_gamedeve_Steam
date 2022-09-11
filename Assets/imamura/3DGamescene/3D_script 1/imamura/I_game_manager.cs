@@ -23,7 +23,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
     public Days[] Week = new Days[10];                      //Massの縦列のオブジェクトの取得・関数Daysで二次元配列にしている
 
-    private int XGoal = 0, YGoal = 0;                       //ゴールのマスの横・縦の現在位置
+    public int XGoal = 0, YGoal = 0;                       //ゴールのマスの横・縦の現在位置
     private bool Goal_check;                                //ゴールしたかどうか
     private int Goal_AddCount = 0;                          //ゴールした合計
 
@@ -51,7 +51,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     public GameObject ReadyButton;
     public Icon_Sprite_Manager IconSprits;
     public bool HowMyTurn=false;
-
+    public bool GoalPut = false;
     //  ここまで=========================================================================================//
 
     //--------------------------大蔵--------------------------------
@@ -90,8 +90,17 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         ReadyButton.SetActive(false);
     }
 
+  
+    public void GoalPutFalse()
+    {
+        photonView.RPC(nameof(GoalPutFalse_RPC), RpcTarget.AllViaServer);
+    }
 
-
+    [PunRPC]
+    public void GoalPutFalse_RPC()
+    {
+        GoalPut=false;
+    }
 
 
     void Update()
@@ -368,10 +377,11 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     [PunRPC]
     private void Output_GoalSetting(int week, int day)
     {
-        XGoal = day; YGoal = week;
+        GoalPut=true;
+         XGoal = day; YGoal = week;
         Week[week].Day[day].GetComponent<I_Mass_3D>().Goal_setting();
 
-
+        
         string　Day=　Week[week].Day[day].GetComponent<I_Mass_3D>().Day;
         string Log = "ゴールが"+Day+"に設置されました。";
         Log_Mine(Log);
@@ -543,12 +553,13 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
     public void ConnectGameFinish()
     {
-        
+       
         photonView.RPC(nameof(Output_GameFinish), RpcTarget.AllViaServer);
     }
     [PunRPC]//ゲーム終了の処理を出力
     private void Output_GameFinish()
     {
+        Cursor.visible = true;
         SceneManager.GetComponent<SceneManagaer>().TransitionToResult();
       //  Debug.Log("ゲーム終了");
     }
@@ -853,7 +864,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     }
     [PunRPC]public void Log_RPC(string LogText)//全体にログを送る
     {
-        LogText= Log.GetComponent<Text_Log>() .SistemrColouradd()+LogText;
+        LogText = Log.GetComponent<Text_Log>() .SistemrColouradd()+LogText;
         Log.GetComponent<Text_Log>().textadd(LogText);
     }
 
@@ -865,14 +876,14 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     }
     [PunRPC] public void Log_RPC__Oter(string LogText)//自分以外にログを送る
     {
-        LogText=  Log.GetComponent<Text_Log>().SistemrColouradd()+LogText;
+        LogText =  Log.GetComponent<Text_Log>().SistemrColouradd()+LogText;
         Log.GetComponent<Text_Log>().textadd(LogText);
     }
 
 
     public void Log_Mine(string LogText)//自分にログを送る
     {
-        LogText=  Log.GetComponent<Text_Log>().SistemrColouradd()+LogText;
+        LogText =  Log.GetComponent<Text_Log>().SistemrColouradd()+LogText;
         Log.GetComponent<Text_Log>().textadd(LogText);
     }
 

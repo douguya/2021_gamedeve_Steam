@@ -154,27 +154,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240aaff49c214a14eb4a197a6f382934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TitleBGM: {fileID: 8300000, guid: 0635f81cd1c2e7b4c90968e79c7348d7, type: 3}
+  TitleBGM: {fileID: 8300000, guid: d9de9a3a0c5137840b6636e7cb27333d, type: 3}
   LobbyBGM: {fileID: 0}
   IngameBGM: {fileID: 0}
   ResultBGM: {fileID: 0}
-  EnvironmentBGM: {fileID: 8300000, guid: 9e76a7295c7c9bf4fa88e0d08f564cad, type: 3}
-  JangleBGM: {fileID: 8300000, guid: 7e4443f1417b79b4a89807c5b6417437, type: 3}
-  PianoBGM: {fileID: 8300000, guid: 1ed5220f340bc5a468837c5755bb95c8, type: 3}
-  HorrorBGM: {fileID: 8300000, guid: 2fe51c3eb1ef12b44b96062d7f7455b4, type: 3}
+  EnvironmentBGM: {fileID: 8300000, guid: fe6a53dafda44db4baac25d562a73f1a, type: 3}
+  JangleBGM: {fileID: 8300000, guid: aa4706b238049694b8857e00a306346d, type: 3}
+  PianoBGM: {fileID: 8300000, guid: b9f4e128b3788e74c80cb7a79b119690, type: 3}
+  HorrorBGM: {fileID: 8300000, guid: d194b839e252f4f44a221981d500cc68, type: 3}
   DecisionSE: {fileID: 8300000, guid: b654b76860668e440af3046bf2613ca3, type: 3}
   MoveOn: {fileID: 8300000, guid: 7c8cd912bffba6f48a7b257af255b2f1, type: 3}
   BackSE: {fileID: 8300000, guid: 30bf430d5b462d2468392fb78ee120ec, type: 3}
   SceneSwitching: {fileID: 8300000, guid: 325406a161a9d5341b38ae053ba8feb1, type: 3}
-  GameStartSE: {fileID: 0}
-  DiceSE: {fileID: 0}
+  LogSE: {fileID: 8300000, guid: cd03e1561883e034b999c36414fa7f75, type: 3}
+  GameStartSE: {fileID: 8300000, guid: 8363435a4589e5f4d9bf16d796c9019b, type: 3}
+  DiceSE: {fileID: 8300000, guid: fcf4fc26996dda84f9a06ab6aa6d7ae2, type: 3}
   WalkSE: {fileID: 8300000, guid: 1f8ee777a76004740bc9aa188d856b06, type: 3}
-  WarpSE: {fileID: 0}
+  WarpSE: {fileID: 8300000, guid: d857dfd395ba1024aa965832b28d8f04, type: 3}
   OpenSE: {fileID: 0}
   GetSE: {fileID: 0}
-  GoalSE: {fileID: 0}
+  GoalSE: {fileID: 8300000, guid: f5783f5895b6962438e12822cfb4622e, type: 3}
   GameEndSE: {fileID: 0}
+  TextSE: {fileID: 8300000, guid: 4737603dd3cb2ff4787553a6bbe07768, type: 3}
   resultSE: {fileID: 0}
-  HandClapJingle: {fileID: 0}
-  ResultJingle: {fileID: 0}
+  HandClapJingle: {fileID: 8300000, guid: ea705163adf511b4c98ace73a3c3ac44, type: 3}
+  ResultJingle: {fileID: 8300000, guid: f03a2c685ad4e1443b784077b8891940, type: 3}
   FinalResultJingle: {fileID: 0}

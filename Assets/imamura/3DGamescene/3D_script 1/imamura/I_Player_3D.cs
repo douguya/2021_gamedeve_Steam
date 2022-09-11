@@ -60,6 +60,8 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
     private bool OneMore;
 
+    private bool consecutive_hits;
+
     // 以下MannequinPlayer空の引用=====================================================================
     public Anniversary_Item_Master ItemMaster;
     public GameObject ItemBlock;//アイテムリストのUGI
@@ -83,6 +85,10 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     void Start()
     {
         name=""+GetComponent<PhotonView>().CreatorActorNr;
+        if (SceneManager.GetActiveScene().name == "Result")
+        {
+            transform.position = new Vector3(0, 600, 0);
+        }
     }
 
 
@@ -121,6 +127,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         Manager.HowMyTurn=true;
         Manager.Camera.GetComponent<Camera_Mouse>().CameraOwnership();
         photonView.RPC(nameof(ApartmentEffect), RpcTarget.All);
+        consecutive_hits = false;
         Dice_ready();
     }
 
@@ -133,9 +140,25 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
         if (Manager.Player_Turn==PlayerNumber)
         {
-        
-            Manager.Camera.GetComponent<Camera_Mouse>().CameraReset();
-      
+            var tran = new Vector3(this.transform.position.x-1.8f, this.transform.position.y+9, this.transform.position.z-6.5f);
+            var rate = new Vector3(47, 00, 0);
+
+
+            if (Manager.GoalPut)//ゴールが設置されたばかりの時
+            {
+
+                GameObject Goal = Manager.Week[Manager.YGoal].Day[Manager.XGoal];
+                var tranGoal = new Vector3(Goal.transform.position.x-1.8f, Goal.transform.position.y+9, Goal.transform.position.z-6.5f);
+                var rateGoal = new Vector3(47, 00, 0);
+
+
+                Manager.Camera.GetComponent<Camera_Mouse>().CameraGoal( tranGoal, rateGoal, tran, rate);
+                Manager. GoalPutFalse();
+            }
+            else
+            {
+                Manager.Camera.GetComponent<Camera_Mouse>().CameraPlayer(tran, rate);
+            }
         }
         if (Guide_on == true && Guide_one == true)
         {
@@ -151,29 +174,29 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
             ButtonText.GetComponent<Text>().text = "進む";
 
-            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "は" + MoveAdd_point + "マスまで進んでもいい";
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "は" + MoveAdd_point + "マスまで進んでもいいです。";
             Manager.Log_connection(Text_Announce);
         }
         Turn_change = false;
         if(MoveAdd_point != 0 && selectwark == false)
         {
-            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "はダイスに+" + MoveAdd_point + "マスまで進んでもいい";
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "はダイスに+" + MoveAdd_point + "マスまで進んでもいいです。";
             Manager.Log_connection(Text_Announce);
         }
         if (OneMore_Dice > 1 && OneMore == false)
         {
             OneMore = true;
-            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "はダイスを" + OneMore_Dice + "回振れる";
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "はダイスを" + OneMore_Dice + "回振れます。";
             Manager.Log_connection(Text_Announce);
         }
-        if (DiceAdd != 0)
+        if (DiceAdd != 0 && OneMore_Dice < 1)
         {
-            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "のダイスの出目に+" + DiceAdd;
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "のダイスの出目に+" + DiceAdd + "します。";
             Manager.Log_connection(Text_Announce);
         }
         if (DiceMultiply != 0)
         {
-            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "のダイスの出目が×" + DiceMultiply;
+            Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "のダイスの出目が×" + DiceMultiply + "します。";
             Manager.Log_connection(Text_Announce);
         }
     }
@@ -224,44 +247,46 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         else
 
         {
-            if (Guide_on == true && Guide_one == true)
+            if (consecutive_hits == false)
             {
-                GameManager.GetComponent<Guide>().Dice_BottonFinish();
-                GameManager.GetComponent<Guide>().chat_Finish();
+                if (Guide_on == true && Guide_one == true)
+                {
+                    GameManager.GetComponent<Guide>().Dice_BottonFinish();
+                    GameManager.GetComponent<Guide>().chat_Finish();
+                }
+                Move_Point = Manager.Output_DiceStop() + DiceAdd;
+
+                if (DiceMultiply != 0)
+
+                {
+
+                    Move_Point *= DiceMultiply;
+
+                }
+
+                if (DiceAdd != 0 || DiceMultiply != 0)
+                {
+                    string Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "の移動出来る合計は..." + Move_Point + "です。";
+                    Manager.Log_connection(Text_Announce);
+                }
+
+                MoveStop_point = Move_Point;
+
+                Move_Point += MoveAdd_point;
+
+                MovePoint_Count = 0;
+
+                MoveAdd_point = 0;
+
+                DiceAdd = 0;
+
+                DiceMultiply = 0;
+
+                OneMore = false;
+
+                //Debug.Log("歩数：" + Move_Point); 
+                MoveSelect();
             }
-            Move_Point = Manager.Output_DiceStop() + DiceAdd;
-            
-            if (DiceMultiply != 0)
-
-            {
-
-                Move_Point *= DiceMultiply;
-
-            }
-
-            if (DiceAdd != 0 || DiceMultiply != 0)
-            {
-                string Text_Announce = Manager.PlayerColouradd(PhotonNetwork.NickName) + "の移動出来る合計は..." + Move_Point;
-                Manager.Log_connection(Text_Announce);
-            }
-
-            MoveStop_point = Move_Point;
-
-            Move_Point += MoveAdd_point;
-
-            MovePoint_Count = 0;
-
-            MoveAdd_point = 0;
-
-            DiceAdd = 0;
-
-            DiceMultiply = 0;
-
-            OneMore = false;
-
-            //Debug.Log("歩数：" + Move_Point); 
-            MoveSelect();
-
         }
     }
 
@@ -310,12 +335,23 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
                         {
                             ButtonText.GetComponent<Text>().text = "ダイスを回す";
                         }
-                        Dice_Stop();//ダイスを止めて値を受け取る 
+
+                        StartCoroutine(Dice_Coroutine());
 
                         DiceStrat = true;
                 }
             }
         }
+    }
+
+
+    IEnumerator Dice_Coroutine()
+    {
+        Manager.Dice.GetComponent<newRotate>().Dice_shuffle();
+
+        yield return new WaitForSeconds(0.5f);     //1秒待つ
+
+        Dice_Stop();//ダイスを止めて値を受け取る 
     }
 
     public void another_turn()
@@ -330,9 +366,11 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     //選択できるマスの表示の初期設定
     public void MoveSelect()
     {
+        consecutive_hits = true;
         if (Guide_on == true && Guide_one == true)
         {
             GameManager.GetComponent<Guide>().MassSelecet_Start();
+            GameManager.GetComponent<Guide>().warp_BottonStart();
         }
         Effect_start = true;
         Xcenter = XPlayer_position;                 //選択の中心となるマスを設定
@@ -397,6 +435,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         {
             Guide_one = false;
             GameManager.GetComponent<Guide>().MassSelecet_Finish();
+            GameManager.GetComponent<Guide>().warp_BottonFinish();
         }
         if (Effect == false)
 
@@ -589,6 +628,19 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Present_Item == true)
         {
             //ここにオリエンテーリングの高得点アイテムの取得処理入れる
+            
+                
+            foreach (var item in ItemMaster.Anniversary_Items)
+            {
+               if(item.ItemName=="プレゼント")
+                {
+                    photonView.RPC(nameof(ItemAdd), RpcTarget.All, ItemMaster.Anniversary_Items.IndexOf(item)); //アイテム加算
+                 
+                    string Log = Manager.PlayerColouradd(PhotonNetwork.NickName)+"がオリエンテーリングの"+item.ItemName+"を入手しました。";
+                    Manager.Log_connection(Log);
+
+                }
+            }
             Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Present_hid();
         }
 
@@ -841,8 +893,18 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     //ゴールのアニメーションの共有お願いします
     private void Output_GoalAnimation()
     {
+        photonView.RPC(nameof(Output_GoalAnimation_RPC), RpcTarget.All);
+    }
+    [PunRPC]
+    private void　Output_GoalAnimation_RPC()
+    {
+        Manager.SE.GetComponent<SEManager>().SEsetandplay("GoalSE");
         Manager.GoalAnimation.GetComponent<Animator>().SetBool("GoalAnimation", true);
     }
+
+
+
+
 
     public void GoalAnimation_After()
     {
@@ -885,7 +947,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
           {
             if (Item.Day==day)
             {
-                if (Item.ItemName!="ランダムなアイテム") {
+                if (Item.ItemName!="ランダムなアイテム"&&Item.ItemName!="落札品") {
                     photonView.RPC(nameof(ItemAdd), RpcTarget.All, loop); //アイテム加算
                     Itemunum=loop;
                     string Log = Manager.PlayerColouradd(PhotonNetwork.NickName)+"が"+Item.ItemName+"を入手しました。";

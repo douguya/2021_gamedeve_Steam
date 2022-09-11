@@ -20,16 +20,24 @@ public class Guide : MonoBehaviour
 
     public GameObject HopUp_Image;
 
+    public GameObject warp;
+    public GameObject warp_Image;
+
+    public GameObject option;
+    public GameObject option_Image;
+
+    public GameObject rade;
+    public GameObject rade_Image;
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void Dice_BottonStart()
@@ -62,6 +70,7 @@ public class Guide : MonoBehaviour
 
     public void chat_Start()
     {
+        StartCoroutine(chat_Coroutine());
         chat.SetActive(true);
         chat_Image.SetActive(true);
         chat.GetComponent<Animator>().SetBool("Guidechat", true);
@@ -72,6 +81,13 @@ public class Guide : MonoBehaviour
         chat.GetComponent<Animator>().SetBool("Guidechat", false);
         chat.SetActive(false);
         chat_Image.SetActive(false);
+    }
+
+    IEnumerator chat_Coroutine()
+    {
+
+        yield return new WaitForSeconds(5);     //1ïbë“Ç¬
+        chat_Finish();
     }
 
     public void Item_Cstart()
@@ -108,5 +124,55 @@ public class Guide : MonoBehaviour
     public void Hopup_Finish()
     {
         HopUp_Image.SetActive(false);
+    }
+
+    public void warp_BottonStart()
+    {
+        warp.SetActive(true);
+        warp_Image.SetActive(true);
+        warp.GetComponent<Animator>().SetBool("Guidewarp", true);
+    }
+
+    public void warp_BottonFinish()
+    {
+        warp.GetComponent<Animator>().SetBool("Guidewarp", false);
+        warp_Image.SetActive(false);
+        warp.SetActive(false);
+    }
+
+    public void rady_BottonStart()
+    {
+        rade.SetActive(true);
+        rade_Image.SetActive(true);
+        rade.GetComponent<Animator>().SetBool("Guiderady", true);
+    }
+
+    public void rady_BottonFinish()
+    {
+        rade.GetComponent<Animator>().SetBool("Guiderady", false);
+        rade_Image.SetActive(false);
+        rade.SetActive(false);
+    }
+
+    public void option_BottonStart()
+    {
+        option.SetActive(true);
+        option_Image.SetActive(true);
+        option.GetComponent<Animator>().SetBool("Guideoption", true);
+        StartCoroutine(option_Coroutine());
+    }
+
+    public void option_BottonFinish()//ÉRÉãÅ[É`Éì
+    {
+        option.GetComponent<Animator>().SetBool("Guideoption", false);
+        option_Image.SetActive(false);
+        option.SetActive(false);
+    }
+
+    IEnumerator option_Coroutine()
+    {
+
+        yield return new WaitForSeconds(10);     //1ïbë“Ç¬
+        option_BottonFinish();
     }
 }

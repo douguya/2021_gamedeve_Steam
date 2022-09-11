@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Anniversary: "\u4E0B\u99C4\u306E\u65E5"
   Day: 7/22
-  Staging: {fileID: 32900000, guid: c35255d56da939c478313678b4c77d29, type: 3}
+  Staging: {fileID: 32900000, guid: 1f40dc5298142804aabd48eafc10b3a1, type: 3}
   HopUp: {fileID: 21300000, guid: b568f54ecf730714db1dc14e9b14f81b, type: 3}
   Commentary: "\u30FB\u4E0B\u99C4(2pt)\u3092\u5165\u624B\r\n\u30FB\u6B21\u306E\u30BF\u30FC\u30F3\u3001\u30C0\u30A4\u30B9\u3092\u4E8C\u56DE\u632F\u308C\u308B\u3002\r\n"
   Anniversary_Item: {fileID: 11400000, guid: a070ce88be8361e4096a448dce606655, type: 2}

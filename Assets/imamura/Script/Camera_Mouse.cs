@@ -14,19 +14,32 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
     private Vector2 mouse_set;//マウスの座標
     private float Adjust_Variable= 0.009f;//原点修正用の値　Zoom_Speed＝50専用　用改修
     private Vector3 OriginPoint;//カメラの初期位置
-    private Vector3 OriginRect;//カメラの初期位置
+    public Vector3 OriginRect;//カメラの初期位置 
 
 
     private Vector3 velocity = Vector3.zero;
-    public bool Camera_Move_initials= false;//初期位置用
+
     public bool Camera_Move_initials2 = false;//初期位置用
     public bool Camera_Move_highlight = false;
+    public bool Camera_Move_Player = false;
+    public bool Camera_Move_Goal = false;
 
     private Vector3 Max_Position=new Vector3(84f, 82f, 56f);//カメラの限界位置
     private Vector3 Mini_Position = new Vector3(-69f, 6f, -69);//カメラの限界位置
 
     public Vector3 Position_highlight = new Vector3(0f, 0f, 0f);//ハイライト時のカメラの目的地
     public Vector3 Rotate_highlight = new Vector3(0f, 0f, 0f);//ハイライト時のカメラの目的角度
+
+
+    public Vector3 Position_Player = new Vector3(0f, 0f, 0f);//ぷれいやー時のカメラの目的地
+    public Vector3 Rotate_Player = new Vector3(0f, 0f, 0f);//ぷれいやー時のカメラの目的角度
+
+    public Vector3 Position_Goal = new Vector3(0f, 0f, 0f);//ゴール時のカメラの目的地
+    public Vector3 Rotate_Goal = new Vector3(0f, 0f, 0f);//ゴール時のカメラの目的角度
+
+    public Vector3 Position_Goal_Play = new Vector3(0f, 0f, 0f);//ゴール時のカメラの目的地
+    public Vector3 Rotate_Goal_Play = new Vector3(0f, 0f, 0f);//ゴール時のカメラの目的角度
+
     public bool Permission_Zoom = true;
     
     float xVelocity = 0.0f;
@@ -45,14 +58,7 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
         if (I_game_manager.HowMyTurn) {
             Wheel_Zoom();//マウスホイールによるズーム]
         }
-        if (Camera_Move_initials)//カメラを初期位置に動かす
-        {
-            transform.position = Vector3.SmoothDamp(transform.position, OriginPoint, ref velocity, 0.4f);
-        }
-        if (Vector3.Distance(transform.position, OriginPoint)<1)
-        {
-            Camera_Move_initials=false;
-        }
+      
 
         if (Camera_Move_highlight)//カメラを指定の位置に動かす
         {
@@ -70,13 +76,13 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
         
 
         }
-        if (Vector3.Distance(transform.position, Position_highlight)<1)
+        if (Vector3.Distance(transform.position, Position_highlight)<1&&Camera_Move_highlight==true)
         {
 
 
             Camera_Move_highlight=false;
-          
 
+           // transform.eulerAngles= OriginRect;
         }
 
         if (Camera_Move_initials2)//カメラを初期位置に動かす(角度含めて)
@@ -101,6 +107,55 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
             transform.eulerAngles= OriginRect;
 
         }
+
+
+
+        if (Camera_Move_Goal)//カメラをゴール位置に動かす(角度含めて)
+        {
+            transform.position = Vector3.SmoothDamp(transform.position, Position_Goal, ref velocity, 0.4f);
+
+            var rote = transform.eulerAngles;
+
+
+            rote.x = Mathf.SmoothDampAngle(rote.x, Rotate_Goal.x, ref xVelocity, 0.4f);
+            rote.y = Mathf.SmoothDampAngle(rote.y, Rotate_Goal.y, ref yVelocity, 0.4f);
+            rote.z = Mathf.SmoothDampAngle(rote.z, Rotate_Goal.z, ref zVelocity, 0.4f);
+
+
+            transform.eulerAngles = rote;
+        }
+        if (Vector3.Distance(transform.position, Position_Goal) <1&&Camera_Move_Goal)
+        {
+            Camera_Move_Goal = false;
+
+            CameraPlayer(Position_Goal_Play, Rotate_Goal_Play);
+
+        }
+
+
+        if (Camera_Move_Player)//カメラをプレイアーに動かす(角度含めて)
+        {
+            transform.position = Vector3.SmoothDamp(transform.position, Position_Player, ref velocity, 0.4f);
+
+            var rote = transform.eulerAngles;
+
+
+            rote.x = Mathf.SmoothDampAngle(rote.x, Rotate_Player.x, ref xVelocity, 0.4f);
+            rote.y = Mathf.SmoothDampAngle(rote.y, Rotate_Player.y, ref yVelocity, 0.4f);
+            rote.z = Mathf.SmoothDampAngle(rote.z, Rotate_Player.z, ref zVelocity, 0.4f);
+
+
+            transform.eulerAngles = rote;
+        }
+        if (Vector3.Distance(transform.position, Position_Player) <1&&Camera_Move_Player)
+        {
+            Camera_Move_Player = false;
+
+            CameraReset();
+
+        }
+
+
     }
 
     public void InstanceEnd()
@@ -113,7 +168,7 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
             {
                 if (obj.GetComponent<I_Day_Effect>().InsTance_ON==true)
                 {
-                    Debug.Log("################################################");
+     
                     obj.GetComponent<I_Day_Effect>().Instance_end=true;
                     obj.GetComponent<I_Day_Effect>().InsTance_ON=false;
                 }
@@ -240,7 +295,7 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
 
     public void CameraReset()
     {
-        Camera_Move_initials=true;
+        Camera_Move_initials2=true;
     }
 
     public void Camera_highlight()
@@ -284,4 +339,22 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
     {
         photonView.RequestOwnership();
     }
+
+
+    public void CameraPlayer(Vector3 Position, Vector3 Rotate)
+    {
+        Position_Player =Position;
+        Rotate_Player =Rotate;
+        Camera_Move_Player =true;
+    }
+    public void CameraGoal(Vector3 Position, Vector3 Rotate, Vector3 PositionP, Vector3 RotateP)
+    {
+        Position_Goal    =Position;
+        Rotate_Goal      =Rotate;
+
+        Position_Goal_Play=PositionP;
+        Rotate_Goal_Play =RotateP;
+       Camera_Move_Goal =true;
+    }
+
 }

@@ -79,6 +79,7 @@ public class SceneManagaer : MonoBehaviour
 
     public void DisplayOptionWindow() 　　　//オプション画面を表示する
     {
+        GameObject.Find("I_game_manager").GetComponent<Guide>().option_BottonFinish();
         OptionButton.SetActive(false);
         OptionWindow.SetActive(true);
     }

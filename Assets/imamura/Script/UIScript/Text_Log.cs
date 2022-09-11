@@ -155,13 +155,17 @@ public class Text_Log : MonoBehaviourPunCallbacks
 
     public void Direct_Log_InputField()//チャットに入力
     {
+        GameObject.Find("I_game_manager").GetComponent<Guide>().chat_Finish();
         if (Input.GetKey(KeyCode.Return))
         {
             if (InputField.GetComponent<InputField>().text==Password)
             {
                 Game_Manager.ConnectGameFinish();
             }
-
+            if (InputField.GetComponent<InputField>().text=="888")
+            {
+                Game_Manager.Player[0].GetComponent<I_Player_3D>().ItemAdd_ToConnect(92);
+            }
 
             var name = PlayerColouradd(PhotonNetwork.NickName);
             string Chat = name+":" +InputField.GetComponent<InputField>().text;
@@ -215,7 +219,7 @@ public class Text_Log : MonoBehaviourPunCallbacks
     [PunRPC]
     public void Direct_Log_RPC__InputField(string LogText)//全体にログを送る
     {
-
+        Game_Manager.SE.GetComponent<SEManager>().SEsetandplay("TextSE");
         textadd(LogText);
     }
     public string SistemrColouradd()

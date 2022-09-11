@@ -19,14 +19,9 @@ public class SEManager : MonoBehaviour
     {
         audiosource = this.GetComponent<AudioSource>();
         Instance = this;
-    }
 
-    //â∫èÄîı
-    private void Start()
-    {
         Music = this.GetComponent<musiclist>();
         audiosource.volume = PlayerPrefs.GetFloat("SEValue", 1.0f);
-        Debug.Log(PlayerPrefs.GetFloat("SEValue", 999.9f));
     }
 
 
@@ -53,8 +48,13 @@ public class SEManager : MonoBehaviour
             case "LobbyBGM": audiosource.clip = Music.LobbyBGM; break;
             case "IngameBGM": audiosource.clip = Music.IngameBGM; break;
             case "ResultBGM": audiosource.clip = Music.ResultBGM; break;
+
             case "DecisionSE": audiosource.clip = Music.DecisionSE; break;
+            case "MoveOn": audiosource.clip = Music.MoveOn; break;
             case "BackSE": audiosource.clip = Music.BackSE; break;
+            case "SceneSwitching": audiosource.clip = Music.SceneSwitching; break;
+            case "LogSE": audiosource.clip = Music.LogSE; break;
+
             case "GameStartSE": audiosource.clip = Music.GameStartSE; break;
             case "DiceSE": audiosource.clip = Music.DiceSE; break;
             case "WalkSE": audiosource.clip = Music.WalkSE; break;
@@ -63,9 +63,12 @@ public class SEManager : MonoBehaviour
             case "GetSE": audiosource.clip = Music.GetSE; break;
             case "GoalSE": audiosource.clip = Music.GoalSE; break;
             case "GameEndSE": audiosource.clip = Music.GameEndSE; break;
+            case "TextSE": audiosource.clip = Music.TextSE; break;
+
             case "resultSE": audiosource.clip = Music.resultSE; break;
+
             case "HandClapJingle": audiosource.clip = Music.HandClapJingle; break;
-            case "ResultJingle": audiosource.clip = Music.resultSE; break;
+            case "ResultJingle": audiosource.clip = Music.ResultJingle; break;
             case "FinalResultJingle": audiosource.clip = Music.FinalResultJingle; break;
         }
 

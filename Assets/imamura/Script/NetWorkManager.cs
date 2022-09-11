@@ -143,6 +143,10 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         Playerlist_Update();
         
         LoadImage.SetActive(false);
+        
+        GameObject.Find("I_game_manager").GetComponent<Guide>().rady_BottonStart();
+        GameObject.Find("I_game_manager").GetComponent<Guide>().option_BottonStart();
+
         yield break;
 
     }
