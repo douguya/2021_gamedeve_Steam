@@ -121,6 +121,7 @@ MonoBehaviour:
   - Output_GoalAnimation_RPC
   - Output_LookDice
   - OutPut_PresentSetting
+  - GoalPutFalse_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

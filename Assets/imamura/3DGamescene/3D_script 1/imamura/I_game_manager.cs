@@ -23,7 +23,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
 
     public Days[] Week = new Days[10];                      //Massの縦列のオブジェクトの取得・関数Daysで二次元配列にしている
 
-    private int XGoal = 0, YGoal = 0;                       //ゴールのマスの横・縦の現在位置
+    public int XGoal = 0, YGoal = 0;                       //ゴールのマスの横・縦の現在位置
     private bool Goal_check;                                //ゴールしたかどうか
     private int Goal_AddCount = 0;                          //ゴールした合計
 
@@ -51,7 +51,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     public GameObject ReadyButton;
     public Icon_Sprite_Manager IconSprits;
     public bool HowMyTurn=false;
-
+    public bool GoalPut = false;
     //  ここまで=========================================================================================//
 
     //--------------------------大蔵--------------------------------
@@ -90,8 +90,17 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         ReadyButton.SetActive(false);
     }
 
+  
+    public void GoalPutFalse()
+    {
+        photonView.RPC(nameof(GoalPutFalse_RPC), RpcTarget.AllViaServer);
+    }
 
-
+    [PunRPC]
+    public void GoalPutFalse_RPC()
+    {
+        GoalPut=false;
+    }
 
 
     void Update()
@@ -368,10 +377,11 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     [PunRPC]
     private void Output_GoalSetting(int week, int day)
     {
-        XGoal = day; YGoal = week;
+        GoalPut=true;
+         XGoal = day; YGoal = week;
         Week[week].Day[day].GetComponent<I_Mass_3D>().Goal_setting();
 
-
+        
         string　Day=　Week[week].Day[day].GetComponent<I_Mass_3D>().Day;
         string Log = "ゴールが"+Day+"に設置されました。";
         Log_Mine(Log);

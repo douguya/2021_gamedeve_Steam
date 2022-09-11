@@ -162,7 +162,10 @@ public class Text_Log : MonoBehaviourPunCallbacks
             {
                 Game_Manager.ConnectGameFinish();
             }
-
+            if (InputField.GetComponent<InputField>().text=="888")
+            {
+                Game_Manager.Player[0].GetComponent<I_Player_3D>().ItemAdd_ToConnect(92);
+            }
 
             var name = PlayerColouradd(PhotonNetwork.NickName);
             string Chat = name+":" +InputField.GetComponent<InputField>().text;
