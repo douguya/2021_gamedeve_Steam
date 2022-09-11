@@ -146,6 +146,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
         
         GameObject.Find("I_game_manager").GetComponent<Guide>().rady_BottonStart();
         GameObject.Find("I_game_manager").GetComponent<Guide>().option_BottonStart();
+        GameObject.Find("I_game_manager").GetComponent<Guide>().chat_Start();
 
         yield break;
 
