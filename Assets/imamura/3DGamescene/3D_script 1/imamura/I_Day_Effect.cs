@@ -351,9 +351,34 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         {
             if (Day_Square_Master.Day_Squares[DayNumber].BGM != "none")
             {
+                string Text_Announce;
                 PlayerTurn_change = false;
 
                 photonView.RPC(nameof(EffectBGM_RPC), RpcTarget.All, Day_Square_Master.Day_Squares[DayNumber].Anniversary);
+
+                switch (Day_Square_Master.Day_Squares[DayNumber].BGM)
+                {
+                    case "国際熱帯デー":
+                        Text_Announce = "BGMがジャングルになります。";
+                        game_Manager.Log_connection(Text_Announce);
+                        break;
+
+                    case "オカルト記念日":
+                        Text_Announce = "BGMがホラー調になります。";
+                        game_Manager.Log_connection(Text_Announce);
+                        break;
+
+                    case "ピアノの日":
+                        Text_Announce = "BGMがピアノ風になります。";
+                        game_Manager.Log_connection(Text_Announce);
+                        break;
+
+                    case "環境の日":
+                        Text_Announce = "BGMが環境音になります。";
+                        game_Manager.Log_connection(Text_Announce);
+                        break;
+                }
+                
                 BGM_end = true;
             }
 
@@ -772,6 +797,49 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
             InstAnimController = j.GetComponent<AnimationController>();
             if (InstAnimController.InstanceDay == Day_Square_Master.Day_Squares[DayNumber]) 
             {
+                string Text_Announce;
+                switch (Day_Square_Master.Day_Squares[DayNumber].Instance)
+                {
+                    case "ネッシーの日":
+                        Text_Announce = "ネッシーが出現します。";
+                        game_Manager.Log_connection(Text_Announce);
+                        break;
+
+                    case "富士山が世界遺産に登録された日":
+                        Text_Announce = "富士山が出現します。";
+                        game_Manager.Log_connection(Text_Announce);
+                        break;
+
+                    case "東京の日":
+                        Text_Announce = "東京タワーが出現します。";
+                        game_Manager.Log_connection(Text_Announce);
+                        break;
+
+                    case "オカルト記念日":
+                        Text_Announce = "ムー大陸が出現します。";
+                        game_Manager.Log_connection(Text_Announce);
+                        break;
+
+                    case "マララ・デー":
+                        Text_Announce = "学校が出現します。";
+                        game_Manager.Log_connection(Text_Announce);
+                        break;
+
+                    case "山の日":
+                        Text_Announce = "山が出現します。";
+                        game_Manager.Log_connection(Text_Announce);
+                        break;
+
+                    case "レインボーブリッジ開通記念日":
+                        Text_Announce = "レインボーブリッジが出現します。";
+                        game_Manager.Log_connection(Text_Announce);
+                        break;
+
+                    case "温泉の日":
+                        Text_Announce = "温泉が出現します。";
+                        game_Manager.Log_connection(Text_Announce);
+                        break;
+                }                
                 MainCameraMouse.Camera_highlight_imi(InstAnimController.CameraPos, InstAnimController.CameraRot);
                 StartCoroutine(InstAnimController.StartAnimation(InstAnimController.InstanceY));
             }
