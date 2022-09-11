@@ -85,7 +85,7 @@ public class BGMManager : MonoBehaviour
             case "resultSE": audiosource.clip = Music.resultSE; break;
 
             case "HandClapJingle": audiosource.clip = Music.HandClapJingle; break;
-            case "ResultJingle": audiosource.clip = Music.resultSE; break;
+            case "ResultJingle": audiosource.clip = Music.ResultJingle; break;
             case "FinalResultJingle": audiosource.clip = Music.FinalResultJingle; break;
         }
 

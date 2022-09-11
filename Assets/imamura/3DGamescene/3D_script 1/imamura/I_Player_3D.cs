@@ -898,6 +898,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     [PunRPC]
     private voidÅ@Output_GoalAnimation_RPC()
     {
+        Manager.SE.GetComponent<SEManager>().SEsetandplay("GoalSE");
         Manager.GoalAnimation.GetComponent<Animator>().SetBool("GoalAnimation", true);
     }
 

@@ -19,14 +19,9 @@ public class SEManager : MonoBehaviour
     {
         audiosource = this.GetComponent<AudioSource>();
         Instance = this;
-    }
 
-    //â∫èÄîı
-    private void Start()
-    {
         Music = this.GetComponent<musiclist>();
         audiosource.volume = PlayerPrefs.GetFloat("SEValue", 1.0f);
-        Debug.Log(PlayerPrefs.GetFloat("SEValue", 999.9f));
     }
 
 
@@ -73,7 +68,7 @@ public class SEManager : MonoBehaviour
             case "resultSE": audiosource.clip = Music.resultSE; break;
 
             case "HandClapJingle": audiosource.clip = Music.HandClapJingle; break;
-            case "ResultJingle": audiosource.clip = Music.resultSE; break;
+            case "ResultJingle": audiosource.clip = Music.ResultJingle; break;
             case "FinalResultJingle": audiosource.clip = Music.FinalResultJingle; break;
         }
 
