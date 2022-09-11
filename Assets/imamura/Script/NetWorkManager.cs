@@ -522,11 +522,10 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
 
     public void VoidRoom()
-    {
-        PhotonNetwork.Disconnect();
+    {        
         PhotonNetwork.LeaveLobby();
         PhotonNetwork.LeaveRoom();
-        
+        PhotonNetwork.Disconnect();
     }
 
 
