@@ -22,6 +22,10 @@ public class newRotate : MonoBehaviourPunCallbacks
     //public int DiseSpeed = 2;       //サイコロの切り替えスピード
     private float seconds;
 
+
+    //------------------------------------大蔵-----------------------------
+    SEManager SE;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +33,7 @@ public class newRotate : MonoBehaviourPunCallbacks
         //yKeep = ySpeed;
         //zKeep = zSpeed;
         //newDiceStop();
+        SE = GameObject.FindGameObjectWithTag("SE").GetComponent<SEManager>();
     }
 
     // Update is called once per frame
@@ -60,12 +65,12 @@ public class newRotate : MonoBehaviourPunCallbacks
     //}
     public void Dice_shuffle()
     {
-       
         photonView.RPC(nameof(OutPut_DiceShuffle), RpcTarget.All);
     }
 
   [PunRPC]  public void OutPut_DiceShuffle()
     {
+        SE.SEsetandplay("DiceSE");
         shuffle = true;
     }
 

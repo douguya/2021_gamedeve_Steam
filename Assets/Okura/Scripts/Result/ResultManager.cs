@@ -39,9 +39,14 @@ public class ResultManager : MonoBehaviourPunCallbacks
     Dictionary<string, int> Item3 = new Dictionary<string, int> { };
 
     List<Dictionary<string, int>> Items;//上のdictionaryを多次元化したもの。player1のアイテムは1と入力する
+
+    GameObject BGM;
+    GameObject SE;
     //----------------------------------関数----------------------------------
     private void Awake()
     {
+        BGM = GameObject.FindGameObjectWithTag("BGM");
+        SE = GameObject.FindGameObjectWithTag("SE");
 
         Cursor.visible = true;
 
@@ -89,6 +94,14 @@ public class ResultManager : MonoBehaviourPunCallbacks
         DisplayItems();
     }
 
+
+    private void Start()
+    {
+        BGM.GetComponent<AudioSource>().loop = false;
+
+        BGM.GetComponent<BGMManager>().BGMsetandplay("ResultJingle");
+        SE.GetComponent<SEManager>().SEsetandplay("HandClapJingle");
+    }
 
     //名前の参照
     public string ReferencePlayername(GameObject Player)
@@ -257,5 +270,12 @@ public class ResultManager : MonoBehaviourPunCallbacks
         var BordSize_y = TotalBordY;//ボードのサイズを取得　（戻り値のため）
 
         SBG.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, BordSize_y);
+    }
+
+
+    public void GoTitle()
+    {
+        BGM.GetComponent<AudioSource>().loop = true;
+        BGM.GetComponent<BGMManager>().BGMsetandplay("TitleBGM");
     }
 }
