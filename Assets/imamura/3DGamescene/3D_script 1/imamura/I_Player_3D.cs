@@ -85,16 +85,16 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     void Start()
     {
         name=""+GetComponent<PhotonView>().CreatorActorNr;
-        if (SceneManager.GetActiveScene().name == "Result")
-        {
-            transform.position = new Vector3(0, 600, 0);
-        }
+        
     }
 
 
     void Update()
     {
-
+        if (SceneManager.GetActiveScene().name == "Result")
+        {
+            transform.position = new Vector3(0, 600, 0);
+        }
     }
 
     //プレイヤーの表示
