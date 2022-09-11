@@ -918,7 +918,7 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
 
 
                         }
-                        string Log ="米騒動の日の効果で、"+ PhotonNetwork.NickName+"の食べ物系アイテムのポイントが１増加しました。。";
+                        string Log ="米騒動の日の効果で、"+ PhotonNetwork.NickName+"の食べ物系アイテムのポイントが１増加しました。";
                         game_Manager.Log_connection(Log);
                         Conditional_End=true;
                         break;

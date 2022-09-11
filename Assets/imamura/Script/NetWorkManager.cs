@@ -507,8 +507,8 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
     }
     public void Voidlobby()
     {
-        PhotonNetwork.Disconnect();
         PhotonNetwork.LeaveLobby();
+        PhotonNetwork.Disconnect();
         OnLeftLobby();
     }
 
