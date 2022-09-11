@@ -41,7 +41,9 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
     public Vector3 Rotate_Goal_Play = new Vector3(0f, 0f, 0f);//ゴール時のカメラの目的角度
 
     public bool Permission_Zoom = true;
-    
+
+    private bool FirstZoom = true;
+
     float xVelocity = 0.0f;
     float yVelocity = 0.0f;
     float zVelocity = 0.0f;
@@ -188,6 +190,11 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
             
                 if (Mousewheel!=0)//マウスホイールが行われた場合
                 {
+                    if (FirstZoom)
+                    {
+                        FirstZoom = false;
+                        GameObject.Find("I_game_manager").GetComponent<Guide>().scroll_Finish();
+                    }
                     Vector3 Zoom_Adjust = new Vector3(mouse_set.x*Adjust_Variable, 0, mouse_set.y*Adjust_Variable);//マウスホイールによる画面の原点修正
                     if (Mousewheel>0)//上向きホイール ズームイン
                     {
