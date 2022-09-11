@@ -168,7 +168,7 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
             {
                 if (obj.GetComponent<I_Day_Effect>().InsTance_ON==true)
                 {
-                    Debug.Log("################################################");
+     
                     obj.GetComponent<I_Day_Effect>().Instance_end=true;
                     obj.GetComponent<I_Day_Effect>().InsTance_ON=false;
                 }
