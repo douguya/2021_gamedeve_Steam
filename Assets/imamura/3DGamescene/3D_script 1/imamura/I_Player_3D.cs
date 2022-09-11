@@ -872,7 +872,8 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     //ゴールした時の処理
     public void Player_Goal()
     {
-        Output_GoalAnimation();
+        StartCoroutine(Goal_Coroutine());
+        
         photonView.RPC(nameof(Output_GoalCount), RpcTarget.All); //ゴール数を加算
         Manager.Goal_Add();//ゲーム全体のゴール数に加算
         var loop = ItemMaster.Anniversary_Items.Count-1;//最後の位置を取得
@@ -882,10 +883,15 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         Manager.Log_connection(Log);
     }
 
-   
+    IEnumerator Goal_Coroutine()
+    {
+        Output_GoalAnimation();
+        yield return new WaitForSeconds(1.0f);     //1秒待つ
+        GoalAnimation_After();
+    }
 
-    //ゴールした時のゴール数を出力
-     [PunRPC]private void Output_GoalCount()
+      //ゴールした時のゴール数を出力
+      [PunRPC]private void Output_GoalCount()
     {
         Goalcount++;
     }
@@ -915,7 +921,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             {
                 if (Effect_start == true)
                 {
-                    //Debug.Log("StopDay_Effect()");
+                    Debug.Log("StopDay_Effect()" + PlayerNumber);
                     StopI_Day_Effect(); //止まったマスの処理
                 }
                 //Manager.PlayerTurn_change();
@@ -1146,7 +1152,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         }
         else
         {
-          
+            Debug.Log("ターンチャンジ！！！");
           Manager.PlayerTurn_change();
     
            

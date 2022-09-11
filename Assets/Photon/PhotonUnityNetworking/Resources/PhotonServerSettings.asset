@@ -122,6 +122,8 @@ MonoBehaviour:
   - Output_LookDice
   - OutPut_PresentSetting
   - GoalPutFalse_RPC
+  - Output_Goalcheckfalse
+  - OutPut_Goalchecktrue
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

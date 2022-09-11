@@ -426,7 +426,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         if (Goal_check == true)//誰かがゴールしていたら
         {
             Goal_Again();//ゴールの再設置
-            Goal_check = false;
+            photonView.RPC(nameof(Output_Goalcheckfalse), RpcTarget.AllViaServer);
         }
 
         photonView.RPC(nameof(Output_ItemLifeSpan), RpcTarget.AllViaServer, Player_Turn);
@@ -440,6 +440,12 @@ public class I_game_manager : MonoBehaviourPunCallbacks
      
         photonView.RPC(nameof(Output_Dice_ready), RpcTarget.AllViaServer);
       
+    }
+
+    [PunRPC]
+    private void Output_Goalcheckfalse()
+    {
+        Goal_check = false;
     }
 
     [PunRPC]
@@ -536,6 +542,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
                 photonView.RPC(nameof(Output_GoalClear), RpcTarget.AllViaServer, week, day);//全てのゴールマスを消す
             }
         }
+        photonView.RPC(nameof(OutPut_Goalchecktrue), RpcTarget.AllViaServer);
         Goal_check = true;                      //ゴールの再設置をするようにする
         if (Goal_AddCount >= 4)                  //全体で4回ゴールしたら
         {
@@ -543,6 +550,12 @@ public class I_game_manager : MonoBehaviourPunCallbacks
             Output_GameFinish();                //ゲーム終了の処理
             photonView.RPC(nameof(Output_GameFinish), RpcTarget.AllViaServer);
         }
+    }
+
+    [PunRPC]
+    private void OutPut_Goalchecktrue()
+    {
+        Goal_check = true;                      //ゴールの再設置をするようにする
     }
 
     [PunRPC]//ゴールした全体数に加えて出力
