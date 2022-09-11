@@ -367,8 +367,8 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         int Month = 0;
         if (day < Week[0].Day.Length / 2 && week < Week.Length / 2) { Month = 1; }//左上のブロックにいるかどうか
         if (Week[0].Day.Length / 2 <= day && week < Week.Length / 2) { Month = 2; }//右上のブロックにいるかどうか
-        if (day < Week[0].Day.Length / 2 && Week.Length / 2 < week) { Month = 3; }//左下の月にいるかどうか
-        if (Week[0].Day.Length / 2 <= day && Week.Length / 2 < week) { Month = 4; }//右下の月にいるかどうか
+        if (day < Week[0].Day.Length / 2 && Week.Length / 2 <= week) { Month = 3; }//左下の月にいるかどうか
+        if (Week[0].Day.Length / 2 <= day && Week.Length / 2 <= week) { Month = 4; }//右下の月にいるかどうか
         return Month;
     }
 
