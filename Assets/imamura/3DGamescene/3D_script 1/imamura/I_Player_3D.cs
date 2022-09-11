@@ -163,7 +163,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
         if (Guide_on == true && Guide_one == true)
         {
             GameManager.GetComponent<Guide>().Dice_BottonStart();
-            GameManager.GetComponent<Guide>().chat_Start();
+            GameManager.GetComponent<Guide>().scroll_Start();
         }
         DiceButton.GetComponent<Button>().interactable = true;
         ButtonText.GetComponent<Text>().text = "ダイスを回す";
@@ -417,7 +417,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             {
                 for (int day = 0; day < Manager.Week[0].Day.Length; day++)
                 {
-                    if (Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().warp == true)
+                    if (Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().warp == true && (Xcenter, Ycenter) != (day, week))
                     {
                         Manager.Week[week].Day[day].layer = LayerMask.NameToLayer("Default");
                                            //選択できるマスを表示
