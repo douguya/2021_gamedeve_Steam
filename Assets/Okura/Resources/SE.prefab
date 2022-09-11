@@ -162,7 +162,7 @@ MonoBehaviour:
   JangleBGM: {fileID: 8300000, guid: aa4706b238049694b8857e00a306346d, type: 3}
   PianoBGM: {fileID: 8300000, guid: b9f4e128b3788e74c80cb7a79b119690, type: 3}
   HorrorBGM: {fileID: 8300000, guid: d194b839e252f4f44a221981d500cc68, type: 3}
-  DecisionSE: {fileID: 8300000, guid: b654b76860668e440af3046bf2613ca3, type: 3}
+  DecisionSE: {fileID: 8300000, guid: 9e5a1f62e673863479143cd2a3bcc544, type: 3}
   MoveOn: {fileID: 8300000, guid: 7c8cd912bffba6f48a7b257af255b2f1, type: 3}
   BackSE: {fileID: 8300000, guid: 30bf430d5b462d2468392fb78ee120ec, type: 3}
   SceneSwitching: {fileID: 8300000, guid: 325406a161a9d5341b38ae053ba8feb1, type: 3}
