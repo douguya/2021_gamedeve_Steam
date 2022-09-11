@@ -19,7 +19,6 @@ public class SEManager : MonoBehaviour
     {
         audiosource = this.GetComponent<AudioSource>();
         Instance = this;
-
         Music = this.GetComponent<musiclist>();
         audiosource.volume = PlayerPrefs.GetFloat("SEValue", 1.0f);
     }
