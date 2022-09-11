@@ -21,7 +21,6 @@ public class GoalAnimation : MonoBehaviour
     {
         Debug.Log("ゴールアニメーション");
         gameObject.GetComponent<Animator>().SetBool("GoalAnimation", false);
-        Animation_After();
     }
 
     //ここどうしよう
