@@ -137,9 +137,25 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
         if (Manager.Player_Turn==PlayerNumber)
         {
-        
-            Manager.Camera.GetComponent<Camera_Mouse>().CameraReset();
-      
+            var tran = new Vector3(this.transform.position.x-1.8f, this.transform.position.y+9, this.transform.position.z-6.5f);
+            var rate = new Vector3(47, 00, 0);
+
+
+            if (Manager.GoalPut)//ÉSÅ[ÉãÇ™ê›íuÇ≥ÇÍÇΩÇŒÇ©ÇËÇÃéû
+            {
+
+                GameObject Goal = Manager.Week[Manager.YGoal].Day[Manager.XGoal];
+                var tranGoal = new Vector3(Goal.transform.position.x-1.8f, Goal.transform.position.y+9, Goal.transform.position.z-6.5f);
+                var rateGoal = new Vector3(47, 00, 0);
+
+
+                Manager.Camera.GetComponent<Camera_Mouse>().CameraGoal( tranGoal, rateGoal, tran, rate);
+                Manager. GoalPutFalse();
+            }
+            else
+            {
+                Manager.Camera.GetComponent<Camera_Mouse>().CameraPlayer(tran, rate);
+            }
         }
         if (Guide_on == true && Guide_one == true)
         {
