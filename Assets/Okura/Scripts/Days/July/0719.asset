@@ -18,7 +18,7 @@ MonoBehaviour:
   HopUp: {fileID: 21300000, guid: 17fb5c051838d4b48918e6d1c30bd516, type: 3}
   Commentary: "\u6B21\u306E\u6708\u306E\u540C\u65E5\u306B\u30C6\u30EC\u30DD\u30FC\u30C8"
   Anniversary_Item: {fileID: 11400000, guid: 04a6d507019841944a6c53aaed992466, type: 2}
-  Move: "\u30EF\u30FC\u30D78/19"
+  Move: Noon
   BGM: Noon
   Instance: Noon
   Icon: {fileID: 0}
