@@ -64,6 +64,7 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
 
         if (Camera_Move_highlight)//カメラを指定の位置に動かす
         {
+            Permission_Zoom = false;
             transform.position = Vector3.SmoothDamp(transform.position, Position_highlight, ref velocity, 0.4f);
             var rote = transform.eulerAngles;
 
@@ -80,9 +81,9 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
         }
         if (Vector3.Distance(transform.position, Position_highlight)<1&&Camera_Move_highlight==true)
         {
+            Permission_Zoom = true;
 
-
-            Camera_Move_highlight=false;
+            Camera_Move_highlight =false;
 
            // transform.eulerAngles= OriginRect;
         }
@@ -102,7 +103,8 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
             transform.eulerAngles = rote;
         }
         if (Vector3.Distance(transform.position, OriginPoint) <1&&Camera_Move_initials2)
-        {　　
+        {
+            
             Camera_Move_initials2 = false;
             InstanceEnd();
 
@@ -297,12 +299,13 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
 
 
 
-   
+    
 
 
     public void CameraReset()
     {
-        Camera_Move_initials2=true;
+        Permission_Zoom = false;
+        Camera_Move_initials2 =true;
     }
 
     public void Camera_highlight()
@@ -313,7 +316,7 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
 
     public void Camera_highlight_imi(Vector3 Position,Vector3 Rotate)
     {
-        
+        Permission_Zoom = false;
         Rotate_highlight =Rotate;
         Position_highlight =Position;
         Camera_Move_highlight =true;
@@ -350,12 +353,14 @@ public class Camera_Mouse : MonoBehaviourPunCallbacks
 
     public void CameraPlayer(Vector3 Position, Vector3 Rotate)
     {
+        Permission_Zoom = false;
         Position_Player =Position;
         Rotate_Player =Rotate;
         Camera_Move_Player =true;
     }
     public void CameraGoal(Vector3 Position, Vector3 Rotate, Vector3 PositionP, Vector3 RotateP)
     {
+        Permission_Zoom = false;
         Position_Goal    =Position;
         Rotate_Goal      =Rotate;
 

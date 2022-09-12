@@ -42,6 +42,7 @@ public class AnimationController : MonoBehaviourPunCallbacks
 
         yield return new WaitForSeconds(2.0f);
         CameraControll.Camera_Move_initials2 = true;
+        CameraControll.Permission_Zoom = false;
     }
 
 

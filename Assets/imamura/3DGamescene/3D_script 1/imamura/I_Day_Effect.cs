@@ -686,6 +686,8 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
         int rnd = Random.Range(0, loop);
 
         var count = 0;
+        bool bools = false;
+
         foreach (var item in itemus)
         {
             
@@ -694,9 +696,10 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                
                 if (count==rnd)
                 {
-                    if (item.name!="蒸し料理"&&item.name!="鉄スクラップ")
+                    if (item.name!="蒸し料理"&&item.name!="鉄スクラップ" && bools ==true)
                     {
-                        Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(loop);
+                        
+                        break;
                     }
                     else
                     {
@@ -710,7 +713,10 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
             
 
         }
-
+        if(bools == true)
+        {
+            Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(count);
+        }
     }
 
 
@@ -725,14 +731,17 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
             int loop = 0;
             int rnd = Random.Range(0, itemus.Count);
             Debug.Log("なくすアイテム"+itemus[rnd].ItemName);
+            string Log = PhotonNetwork.NickName + "が質屋の日の効果により" + itemus[rnd].ItemName + "を紛失しました。";
             Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(rnd);
-            string Log = PhotonNetwork.NickName+"が質屋の日の効果により"+itemus[rnd].ItemName+"を紛失しました。";
+            
             game_Manager.Log_connection(Log);
-
-            rnd = Random.Range(0, itemus.Count);
-            Debug.Log("なくすアイテム"+itemus[rnd].ItemName);
+            var varItem = Player.GetComponent<I_Player_3D>().ItemMaster.Anniversary_Items;
+            rnd = Random.Range(0, varItem.Count);
+            Debug.Log("rnd = "+rnd);
+            //Debug.Log("なくすアイテム"+itemus[rnd].ItemName);
             Player.GetComponent<I_Player_3D>().ItemAdd_ToConnect(rnd);
-            Log = PhotonNetwork.NickName+"が質屋の日の効果により"+itemus[rnd].ItemName+"を入手しました。";
+            Debug.Log(varItem[rnd].ItemName);
+            Log = PhotonNetwork.NickName+"が質屋の日の効果により"+ varItem[rnd].ItemName+"を入手しました。";
             game_Manager.Log_connection(Log);
         }
         else

@@ -167,6 +167,11 @@ public class Text_Log : MonoBehaviourPunCallbacks
                 Game_Manager.Player[0].GetComponent<I_Player_3D>().ItemAdd_ToConnect(92);
             }
 
+            if (InputField.GetComponent<InputField>().text == "PTC")
+            {
+                Game_Manager.PlayerTurn_change();
+            }
+
             var name = PlayerColouradd(PhotonNetwork.NickName);
             string Chat = name+":" +InputField.GetComponent<InputField>().text;
 

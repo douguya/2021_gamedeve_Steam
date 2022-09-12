@@ -74,6 +74,11 @@ public class SceneManagaer : MonoBehaviour
         yield break;
     }
 
+    public void Finish()
+    {
+        Application.Quit();
+    }
+
 
     //-----------------------------------------‘å‘ -----------------------------------------
 
