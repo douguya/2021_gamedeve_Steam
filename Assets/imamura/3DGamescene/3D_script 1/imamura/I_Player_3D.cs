@@ -126,6 +126,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
         Manager.HowMyTurn=true;
         Manager.Camera.GetComponent<Camera_Mouse>().CameraOwnership();
+        Manager.Camera.GetComponent<Camera_Mouse>().Permission_Zoom = true;
         photonView.RPC(nameof(ApartmentEffect), RpcTarget.All);
         consecutive_hits = false;
         Dice_ready();
