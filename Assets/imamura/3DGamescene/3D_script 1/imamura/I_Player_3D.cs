@@ -887,8 +887,11 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
     IEnumerator Goal_Coroutine()
     {
         Output_GoalAnimation();
-        yield return new WaitForSeconds(1.0f);     //1•b‘Ò‚Â
+        yield return new WaitForSeconds(2.0f);     //1•b‘Ò‚Â
+        Manager.GameFinish();
+
         GoalAnimation_After();
+
     }
 
       //ƒS[ƒ‹‚µ‚½‚ÌƒS[ƒ‹”‚ğo—Í

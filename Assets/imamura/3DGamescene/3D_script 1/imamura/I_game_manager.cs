@@ -544,9 +544,14 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         }
         photonView.RPC(nameof(OutPut_Goalchecktrue), RpcTarget.AllViaServer);
         Goal_check = true;                      //ゴールの再設置をするようにする
+        
+    }
+
+    public void GameFinish()
+    {
         if (Goal_AddCount >= 4)                  //全体で4回ゴールしたら
         {
-            
+
             Output_GameFinish();                //ゲーム終了の処理
             photonView.RPC(nameof(Output_GameFinish), RpcTarget.AllViaServer);
         }
