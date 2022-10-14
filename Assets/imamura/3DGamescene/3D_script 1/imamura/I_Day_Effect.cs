@@ -665,58 +665,65 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
     public void SerchClassification(string Category)
     {
         var itemus = Player.GetComponent<I_Player_3D>().Hub_Items;
-        int loop = itemus.Count;
+        int loop = 0;
       
       
 
-        loop=0;
+        
       
 
 
-        foreach (var item in itemus)
+        foreach (var item in itemus)//アイテム一覧から、条件に合うアイテムの個数を入儒
         {
 
             if (item.classification==Category)
             {
-                loop++;
-            }
-        }
-
-
-        int rnd = Random.Range(0, loop);
-
-        var count = 0;
-        bool bools = false;
-
-        foreach (var item in itemus)
-        {
-            
-            if (item.classification==Category)
-            {
-               
-                if (count==rnd)
+                if (item.name!="蒸し料理"&&item.name!="鉄スクラップ")
                 {
-                    if (item.name!="蒸し料理"&&item.name!="鉄スクラップ" && bools ==true)
-                    {
-                        
-                        break;
-                    }
-                    else
-                    {
-                        rnd++;
-                    }
+
+                    loop++;
                 }
-                
-                count++;
+               
+            }
+        }
+
+        if (loop!=0) {
+            int rnd = Random.Range(0, loop);
+
+            var count = 0;
+            bool bools = false;
+
+            foreach (var item in itemus)
+            {
+
+                if (item.classification==Category)
+                {
+
+                    if (count==rnd)
+                    {
+                        if (item.name!="蒸し料理"&&item.name!="鉄スクラップ" && bools ==true)
+                        {
+
+                            break;
+                        }
+                        else
+                        {
+                            rnd++;
+                        }
+                    }
+
+                    count++;
+
+                }
+
 
             }
-            
+            if (bools == true)
+            {
+                Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(count);
+            }
+        }
 
-        }
-        if(bools == true)
-        {
-            Player.GetComponent<I_Player_3D>().ItemLost_ToConnect(count);
-        }
     }
 
 
