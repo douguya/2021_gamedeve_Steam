@@ -979,7 +979,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
           {
             if (Item.Day==day)
             {
-                if (Item.ItemName!="ランダムなアイテム"&&Item.ItemName!="落札品") {
+                if (Item.ItemName!="ランダムなアイテム"&&Item.ItemName!="落札品"&&Item.ItemName!="掘り出し物") {
                     photonView.RPC(nameof(ItemAdd), RpcTarget.All, loop); //アイテム加算
                     Itemunum=loop;
                     string Log = Manager.PlayerColouradd(PhotonNetwork.NickName)+"が"+Item.ItemName+"を入手しました。";
