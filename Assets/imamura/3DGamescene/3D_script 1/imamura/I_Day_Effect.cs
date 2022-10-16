@@ -180,22 +180,30 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                     {
                         //  Debug.Log("指定したプレイヤーにワープ");
                         //選択したプレイヤーの元に飛ぶ
-
-                        Text_Announce = game_Manager.PlayerColouradd(PhotonNetwork.NickName) + "が選択したプレイヤーの元にワープします。";
-                        game_Manager.Log_connection(Text_Announce);
-
-                        Output_TurnChange(turn);
-                        for (int Player = 0; Player < game_Manager.joining_Player; Player++)
+                        if (game_Manager.joining_Player == 1)//一人用
                         {
-                            if (turn != Player)
+                            Text_Announce = "他のプレイヤーが存在しない為スキップします。";
+                            game_Manager.Log_connection(Text_Announce);
+                            Move_end = true;
+                        }
+                        else
+                        {
+                            Text_Announce = game_Manager.PlayerColouradd(PhotonNetwork.NickName) + "が選択したプレイヤーの元にワープします。";
+                            game_Manager.Log_connection(Text_Announce);
+
+                            Output_TurnChange(turn);
+                            for (int Player = 0; Player < game_Manager.joining_Player; Player++)
                             {
-                                int XMass = game_Manager.Player[Player].GetComponent<I_Player_3D>().XPlayer_position;
-                                int YMass = game_Manager.Player[Player].GetComponent<I_Player_3D>().YPlayer_position;
-                                gameObject.GetComponent<I_Player_3D>().Effect = true;
-                                game_Manager.Week[YMass].Day[XMass].GetComponent<I_Mass_3D>().select_display();
+                                if (turn != Player)
+                                {
+                                    int XMass = game_Manager.Player[Player].GetComponent<I_Player_3D>().XPlayer_position;
+                                    int YMass = game_Manager.Player[Player].GetComponent<I_Player_3D>().YPlayer_position;
+                                    gameObject.GetComponent<I_Player_3D>().Effect = true;
+                                    game_Manager.Week[YMass].Day[XMass].GetComponent<I_Mass_3D>().select_display();
+                                }
                             }
                         }
-
+                        
                     }
                     else
                     {
@@ -285,23 +293,33 @@ public class I_Day_Effect : MonoBehaviourPunCallbacks
                 {
                     //Debug.Log("交換");
                     //選択したプレイヤーとマスを交換する
-                    Output_TurnChange(turn);
-                    Origin_XMass = gameObject.GetComponent<I_Player_3D>().XPlayer_position;
-                    Origin_YMass = gameObject.GetComponent<I_Player_3D>().YPlayer_position;
-                    for (int Player = 0; Player < game_Manager.joining_Player; Player++)
+                    if (game_Manager.joining_Player == 1)//一人用
                     {
-                        if (turn != Player)
-                        {
-                            int XMass = game_Manager.Player[Player].GetComponent<I_Player_3D>().XPlayer_position;
-                            int YMass = game_Manager.Player[Player].GetComponent<I_Player_3D>().YPlayer_position;
-                            gameObject.GetComponent<I_Player_3D>().Effect = true;
-                            gameObject.GetComponent<I_Player_3D>().Exchange = true;
-                            game_Manager.Week[YMass].Day[XMass].GetComponent<I_Mass_3D>().select_display();
-                        }
+                        Text_Announce = "他のプレイヤーが存在しない為スキップします。";
+                        game_Manager.Log_connection(Text_Announce);
+                        Move_end = true;
                     }
+                    else
+                    {
+                        Output_TurnChange(turn);
+                        Origin_XMass = gameObject.GetComponent<I_Player_3D>().XPlayer_position;
+                        Origin_YMass = gameObject.GetComponent<I_Player_3D>().YPlayer_position;
+                        for (int Player = 0; Player < game_Manager.joining_Player; Player++)
+                        {
+                            if (turn != Player)
+                            {
+                                int XMass = game_Manager.Player[Player].GetComponent<I_Player_3D>().XPlayer_position;
+                                int YMass = game_Manager.Player[Player].GetComponent<I_Player_3D>().YPlayer_position;
+                                gameObject.GetComponent<I_Player_3D>().Effect = true;
+                                gameObject.GetComponent<I_Player_3D>().Exchange = true;
+                                game_Manager.Week[YMass].Day[XMass].GetComponent<I_Mass_3D>().select_display();
+                            }
+                        }
 
-                    Text_Announce = game_Manager.PlayerColouradd(PhotonNetwork.NickName) + "が選択したプレイヤーと場所を交換します。";
-                    game_Manager.Log_connection(Text_Announce);
+                        Text_Announce = game_Manager.PlayerColouradd(PhotonNetwork.NickName) + "が選択したプレイヤーと場所を交換します。";
+                        game_Manager.Log_connection(Text_Announce);
+                    }
+                    
                 }
                 if (daySquare_Move.StartsWith("上") || daySquare_Move.StartsWith("下") || daySquare_Move.StartsWith("右") || daySquare_Move.StartsWith("左"))
                 {

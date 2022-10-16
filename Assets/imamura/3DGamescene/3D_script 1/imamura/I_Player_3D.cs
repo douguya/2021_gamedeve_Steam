@@ -166,6 +166,16 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             GameManager.GetComponent<Guide>().Dice_BottonStart();
             GameManager.GetComponent<Guide>().scroll_Start();
         }
+        for (int week = 0; week < Manager.Week.Length; week++)
+        {
+            for (int day = 0; day < Manager.Week[0].Day.Length; day++)
+            {
+                //レイヤーを全員触れないように共有化
+                Output_LayerChange(week, day);
+                //当番だけレイヤーを触れるよう
+                Manager.Week[week].Day[day].layer = 0;
+            }
+        }
         DiceButton.GetComponent<Button>().interactable = true;
         ButtonText.GetComponent<Text>().text = "ダイスを回す";
         gameObject.GetComponent<I_Day_Effect>().DiceSetting();
@@ -201,7 +211,12 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
             Manager.Log_connection(Text_Announce);
         }
     }
-
+    
+    //共有化
+    private void Output_LayerChange(int week, int day)
+    {
+        Manager.Week[week].Day[day].layer = 2;
+    }
 
 
 
@@ -642,7 +657,7 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
                 }
             }
-            Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Present_hid();
+            Output_PresentHid(YPlayer_position, XPlayer_position);
         }
 
         if (Manager.Week[YPlayer_position].Day[XPlayer_position].GetComponent<I_Mass_3D>().Goal == true)
@@ -679,6 +694,13 @@ public class I_Player_3D : MonoBehaviourPunCallbacks
 
 
     }
+
+    //共有化
+    private void Output_PresentHid(int week, int day)
+    {
+        Manager.Week[week].Day[day].GetComponent<I_Mass_3D>().Present_hid();
+    }
+
     [PunRPC]
     private void Output_Playerloot(int Y, int X)
     {
