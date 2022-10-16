@@ -347,7 +347,7 @@ public class I_game_manager : MonoBehaviourPunCallbacks
         {
             week = Random.Range(0, Week.Length);                    //横の列のランダム
             day = Random.Range(0, Week[0].Day.Length);              //縦の列のランダム
-        } while (Week[week].Day[day].GetComponent<I_Mass_3D>().Day == "null" && MonthCount(day, week) == true);//選んだマスに日付があるか＆同じ月じゃないものを見つけるまで繰り返す
+        } while (Week[week].Day[day].GetComponent<I_Mass_3D>().Day == "null" || MonthCount(day, week) == true);//選んだマスに日付があるか＆同じ月じゃないものを見つけるまで繰り返す
 
         photonView.RPC(nameof(Output_GoalSetting), RpcTarget.AllViaServer, week, day);
     }
