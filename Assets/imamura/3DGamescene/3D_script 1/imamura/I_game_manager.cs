@@ -985,6 +985,14 @@ public class I_game_manager : MonoBehaviourPunCallbacks
     }
 
 
+    //--------------------------‘å‘ --------------------------------
+    public void GoTitle()
+    {
+        BGM.GetComponent<AudioSource>().loop = true;
+        BGM.GetComponent<BGMManager>().BGMsetandplay("TitleBGM");
+    }
+
+    //------------------------‚±‚±‚Ü‚Å------------------------------
 }
 
 
