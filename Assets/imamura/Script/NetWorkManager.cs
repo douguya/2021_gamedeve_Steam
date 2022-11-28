@@ -154,23 +154,35 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
     
 
-    public void MaterialChange()//プレイヤーのマテリアルを変更する
+   public void MaterialChange()//プレイヤーのマテリアルを変更する
     {
-        
+        Debug.Log("<color=Blue>"+"AAAA"+"</color>");
+
+        Debug.Log(PhotonNetwork.PlayerList.Length);
+        foreach (var PList in PhotonNetwork.PlayerList)//プレイヤーリストの内容を順番に格納
+        {
+
+            Debug.Log(PList.NickName);
+        }
+
         foreach (var Materials in MaterialsList)//マテリアルの内容を順番に格納
         {
             bool juje = false;
+            Debug.Log("   "+"<color=lime>"+Materials+"</color>");
             foreach (var PList in PhotonNetwork.PlayerList)//プレイヤーリストの内容を順番に格納
             {
+                Debug.Log("     "+"<color=red>"+PList.NickName+PList.CustomProperties["PlayerNumMaterial"]+"</color>");
                 if (PList.CustomProperties.ContainsValue(System.Array.IndexOf(MaterialsList, Materials)))//そのマテリアルをプロパティに持つプレイヤーがいた場合
                 {
+                    Debug.Log("        "+"<color= orange>"+"AASASA"+"</color>");
                     juje=true;
                 }
+               
             }
 
             if (juje == false)
             {
-              
+                Debug.Log("     "+"<color=orange>"+"AAAA"+"</color>");
                 hashtable["PlayerNumMaterial"]=System. Array.IndexOf(MaterialsList, Materials);
                 PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);//変更したカスタムプロパティの更新
                 break;
@@ -523,7 +535,7 @@ public class NetWorkManager : MonoBehaviourPunCallbacks
 
     public void VoidRoom()
     {        
-        PhotonNetwork.LeaveLobby();
+     
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.Disconnect();
     }
