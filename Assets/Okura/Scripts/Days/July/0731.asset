@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058df27e0b5527648bdc699cd6d531d5, type: 3}
+  m_Name: 0731
+  m_EditorClassIdentifier: 
+  Anniversary: "\u84C4\u97F3\u6A5F\u306E\u65E5"
+  Day: 7/31
+  Staging: {fileID: 32900000, guid: aa41759f64934e6419a1f2f75bd65a51, type: 3}
+  HopUp: {fileID: 21300000, guid: 954164b80bc65754eb935ee6cc86d637, type: 3}
+  Commentary: "\u30FB\u30EC\u30B9\u30E9\u30FC\u306E\u30DE\u30B9\u30AF(6pt)\u3092\u5165\u624B\r\n"
+  Anniversary_Item: {fileID: 11400000, guid: cd8fac4682dab2f48a3828ddce874dfe, type: 2}
+  Move: Noon
+  BGM: Noon
+  Instance: Noon
+  Icon: {fileID: 0}
+  particle: Noon
+  NextDice: Noon
+  NextMove: Noon
+  ItemLost: Noon
+  ConditionalPoint: Noon
+  OtherEffects: Noon
